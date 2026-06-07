@@ -17,16 +17,22 @@
     font-family: "Inter", system-ui, sans-serif;
     overflow-x: hidden;
   }
-  /* Lenis hijacks scroll; html.lenis must reset overflow */
-  html.lenis {
-    height: auto;
+  /* Lenis hijacks scroll on desktop only — keep native touch scroll on touch-only devices */
+  @media (hover: hover) and (pointer: fine) {
+    html.lenis {
+      height: auto;
+    }
+    html.lenis,
+    html.lenis body {
+      overflow: clip;
+    }
+    html.lenis-smooth [data-lenis-prevent] {
+      overscroll-behavior: contain;
+    }
   }
-  html.lenis,
-  html.lenis body {
-    overflow: clip;
-  }
-  html.lenis-smooth [data-lenis-prevent] {
-    overscroll-behavior: contain;
+  /* iOS Safari momentum scrolling on touch devices */
+  body {
+    -webkit-overflow-scrolling: touch;
   }
   ::selection {
     background: rgba(13, 153, 255, 0.4);
