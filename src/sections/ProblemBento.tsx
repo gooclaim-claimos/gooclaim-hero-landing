@@ -230,7 +230,7 @@ export default function ProblemBento() {
             >
               Hero stat · all-vertical
             </div>
-            <div className="mt-4 font-display text-[64px] font-semibold leading-[0.95] tracking-tightest text-white sm:text-[96px] lg:text-[136px]">
+            <div className="mt-4 font-display text-[52px] font-semibold leading-[0.95] tracking-tightest text-white sm:text-[96px] lg:text-[136px]">
               <CountUp target={HERO.value} />
             </div>
             <div className="mt-3 max-w-md text-[15.5px] leading-relaxed text-white/70">

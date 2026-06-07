@@ -62,13 +62,13 @@ function polar(angleDeg: number, radiusPct: number) {
 function IconNode({
   c,
   pos,
-  size,
+  sizeClass,
   hue,
   counterAnim,
 }: {
   c: Connector;
   pos: { left: string; top: string };
-  size: number;
+  sizeClass: string;
   hue: string;
   counterAnim: string;
 }) {
@@ -80,10 +80,8 @@ function IconNode({
       <div data-node>
         <div style={{ animation: counterAnim }} className="motion-reduce:!animate-none">
           <div
-            className="group relative flex items-center justify-center rounded-full bg-white/[0.04] backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:bg-white/[0.08]"
+            className={`group relative flex items-center justify-center rounded-full bg-white/[0.04] backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:bg-white/[0.08] ${sizeClass}`}
             style={{
-              width: size,
-              height: size,
               border: "1px solid rgba(255,255,255,0.1)",
               boxShadow: `0 4px 16px -4px ${hue}33`,
             }}
@@ -253,7 +251,7 @@ export default function ConnectorConstellation() {
                 key={`ch-${c.name}`}
                 c={c}
                 pos={polar(angle, 24)}
-                size={48}
+                sizeClass="h-9 w-9 sm:h-11 sm:w-11 lg:h-12 lg:w-12"
                 hue="#0d99ff"
                 counterAnim={ANIM_INNER_COUNTER}
               />
@@ -275,7 +273,7 @@ export default function ConnectorConstellation() {
                 key={`cms-${c.name}`}
                 c={c}
                 pos={polar(angle, 35.5)}
-                size={42}
+                sizeClass="h-8 w-8 sm:h-10 sm:w-10 lg:h-[42px] lg:w-[42px]"
                 hue="#7c3aed"
                 counterAnim={ANIM_MIDDLE_COUNTER}
               />
@@ -297,7 +295,7 @@ export default function ConnectorConstellation() {
                 key={`kn-${c.name}`}
                 c={c}
                 pos={polar(angle, 46)}
-                size={38}
+                sizeClass="h-7 w-7 sm:h-9 sm:w-9 lg:h-[38px] lg:w-[38px]"
                 hue="#10b981"
                 counterAnim={ANIM_OUTER_COUNTER}
               />
@@ -311,7 +309,7 @@ export default function ConnectorConstellation() {
       {/* Center: Gooclaim OS — sits flat above the tilted disc */}
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
         <div
-          className="relative flex h-[160px] w-[160px] flex-col items-center justify-center rounded-full sm:h-[180px] sm:w-[180px]"
+          className="relative flex h-[100px] w-[100px] flex-col items-center justify-center rounded-full sm:h-[140px] sm:w-[140px] lg:h-[180px] lg:w-[180px]"
           style={{
             background:
               "radial-gradient(circle at 50% 45%, rgba(13,153,255,0.28) 0%, rgba(124,58,237,0.14) 50%, rgba(7,10,18,0.7) 100%)",
@@ -334,7 +332,7 @@ export default function ConnectorConstellation() {
             viewBox="0 0 48 48"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="relative h-[58px] w-[58px] drop-shadow-[0_4px_18px_rgba(13,153,255,0.55)]"
+            className="relative h-9 w-9 drop-shadow-[0_4px_18px_rgba(13,153,255,0.55)] sm:h-12 sm:w-12 lg:h-[58px] lg:w-[58px]"
             aria-hidden
           >
             <path
@@ -361,7 +359,7 @@ export default function ConnectorConstellation() {
               </linearGradient>
             </defs>
           </svg>
-          <div className="relative mt-2 font-mono text-[10px] uppercase tracking-wider2 text-white/65">
+          <div className="relative mt-1.5 font-mono text-[8px] uppercase tracking-wider text-white/65 sm:mt-2 sm:text-[10px] sm:tracking-wider2">
             Gooclaim OS
           </div>
         </div>

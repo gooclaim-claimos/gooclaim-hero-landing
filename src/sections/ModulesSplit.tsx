@@ -229,103 +229,24 @@ export default function ModulesSplit() {
                     </svg>
                   </span>
                 </button>
+                {/* Mobile: inline detail card below active layer */}
+                {active === i && (
+                  <div className="mt-3 mb-2 px-1 lg:hidden">
+                    <AnimatePresence mode="wait">
+                      <DetailCard key={mod.code} m={mod} />
+                    </AnimatePresence>
+                  </div>
+                )}
               </motion.li>
             ))}
           </ul>
         </motion.div>
 
-        {/* Right: sticky detail card */}
-        <div className="relative">
+        {/* Right: sticky detail card — desktop only */}
+        <div className="relative hidden lg:block">
           <div className="lg:sticky lg:top-24">
             <AnimatePresence mode="wait">
-              <motion.div
-                key={m.code}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                className="relative overflow-hidden rounded-3xl glass-strong p-8 sm:p-10"
-              >
-                {/* Hue bloom */}
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute -right-32 -top-32 h-[420px] w-[420px] rounded-full opacity-60 blur-3xl"
-                  style={{ background: `${m.hue}33` }}
-                />
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute -bottom-32 -left-32 h-[360px] w-[360px] rounded-full opacity-30 blur-3xl"
-                  style={{ background: `${m.hue}22` }}
-                />
-
-                <div className="relative z-10">
-                  {/* Header */}
-                  <div className="flex items-center gap-3">
-                    <span
-                      className="inline-flex h-9 items-center rounded-lg px-3 font-mono text-[12px] font-semibold tracking-wider2"
-                      style={{
-                        background: `${m.hue}22`,
-                        color: m.hue,
-                        border: `1px solid ${m.hue}55`,
-                        boxShadow: `0 0 22px ${m.hue}44`,
-                      }}
-                    >
-                      Layer {m.code}
-                    </span>
-                    <span className="font-mono text-[10.5px] uppercase tracking-wider2 text-white/40">
-                      multi-tenant · audit-instrumented
-                    </span>
-                  </div>
-
-                  <h3 className="mt-5 font-display text-[32px] font-semibold leading-[1] tracking-tightest text-white sm:text-[42px]">
-                    {m.name}
-                  </h3>
-                  <p className="mt-3 font-display text-[17px] font-medium leading-snug text-white/75 sm:text-[19px]">
-                    {m.line}
-                  </p>
-                  <p className="mt-5 max-w-md text-[14px] leading-relaxed text-white/55 sm:text-[15px]">
-                    {m.body}
-                  </p>
-
-                  {/* Capabilities */}
-                  <ul className="mt-7 space-y-2.5">
-                    {m.capabilities.map((cap) => (
-                      <li
-                        key={cap}
-                        className="flex items-start gap-2.5 text-[13.5px] text-white/70 sm:text-[14px]"
-                      >
-                        <span
-                          className="mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full"
-                          style={{
-                            background: m.hue,
-                            boxShadow: `0 0 8px ${m.hue}cc`,
-                          }}
-                        />
-                        {cap}
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* Solves */}
-                  <div
-                    className="mt-8 rounded-xl border p-4 sm:p-5"
-                    style={{
-                      borderColor: `${m.hue}33`,
-                      background: `linear-gradient(135deg, ${m.hue}10 0%, rgba(255,255,255,0.01) 100%)`,
-                    }}
-                  >
-                    <div
-                      className="font-mono text-[10.5px] uppercase tracking-wider2"
-                      style={{ color: m.hue }}
-                    >
-                      Solves
-                    </div>
-                    <p className="mt-2 text-[14px] font-medium leading-relaxed text-white/85 sm:text-[15px]">
-                      {m.solves}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
+              <DetailCard key={m.code} m={m} />
             </AnimatePresence>
           </div>
         </div>
@@ -445,6 +366,94 @@ export default function ModulesSplit() {
         </div>
       </motion.div>
     </SectionShell>
+  );
+}
+
+function DetailCard({ m }: { m: Module }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -8 }}
+      transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+      className="relative overflow-hidden rounded-3xl glass-strong p-6 sm:p-8 lg:p-10"
+    >
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-32 -top-32 h-[420px] w-[420px] rounded-full opacity-60 blur-3xl"
+        style={{ background: `${m.hue}33` }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -bottom-32 -left-32 h-[360px] w-[360px] rounded-full opacity-30 blur-3xl"
+        style={{ background: `${m.hue}22` }}
+      />
+
+      <div className="relative z-10">
+        <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
+          <span
+            className="inline-flex h-8 items-center rounded-lg px-2.5 font-mono text-[11px] font-semibold tracking-wider2 sm:h-9 sm:px-3 sm:text-[12px]"
+            style={{
+              background: `${m.hue}22`,
+              color: m.hue,
+              border: `1px solid ${m.hue}55`,
+              boxShadow: `0 0 22px ${m.hue}44`,
+            }}
+          >
+            Layer {m.code}
+          </span>
+          <span className="font-mono text-[10px] uppercase tracking-wider text-white/40 sm:text-[10.5px] sm:tracking-wider2">
+            multi-tenant · audit-instrumented
+          </span>
+        </div>
+
+        <h3 className="mt-4 font-display text-[24px] font-semibold leading-[1.05] tracking-tightest text-white sm:mt-5 sm:text-[32px] lg:text-[42px]">
+          {m.name}
+        </h3>
+        <p className="mt-2.5 font-display text-[15px] font-medium leading-snug text-white/75 sm:mt-3 sm:text-[17px] lg:text-[19px]">
+          {m.line}
+        </p>
+        <p className="mt-4 max-w-md text-[13.5px] leading-relaxed text-white/55 sm:mt-5 sm:text-[14px] lg:text-[15px]">
+          {m.body}
+        </p>
+
+        <ul className="mt-6 space-y-2.5 sm:mt-7">
+          {m.capabilities.map((cap) => (
+            <li
+              key={cap}
+              className="flex items-start gap-2.5 text-[13px] text-white/70 sm:text-[13.5px] lg:text-[14px]"
+            >
+              <span
+                className="mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full"
+                style={{
+                  background: m.hue,
+                  boxShadow: `0 0 8px ${m.hue}cc`,
+                }}
+              />
+              {cap}
+            </li>
+          ))}
+        </ul>
+
+        <div
+          className="mt-7 rounded-xl border p-4 sm:mt-8 sm:p-5"
+          style={{
+            borderColor: `${m.hue}33`,
+            background: `linear-gradient(135deg, ${m.hue}10 0%, rgba(255,255,255,0.01) 100%)`,
+          }}
+        >
+          <div
+            className="font-mono text-[10px] uppercase tracking-wider text-white sm:text-[10.5px] sm:tracking-wider2"
+            style={{ color: m.hue }}
+          >
+            Solves
+          </div>
+          <p className="mt-2 text-[13.5px] font-medium leading-relaxed text-white/85 sm:text-[14px] lg:text-[15px]">
+            {m.solves}
+          </p>
+        </div>
+      </div>
+    </motion.div>
   );
 }
 

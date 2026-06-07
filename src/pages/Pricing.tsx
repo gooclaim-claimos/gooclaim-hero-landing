@@ -81,12 +81,12 @@ export default function Pricing() {
           { name: "Pricing", path: "/pricing" },
         ])}
       />
-      <section className="relative z-10 mx-auto w-full max-w-[1280px] px-6 pb-24 pt-16 sm:px-10 sm:pb-28 sm:pt-20 lg:px-14">
+      <section className="relative z-10 mx-auto w-full max-w-[1280px] px-5 pb-16 pt-10 sm:px-10 sm:pb-28 sm:pt-20 lg:px-14">
         {/* Hero */}
         <div className="mb-3 font-mono text-[11px] uppercase tracking-wider2 text-white/45">
           Pricing
         </div>
-        <h1 className="max-w-3xl text-balance font-display text-[42px] font-semibold leading-[1.02] tracking-tightest text-white sm:text-[60px] lg:text-[72px]">
+        <h1 className="max-w-3xl text-balance font-display text-[34px] font-semibold leading-[1.05] tracking-tightest text-white sm:text-[52px] sm:leading-[1.02] lg:text-[72px]">
           Let&rsquo;s talk pricing.{" "}
           <span className="text-white/55">
             Built for India&rsquo;s TPAs and insurers.

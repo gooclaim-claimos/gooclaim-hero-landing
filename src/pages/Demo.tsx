@@ -64,7 +64,7 @@ export default function Demo() {
           { name: "Book a demo", path: "/demo" },
         ])}
       />
-      <section className="relative z-10 mx-auto w-full max-w-[1280px] px-6 pb-20 pt-16 sm:px-10 sm:pb-24 sm:pt-20 lg:px-14">
+      <section className="relative z-10 mx-auto w-full max-w-[1280px] px-5 pb-16 pt-10 sm:px-10 sm:pb-24 sm:pt-20 lg:px-14">
         {/* Hero */}
         <div className="grid items-center gap-10 lg:grid-cols-[1.25fr_1fr] lg:gap-16">
           <div>
@@ -75,7 +75,7 @@ export default function Demo() {
               </span>
               30-minute walkthrough · live demo
             </div>
-            <h1 className="text-balance font-display text-[44px] font-semibold leading-[1] tracking-tightest text-white sm:text-[64px] lg:text-[80px]">
+            <h1 className="text-balance font-display text-[34px] font-semibold leading-[1.05] tracking-tightest text-white sm:text-[56px] sm:leading-[1] lg:text-[80px]">
               See Gooclaim OS{" "}
               <span className="text-gradient-cyan">in your shoes.</span>
             </h1>
