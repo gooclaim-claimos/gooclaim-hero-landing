@@ -1,0 +1,71 @@
+import { cn } from "@/lib/cn";
+
+interface Props {
+  className?: string;
+  size?: number;
+  showText?: boolean;
+}
+
+export default function Wordmark({
+  className,
+  size = 22,
+  showText = true,
+}: Props) {
+  const markSize = size + 6;
+  return (
+    <div className={cn("inline-flex items-center gap-2.5", className)}>
+      <span
+        aria-hidden
+        className="relative inline-flex shrink-0 items-center justify-center"
+        style={{ width: markSize, height: markSize }}
+      >
+        <span
+          className="absolute inset-0 rounded-[10px] opacity-50 blur-[10px]"
+          style={{
+            background:
+              "linear-gradient(135deg, rgba(0,187,255,0.65) 0%, rgba(63,156,244,0.55) 100%)",
+          }}
+        />
+        <svg
+          viewBox="0 0 48 48"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="relative"
+          style={{ width: markSize, height: markSize }}
+        >
+          <path
+            d="M24.1475 3.93139C16.8544 3.36 9.71321 6.55027 7.05426 8.21683V24.8484C6.80653 28.8788 9.7 38.3884 23.2557 44.1839C27.2524 42.7384 35.979 37.7353 38.9121 29.2869L33.1636 28.4706C30.9926 33.5505 26.1424 36.5937 23.2557 37.7557C14.3771 33.756 12.3226 27.2462 12.4052 24.4913V11.5329C17.0427 9.69632 22.1657 9.27118 24.1475 9.28819V3.93139Z"
+            fill="url(#gooclaim-mark-grad)"
+          />
+          <path
+            d="M22.412 28.7601L34.5341 15.3426V20V23.0972H38.6135L38.9603 15.3426L39.0005 9C36.979 7.2042 30.6264 5.47616 28.0005 5L28.0107 9.37362C29.6953 9.73074 32.668 10.7001 33.0148 10.8531C33.2923 10.9756 33.2956 11.0742 33.2626 11.1082C29.943 14.5604 23.2444 21.5565 23.0066 21.9238C22.7688 22.2912 22.5111 22.2469 22.412 22.1789C21.3386 21.0055 19.1024 18.5771 18.7457 18.2506C18.3889 17.9241 18.0355 18.0805 17.9034 18.1996C17.2758 18.8458 15.9315 20.2403 15.5747 20.6484C15.218 21.0565 15.3931 21.5327 15.5252 21.7198L22.2139 28.7601H22.412Z"
+            fill="#00BBFF"
+            stroke="#00BBFF"
+            strokeWidth="0.6"
+          />
+          <defs>
+            <linearGradient
+              id="gooclaim-mark-grad"
+              x1="22.9761"
+              y1="3.86377"
+              x2="22.9761"
+              y2="44.1839"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stopColor="#00BBFF" />
+              <stop offset="1" stopColor="#3F9CF4" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </span>
+      {showText && (
+        <span
+          className="font-display font-semibold tracking-tightest text-white"
+          style={{ fontSize: size }}
+        >
+          Gooclaim <span className="text-white/55">OS</span>
+        </span>
+      )}
+    </div>
+  );
+}

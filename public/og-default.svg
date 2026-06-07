@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#070a12"/>
+      <stop offset="100%" stop-color="#0a0e1a"/>
+    </linearGradient>
+    <radialGradient id="bloom" cx="50%" cy="35%" r="60%">
+      <stop offset="0%" stop-color="rgba(13,153,255,0.45)"/>
+      <stop offset="50%" stop-color="rgba(124,58,237,0.15)"/>
+      <stop offset="100%" stop-color="rgba(7,10,18,0)"/>
+    </radialGradient>
+    <linearGradient id="title-grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="55%" stop-color="#7dc4ff"/>
+      <stop offset="100%" stop-color="#0d99ff"/>
+    </linearGradient>
+    <linearGradient id="g-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#00BBFF"/>
+      <stop offset="100%" stop-color="#3F9CF4"/>
+    </linearGradient>
+    <pattern id="grid" width="56" height="56" patternUnits="userSpaceOnUse">
+      <path d="M56 0H0V56" fill="none" stroke="rgba(125,196,255,0.05)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#bloom)"/>
+
+  <!-- Top-left wordmark -->
+  <g transform="translate(72, 72)">
+    <!-- Logo mark -->
+    <g transform="scale(1.15)">
+      <path d="M24.1475 3.93139C16.8544 3.36 9.71321 6.55027 7.05426 8.21683V24.8484C6.80653 28.8788 9.7 38.3884 23.2557 44.1839C27.2524 42.7384 35.979 37.7353 38.9121 29.2869L33.1636 28.4706C30.9926 33.5505 26.1424 36.5937 23.2557 37.7557C14.3771 33.756 12.3226 27.2462 12.4052 24.4913V11.5329C17.0427 9.69632 22.1657 9.27118 24.1475 9.28819V3.93139Z" fill="url(#g-grad)"/>
+      <path d="M22.412 28.7601L34.5341 15.3426V20V23.0972H38.6135L38.9603 15.3426L39.0005 9C36.979 7.2042 30.6264 5.47616 28.0005 5L28.0107 9.37362C29.6953 9.73074 32.668 10.7001 33.0148 10.8531C33.2923 10.9756 33.2956 11.0742 33.2626 11.1082C29.943 14.5604 23.2444 21.5565 23.0066 21.9238C22.7688 22.2912 22.5111 22.2469 22.412 22.1789C21.3386 21.0055 19.1024 18.5771 18.7457 18.2506C18.3889 17.9241 18.0355 18.0805 17.9034 18.1996C17.2758 18.8458 15.9315 20.2403 15.5747 20.6484C15.218 21.0565 15.3931 21.5327 15.5252 21.7198L22.2139 28.7601H22.412Z" fill="#00BBFF" stroke="#00BBFF" stroke-width="0.6"/>
+    </g>
+    <text x="72" y="42" font-family="Helvetica, Arial, sans-serif" font-size="32" font-weight="600" letter-spacing="-1" fill="#ffffff">Gooclaim <tspan fill="rgba(255,255,255,0.55)">OS</tspan></text>
+  </g>
+
+  <!-- Eyebrow -->
+  <text x="72" y="252" font-family="Menlo, Consolas, monospace" font-size="16" letter-spacing="2.5" fill="rgba(125,196,255,0.85)">THE OPERATING SYSTEM FOR INDIA&#8217;S CLAIMS INDUSTRY</text>
+
+  <!-- Main title — 3 lines for safe wrapping across all SVG renderers -->
+  <text x="72" y="338" font-family="Helvetica, Arial, sans-serif" font-size="76" font-weight="700" letter-spacing="-2.6" fill="#ffffff">Built for every claim.</text>
+  <text x="72" y="418" font-family="Helvetica, Arial, sans-serif" font-size="54" font-weight="600" letter-spacing="-1.6" fill="url(#title-grad)">Every channel. Every CMS.</text>
+  <text x="72" y="482" font-family="Helvetica, Arial, sans-serif" font-size="54" font-weight="600" letter-spacing="-1.6" fill="url(#title-grad)">Every vertical.</text>
+
+  <!-- Compliance chips row -->
+  <g transform="translate(72, 540)">
+    <g>
+      <rect x="0" y="0" rx="20" ry="20" width="186" height="40" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.14)" stroke-width="1"/>
+      <circle cx="20" cy="20" r="4.5" fill="#0d99ff"/>
+      <text x="36" y="26" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="500" fill="rgba(255,255,255,0.9)">IRDAI 3-hour TAT</text>
+    </g>
+    <g transform="translate(200, 0)">
+      <rect x="0" y="0" rx="20" ry="20" width="200" height="40" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.14)" stroke-width="1"/>
+      <circle cx="20" cy="20" r="4.5" fill="#10b981"/>
+      <text x="36" y="26" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="500" fill="rgba(255,255,255,0.9)">DPDP consent gate</text>
+    </g>
+    <g transform="translate(414, 0)">
+      <rect x="0" y="0" rx="20" ry="20" width="220" height="40" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.14)" stroke-width="1"/>
+      <circle cx="20" cy="20" r="4.5" fill="#f59e0b"/>
+      <text x="36" y="26" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="500" fill="rgba(255,255,255,0.9)">Immutable audit ledger</text>
+    </g>
+  </g>
+
+  <!-- Bottom-right small tag -->
+  <text x="1128" y="582" text-anchor="end" font-family="Menlo, Consolas, monospace" font-size="13" letter-spacing="2" fill="rgba(255,255,255,0.42)">BENGALURU · IN</text>
+</svg>
