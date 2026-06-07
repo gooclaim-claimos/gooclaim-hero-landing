@@ -108,7 +108,7 @@ export default function Footer() {
         }}
       />
 
-      <div className="mx-auto w-full max-w-[1280px] px-6 pb-12 pt-20 sm:px-10 sm:pb-14 sm:pt-24 lg:px-14">
+      <div className="mx-auto w-full max-w-[1280px] px-5 pb-12 pt-16 sm:px-10 sm:pb-14 sm:pt-24 lg:px-14">
         <motion.div
           variants={stagger(0.05, 0.06)}
           initial="hidden"

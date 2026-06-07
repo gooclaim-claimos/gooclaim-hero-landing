@@ -4,6 +4,15 @@ import { ensureGsap, prefersReducedMotion } from "@/lib/gsap";
 import Wordmark from "@/components/Wordmark";
 import ComplianceBadge from "@/components/ComplianceBadge";
 import CTA from "@/components/CTA";
+import MobileMenu from "@/components/MobileMenu";
+
+const HERO_NAV_ITEMS = [
+  { label: "Home", to: "/" },
+  { label: "Pricing", to: "/pricing" },
+  { label: "Use cases — TPAs", to: "/use-cases/tpas" },
+  { label: "Use cases — Insurers", to: "/use-cases/insurers" },
+  { label: "Compliance", to: "/compliance" },
+];
 
 const MUX_PLAYBACK =
   "https://stream.mux.com/Aa02T7oM1wH5Mk5EEVDYhbZ1ChcdhRsS2m1NYyx4Ua1g.m3u8";
@@ -237,21 +246,24 @@ export default function HeroMeshGrid() {
       />
 
       {/* Top nav */}
-      <header className="relative z-20 mx-auto flex w-full max-w-[1280px] items-center justify-between px-6 py-6 sm:px-10 lg:px-14">
+      <header className="relative z-20 mx-auto flex w-full max-w-[1280px] items-center justify-between px-5 py-5 sm:px-10 sm:py-6 lg:px-14">
         <Wordmark size={22} />
-        <CTA href="/demo" variant="ghost" className="hidden sm:inline-flex">
-          Book a demo
-        </CTA>
+        <div className="flex items-center gap-3">
+          <CTA href="/demo" variant="ghost" className="hidden sm:inline-flex">
+            Book a demo
+          </CTA>
+          <MobileMenu items={HERO_NAV_ITEMS} />
+        </div>
       </header>
 
       {/* Hero copy */}
-      <div className="relative z-10 mx-auto flex w-full max-w-[1280px] flex-1 flex-col items-center justify-center px-6 pb-28 pt-10 text-center sm:px-10 sm:pb-32 sm:pt-12 lg:px-14">
+      <div className="relative z-10 mx-auto flex w-full max-w-[1280px] flex-1 flex-col items-center justify-center px-5 pb-24 pt-6 text-center sm:px-10 sm:pb-32 sm:pt-12 lg:px-14">
         <div data-hero-parallax>
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="mb-6 inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[11.5px] font-mono uppercase tracking-wider2 text-white/60 glass"
+            className="mb-5 inline-flex max-w-full items-center gap-2 rounded-full px-3 py-1.5 text-center text-[10px] font-mono uppercase tracking-wider text-white/60 glass sm:mb-6 sm:px-3.5 sm:text-[11.5px] sm:tracking-wider2"
           >
             <span className="relative inline-flex h-1.5 w-1.5">
               <span className="absolute inset-0 rounded-full bg-accent-cyan opacity-70 blur-[2px] animate-pulse-soft" />
@@ -264,7 +276,7 @@ export default function HeroMeshGrid() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.95, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
-            className="text-balance font-display text-[44px] font-semibold leading-[1.02] tracking-tightest text-white sm:text-[68px] lg:text-[88px]"
+            className="text-balance font-display text-[34px] font-semibold leading-[1.05] tracking-tightest text-white sm:text-[58px] sm:leading-[1.02] lg:text-[88px]"
           >
             Built for every claim.
             <br />
@@ -289,7 +301,7 @@ export default function HeroMeshGrid() {
         {/* Compliance badges row */}
         <div
           data-hero-fade
-          className="mt-16 flex flex-wrap items-center justify-center gap-2.5 sm:mt-20 sm:gap-3"
+          className="mt-12 flex flex-wrap items-center justify-center gap-2 sm:mt-20 sm:gap-3"
         >
           <ComplianceBadge label="IRDAI 3-hour TAT" hue="#0d99ff" delay={0.45} />
           <ComplianceBadge

@@ -1,7 +1,16 @@
 import { type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import Wordmark from "@/components/Wordmark";
+import MobileMenu from "@/components/MobileMenu";
 import Footer from "@/sections/Footer";
+
+const NAV_ITEMS = [
+  { label: "Home", to: "/" },
+  { label: "Pricing", to: "/pricing" },
+  { label: "Use cases — TPAs", to: "/use-cases/tpas" },
+  { label: "Use cases — Insurers", to: "/use-cases/insurers" },
+  { label: "Compliance", to: "/compliance" },
+];
 
 interface Props {
   children: ReactNode;
@@ -25,7 +34,7 @@ export default function PageShell({ children }: Props) {
       />
 
       {/* Nav */}
-      <header className="relative z-20 mx-auto flex w-full max-w-[1280px] items-center justify-between px-6 py-6 sm:px-10 lg:px-14">
+      <header className="relative z-20 mx-auto flex w-full max-w-[1280px] items-center justify-between px-5 py-5 sm:px-10 sm:py-6 lg:px-14">
         <Link to="/">
           <Wordmark size={22} />
         </Link>
@@ -43,6 +52,7 @@ export default function PageShell({ children }: Props) {
             Book a demo
           </Link>
         </nav>
+        <MobileMenu items={NAV_ITEMS} />
       </header>
 
       {children}
