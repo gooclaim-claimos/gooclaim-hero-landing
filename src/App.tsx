@@ -1,6 +1,7 @@
 import { useEffect, type ReactNode } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import Home from "./pages/Home";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
@@ -34,6 +35,7 @@ function AppRoutes() {
         <Route path="/platform/:slug" element={<Module />} />
       </Routes>
       <Analytics />
+      <SpeedInsights />
     </>
   );
 }
