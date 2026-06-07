@@ -1,6 +1,15 @@
 import { type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import Wordmark from "@/components/Wordmark";
+import MobileMenu from "@/components/MobileMenu";
+
+const LEGAL_NAV = [
+  { label: "Home", to: "/" },
+  { label: "Pricing", to: "/pricing" },
+  { label: "Privacy", to: "/privacy" },
+  { label: "Terms", to: "/terms" },
+  { label: "Compliance", to: "/compliance" },
+];
 
 interface Props {
   eyebrow: string;
@@ -27,11 +36,11 @@ export default function LegalShell({ eyebrow, title, updated, children }: Props)
       />
 
       {/* Nav */}
-      <header className="relative z-10 mx-auto flex w-full max-w-[960px] items-center justify-between px-6 py-6 sm:px-10">
+      <header className="relative z-20 mx-auto flex w-full max-w-[960px] items-center justify-between px-5 py-5 sm:px-10 sm:py-6">
         <Link to="/">
           <Wordmark size={22} />
         </Link>
-        <nav className="flex items-center gap-5 text-[13px] text-white/65">
+        <nav className="hidden items-center gap-5 text-[13px] text-white/65 md:flex">
           <Link to="/" className="transition-colors hover:text-white">
             Home
           </Link>
@@ -45,14 +54,15 @@ export default function LegalShell({ eyebrow, title, updated, children }: Props)
             Compliance
           </Link>
         </nav>
+        <MobileMenu items={LEGAL_NAV} />
       </header>
 
       {/* Article */}
-      <article className="relative z-10 mx-auto w-full max-w-[760px] px-6 pb-32 pt-16 sm:px-10 sm:pt-20">
-        <div className="mb-3 font-mono text-[11px] uppercase tracking-wider2 text-white/45">
+      <article className="relative z-10 mx-auto w-full max-w-[760px] px-5 pb-24 pt-10 sm:px-10 sm:pb-32 sm:pt-20">
+        <div className="mb-3 font-mono text-[10.5px] uppercase tracking-wider text-white/45 sm:text-[11px] sm:tracking-wider2">
           {eyebrow}
         </div>
-        <h1 className="font-display text-[42px] font-semibold leading-[1.05] tracking-tightest text-white sm:text-[56px]">
+        <h1 className="font-display text-[32px] font-semibold leading-[1.05] tracking-tightest text-white sm:text-[56px]">
           {title}
         </h1>
         <p className="mt-4 font-mono text-[11.5px] uppercase tracking-wider2 text-white/40">

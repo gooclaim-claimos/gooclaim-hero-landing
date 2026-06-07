@@ -356,7 +356,8 @@ export default function CoverageBloom() {
               })}
             </svg>
 
-            {/* Capability labels positioned outside their orbit dots */}
+            {/* Capability labels positioned outside their orbit dots — desktop only */}
+            <div className="pointer-events-none absolute inset-0 hidden sm:block">
             {CAPABILITIES.map((cap, i) => {
               const angle = (i / CAPABILITIES.length) * Math.PI * 2 - Math.PI / 2;
               const labelRadius = ORBIT_RADIUS_PCT + 0.04;
@@ -392,6 +393,7 @@ export default function CoverageBloom() {
                 </div>
               );
             })}
+            </div>
 
             {/* Progress timeline at the bottom */}
             <div className="absolute -bottom-4 left-4 right-4 flex items-center gap-3 font-mono text-[10px] uppercase tracking-wider2 text-white/45 sm:left-0 sm:right-0">
@@ -412,6 +414,37 @@ export default function CoverageBloom() {
               </span>
             </div>
           </div>
+
+          {/* Mobile-only numbered legend below the canvas */}
+          <ul className="mt-10 grid grid-cols-1 gap-2 sm:hidden">
+            {CAPABILITIES.map((cap, i) => {
+              const cov = capCoverage[i];
+              const ring = cov.ringIdx >= 0 ? RINGS[cov.ringIdx] : null;
+              return (
+                <li
+                  key={cap.id}
+                  className="flex items-center gap-3 rounded-lg border border-white/8 bg-white/[0.02] px-3.5 py-2.5 transition-colors duration-300"
+                  style={{
+                    borderColor: ring ? `${ring.hue}55` : undefined,
+                    background: ring ? `${ring.hue}0e` : undefined,
+                  }}
+                >
+                  <span
+                    className="font-mono text-[10.5px] uppercase tracking-wider2"
+                    style={{ color: ring ? ring.hue : "rgba(255,255,255,0.4)" }}
+                  >
+                    0{i + 1}
+                  </span>
+                  <span
+                    className="text-[13px] font-medium"
+                    style={{ color: ring ? "#fff" : "rgba(255,255,255,0.55)" }}
+                  >
+                    {cap.name}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </div>
     </SectionShell>
