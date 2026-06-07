@@ -359,9 +359,6 @@ export default function ConnectorConstellation() {
               </linearGradient>
             </defs>
           </svg>
-          <div className="relative mt-1.5 font-mono text-[8px] uppercase tracking-wider text-white/65 sm:mt-2 sm:text-[10px] sm:tracking-wider2">
-            Gooclaim OS
-          </div>
         </div>
       </div>
     </div>
