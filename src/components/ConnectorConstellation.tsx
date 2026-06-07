@@ -14,7 +14,6 @@ const RING_CHANNELS: Connector[] = [
   { name: "Outlook", file: "outlook_mail.svg" },
   { name: "Intercom", file: "intercom.svg" },
   { name: "Zoom", file: "zoom.svg" },
-  { name: "Facebook", file: "facebook.svg" },
 ];
 
 const RING_CMS: Connector[] = [
@@ -49,6 +48,7 @@ const RING_KNOWLEDGE: Connector[] = [
   { name: "Elastic", file: "elasticsearch.svg" },
   { name: "Mailchimp", file: "mailchimp.svg" },
   { name: "Shopify", file: "shopify.svg" },
+  { name: "Facebook", file: "facebook.svg" },
 ];
 
 function polar(angleDeg: number, radiusPct: number) {
