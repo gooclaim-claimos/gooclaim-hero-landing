@@ -120,8 +120,7 @@ export default function Footer() {
           <motion.div variants={fadeUp} className="col-span-2 sm:col-span-3 lg:col-span-1">
             <Wordmark size={24} />
             <p className="mt-5 max-w-[300px] text-[14px] leading-relaxed text-white/60">
-              India&rsquo;s first fully agentic Claims Operating System — for TPAs
-              and Insurers.
+              The operating system for India&rsquo;s claims industry.
             </p>
             <div className="mt-6 flex items-center gap-2.5">
               <a
