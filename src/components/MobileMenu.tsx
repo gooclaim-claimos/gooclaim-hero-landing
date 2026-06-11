@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Wordmark from "@/components/Wordmark";
+import { openWaitlist } from "@/lib/waitlist";
 
 interface NavItem {
   label: string;
@@ -146,11 +147,15 @@ export default function MobileMenu({ items, triggerClassName }: Props) {
 
         {/* Bottom CTA */}
         <div className="border-t border-white/8 p-5">
-          <Link
-            to="/demo"
+          <button
+            type="button"
+            onClick={() => {
+              setOpen(false);
+              openWaitlist("mobile-menu");
+            }}
             className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-[14px] font-semibold text-ink-950 transition-all hover:-translate-y-0.5 hover:shadow-[0_12px_36px_-12px_rgba(13,153,255,0.55)]"
           >
-            Book a demo
+            Join the waitlist
             <svg
               width="13"
               height="13"
@@ -164,7 +169,7 @@ export default function MobileMenu({ items, triggerClassName }: Props) {
               <path d="M5 12h14" />
               <path d="M13 5l7 7-7 7" />
             </svg>
-          </Link>
+          </button>
         </div>
       </aside>
     </>

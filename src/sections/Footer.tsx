@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Wordmark from "@/components/Wordmark";
 import { fadeUp, stagger, viewportOnce } from "@/lib/motion";
+import { openWaitlist } from "@/lib/waitlist";
 
 const COLUMNS = [
   {
@@ -21,14 +22,14 @@ const COLUMNS = [
   },
   {
     title: "Resources",
-    links: ["How it works", "Architecture", "Compliance", "Pricing"],
+    links: ["Compliance", "Pricing"],
   },
   {
     title: "Contact",
     links: [
       "contact@gooclaim.com",
       "security@gooclaim.com",
-      "Book a demo",
+      "Join the waitlist",
       "LinkedIn",
     ],
   },
@@ -39,7 +40,6 @@ const LINK_ROUTES: Record<string, string> = {
   Privacy: "/privacy",
   Terms: "/terms",
   Pricing: "/pricing",
-  "Book a demo": "/demo",
   TPAs: "/use-cases/tpas",
   Insurers: "/use-cases/insurers",
   Hospitals: "/use-cases/hospitals",
@@ -161,11 +161,20 @@ export default function Footer() {
                   const route = LINK_ROUTES[link];
                   const mailto = LINK_MAILTOS[link];
                   const external = LINK_EXTERNAL[link];
+                  const isWaitlist = link === "Join the waitlist";
                   const cls =
                     "text-[13.5px] text-white/65 transition-colors hover:text-white";
                   return (
                     <li key={link}>
-                      {route ? (
+                      {isWaitlist ? (
+                        <button
+                          type="button"
+                          onClick={() => openWaitlist("footer")}
+                          className={`${cls} text-left`}
+                        >
+                          {link}
+                        </button>
+                      ) : route ? (
                         <Link to={route} className={cls}>
                           {link}
                         </Link>

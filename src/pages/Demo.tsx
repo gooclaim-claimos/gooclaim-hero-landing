@@ -5,6 +5,7 @@ import SEOHead from "@/components/SEOHead";
 import { SEO_DEMO } from "@/lib/seo";
 import { breadcrumbJsonLd } from "@/lib/structured";
 import { fadeUp, stagger, viewportOnce } from "@/lib/motion";
+import { openWaitlist } from "@/lib/waitlist";
 
 const AGENDA = [
   {
@@ -47,8 +48,6 @@ const TIMELINE = [
   { time: "25 – 30 min", label: "Pilot proposal for your team" },
 ];
 
-const CALENDLY = "https://calendly.com/contact-gooclaim/30min";
-
 export default function Demo() {
   useEffect(() => {
     document.title = "Book a demo · Gooclaim OS";
@@ -86,15 +85,14 @@ export default function Demo() {
             </p>
 
             <div className="mt-9 flex flex-col items-start gap-3 sm:flex-row sm:gap-4">
-              <a
-                href={CALENDLY}
-                target="_blank"
-                rel="noreferrer"
+              <button
+                type="button"
+                onClick={() => openWaitlist("demo-hero")}
                 className="group inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-[14.5px] font-semibold text-ink-950 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_40px_-12px_rgba(13,153,255,0.55)]"
               >
-                Pick a 30-min slot
+                Join the waitlist
                 <ArrowRight />
-              </a>
+              </button>
               <a
                 href="mailto:contact@gooclaim.com"
                 className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-[14px] font-medium text-white/85 glass transition-all duration-300 hover:text-white hover:border-white/20"
@@ -300,24 +298,23 @@ export default function Demo() {
           <div className="relative z-10 grid items-center gap-8 lg:grid-cols-[1.4fr_1fr] lg:gap-14">
             <div>
               <h3 className="text-balance font-display text-[30px] font-semibold leading-[1] tracking-tightest text-white sm:text-[44px]">
-                Pick a time that works.{" "}
+                Get on the list.{" "}
                 <span className="text-white/55">We&rsquo;ll take it from there.</span>
               </h3>
               <p className="mt-4 max-w-md text-[15px] leading-relaxed text-white/65 sm:text-[16px]">
-                Open the calendar, pick any 30-minute slot. Calendar invite
-                with the live demo link lands in your inbox instantly.
+                Drop your details and we&rsquo;ll reach out personally when
+                we&rsquo;re ready for your operation — usually within a week.
               </p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap lg:flex-col">
-              <a
-                href={CALENDLY}
-                target="_blank"
-                rel="noreferrer"
+              <button
+                type="button"
+                onClick={() => openWaitlist("demo-footer")}
                 className="group inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-3.5 text-[14.5px] font-semibold text-ink-950 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_40px_-12px_rgba(13,153,255,0.55)]"
               >
-                Pick a 30-min slot
+                Join the waitlist
                 <ArrowRight />
-              </a>
+              </button>
               <a
                 href="mailto:contact@gooclaim.com"
                 className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-[14px] font-medium text-white/80 glass transition-all duration-300 hover:text-white hover:border-white/20"

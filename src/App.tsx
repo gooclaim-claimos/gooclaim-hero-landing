@@ -10,6 +10,7 @@ import Pricing from "./pages/Pricing";
 import Demo from "./pages/Demo";
 import UseCase from "./pages/UseCase";
 import Module from "./pages/Module";
+import WaitlistModal from "./components/WaitlistModal";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -34,6 +35,7 @@ function AppRoutes() {
         <Route path="/use-cases/:slug" element={<UseCase />} />
         <Route path="/platform/:slug" element={<Module />} />
       </Routes>
+      <WaitlistModal />
       <Analytics />
       <SpeedInsights />
     </>

@@ -5,6 +5,7 @@ import Wordmark from "@/components/Wordmark";
 import ComplianceBadge from "@/components/ComplianceBadge";
 import CTA from "@/components/CTA";
 import MobileMenu from "@/components/MobileMenu";
+import { openWaitlist } from "@/lib/waitlist";
 
 const HERO_NAV_ITEMS = [
   { label: "Home", to: "/" },
@@ -249,8 +250,12 @@ export default function HeroMeshGrid() {
       <header className="relative z-20 mx-auto flex w-full max-w-[1280px] items-center justify-between px-5 py-5 sm:px-10 sm:py-6 lg:px-14">
         <Wordmark size={22} />
         <div className="flex items-center gap-3">
-          <CTA href="/demo" variant="ghost" className="hidden sm:inline-flex">
-            Book a demo
+          <CTA
+            variant="ghost"
+            className="hidden sm:inline-flex"
+            onClick={() => openWaitlist("hero-header")}
+          >
+            Join the waitlist
           </CTA>
           <MobileMenu items={HERO_NAV_ITEMS} />
         </div>
@@ -291,8 +296,20 @@ export default function HeroMeshGrid() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
             className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4"
           >
-            <CTA href="/demo">Book a 30-min demo</CTA>
-            <CTA href="#how" variant="ghost">
+            <CTA onClick={() => openWaitlist("hero-primary")}>
+              Join the waitlist
+            </CTA>
+            <CTA
+              variant="ghost"
+              onClick={() =>
+                openWaitlist("hero-how", {
+                  eyebrow: "Live walkthrough · 30 min",
+                  headline: "Want to see how Gooclaim OS works?",
+                  subhead:
+                    "Join the waitlist — we'll show you. Real workflows on real channels, wired to a sample CMS. No slides.",
+                })
+              }
+            >
               See how it works
             </CTA>
           </motion.div>

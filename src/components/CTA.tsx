@@ -1,4 +1,4 @@
-import { type ReactNode } from "react";
+import { type MouseEvent, type ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
 interface Props {
@@ -6,53 +6,47 @@ interface Props {
   children: ReactNode;
   variant?: "primary" | "ghost";
   className?: string;
-  onClick?: () => void;
+  onClick?: (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void;
+  /** When true (or when href is omitted), renders a <button> instead of <a>. */
+  asButton?: boolean;
 }
 
 export default function CTA({
-  href = "#",
+  href,
   children,
   variant = "primary",
   className,
   onClick,
+  asButton,
 }: Props) {
   const base =
     "group relative inline-flex items-center gap-2 rounded-full px-6 py-3 text-[14px] font-semibold tracking-tight transition-all duration-300";
 
-  if (variant === "primary") {
+  const styles =
+    variant === "primary"
+      ? "bg-white text-ink-950 hover:-translate-y-0.5 hover:shadow-[0_14px_40px_-12px_rgba(13,153,255,0.55)]"
+      : "text-white/85 glass hover:text-white hover:-translate-y-0.5 hover:border-white/20";
+
+  const renderAsButton = asButton || !href;
+
+  if (renderAsButton) {
     return (
-      <a
-        href={href}
-        onClick={onClick}
-        className={cn(
-          base,
-          "bg-white text-ink-950 hover:-translate-y-0.5 hover:shadow-[0_14px_40px_-12px_rgba(13,153,255,0.55)]",
-          className,
-        )}
-      >
+      <button type="button" onClick={onClick} className={cn(base, styles, className)}>
         <span className="relative z-10">{children}</span>
         <Arrow />
-      </a>
+      </button>
     );
   }
 
   return (
-    <a
-      href={href}
-      onClick={onClick}
-      className={cn(
-        base,
-        "text-white/85 glass hover:text-white hover:-translate-y-0.5 hover:border-white/20",
-        className,
-      )}
-    >
+    <a href={href} onClick={onClick} className={cn(base, styles, className)}>
       <span className="relative z-10">{children}</span>
       <Arrow />
     </a>
   );
 }
 
-function Arrow() {
+export function Arrow() {
   return (
     <svg
       width="14"
