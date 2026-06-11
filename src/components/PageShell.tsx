@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Wordmark from "@/components/Wordmark";
 import MobileMenu from "@/components/MobileMenu";
 import Footer from "@/sections/Footer";
+import { openWaitlist } from "@/lib/waitlist";
 
 const NAV_ITEMS = [
   { label: "Home", to: "/" },
@@ -45,12 +46,13 @@ export default function PageShell({ children }: Props) {
           <Link to="/pricing" className="transition-colors hover:text-white">
             Pricing
           </Link>
-          <Link
-            to="/demo"
+          <button
+            type="button"
+            onClick={() => openWaitlist("page-nav")}
             className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-[13px] font-semibold text-ink-950 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_36px_-12px_rgba(13,153,255,0.55)]"
           >
-            Book a demo
-          </Link>
+            Join the waitlist
+          </button>
         </nav>
         <MobileMenu items={NAV_ITEMS} />
       </header>
