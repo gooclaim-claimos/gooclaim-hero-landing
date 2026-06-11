@@ -31,10 +31,10 @@ const EMPTY_FORM: FormState = {
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const DEFAULT_COPY = {
-  eyebrow: "Closed beta · rolling waves",
+  eyebrow: "Early access · rolling out now",
   headline: "Join the waitlist.",
   subhead:
-    "We're onboarding TPAs and insurers in small waves. Drop your details and we'll reach out personally when we're ready for your operation.",
+    "We're onboarding our first TPAs and insurers. Drop your details and we'll reach out personally when we're ready for your operation.",
 };
 
 export default function WaitlistModal() {
