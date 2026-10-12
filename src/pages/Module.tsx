@@ -37,7 +37,7 @@ function ModuleBody({ data }: { data: ModuleData }) {
       {/* Hero */}
       <div className="grid items-center gap-10 lg:grid-cols-[1.35fr_1fr] lg:gap-16">
         <div>
-          <div className="mb-3 font-mono text-[11px] uppercase tracking-wider2 text-white/45">
+          <div className="mb-3 font-display text-[11px] uppercase tracking-wider2 text-white/45">
             {data.eyebrow}
           </div>
           <h1 className="text-balance font-display text-[34px] font-semibold leading-[1.05] tracking-tightest text-white sm:text-[52px] sm:leading-[1] lg:text-[72px]">
@@ -109,7 +109,7 @@ function ModuleBody({ data }: { data: ModuleData }) {
           />
           <div className="relative z-10">
             <div
-              className="font-mono text-[10.5px] uppercase tracking-wider2"
+              className="font-display text-[10.5px] uppercase tracking-wider2"
               style={{ color: data.accent }}
             >
               {data.label}
@@ -119,7 +119,7 @@ function ModuleBody({ data }: { data: ModuleData }) {
             >
               {data.tagline}
             </h2>
-            <div className="mt-7 inline-flex items-center gap-2 rounded-full px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider2 text-white/55 glass">
+            <div className="mt-7 inline-flex items-center gap-2 rounded-full px-3 py-1.5 font-display text-[10px] uppercase tracking-wider2 text-white/55 glass">
               <span
                 className="inline-block h-1.5 w-1.5 rounded-full"
                 style={{
@@ -137,7 +137,7 @@ function ModuleBody({ data }: { data: ModuleData }) {
       <div className="mt-24 sm:mt-28">
         <div className="mb-10 flex items-center gap-3">
           <span className="h-px flex-1 bg-white/10" />
-          <div className="font-mono text-[10.5px] uppercase tracking-wider2 text-white/45">
+          <div className="font-display text-[10.5px] uppercase tracking-wider2 text-white/45">
             What {data.label} actually does
           </div>
           <span className="h-px flex-1 bg-white/10" />
@@ -186,7 +186,7 @@ function ModuleBody({ data }: { data: ModuleData }) {
       <div className="mt-24 sm:mt-28">
         <div className="grid items-start gap-10 lg:grid-cols-[1fr_1.3fr] lg:gap-16">
           <div>
-            <div className="font-mono text-[10.5px] uppercase tracking-wider2 text-white/45">
+            <div className="font-display text-[10.5px] uppercase tracking-wider2 text-white/45">
               Why it matters
             </div>
             <h2 className="mt-3 font-display text-[28px] font-semibold leading-[1.1] tracking-tighter text-white sm:text-[36px]">
@@ -286,7 +286,7 @@ function ModuleBody({ data }: { data: ModuleData }) {
 
       {/* Sibling modules */}
       <div className="mt-20">
-        <div className="mb-5 font-mono text-[10.5px] uppercase tracking-wider2 text-white/45">
+        <div className="mb-5 font-display text-[10.5px] uppercase tracking-wider2 text-white/45">
           Other modules
         </div>
         <div className="flex flex-wrap gap-2.5">

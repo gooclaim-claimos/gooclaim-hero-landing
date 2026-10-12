@@ -54,7 +54,7 @@ export const USE_CASES: UseCaseData[] = [
       hue: "#f59e0b",
     },
     problemBody:
-      "The IRDAI 1-hour admission / 3-hour discharge mandate is now law. Without automation, every breach costs Bank Rate + 2% daily — a penalty TPAs can no longer absorb manually.",
+      "IRDAI now allows 1 hour for cashless pre-auth, 3 hours for discharge and 15 days to settle a reimbursement. Miss it and interest runs at bank rate + 2% a year from the day of intimation — a cost TPAs can no longer absorb manually.",
     problemSource: "Moneylife · IRDAI Master Circular (29 May 2024) · PPHI Circular (Sept 2024)",
     capabilities: [
       {
@@ -95,7 +95,7 @@ export const USE_CASES: UseCaseData[] = [
       },
       {
         role: "COO",
-        why: "Owns daily penalty exposure and hospital-network goodwill.",
+        why: "Owns late-settlement interest exposure and hospital-network goodwill.",
       },
       {
         role: "Compliance Officer",
@@ -227,7 +227,7 @@ export const USE_CASES: UseCaseData[] = [
       },
       {
         title: "Voice agent for reception",
-        body: "Front-desk staff can&rsquo;t always type. Voice in, voice out, audited.",
+        body: "Front-desk staff can’t always type. Voice in, voice out, audited.",
         hue: "#10b981",
       },
       {
@@ -242,7 +242,7 @@ export const USE_CASES: UseCaseData[] = [
       },
       {
         title: "Multi-lingual",
-        body: "Hindi · English · Hinglish + regional — meet your patients where they are.",
+        body: "Hindi · English · Hinglish — meet your patients where they are.",
         hue: "#7c3aed",
       },
       {
@@ -322,7 +322,7 @@ export const USE_CASES: UseCaseData[] = [
       },
       {
         title: "Multi-lingual outbound",
-        body: "Hindi · English · Hinglish + regional — every claimant on their terms.",
+        body: "Hindi · English · Hinglish — every claimant on their terms.",
         hue: "#f59e0b",
       },
       {
@@ -399,7 +399,7 @@ export const USE_CASES: UseCaseData[] = [
       },
       {
         title: "Regional language",
-        body: "Hindi · English · Hinglish + regional — for nominees who don&rsquo;t live in English.",
+        body: "Hindi · English · Hinglish — for nominees who don’t live in English.",
         hue: "#7c3aed",
       },
       {
@@ -461,7 +461,7 @@ export const USE_CASES: UseCaseData[] = [
       hue: "#0d99ff",
     },
     problemBody:
-      "Two-wheeler claims are routinely abandoned. Garage networks are opaque to customers. Surveyor scheduling drifts. Even with the IRDAI 30-day mandate (45 for investigation), the experience feels broken.",
+      "Two-wheeler claims are routinely abandoned. Garage networks are opaque to customers. Surveyor scheduling drifts. Even with a regulator clock on every claim, the experience feels broken.",
     problemSource: "Business Standard · IRDAI PPI Regulations 2024",
     capabilities: [
       {
@@ -490,8 +490,8 @@ export const USE_CASES: UseCaseData[] = [
         hue: "#7c3aed",
       },
       {
-        title: "30-day SLA observability",
-        body: "Per-claim countdown against the regulator clock, alerts before breach.",
+        title: "Regulator clock on every claim",
+        body: "Per-claim countdown against the IRDAI clock, alerts before breach.",
         hue: "#0d99ff",
       },
     ],
@@ -510,7 +510,7 @@ export const USE_CASES: UseCaseData[] = [
       },
     ],
     trustChips: [
-      { label: "IRDAI 30-day SLA tracking", hue: "#0d99ff" },
+      { label: "IRDAI clock tracking", hue: "#0d99ff" },
       { label: "Surveyor + garage coordination", hue: "#10b981" },
       { label: "Audited every handoff", hue: "#f59e0b" },
     ],

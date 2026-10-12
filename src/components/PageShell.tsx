@@ -2,16 +2,10 @@ import { type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import Wordmark from "@/components/Wordmark";
 import MobileMenu from "@/components/MobileMenu";
+import SiteNav, { SITE_NAV } from "@/components/SiteNav";
 import Footer from "@/sections/Footer";
 import { openWaitlist } from "@/lib/waitlist";
 
-const NAV_ITEMS = [
-  { label: "Home", to: "/" },
-  { label: "Pricing", to: "/pricing" },
-  { label: "Use cases — TPAs", to: "/use-cases/tpas" },
-  { label: "Use cases — Insurers", to: "/use-cases/insurers" },
-  { label: "Compliance", to: "/compliance" },
-];
 
 interface Props {
   children: ReactNode;
@@ -39,22 +33,17 @@ export default function PageShell({ children }: Props) {
         <Link to="/">
           <Wordmark size={22} />
         </Link>
-        <nav className="hidden items-center gap-6 text-[13.5px] text-white/65 md:flex">
-          <Link to="/" className="transition-colors hover:text-white">
-            Home
-          </Link>
-          <Link to="/pricing" className="transition-colors hover:text-white">
-            Pricing
-          </Link>
+        <SiteNav />
+        <div className="flex items-center gap-3">
           <button
             type="button"
             onClick={() => openWaitlist("page-nav")}
-            className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-[13px] font-semibold text-ink-950 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_36px_-12px_rgba(13,153,255,0.55)]"
+            className="hidden items-center gap-2 rounded-full bg-white px-4 py-2 text-[13px] font-semibold text-ink-950 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_36px_-12px_rgba(13,153,255,0.55)] sm:inline-flex"
           >
             Join the waitlist
           </button>
-        </nav>
-        <MobileMenu items={NAV_ITEMS} />
+          <MobileMenu items={SITE_NAV} />
+        </div>
       </header>
 
       {children}

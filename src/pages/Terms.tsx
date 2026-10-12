@@ -48,7 +48,7 @@ export default function Terms() {
         </li>
         <li>
           <strong>Not a free-text generator.</strong> Outbound to claimants is
-          template-only and routed through the L5 Policy Gate before delivery.
+          template-only and routed through the Policy Gate before delivery.
         </li>
         <li>
           <strong>Not a payment gateway.</strong> We integrate with payment

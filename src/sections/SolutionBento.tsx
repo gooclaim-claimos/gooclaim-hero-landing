@@ -16,7 +16,7 @@ const PILLARS: Pillar[] = [
   {
     num: "01",
     title: "Any data source",
-    subtitle: "Truth Layer · L2",
+    subtitle: "Truth Layer",
     layer: "REST · SOAP · SFTP · Webhook",
     gooclaim:
       "Per-tenant encrypted credentials, circuit-broken, audit on every call.",
@@ -26,7 +26,7 @@ const PILLARS: Pillar[] = [
   {
     num: "02",
     title: "Any knowledge layer",
-    subtitle: "Sources · L3",
+    subtitle: "Knowledge Layer",
     layer: "50+ connectors built-in",
     gooclaim:
       "Notion, Drive, SharePoint, SQL, S3, Slack, Confluence, past cases, policy PDFs.",
@@ -36,7 +36,7 @@ const PILLARS: Pillar[] = [
   {
     num: "03",
     title: "Any channel",
-    subtitle: "L0 + L5",
+    subtitle: "Channel Gateway + Outbound",
     layer: "WhatsApp · Voice · SMS · Web · IVR",
     gooclaim:
       "Same conversation thread across channels. Hand-off without losing context.",
@@ -46,27 +46,27 @@ const PILLARS: Pillar[] = [
   {
     num: "04",
     title: "Any workflow",
-    subtitle: "L1 + registry.yml",
-    layer: "Versioned, hot-swappable",
+    subtitle: "Workflow Engine",
+    layer: "Versioned, per tenant",
     gooclaim:
-      "Versioned config per tenant — custom flows ship as YAML, not as a new build.",
+      "Every workflow is declared once, versioned, and switched on per tenant from the Console — not rebuilt for each TPA.",
     others: "Fixed product flows. Custom = new build.",
     hue: "#10b981",
   },
   {
     num: "05",
     title: "Any interaction",
-    subtitle: "L0 + Voice agents",
+    subtitle: "Channel Gateway + Voice agents",
     layer: "Text + Voice + Hybrid",
     gooclaim:
-      "Bilingual by default — Hindi · English · Hinglish + regional. Same agent talks AND types.",
+      "Bilingual by default — Hindi · English · Hinglish. Same agent talks AND types.",
     others: "Text-only chatbot — or voice-only IVR.",
     hue: "#f59e0b",
   },
 ];
 
 const PROOF_CHIPS = [
-  { label: "Every output L6-gated", hue: "#10b981" },
+  { label: "Every output through the Policy Gate", hue: "#10b981" },
   { label: "Templates only — no free text", hue: "#0d99ff" },
   { label: "Immutable audit ledger · 7-yr", hue: "#f59e0b" },
   { label: "Multi-vertical by design", hue: "#7c3aed" },
@@ -110,11 +110,11 @@ function GooclaimLogo({ size = 88 }: { size?: number }) {
   );
 }
 
-export default function SolutionBento() {
+export default function SolutionBento({ eyebrow = "03 · Solution" }: { eyebrow?: string } = {}) {
   return (
     <SectionShell
       id="solution"
-      eyebrow="03 · Solution"
+      eyebrow={eyebrow}
       title={
         <>
           An OS.{" "}
@@ -169,7 +169,7 @@ export default function SolutionBento() {
               <div className="font-display text-[24px] font-semibold tracking-tightest text-white sm:text-[28px]">
                 Gooclaim <span className="text-white/55">OS</span>
               </div>
-              <div className="mt-1 font-mono text-[10.5px] uppercase tracking-wider2 text-white/45">
+              <div className="mt-1 font-display text-[10.5px] uppercase tracking-wider2 text-white/45">
                 v1.0 · multi-agent core
               </div>
             </div>
@@ -256,26 +256,26 @@ export default function SolutionBento() {
               <div>
                 <div className="flex items-baseline justify-between gap-3">
                   <span
-                    className="font-mono text-[11px] uppercase tracking-wider2"
+                    className="font-display text-[11px] uppercase tracking-wider2"
                     style={{ color: p.hue }}
                   >
                     Pillar {p.num}
                   </span>
-                  <span className="font-mono text-[10px] uppercase tracking-wider text-white/35">
+                  <span className="font-display text-[10px] uppercase tracking-wider text-white/35">
                     {p.subtitle}
                   </span>
                 </div>
                 <h3 className="mt-3 font-display text-[24px] font-semibold leading-[1.1] tracking-tighter text-white sm:text-[28px]">
                   {p.title}
                 </h3>
-                <div className="mt-2.5 font-mono text-[11.5px] tracking-tight text-white/55">
+                <div className="mt-2.5 font-display text-[11.5px] tracking-tight text-white/55">
                   {p.layer}
                 </div>
               </div>
 
               {/* Gooclaim does (positive) */}
               <div className="rounded-lg border border-white/8 bg-white/[0.02] p-3.5">
-                <div className="mb-1.5 flex items-center gap-1.5 font-mono text-[9.5px] uppercase tracking-wider2" style={{ color: p.hue }}>
+                <div className="mb-1.5 flex items-center gap-1.5 font-display text-[9.5px] uppercase tracking-wider2" style={{ color: p.hue }}>
                   <CheckGlyph color={p.hue} /> Gooclaim
                 </div>
                 <p className="text-[13px] leading-relaxed text-white/75 sm:text-[13.5px]">

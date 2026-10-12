@@ -38,11 +38,11 @@ const MODULES = [
   { name: "Outbound Engine", line: "Templates-only on every channel." },
 ];
 
-export default function OneCoreIntegrations() {
+export default function OneCoreIntegrations({ eyebrow = "01 · One core" }: { eyebrow?: string } = {}) {
   return (
     <SectionShell
       id="platform"
-      eyebrow="01 · One core"
+      eyebrow={eyebrow}
       title={
         <>
           One agentic core.{" "}
@@ -78,7 +78,7 @@ export default function OneCoreIntegrations() {
               style={{ background: `${c.hue}33` }}
             />
             <div className="relative z-10 flex items-baseline justify-between gap-2">
-              <div className="font-mono text-[10.5px] uppercase tracking-wider2 text-white/50">
+              <div className="font-display text-[10.5px] uppercase tracking-wider2 text-white/50">
                 {c.label}
               </div>
               <div
@@ -101,7 +101,7 @@ export default function OneCoreIntegrations() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={viewportOnce}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="mt-6 flex items-center justify-center gap-2 text-center font-mono text-[10.5px] uppercase tracking-wider2 text-white/40"
+        className="mt-6 flex items-center justify-center gap-2 text-center font-display text-[10.5px] uppercase tracking-wider2 text-white/40"
       >
         <span className="h-px w-12 bg-white/20" />
         and 50+ more sources via Connector Hub
@@ -112,7 +112,7 @@ export default function OneCoreIntegrations() {
       <div className="mt-16 sm:mt-20">
         <div className="mb-6 flex items-center gap-3">
           <span className="h-px flex-1 bg-white/8" />
-          <div className="font-mono text-[10.5px] uppercase tracking-wider2 text-white/45">
+          <div className="font-display text-[10.5px] uppercase tracking-wider2 text-white/45">
             inside the OS
           </div>
           <span className="h-px flex-1 bg-white/8" />

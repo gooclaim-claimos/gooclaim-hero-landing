@@ -101,7 +101,7 @@ function IconNode({
               decoding="async"
               className="relative h-[60%] w-[60%] object-contain"
             />
-            <div className="pointer-events-none absolute left-1/2 top-full z-30 mt-2 -translate-x-1/2 whitespace-nowrap rounded-md border border-white/15 bg-ink-950/90 px-2 py-1 font-mono text-[10px] uppercase tracking-wider text-white opacity-0 shadow-lg backdrop-blur transition-opacity duration-200 group-hover:opacity-100">
+            <div className="pointer-events-none absolute left-1/2 top-full z-30 mt-2 -translate-x-1/2 whitespace-nowrap rounded-md border border-white/15 bg-ink-950/90 px-2 py-1 font-display text-[10px] uppercase tracking-wider text-white opacity-0 shadow-lg backdrop-blur transition-opacity duration-200 group-hover:opacity-100">
               {c.name}
             </div>
           </div>

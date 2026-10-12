@@ -66,7 +66,7 @@ const lerpRange = (v: number, a: number, b: number) =>
   v <= a ? 0 : v >= b ? 1 : (v - a) / (b - a);
 const easeOutCubic = (x: number) => 1 - Math.pow(1 - x, 3);
 
-export default function CoverageBloom() {
+export default function CoverageBloom({ eyebrow = "08 · Coverage" }: { eyebrow?: string } = {}) {
   const stageRef = useRef<HTMLDivElement | null>(null);
   const [p, setP] = useState(0);
   const [visible, setVisible] = useState(false);
@@ -130,7 +130,7 @@ export default function CoverageBloom() {
   return (
     <SectionShell
       id="coverage"
-      eyebrow="05 · Coverage"
+      eyebrow={eyebrow}
       title={
         <>
           Coverage <span className="text-white/55">is a circle.</span>
@@ -181,7 +181,7 @@ export default function CoverageBloom() {
                       </span>
                     </div>
                     <span
-                      className="font-mono text-[10.5px] uppercase tracking-wider2 transition-colors duration-300"
+                      className="font-display text-[10.5px] uppercase tracking-wider2 transition-colors duration-300"
                       style={{
                         color: active ? r.hue : "rgba(255,255,255,0.45)",
                       }}
@@ -385,7 +385,7 @@ export default function CoverageBloom() {
                   }}
                 >
                   <div className="flex items-center gap-1.5 whitespace-nowrap text-[10.5px] sm:text-[11px]">
-                    <span className="font-mono text-[9px] uppercase tracking-wider text-white/40">
+                    <span className="font-display text-[9px] uppercase tracking-wider text-white/40">
                       0{i + 1}
                     </span>
                     <span className="font-medium">{cap.name}</span>
@@ -396,7 +396,7 @@ export default function CoverageBloom() {
             </div>
 
             {/* Progress timeline at the bottom */}
-            <div className="absolute -bottom-4 left-4 right-4 flex items-center gap-3 font-mono text-[10px] uppercase tracking-wider2 text-white/45 sm:left-0 sm:right-0">
+            <div className="absolute -bottom-4 left-4 right-4 flex items-center gap-3 font-display text-[10px] uppercase tracking-wider2 text-white/45 sm:left-0 sm:right-0">
               <span>T = {Math.round(p * 100)}%</span>
               <span className="relative h-[3px] flex-1 overflow-hidden rounded-full bg-white/8">
                 <span
@@ -430,7 +430,7 @@ export default function CoverageBloom() {
                   }}
                 >
                   <span
-                    className="font-mono text-[10.5px] uppercase tracking-wider2"
+                    className="font-display text-[10.5px] uppercase tracking-wider2"
                     style={{ color: ring ? ring.hue : "rgba(255,255,255,0.4)" }}
                   >
                     0{i + 1}
