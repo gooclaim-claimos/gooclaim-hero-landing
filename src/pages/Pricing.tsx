@@ -83,7 +83,7 @@ export default function Pricing() {
       />
       <section className="relative z-10 mx-auto w-full max-w-[1280px] px-5 pb-16 pt-10 sm:px-10 sm:pb-28 sm:pt-20 lg:px-14">
         {/* Hero */}
-        <div className="mb-3 font-mono text-[11px] uppercase tracking-wider2 text-white/45">
+        <div className="mb-3 font-display text-[11px] uppercase tracking-wider2 text-white/45">
           Pricing
         </div>
         <h1 className="max-w-3xl text-balance font-display text-[34px] font-semibold leading-[1.05] tracking-tightest text-white sm:text-[52px] sm:leading-[1.02] lg:text-[72px]">
@@ -151,7 +151,7 @@ export default function Pricing() {
                 {/* Header */}
                 <div className="flex items-center justify-between gap-3">
                   <span
-                    className="font-mono text-[11px] uppercase tracking-wider2"
+                    className="font-display text-[11px] uppercase tracking-wider2"
                     style={{ color: m.hue }}
                   >
                     {m.badge}
@@ -169,7 +169,7 @@ export default function Pricing() {
                   >
                     Custom
                   </span>
-                  <span className="font-mono text-[10.5px] uppercase tracking-wider2 text-white/40">
+                  <span className="font-display text-[10.5px] uppercase tracking-wider2 text-white/40">
                     quote on request
                   </span>
                 </div>
@@ -180,7 +180,7 @@ export default function Pricing() {
 
                 {/* Includes */}
                 <div className="mt-7">
-                  <div className="mb-3 font-mono text-[10.5px] uppercase tracking-wider2 text-white/40">
+                  <div className="mb-3 font-display text-[10.5px] uppercase tracking-wider2 text-white/40">
                     What&rsquo;s included
                   </div>
                   <ul className="space-y-2">
@@ -205,7 +205,7 @@ export default function Pricing() {
                   }}
                 >
                   <div
-                    className="font-mono text-[10px] uppercase tracking-wider2"
+                    className="font-display text-[10px] uppercase tracking-wider2"
                     style={{ color: m.hue }}
                   >
                     Best fit
@@ -239,7 +239,7 @@ export default function Pricing() {
           className="mt-16 grid items-start gap-8 lg:grid-cols-[1fr_1fr] lg:gap-14"
         >
           <div>
-            <div className="font-mono text-[10.5px] uppercase tracking-wider2 text-white/45">
+            <div className="font-display text-[10.5px] uppercase tracking-wider2 text-white/45">
               Why no price card?
             </div>
             <h2 className="mt-3 font-display text-[26px] font-semibold leading-[1.15] tracking-tighter text-white sm:text-[32px]">
@@ -250,7 +250,7 @@ export default function Pricing() {
           <ul className="space-y-3 text-[14.5px] leading-relaxed text-white/65">
             {[
               "Per-tenant pricing — TPAs and insurers don't share economics, and pricing shouldn't pretend they do.",
-              "Verticals matter — Health, Life, Motor and Crop each have different volume, SLA and audit profiles.",
+              "Verticals matter — Health, Life and Motor each have different volume, SLA and audit profiles.",
               "Channels matter — voice agent + WhatsApp + email is a different cost profile than WhatsApp-only.",
               "Compliance scope matters — IRDAI ombudsman exports, custom DPO reviews and security posture add real engineering.",
             ].map((line) => (

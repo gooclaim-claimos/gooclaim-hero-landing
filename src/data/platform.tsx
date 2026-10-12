@@ -49,7 +49,7 @@ export const MODULES: ModuleData[] = [
       },
       {
         title: "Voice agents",
-        body: "Inbound and outbound voice, in your customer&rsquo;s language — handled by the same agent mesh that handles text.",
+        body: "Inbound and outbound voice, in your customer’s language — handled by the same agent mesh that handles text.",
         hue: "#0d99ff",
       },
       {
@@ -138,12 +138,12 @@ export const MODULES: ModuleData[] = [
       },
       {
         title: "Escalation paths",
-        body: "When the platform can&rsquo;t resolve autonomously, it hands off to a human operator with full context.",
+        body: "When the platform can’t resolve autonomously, it hands off to a human operator with full context.",
         hue: "#7c3aed",
       },
       {
         title: "Retry + backoff",
-        body: "Transient failures don&rsquo;t become customer-visible — the engine retries with intelligent backoff.",
+        body: "Transient failures don’t become customer-visible — the engine retries with intelligent backoff.",
         hue: "#0d99ff",
       },
     ],
@@ -197,7 +197,7 @@ export const MODULES: ModuleData[] = [
       },
       {
         title: "Per-tenant encrypted credentials",
-        body: "Every tenant&rsquo;s CMS access lives in an isolated, encrypted vault — never shared, never exposed.",
+        body: "Every tenant’s CMS access lives in an isolated, encrypted vault — never shared, never exposed.",
         hue: "#7c3aed",
       },
       {
@@ -207,7 +207,7 @@ export const MODULES: ModuleData[] = [
       },
       {
         title: "Per-tenant safety net",
-        body: "Outages, rate limits and partner incidents are contained inside one tenant — they don&rsquo;t cascade across the platform.",
+        body: "Outages, rate limits and partner incidents are contained inside one tenant — they don’t cascade across the platform.",
         hue: "#f59e0b",
       },
       {
@@ -232,7 +232,7 @@ export const MODULES: ModuleData[] = [
       },
       {
         title: "Partner outage isolation",
-        body: "A single tenant&rsquo;s CMS hiccup never takes down the platform.",
+        body: "A single tenant’s CMS hiccup never takes down the platform.",
       },
     ],
     trustChips: [
@@ -281,7 +281,7 @@ export const MODULES: ModuleData[] = [
       },
       {
         title: "Per-tenant isolation",
-        body: "Each tenant&rsquo;s knowledge is strictly walled off — never cross-pollinated, never visible to another.",
+        body: "Each tenant’s knowledge is strictly walled off — never cross-pollinated, never visible to another.",
         hue: "#f59e0b",
       },
       {
@@ -439,7 +439,7 @@ export const MODULES: ModuleData[] = [
       },
       {
         title: "Per-tenant isolated",
-        body: "One tenant&rsquo;s history is never visible to another, even to Gooclaim engineers under normal operations.",
+        body: "One tenant’s history is never visible to another, even to Gooclaim engineers under normal operations.",
         hue: "#0d99ff",
       },
     ],

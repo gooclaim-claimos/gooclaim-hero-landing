@@ -37,8 +37,9 @@ export default function Compliance() {
           admission approval and 3-hour discharge mandate.
         </li>
         <li>
-          <strong>IRDAI PPHI Circular (Sept 2024)</strong> — daily penalty
-          framework (Bank Rate + 2%) for delayed cashless and discharge.
+          <strong>IRDAI PPHI Master Circular (2024)</strong> — 15 days to
+          settle a reimbursement, and interest at bank rate + 2% a year from
+          the day of intimation when a claim is settled late.
         </li>
         <li>
           <strong>IRDAI Internal Ombudsman Guidelines 2025</strong> —

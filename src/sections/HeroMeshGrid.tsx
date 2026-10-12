@@ -6,14 +6,9 @@ import ComplianceBadge from "@/components/ComplianceBadge";
 import CTA from "@/components/CTA";
 import MobileMenu from "@/components/MobileMenu";
 import { openWaitlist } from "@/lib/waitlist";
+import { Link } from "react-router-dom";
+import SiteNav, { SITE_NAV } from "@/components/SiteNav";
 
-const HERO_NAV_ITEMS = [
-  { label: "Home", to: "/" },
-  { label: "Pricing", to: "/pricing" },
-  { label: "Use cases — TPAs", to: "/use-cases/tpas" },
-  { label: "Use cases — Insurers", to: "/use-cases/insurers" },
-  { label: "Compliance", to: "/compliance" },
-];
 
 const MUX_PLAYBACK =
   "https://stream.mux.com/Aa02T7oM1wH5Mk5EEVDYhbZ1ChcdhRsS2m1NYyx4Ua1g.m3u8";
@@ -131,25 +126,46 @@ export default function HeroMeshGrid() {
     if (!video) return;
 
     let cancelled = false;
+    let hls: { destroy: () => void } | null = null;
+    // Shown only once frames are actually playing — never a blank box.
+    const onPlaying = () => {
+      if (!cancelled) setVideoReady(true);
+    };
+    video.addEventListener("playing", onPlaying);
+    // React sets `muted` as a property only; iOS Safari wants the attribute
+    // before it will autoplay inline.
+    video.muted = true;
+    video.setAttribute("muted", "");
+    // A tab opened in the background cannot autoplay; start when it is seen.
+    const onVisible = () => {
+      if (document.visibilityState === "visible" && video.paused && video.readyState > 0) {
+        video.play().catch(() => undefined);
+      }
+    };
+    document.addEventListener("visibilitychange", onVisible);
+
     const load = async () => {
       try {
-        if (video.canPlayType("application/vnd.apple.mpegurl")) {
-          video.src = MUX_PLAYBACK;
-          await video.play().catch(() => undefined);
-          if (!cancelled) setVideoReady(true);
-          return;
-        }
+        // hls.js FIRST, native HLS only as the fallback (hls.js's own guidance).
+        // `canPlayType` is not a promise to play: Chrome 152 answers "maybe"
+        // for HLS and then fails the source (MEDIA_ERR_SRC_NOT_SUPPORTED), so
+        // checking it first left the hero video dead in Chrome.
         const { default: Hls } = await import("hls.js");
         if (cancelled) return;
         if (Hls.isSupported()) {
-          const hls = new Hls({ maxBufferLength: 12 });
-          hls.loadSource(MUX_PLAYBACK);
-          hls.attachMedia(video);
-          hls.on(Hls.Events.MANIFEST_PARSED, () => {
-            video.play().then(() => {
-              if (!cancelled) setVideoReady(true);
-            }).catch(() => undefined);
+          const player = new Hls({ maxBufferLength: 12, capLevelToPlayerSize: true });
+          hls = player;
+          player.loadSource(MUX_PLAYBACK);
+          player.attachMedia(video);
+          player.on(Hls.Events.MANIFEST_PARSED, () => {
+            video.play().catch(() => undefined);
           });
+          return;
+        }
+        // No MediaSource (older iPhones): Safari plays HLS natively.
+        if (video.canPlayType("application/vnd.apple.mpegurl")) {
+          video.src = MUX_PLAYBACK;
+          await video.play().catch(() => undefined);
         }
       } catch {
         /* ignore — canvas fallback already running */
@@ -160,6 +176,9 @@ export default function HeroMeshGrid() {
     return () => {
       cancelled = true;
       window.clearTimeout(id);
+      video.removeEventListener("playing", onPlaying);
+      document.removeEventListener("visibilitychange", onVisible);
+      hls?.destroy();
     };
   }, []);
 
@@ -248,7 +267,10 @@ export default function HeroMeshGrid() {
 
       {/* Top nav */}
       <header className="relative z-20 mx-auto flex w-full max-w-[1280px] items-center justify-between px-5 py-5 sm:px-10 sm:py-6 lg:px-14">
-        <Wordmark size={22} />
+        <Link to="/" aria-label="Gooclaim OS home">
+          <Wordmark size={22} />
+        </Link>
+        <SiteNav />
         <div className="flex items-center gap-3">
           <CTA
             variant="ghost"
@@ -257,7 +279,7 @@ export default function HeroMeshGrid() {
           >
             Join the waitlist
           </CTA>
-          <MobileMenu items={HERO_NAV_ITEMS} />
+          <MobileMenu items={SITE_NAV} />
         </div>
       </header>
 
@@ -268,13 +290,15 @@ export default function HeroMeshGrid() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="mb-5 inline-flex max-w-full items-center gap-2 rounded-full px-3 py-1.5 text-center text-[10px] font-mono uppercase tracking-wider text-white/60 glass sm:mb-6 sm:px-3.5 sm:text-[11.5px] sm:tracking-wider2"
+            className="mb-6 inline-flex max-w-full flex-wrap items-center justify-center gap-x-2.5 gap-y-1 rounded-full px-4 py-2 text-center font-display text-[13px] tracking-tight glass sm:mb-7 sm:text-[15px]"
           >
             <span className="relative inline-flex h-1.5 w-1.5">
               <span className="absolute inset-0 rounded-full bg-accent-cyan opacity-70 blur-[2px] animate-pulse-soft" />
               <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent-cyan" />
             </span>
-            The operating system for India&rsquo;s claims industry
+            <span className="font-medium text-white/90">Gooclaim OS is a Claim OS</span>
+            <span aria-hidden className="h-3.5 w-px bg-white/20" />
+            <span className="text-white/50">for TPAs &amp; insurers</span>
           </motion.div>
 
           <motion.h1
@@ -320,7 +344,7 @@ export default function HeroMeshGrid() {
           data-hero-fade
           className="mt-12 flex flex-wrap items-center justify-center gap-2 sm:mt-20 sm:gap-3"
         >
-          <ComplianceBadge label="IRDAI 3-hour TAT" hue="#0d99ff" delay={0.45} />
+          <ComplianceBadge label="IRDAI clocks · 1 h · 3 h · 15 days" hue="#0d99ff" delay={0.45} />
           <ComplianceBadge
             label="DPDP consent gate"
             hue="#10b981"
@@ -336,7 +360,7 @@ export default function HeroMeshGrid() {
         {/* Scroll cue */}
         <div
           data-hero-fade
-          className="absolute bottom-7 left-1/2 -translate-x-1/2 font-mono text-[10.5px] uppercase tracking-wider2 text-white/35"
+          className="absolute bottom-7 left-1/2 -translate-x-1/2 font-display text-[10.5px] uppercase tracking-wider2 text-white/35"
         >
           <span className="inline-flex items-center gap-2">
             scroll <span className="h-px w-9 bg-white/25" />

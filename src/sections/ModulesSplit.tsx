@@ -4,18 +4,74 @@ import SectionShell from "@/components/SectionShell";
 import { fadeUp, stagger, viewportOnce } from "@/lib/motion";
 
 interface Module {
-  code: string;
+  key: string;
+  tag: string;
   name: string;
   line: string;
   body: string;
   capabilities: string[];
   solves: string;
   hue: string;
+  Icon: () => JSX.Element;
+}
+
+const ico = "h-[16px] w-[16px]";
+function IconChannel() {
+  return (
+    <svg viewBox="0 0 24 24" className={ico} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z" />
+    </svg>
+  );
+}
+function IconEngine() {
+  return (
+    <svg viewBox="0 0 24 24" className={ico} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="6" cy="6" r="2.2" /><circle cx="18" cy="6" r="2.2" /><circle cx="12" cy="18" r="2.2" />
+      <path d="M8 7.2l2.8 8.6M16 7.2l-2.8 8.6M8.2 6h7.6" />
+    </svg>
+  );
+}
+function IconTruth() {
+  return (
+    <svg viewBox="0 0 24 24" className={ico} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <ellipse cx="12" cy="5.5" rx="7" ry="2.5" />
+      <path d="M5 5.5v13c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5v-13M5 12c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5" />
+    </svg>
+  );
+}
+function IconKnowledge() {
+  return (
+    <svg viewBox="0 0 24 24" className={ico} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z" /><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5" />
+    </svg>
+  );
+}
+function IconOutbound() {
+  return (
+    <svg viewBox="0 0 24 24" className={ico} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M22 2L11 13" /><path d="M22 2l-7 20-4-9-9-4z" />
+    </svg>
+  );
+}
+function IconGate() {
+  return (
+    <svg viewBox="0 0 24 24" className={ico} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z" /><path d="M9 12l2 2 4-4" />
+    </svg>
+  );
+}
+function IconObserve() {
+  return (
+    <svg viewBox="0 0 24 24" className={ico} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M3 3v18h18" /><path d="M7 15l4-4 3 3 6-7" />
+    </svg>
+  );
 }
 
 const MODULES: Module[] = [
   {
-    code: "L0",
+    key: "channel",
+    tag: "Channel layer",
     name: "Channel Gateway",
     line: "Every claimant message starts here.",
     body: "One inbound layer for every channel a customer actually uses — secure, tenant-scoped, ready out of the box.",
@@ -27,9 +83,11 @@ const MODULES: Module[] = [
     ],
     solves: "Channel fragmentation — customer on WhatsApp, agent on portal, no unified view.",
     hue: "#0d99ff",
+    Icon: IconChannel,
   },
   {
-    code: "L1",
+    key: "engine",
+    tag: "Workflow layer",
     name: "Workflow Engine",
     line: "Multi-agent claim reasoning.",
     body: "Decides what happens for every claim — which flow runs, when to escalate, how to retry. Built for the multi-day workflows insurance actually needs.",
@@ -41,9 +99,11 @@ const MODULES: Module[] = [
     ],
     solves: "Workflow chaos — every insurer wants custom logic, no platform supports it.",
     hue: "#7dc4ff",
+    Icon: IconEngine,
   },
   {
-    code: "L2",
+    key: "truth",
+    tag: "Truth layer",
     name: "Truth Layer",
     line: "Read your CMS, never write.",
     body: "Reads from any claims system — modern or legacy — without writing back. Safe by design, audited on every call.",
@@ -55,9 +115,11 @@ const MODULES: Module[] = [
     ],
     solves: "CMS lock-in — every TPA uses a different system; we connect to all.",
     hue: "#0d99ff",
+    Icon: IconTruth,
   },
   {
-    code: "L3",
+    key: "knowledge",
+    tag: "Knowledge layer",
     name: "Knowledge Layer",
     line: "Your policy library, AI-searchable.",
     body: "Connects to wherever your knowledge already lives — and makes all of it searchable in plain language.",
@@ -69,23 +131,27 @@ const MODULES: Module[] = [
     ],
     solves: "Knowledge silos — past cases, policy docs, FAQs scattered everywhere.",
     hue: "#7c3aed",
+    Icon: IconKnowledge,
   },
   {
-    code: "L4",
+    key: "outbound",
+    tag: "Outbound layer",
     name: "Outbound Engine",
     line: "WhatsApp · Voice · SMS — pre-approved.",
     body: "Sends only pre-approved messages on the channel your customer prefers. One template, every channel — rollback in a click.",
     capabilities: [
       "Channel-aware templates",
       "Built-in approval workflow",
-      "Multi-lingual — Hindi · English · Hinglish + regional",
+      "Multi-lingual — Hindi · English · Hinglish",
       "One-click rollback",
     ],
     solves: "Outbound chaos — wrong template, wrong language, wrong channel.",
     hue: "#f59e0b",
+    Icon: IconOutbound,
   },
   {
-    code: "L5",
+    key: "policy",
+    tag: "Policy layer",
     name: "Policy Gate",
     line: "Compliant by architecture.",
     body: "Every outbound passes a 4-tier safety check before it leaves the platform. Free text never reaches a customer.",
@@ -97,31 +163,34 @@ const MODULES: Module[] = [
     ],
     solves: "Compliance risk — one wrong message = IRDAI penalty + ombudsman case.",
     hue: "#10b981",
+    Icon: IconGate,
   },
   {
-    code: "L6",
+    key: "observability",
+    tag: "Observability layer",
     name: "Observability",
-    line: "Metrics · Traces · IRDAI exports.",
-    body: "Per-tenant dashboards, audit-ready logs, IRDAI export — and SLA tracking for the new 1 hr / 3 hr cashless mandate.",
+    line: "Clocks · Dashboards · IRDAI reports.",
+    body: "Every claim carries its IRDAI clock — 1 hour for pre-auth, 3 hours for discharge, 15 days to settle — with estimated interest when one runs out. Per-tenant performance dashboards, and the quarterly NL-48 TAT report built straight from the record.",
     capabilities: [
-      "Per-tenant dashboards",
+      "IRDAI clock on every claim",
+      "Per-tenant performance dashboards",
+      "NL-48 TAT report · CSV + filed copy",
       "End-to-end traceability",
-      "Audit-ready logs",
-      "IRDAI export · DPDP-compliant",
     ],
     solves: "Black box — when something breaks, no one knows why.",
     hue: "#7dc4ff",
+    Icon: IconObserve,
   },
 ];
 
-export default function ModulesSplit() {
+export default function ModulesSplit({ eyebrow = "04 · Modules" }: { eyebrow?: string } = {}) {
   const [active, setActive] = useState(0);
   const m = MODULES[active];
 
   return (
     <SectionShell
       id="modules"
-      eyebrow="04 · Modules"
+      eyebrow={eyebrow}
       title={
         <>
           Seven layers. <span className="text-white/55">One OS.</span>
@@ -161,7 +230,7 @@ export default function ModulesSplit() {
 
           <ul className="relative space-y-0.5">
             {MODULES.map((mod, i) => (
-              <motion.li key={mod.code} variants={fadeUp}>
+              <motion.li key={mod.key} variants={fadeUp}>
                 <button
                   type="button"
                   onClick={() => setActive(i)}
@@ -174,7 +243,7 @@ export default function ModulesSplit() {
                 >
                   {/* Code badge */}
                   <span
-                    className={`relative z-10 inline-flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-lg font-mono text-[11px] font-semibold transition-all duration-300 ${
+                    className={`relative z-10 inline-flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-lg font-display text-[11px] font-semibold transition-all duration-300 ${
                       active === i ? "text-white" : "text-white/55"
                     }`}
                     style={{
@@ -190,7 +259,7 @@ export default function ModulesSplit() {
                         active === i ? `0 0 18px ${mod.hue}55` : "none",
                     }}
                   >
-                    {mod.code}
+                    <mod.Icon />
                   </span>
                   <div className="flex-1 min-w-0">
                     <div
@@ -233,7 +302,7 @@ export default function ModulesSplit() {
                 {active === i && (
                   <div className="mt-3 mb-2 px-1 lg:hidden">
                     <AnimatePresence mode="wait">
-                      <DetailCard key={mod.code} m={mod} />
+                      <DetailCard key={mod.key} m={mod} />
                     </AnimatePresence>
                   </div>
                 )}
@@ -246,7 +315,7 @@ export default function ModulesSplit() {
         <div className="relative hidden lg:block">
           <div className="lg:sticky lg:top-24">
             <AnimatePresence mode="wait">
-              <DetailCard key={m.code} m={m} />
+              <DetailCard key={m.key} m={m} />
             </AnimatePresence>
           </div>
         </div>
@@ -258,7 +327,7 @@ export default function ModulesSplit() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={viewportOnce}
         transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-        className="relative mt-12 overflow-hidden rounded-3xl border border-amber-500/15 p-8 sm:p-10 lg:p-12"
+        className="relative mt-12 overflow-clip rounded-3xl border border-amber-500/15 p-8 sm:p-10 lg:p-12"
         style={{
           background:
             "linear-gradient(135deg, rgba(245,158,11,0.08) 0%, rgba(13,153,255,0.04) 60%, rgba(7,10,18,0.4) 100%)",
@@ -273,7 +342,7 @@ export default function ModulesSplit() {
         <div className="relative z-10 grid items-center gap-8 lg:grid-cols-[1.05fr_1fr] lg:gap-14">
           {/* Left: copy */}
           <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 font-mono text-[10.5px] uppercase tracking-wider2 text-amber-400">
+            <div className="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 font-display text-[10.5px] uppercase tracking-wider2 text-amber-400">
               <Lock /> Beside the 7 layers
             </div>
             <h3 className="mt-5 font-display text-[34px] font-semibold leading-[1] tracking-tightest text-white sm:text-[46px]">
@@ -331,34 +400,34 @@ export default function ModulesSplit() {
                   zIndex: 4,
                 }}
               >
-                <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-wider2">
-                  <span className="text-amber-400">audit_event</span>
-                  <span className="text-white/40">#0x9f3a…b842</span>
+                <div className="flex items-center justify-between font-display text-[10px] uppercase tracking-wider2">
+                  <span className="text-amber-400">Audit record</span>
+                  <span className="text-white/40">#9f3a…b842</span>
                 </div>
-                <div className="mt-3 space-y-1.5 font-mono text-[11.5px] text-white/70">
+                <div className="mt-3 space-y-1.5 font-display text-[11.5px] text-white/70">
                   <div>
-                    <span className="text-white/40">type</span>{" "}
-                    <span className="text-accent-cyan">CLAIM_STATUS_FETCHED</span>
+                    <span className="text-white/40">event</span>{" "}
+                    <span className="text-accent-cyan">Claim status shared with member</span>
                   </div>
                   <div>
-                    <span className="text-white/40">tenant</span>{" "}
-                    <span>4f9d2a1c-8b73-4e6f-9a02-1c5e7d8b3a91</span>
+                    <span className="text-white/40">customer</span>{" "}
+                    <span>Sample TPA</span>
                   </div>
                   <div>
-                    <span className="text-white/40">claim_id</span>{" "}
-                    <span>sha256:8c4f…e21a</span>
+                    <span className="text-white/40">claim</span>{" "}
+                    <span>hashed · 8c4f…e21a</span>
                   </div>
                   <div>
-                    <span className="text-white/40">layer</span>{" "}
-                    <span className="text-accent-cyan">truth-layer</span>
+                    <span className="text-white/40">source</span>{" "}
+                    <span className="text-accent-cyan">Your claims system</span>
                   </div>
                   <div>
-                    <span className="text-white/40">ts</span>{" "}
-                    <span>2026-06-07T14:22:08.142Z</span>
+                    <span className="text-white/40">time</span>{" "}
+                    <span>14 Oct 2026 · 14:22:08 IST</span>
                   </div>
                 </div>
-                <div className="mt-4 flex items-center gap-2 border-t border-white/8 pt-3 font-mono text-[10px] uppercase tracking-wider2 text-amber-400/85">
-                  <Lock /> sealed · prev_hash 7c1f…
+                <div className="mt-4 flex items-center gap-2 border-t border-white/8 pt-3 font-display text-[10px] uppercase tracking-wider2 text-amber-400/85">
+                  <Lock /> sealed · chained to previous record
                 </div>
               </div>
             </div>
@@ -392,7 +461,7 @@ function DetailCard({ m }: { m: Module }) {
       <div className="relative z-10">
         <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
           <span
-            className="inline-flex h-8 items-center rounded-lg px-2.5 font-mono text-[11px] font-semibold tracking-wider2 sm:h-9 sm:px-3 sm:text-[12px]"
+            className="inline-flex h-8 items-center rounded-lg px-2.5 font-display text-[11px] font-semibold tracking-wider2 sm:h-9 sm:px-3 sm:text-[12px]"
             style={{
               background: `${m.hue}22`,
               color: m.hue,
@@ -400,9 +469,9 @@ function DetailCard({ m }: { m: Module }) {
               boxShadow: `0 0 22px ${m.hue}44`,
             }}
           >
-            Layer {m.code}
+            {m.tag}
           </span>
-          <span className="font-mono text-[10px] uppercase tracking-wider text-white/40 sm:text-[10.5px] sm:tracking-wider2">
+          <span className="font-display text-[10px] uppercase tracking-wider text-white/40 sm:text-[10.5px] sm:tracking-wider2">
             multi-tenant · audit-instrumented
           </span>
         </div>
@@ -443,7 +512,7 @@ function DetailCard({ m }: { m: Module }) {
           }}
         >
           <div
-            className="font-mono text-[10px] uppercase tracking-wider text-white sm:text-[10.5px] sm:tracking-wider2"
+            className="font-display text-[10px] uppercase tracking-wider text-white sm:text-[10.5px] sm:tracking-wider2"
             style={{ color: m.hue }}
           >
             Solves

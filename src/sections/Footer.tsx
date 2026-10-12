@@ -6,8 +6,10 @@ import { openWaitlist } from "@/lib/waitlist";
 
 const COLUMNS = [
   {
-    title: "Platform",
+    title: "Product",
     links: [
+      "Platform overview",
+      "Orion",
       "Channel Gateway",
       "Workflow Engine",
       "Truth Layer",
@@ -22,7 +24,7 @@ const COLUMNS = [
   },
   {
     title: "Resources",
-    links: ["Compliance", "Pricing"],
+    links: ["Security", "Compliance", "Pricing"],
   },
   {
     title: "Contact",
@@ -36,6 +38,9 @@ const COLUMNS = [
 ];
 
 const LINK_ROUTES: Record<string, string> = {
+  "Platform overview": "/platform",
+  Orion: "/orion",
+  Security: "/security",
   Compliance: "/compliance",
   Privacy: "/privacy",
   Terms: "/terms",
@@ -64,7 +69,7 @@ const LINK_EXTERNAL: Record<string, string> = {
 };
 
 const BADGES = [
-  { label: "IRDAI 3-hour TAT", hue: "#0d99ff" },
+  { label: "IRDAI clocks · 1 h · 3 h · 15 days", hue: "#0d99ff" },
   { label: "DPDP consent gate", hue: "#10b981" },
   { label: "Immutable audit ledger · SHA-256", hue: "#f59e0b" },
 ];
@@ -145,7 +150,7 @@ export default function Footer() {
                 </svg>
               </a>
             </div>
-            <div className="mt-5 font-mono text-[11px] uppercase tracking-wider2 text-white/45">
+            <div className="mt-5 font-display text-[11px] uppercase tracking-wider2 text-white/45">
               Bengaluru · India
             </div>
           </motion.div>
@@ -153,7 +158,7 @@ export default function Footer() {
           {/* Link columns */}
           {COLUMNS.map((col) => (
             <motion.div key={col.title} variants={fadeUp}>
-              <div className="mb-4 font-mono text-[11px] uppercase tracking-wider2 text-white/45">
+              <div className="mb-4 font-display text-[11px] uppercase tracking-wider2 text-white/45">
                 {col.title}
               </div>
               <ul className="flex flex-col gap-2.5">

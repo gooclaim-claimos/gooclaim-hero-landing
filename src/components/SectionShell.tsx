@@ -33,7 +33,7 @@ export default function SectionShell({
         {(eyebrow || title || intro) && (
           <header className="mb-14 max-w-3xl sm:mb-18 lg:mb-20">
             {eyebrow && (
-              <div className="mb-5 font-mono text-[11px] uppercase tracking-wider2 text-white/45">
+              <div className="mb-5 font-display text-[11px] uppercase tracking-wider2 text-white/45">
                 {eyebrow}
               </div>
             )}

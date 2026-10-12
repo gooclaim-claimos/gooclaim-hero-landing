@@ -22,7 +22,6 @@ export default {
       fontFamily: {
         display: ["'Inter Tight'", "system-ui", "sans-serif"],
         sans: ["'Inter'", "system-ui", "sans-serif"],
-        mono: ["'JetBrains Mono'", "ui-monospace", "monospace"],
       },
       letterSpacing: {
         tightest: "-0.04em",

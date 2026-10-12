@@ -67,7 +67,7 @@ export default function Demo() {
         {/* Hero */}
         <div className="grid items-center gap-10 lg:grid-cols-[1.25fr_1fr] lg:gap-16">
           <div>
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider2 text-white/60 glass">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full px-3 py-1.5 font-display text-[11px] uppercase tracking-wider2 text-white/60 glass">
               <span className="relative inline-flex h-1.5 w-1.5">
                 <span className="absolute inset-0 rounded-full bg-accent-cyan opacity-70 blur-[2px] animate-pulse-soft" />
                 <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent-cyan" />
@@ -104,7 +104,7 @@ export default function Demo() {
             {/* Trust strip */}
             <div className="mt-10 flex flex-wrap items-center gap-2.5 sm:gap-3">
               {[
-                "IRDAI 3-hour TAT",
+                "IRDAI clocks · 1 h · 3 h · 15 days",
                 "DPDP consent gate",
                 "Audit ledger · SHA-256",
               ].map((b) => (
@@ -139,10 +139,10 @@ export default function Demo() {
             />
             <div className="relative z-10">
               <div className="flex items-center justify-between">
-                <span className="font-mono text-[10.5px] uppercase tracking-wider2 text-accent-cyan">
+                <span className="font-display text-[10.5px] uppercase tracking-wider2 text-accent-cyan">
                   Live demo · what you&rsquo;ll see
                 </span>
-                <span className="font-mono text-[10px] uppercase tracking-wider2 text-white/40">
+                <span className="font-display text-[10px] uppercase tracking-wider2 text-white/40">
                   ~30 min
                 </span>
               </div>
@@ -175,7 +175,7 @@ export default function Demo() {
                         boxShadow: "0 0 10px rgba(125,196,255,0.7)",
                       }}
                     />
-                    <div className="font-mono text-[10.5px] uppercase tracking-wider2 text-accent-cyan">
+                    <div className="font-display text-[10.5px] uppercase tracking-wider2 text-accent-cyan">
                       {t.time}
                     </div>
                     <div className="mt-0.5 text-[13.5px] font-medium leading-snug text-white/85">
@@ -195,7 +195,7 @@ export default function Demo() {
         <div className="mt-24 sm:mt-28">
           <div className="mb-10 flex items-center gap-3">
             <span className="h-px flex-1 bg-white/10" />
-            <div className="font-mono text-[10.5px] uppercase tracking-wider2 text-white/45">
+            <div className="font-display text-[10.5px] uppercase tracking-wider2 text-white/45">
               What we&rsquo;ll cover
             </div>
             <span className="h-px flex-1 bg-white/10" />
@@ -220,7 +220,7 @@ export default function Demo() {
                 />
                 <div className="relative z-10">
                   <div
-                    className="font-mono text-[11px] uppercase tracking-wider2"
+                    className="font-display text-[11px] uppercase tracking-wider2"
                     style={{ color: a.hue }}
                   >
                     {a.n}
@@ -246,7 +246,7 @@ export default function Demo() {
           className="mt-20 grid items-start gap-10 lg:grid-cols-[1fr_1fr] lg:gap-16"
         >
           <div>
-            <div className="font-mono text-[10.5px] uppercase tracking-wider2 text-white/45">
+            <div className="font-display text-[10.5px] uppercase tracking-wider2 text-white/45">
               Optional · helps us prep
             </div>
             <h2 className="mt-3 font-display text-[28px] font-semibold leading-[1.1] tracking-tighter text-white sm:text-[36px]">

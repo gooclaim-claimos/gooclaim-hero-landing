@@ -10,14 +10,25 @@ import Pricing from "./pages/Pricing";
 import Demo from "./pages/Demo";
 import UseCase from "./pages/UseCase";
 import Module from "./pages/Module";
+import Platform from "./pages/Platform";
+import Orion from "./pages/Orion";
+import Security from "./pages/Security";
 import WaitlistModal from "./components/WaitlistModal";
 
 function ScrollToTop() {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
   useEffect(() => {
     if (typeof window === "undefined") return;
+    if (hash) {
+      // A link to a section of a page ("/platform#faq"): land on it once the
+      // page has rendered.
+      const id = window.setTimeout(() => {
+        document.getElementById(hash.slice(1))?.scrollIntoView({ block: "start" });
+      }, 60);
+      return () => window.clearTimeout(id);
+    }
     window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
-  }, [pathname]);
+  }, [pathname, hash]);
   return null;
 }
 
@@ -33,7 +44,10 @@ function AppRoutes() {
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/demo" element={<Demo />} />
         <Route path="/use-cases/:slug" element={<UseCase />} />
+        <Route path="/platform" element={<Platform />} />
         <Route path="/platform/:slug" element={<Module />} />
+        <Route path="/orion" element={<Orion />} />
+        <Route path="/security" element={<Security />} />
       </Routes>
       <WaitlistModal />
       <Analytics />
