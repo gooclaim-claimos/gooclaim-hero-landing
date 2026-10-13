@@ -20,7 +20,7 @@ const COLUMNS = [
   },
   {
     title: "Use cases",
-    links: ["TPAs", "Insurers", "Hospitals", "Health", "Life", "Motor"],
+    links: ["TPAs", "Insurers", "Hospitals", "Health"],
   },
   {
     title: "Resources",
@@ -49,8 +49,6 @@ const LINK_ROUTES: Record<string, string> = {
   Insurers: "/use-cases/insurers",
   Hospitals: "/use-cases/hospitals",
   Health: "/use-cases/health",
-  Life: "/use-cases/life",
-  Motor: "/use-cases/motor",
   "Channel Gateway": "/platform/channel-gateway",
   "Workflow Engine": "/platform/workflow-engine",
   "Truth Layer": "/platform/truth-layer",
