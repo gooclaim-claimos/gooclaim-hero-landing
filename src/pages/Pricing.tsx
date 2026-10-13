@@ -52,9 +52,9 @@ const MODES: Mode[] = [
     name: "Enterprise",
     hue: "#7c3aed",
     blurb:
-      "Multi-vertical, multi-tenant deployment with custom security posture, dedicated infra and named architects. For groups operating across Health, Life, Motor and more.",
+      "Multi-tenant deployment with custom security posture, dedicated infra and named architects. For groups running claims across several TPAs or lines of insurance.",
     includes: [
-      "Multi-vertical workflow suite",
+      "Custom workflow suite",
       "Dedicated cluster · custom region",
       "Custom security review · DPO sync",
       "Named architects + on-call",
@@ -94,7 +94,7 @@ export default function Pricing() {
         </h1>
         <p className="mt-6 max-w-2xl text-[16px] leading-relaxed text-white/65 sm:text-[17px]">
           Gooclaim OS is sold as a partnership, not a SKU. Pricing follows the
-          shape of your operation — volume, channels, verticals, SLA. Three
+          shape of your operation — volume, channels, lines of insurance, SLA. Three
           engagement modes below; we&rsquo;ll co-design the right one with you
           in a 30-minute call.
         </p>
@@ -250,7 +250,7 @@ export default function Pricing() {
           <ul className="space-y-3 text-[14.5px] leading-relaxed text-white/65">
             {[
               "Per-tenant pricing — TPAs and insurers don't share economics, and pricing shouldn't pretend they do.",
-              "Verticals matter — Health, Life and Motor each have different volume, SLA and audit profiles.",
+              "Lines of insurance matter — each has different volume, SLA and audit profiles.",
               "Channels matter — voice agent + WhatsApp + email is a different cost profile than WhatsApp-only.",
               "Compliance scope matters — IRDAI ombudsman exports, custom DPO reviews and security posture add real engineering.",
             ].map((line) => (
@@ -289,7 +289,7 @@ export default function Pricing() {
               </h3>
               <p className="mt-4 max-w-md text-[15px] leading-relaxed text-white/65 sm:text-[16px]">
                 Pick a 30-minute slot — tell us your volume, channels and
-                target verticals. We&rsquo;ll come back with a real number,
+                lines of insurance. We&rsquo;ll come back with a real number,
                 not a quote-form runaround.
               </p>
             </div>

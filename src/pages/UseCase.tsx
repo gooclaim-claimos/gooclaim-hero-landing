@@ -6,8 +6,6 @@ import { buildUseCaseSEO } from "@/lib/seo";
 import { breadcrumbJsonLd } from "@/lib/structured";
 import { viewportOnce, viewportItem } from "@/lib/motion";
 import { USE_CASES, type UseCaseData } from "@/data/useCases";
-import { sectorByPath } from "@/data/sectors";
-import SectorStatusBadge from "@/components/SectorStatusBadge";
 
 const CALENDLY = "https://calendly.com/contact-gooclaim/30min";
 
@@ -34,17 +32,13 @@ export default function UseCase() {
 }
 
 function UseCaseBody({ data }: { data: UseCaseData }) {
-  // A line of insurance that is not live yet says so — the page shows the plan, not a product.
-  const sector = sectorByPath(`/use-cases/${data.slug}`);
-  const upcoming = sector !== undefined && sector.status !== "live";
   return (
     <section className="relative z-10 mx-auto w-full max-w-[1280px] px-5 pb-16 pt-10 sm:px-10 sm:pb-24 sm:pt-20 lg:px-14">
       {/* Hero */}
       <div className="grid items-center gap-10 lg:grid-cols-[1.35fr_1fr] lg:gap-16">
         <div>
-          <div className="mb-3 flex flex-wrap items-center gap-3">
-            <span className="font-display text-[11px] uppercase tracking-wider2 text-white/45">{data.eyebrow}</span>
-            {sector && <SectorStatusBadge status={sector.status} />}
+          <div className="mb-3 font-display text-[11px] uppercase tracking-wider2 text-white/45">
+            {data.eyebrow}
           </div>
           <h1 className="text-balance font-display text-[34px] font-semibold leading-[1.05] tracking-tightest text-white sm:text-[56px] sm:leading-[1] lg:text-[76px]">
             {data.heroTitle}
@@ -52,17 +46,6 @@ function UseCaseBody({ data }: { data: UseCaseData }) {
           <p className="mt-6 max-w-xl text-balance text-[16px] leading-relaxed text-white/65 sm:text-[17.5px]">
             {data.heroIntro}
           </p>
-          {upcoming && (
-            <div className="mt-6 max-w-xl rounded-2xl border border-[#0d99ff]/30 bg-[#0d99ff]/[0.07] p-5">
-              <div className="font-display text-[10.5px] uppercase tracking-wider2 text-[#7dc4ff]">
-                Coming next on Gooclaim OS
-              </div>
-              <p className="mt-2 text-[14.5px] leading-relaxed text-white/80">
-                Health claims run on Gooclaim OS today. {data.label} is next, on the same OS — and we are
-                looking for a few {data.label.toLowerCase()} insurers to shape it with us as design partners.
-              </p>
-            </div>
-          )}
 
           <div className="mt-9 flex flex-col items-start gap-3 sm:flex-row sm:gap-4">
             <a
@@ -71,14 +54,14 @@ function UseCaseBody({ data }: { data: UseCaseData }) {
               rel="noreferrer"
               className="group inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-[14.5px] font-semibold text-ink-950 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_40px_-12px_rgba(13,153,255,0.55)]"
             >
-              {upcoming ? "Become a design partner" : `Talk to us for ${data.label}`}
+              Talk to us for {data.label}
               <ArrowRight />
             </a>
             <Link
-              to={upcoming ? "/use-cases/health" : "/demo"}
+              to="/demo"
               className="group inline-flex items-center gap-2 rounded-full px-6 py-3 text-[14px] font-semibold text-white/85 glass transition-all duration-300 hover:text-white hover:border-white/20"
             >
-              {upcoming ? "See what is live today" : "Or see a live demo"}
+              Or see a live demo
               <ArrowRight />
             </Link>
           </div>
@@ -147,7 +130,7 @@ function UseCaseBody({ data }: { data: UseCaseData }) {
         <div className="mb-10 flex items-center gap-3">
           <span className="h-px flex-1 bg-white/10" />
           <div className="font-display text-[10.5px] uppercase tracking-wider2 text-white/45">
-            {upcoming ? `What Gooclaim OS will do for ${data.label}` : `What Gooclaim OS does for ${data.label}`}
+            What Gooclaim OS does for {data.label}
           </div>
           <span className="h-px flex-1 bg-white/10" />
         </div>
@@ -268,7 +251,7 @@ function UseCaseBody({ data }: { data: UseCaseData }) {
               rel="noreferrer"
               className="group inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-3.5 text-[14.5px] font-semibold text-ink-950 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_40px_-12px_rgba(13,153,255,0.55)]"
             >
-              {upcoming ? "Become a design partner" : `Talk to us for ${data.label}`}
+              Talk to us for {data.label}
               <ArrowRight />
             </a>
             <a

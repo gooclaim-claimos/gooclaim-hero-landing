@@ -21,8 +21,6 @@ const ROUTES = [
   "/use-cases/insurers",
   "/use-cases/hospitals",
   "/use-cases/health",
-  "/use-cases/life",
-  "/use-cases/motor",
   "/platform/channel-gateway",
   "/platform/workflow-engine",
   "/platform/truth-layer",

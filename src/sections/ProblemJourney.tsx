@@ -3,8 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import SectionShell from "@/components/SectionShell";
 import { fadeUp, stagger, viewportOnce } from "@/lib/motion";
-import SectorStatusBadge from "@/components/SectorStatusBadge";
-import { SECTORS, type Sector } from "@/data/sectors";
+import { openWaitlist } from "@/lib/waitlist";
 
 interface Stage {
   key: string;
@@ -75,6 +74,15 @@ const PARTIES = [
   { who: "TPA", holds: "The claim record and the workflow", says: "The insurer decides." },
   { who: "Insurer", holds: "The decision and the money", says: "The TPA holds the data." },
   { who: "Member", holds: "Nothing but the wait", says: "Nobody tells me anything.", member: true },
+];
+
+const MOMENTS = ["A status to tell", "Documents to collect", "A reason to explain", "A clock to beat"];
+
+const HEALTH_WORKFLOWS = [
+  "Claim status, with the source and date",
+  "Pending documents, asked and reminded",
+  "Query reasons, in the insurer's own words",
+  "Complaints, on the IRDAI clock",
 ];
 
 const STOP = "#ef4444";
@@ -264,52 +272,70 @@ export default function ProblemJourney({ eyebrow = "01 · The problem" }: { eyeb
         </motion.div>
       </div>
 
-      {/* Health first — not health only */}
-      <div className="mt-14">
-        <h3 className="text-balance font-display text-[24px] font-semibold leading-tight tracking-tighter text-white sm:text-[30px]">
-          Health is live today. <span className="text-white/55">Every line of insurance is next.</span>
-        </h3>
-        <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-white/60">
-          Health came first because its rules are the strictest and its clock the shortest. The same OS carries every
-          line — a new line is new workflows, not a rebuild.
-        </p>
+      {/* Built around the claim — health is where we started */}
+      <div className="mt-14 grid grid-cols-1 items-start gap-6 lg:grid-cols-[1.15fr_1fr] lg:gap-10">
+        <div>
+          <h3 className="text-balance font-display text-[24px] font-semibold leading-tight tracking-tighter text-white sm:text-[30px]">
+            Built around the claim, <span className="text-white/55">not one line of insurance.</span>
+          </h3>
+          <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-white/60">
+            Every claim — health, motor or life — has the same moments: a status to tell, documents to collect, a reason
+            to explain and a clock to beat. Gooclaim OS is built on those. We started where the clock is strictest: health.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-2">
+            {MOMENTS.map((m) => (
+              <span key={m} className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-[12.5px] text-white/75">
+                {m}
+              </span>
+            ))}
+          </div>
+          <button
+            type="button"
+            onClick={() => openWaitlist("other-line-of-insurance")}
+            className="group mt-6 inline-flex items-center gap-2 text-[14px] font-semibold text-accent-cyan transition-colors hover:text-white"
+          >
+            Running another line of insurance? Talk to us
+            <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-0.5">&rarr;</span>
+          </button>
+        </div>
         <motion.div
-          variants={stagger(0.05, 0.06)}
-          initial="hidden"
-          whileInView="show"
+          initial={{ opacity: 0, y: 14 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={viewportOnce}
-          className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3"
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          {SECTORS.map((s) => (
-            <motion.div key={s.key} variants={fadeUp}>
-              <SectorCard s={s} />
-            </motion.div>
-          ))}
+          <Link
+            to="/use-cases/health"
+            className="group relative block overflow-clip rounded-2xl border border-emerald-500/30 bg-emerald-500/[0.06] p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-emerald-500/50"
+          >
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -right-16 -top-16 h-44 w-44 rounded-full bg-emerald-500/20 blur-3xl"
+            />
+            <div className="relative z-10">
+              <div className="flex items-center gap-2 font-display text-[10.5px] uppercase tracking-wider2 text-emerald-400">
+                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+                Where we started
+              </div>
+              <div className="mt-3 font-display text-[24px] font-semibold text-white">Health insurance</div>
+              <ul className="mt-4 space-y-2">
+                {HEALTH_WORKFLOWS.map((w) => (
+                  <li key={w} className="flex items-start gap-2.5 text-[14px] text-white/75">
+                    <svg className="mt-[3px] shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#34d399" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M5 12.5l4.5 4.5L19 7.5" />
+                    </svg>
+                    {w}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-semibold text-white/80 group-hover:text-white">
+                Gooclaim OS for health
+                <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-0.5">&rarr;</span>
+              </div>
+            </div>
+          </Link>
         </motion.div>
       </div>
     </SectionShell>
-  );
-}
-
-function SectorCard({ s }: { s: Sector }) {
-  const live = s.status === "live";
-  const body = (
-    <>
-      <div className="flex items-center justify-between gap-3">
-        <span className="font-display text-[17px] font-semibold text-white">{s.label}</span>
-        <SectorStatusBadge status={s.status} />
-      </div>
-      <p className="mt-2 text-[13.5px] leading-relaxed text-white/60">{s.line}</p>
-    </>
-  );
-  const cls = `block h-full rounded-2xl p-5 transition-all duration-300 ${
-    live ? "border border-emerald-500/30 bg-emerald-500/[0.06]" : "glass"
-  }`;
-  return s.to ? (
-    <Link to={s.to} className={`${cls} hover:-translate-y-0.5 hover:border-white/20`}>
-      {body}
-    </Link>
-  ) : (
-    <div className={cls}>{body}</div>
   );
 }

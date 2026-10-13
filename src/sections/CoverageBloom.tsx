@@ -16,7 +16,7 @@ const CAPABILITIES: Capability[] = [
   { id: "compliance", name: "IRDAI + DPDP compliance pack" },
   { id: "templates", name: "Templates-only output" },
   { id: "time", name: "Time to production" },
-  { id: "vertical", name: "Health / Life / Motor" },
+  { id: "vertical", name: "Built around the claim" },
 ];
 
 interface Ring {
@@ -234,7 +234,7 @@ export default function CoverageBloom({ eyebrow = "08 · Coverage" }: { eyebrow?
                   "Multi-agent",
                   "IRDAI + DPDP",
                   "Templates-only",
-                  "Every vertical",
+                  "Built around the claim",
                 ].map((c) => (
                   <span
                     key={c}

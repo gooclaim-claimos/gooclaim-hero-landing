@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { sectorByPath } from "@/data/sectors";
-import SectorStatusBadge from "@/components/SectorStatusBadge";
 
 /** One menu for every page — the desktop links. Phones use MobileMenu with SITE_NAV. */
 export const SOLUTIONS = [
@@ -10,8 +8,6 @@ export const SOLUTIONS = [
   { label: "Insurers", to: "/use-cases/insurers", line: "One OS across every TPA and channel" },
   { label: "Hospitals", to: "/use-cases/hospitals", line: "Cashless status without the phone-tag" },
   { label: "Health", to: "/use-cases/health", line: "Pre-auth, discharge and reimbursement" },
-  { label: "Life", to: "/use-cases/life", line: "Nominee claims, in their language" },
-  { label: "Motor", to: "/use-cases/motor", line: "Surveyor and garage updates" },
 ];
 
 /** The phone menu's list — the same destinations, flat. */
@@ -100,10 +96,7 @@ function SolutionsMenu() {
                   to={s.to}
                   className="rounded-xl px-3.5 py-3 transition-colors hover:bg-white/[0.05] focus-visible:bg-white/[0.06] focus-visible:outline-none"
                 >
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="text-[14px] font-semibold text-white">{s.label}</span>
-                    {sectorByPath(s.to)?.status === "next" && <SectorStatusBadge status="next" />}
-                  </div>
+                  <div className="text-[14px] font-semibold text-white">{s.label}</div>
                   <div className="mt-0.5 text-[12px] leading-snug text-white/50">{s.line}</div>
                 </Link>
               ))}

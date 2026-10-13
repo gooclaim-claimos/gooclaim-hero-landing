@@ -69,7 +69,7 @@ const PROOF_CHIPS = [
   { label: "Every output through the Policy Gate", hue: "#10b981" },
   { label: "Templates only — no free text", hue: "#0d99ff" },
   { label: "Immutable audit ledger · 7-yr", hue: "#f59e0b" },
-  { label: "Multi-vertical by design", hue: "#7c3aed" },
+  { label: "Built around the claim", hue: "#7c3aed" },
 ];
 
 function GooclaimLogo({ size = 88 }: { size?: number }) {

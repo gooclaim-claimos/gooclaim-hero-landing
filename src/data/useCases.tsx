@@ -129,7 +129,7 @@ export const USE_CASES: UseCaseData[] = [
       </>
     ),
     heroIntro:
-      "Insurers carry the regulatory risk while TPAs handle the ops. Gooclaim OS gives the insurer a single, audited communication layer that works across every TPA, every channel, every vertical — without ripping out the CMS.",
+      "Insurers carry the regulatory risk while TPAs handle the ops. Gooclaim OS gives the insurer a single, audited communication layer that works across every TPA and every channel — without ripping out the CMS.",
     problemStat: {
       big: "₹26,037 Cr",
       caption: "of health claims rejected in FY24",
@@ -145,8 +145,8 @@ export const USE_CASES: UseCaseData[] = [
         hue: "#0d99ff",
       },
       {
-        title: "Multi-vertical, one platform",
-        body: "Health today, Motor tomorrow, Life next. Same OS, swap workflows by tenant.",
+        title: "Built around the claim",
+        body: "Built on what every claim shares. Health first — another line of insurance is new workflows, not a rebuild.",
         hue: "#7c3aed",
       },
       {
@@ -186,7 +186,7 @@ export const USE_CASES: UseCaseData[] = [
     ],
     trustChips: [
       { label: "IRDAI + DPDP compliant by design", hue: "#0d99ff" },
-      { label: "Multi-vertical · same OS", hue: "#7c3aed" },
+      { label: "Built around the claim", hue: "#7c3aed" },
       { label: "Per-TPA isolated audit ledger", hue: "#f59e0b" },
     ],
     closingTitle: (
@@ -286,7 +286,7 @@ export const USE_CASES: UseCaseData[] = [
     heroTitle: (
       <>
         For health.{" "}
-        <span className="text-white/55">The pilot vertical, ready today.</span>
+        <span className="text-white/55">Where we started. Ready today.</span>
       </>
     ),
     heroIntro:
@@ -357,170 +357,6 @@ export const USE_CASES: UseCaseData[] = [
       </>
     ),
     closingBody:
-      "We start with health because it bleeds the most. The same platform then expands to Life, Motor and beyond — without a rebuild.",
-  },
-  {
-    slug: "life",
-    label: "Life",
-    eyebrow: "Use case · Life insurance",
-    heroTitle: (
-      <>
-        For life.{" "}
-        <span className="text-white/55">
-          Mis-selling, mended. Death claims, dignified.
-        </span>
-      </>
-    ),
-    heroIntro:
-      "Life insurance gets the longest, hardest conversations — mis-selling disputes, death claim chains, nominee follow-ups. Gooclaim OS adds proactive, vernacular communication where today there is silence.",
-    problemStat: {
-      big: "22.14%",
-      caption: "of all life complaints are mis-selling",
-      hue: "#f59e0b",
-    },
-    problemBody:
-      "The death-claim documentation chain — death certificate, nominee KYC, claim form, bank details — routinely takes 6 to 12 months. Nominees in tier-2 and tier-3 cities navigate English-only systems while grieving.",
-    problemSource: "Outlook Business · Ditto · IRDAI",
-    capabilities: [
-      {
-        title: "Proactive nominee outreach",
-        body: "Voice and WhatsApp campaigns that contact nominees first — vernacular, audited, kind.",
-        hue: "#0d99ff",
-      },
-      {
-        title: "Document chain orchestration",
-        body: "Multi-week document collection — death certificate, KYC, claim form, bank — single thread.",
-        hue: "#7dc4ff",
-      },
-      {
-        title: "Mis-selling audit defence",
-        body: "Every promise made, every consent given, immutably logged — defendable in ombudsman cases.",
-        hue: "#f59e0b",
-      },
-      {
-        title: "Regional language",
-        body: "Hindi · English · Hinglish — for nominees who don’t live in English.",
-        hue: "#7c3aed",
-      },
-      {
-        title: "Premium reminders",
-        body: "Channel-aware, lapse-preventing — UPI-link aware, paid in one tap.",
-        hue: "#10b981",
-      },
-      {
-        title: "Lapsation reduction",
-        body: "Multi-touch outreach across voice + WhatsApp + SMS — every lapse caught early.",
-        hue: "#7dc4ff",
-      },
-    ],
-    personas: [
-      {
-        role: "Life Insurer Claims Head",
-        why: "Owns death-claim cycle time and nominee experience.",
-      },
-      {
-        role: "Customer Operations",
-        why: "Owns mis-selling disputes and persistency.",
-      },
-      {
-        role: "Agency Distribution Head",
-        why: "Owns agent-led complaints and the audit trail behind them.",
-      },
-    ],
-    trustChips: [
-      { label: "Regional language coverage", hue: "#7c3aed" },
-      { label: "Immutable consent ledger", hue: "#f59e0b" },
-      { label: "Voice-first for nominees", hue: "#0d99ff" },
-    ],
-    closingTitle: (
-      <>
-        The hardest conversations.{" "}
-        <span className="text-white/55">Handled with care.</span>
-      </>
-    ),
-    closingBody:
-      "Replace silence with proactive, audited, vernacular contact. Lower complaint volume, lower lapsation, stronger trust.",
-  },
-  {
-    slug: "motor",
-    label: "Motor",
-    eyebrow: "Use case · Motor insurance",
-    heroTitle: (
-      <>
-        For motor.{" "}
-        <span className="text-white/55">
-          Surveyors, garages and customers, on one thread.
-        </span>
-      </>
-    ),
-    heroIntro:
-      "Motor claims fall apart in the handoffs — between customer, surveyor and garage. Gooclaim OS coordinates the chain in real time, on the channel each party actually uses.",
-    problemStat: {
-      big: "24.8%",
-      caption: "of all general insurance complaints are motor",
-      hue: "#0d99ff",
-    },
-    problemBody:
-      "Two-wheeler claims are routinely abandoned. Garage networks are opaque to customers. Surveyor scheduling drifts. Even with a regulator clock on every claim, the experience feels broken.",
-    problemSource: "Business Standard · IRDAI PPI Regulations 2024",
-    capabilities: [
-      {
-        title: "Surveyor scheduling",
-        body: "Real-time surveyor → garage → customer coordination, on WhatsApp.",
-        hue: "#0d99ff",
-      },
-      {
-        title: "Garage network clarity",
-        body: "Customer gets a live, network-validated list of cashless garages, not a generic PDF.",
-        hue: "#7dc4ff",
-      },
-      {
-        title: "Total-loss vs repair transparency",
-        body: "Templated, audited explanation when valuation comes in — no surprise call.",
-        hue: "#f59e0b",
-      },
-      {
-        title: "Two-wheeler friction killer",
-        body: "Low-value claims fully automated — no abandonment, no manual triage.",
-        hue: "#10b981",
-      },
-      {
-        title: "Photo + doc collection",
-        body: "Multi-day workflow for damage photos, RC, DL and FIR — single thread.",
-        hue: "#7c3aed",
-      },
-      {
-        title: "Regulator clock on every claim",
-        body: "Per-claim countdown against the IRDAI clock, alerts before breach.",
-        hue: "#0d99ff",
-      },
-    ],
-    personas: [
-      {
-        role: "Motor Claims Head",
-        why: "Owns settlement cycle, surveyor productivity and customer NPS.",
-      },
-      {
-        role: "Network Manager",
-        why: "Owns garage performance and cashless-network goodwill.",
-      },
-      {
-        role: "Customer Ops",
-        why: "Owns the long tail of motor complaints — especially two-wheeler.",
-      },
-    ],
-    trustChips: [
-      { label: "IRDAI clock tracking", hue: "#0d99ff" },
-      { label: "Surveyor + garage coordination", hue: "#10b981" },
-      { label: "Audited every handoff", hue: "#f59e0b" },
-    ],
-    closingTitle: (
-      <>
-        Stop losing two-wheeler claims.{" "}
-        <span className="text-white/55">Start finishing them.</span>
-      </>
-    ),
-    closingBody:
-      "Make the surveyor-garage-customer chain one audited thread, on the channels each party already uses. Cycle times drop, complaints drop, retention climbs.",
+      "We started with health because its clock is the strictest. Gooclaim OS is built on what every claim shares — so another line of insurance is new workflows, not a rebuild.",
   },
 ];

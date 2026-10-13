@@ -8,7 +8,7 @@ import OneCoreIntegrations from "@/sections/OneCoreIntegrations";
 import SolutionBento from "@/sections/SolutionBento";
 import ModulesSplit from "@/sections/ModulesSplit";
 import CoverageBloom from "@/sections/CoverageBloom";
-import ProblemBento from "@/sections/ProblemBento";
+import LinesOfBusiness from "@/sections/LinesOfBusiness";
 import Faq, { faqJsonLd } from "@/sections/Faq";
 
 export default function Platform() {
@@ -41,7 +41,7 @@ export default function Platform() {
       <SolutionBento eyebrow="02 · An OS, not a chatbot" />
       <ModulesSplit eyebrow="03 · Inside the OS" />
       <CoverageBloom eyebrow="04 · Coverage" />
-      <ProblemBento eyebrow="05 · Every line of business" />
+      <LinesOfBusiness eyebrow="05 · Every line of business" />
       <Faq eyebrow="Questions" />
       <CtaBand source="platform-close" next={{ label: "Security & compliance", to: "/security" }} />
     </PageShell>
