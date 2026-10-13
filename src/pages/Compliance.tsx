@@ -7,7 +7,7 @@ export default function Compliance() {
     <LegalShell
       eyebrow="Legal · Compliance"
       title="Compliance"
-      updated="07 Jun 2026"
+      updated="13 Oct 2026"
     >
       <SEOHead seo={SEO_COMPLIANCE} path="/compliance" />
       <p>
@@ -32,14 +32,21 @@ export default function Compliance() {
       </p>
       <ul>
         <li>
-          <strong>IRDAI Master Circular on Protection of Policyholders&rsquo;
-          Interests (29 May 2024)</strong> — including the 1-hour cashless
-          admission approval and 3-hour discharge mandate.
+          <strong>IRDAI Master Circular on Health Insurance Business (29 May
+          2024)</strong> — the 1-hour cashless authorisation and 3-hour
+          discharge mandate.
         </li>
         <li>
-          <strong>IRDAI PPHI Master Circular (2024)</strong> — 15 days to
-          settle a reimbursement, and interest at bank rate + 2% a year from
-          the day of intimation when a claim is settled late.
+          <strong>IRDAI Master Circular on Protection of Policyholders&rsquo;
+          Interests (5 Sep 2024)</strong> — 15 days to settle a claim from its
+          submission, interest at bank rate + 2% a year from the day of
+          intimation when it is settled late, and no claim closed for want of
+          documents.
+        </li>
+        <li>
+          <strong>IRDAI (Maintenance of Insurance Records) Regulations,
+          2015</strong> — claim records, correspondence included, kept for at
+          least ten years.
         </li>
         <li>
           <strong>IRDAI Internal Ombudsman Guidelines 2025</strong> —
@@ -55,10 +62,6 @@ export default function Compliance() {
           72A</strong> — reasonable security practices and protection of
           personal information.
         </li>
-        <li>
-          <strong>TRAI DLT framework</strong> — registered template, sender ID
-          and consent records for outbound communications.
-        </li>
       </ul>
 
       <h2>2. The control map</h2>
@@ -69,10 +72,15 @@ export default function Compliance() {
 
       <h3>2.1 Consent gate (DPDP, IT Act)</h3>
       <p>
-        Every workflow begins with an explicit consent check. No claim
-        message proceeds without a recorded <code>CONSENT_GIVEN</code> state
-        against the claimant. Consent withdrawal is honored within one
-        business day and immutably logged.
+        Every conversation begins with an explicit consent check. No claim
+        detail is shared in a conversation without a recorded{" "}
+        <code>CONSENT_GIVEN</code> state against the claimant. The one
+        exception is a notice the insurer or TPA is obliged by IRDAI to send —
+        such as a request for documents a claim still needs — which goes only
+        to the contact registered on the policy, carries claim information
+        only, and is never sent to anyone who refused or withdrew consent.
+        Consent withdrawal is honored within one business day and immutably
+        logged.
       </p>
 
       <h3>2.2 Policy Gate (IRDAI, IT Act, brand-safety)</h3>
@@ -87,7 +95,7 @@ export default function Compliance() {
         Every automated decision, every outbound message, every consent
         change, every policy-gate outcome is written to an append-only,
         SHA-256-chained audit ledger. Records are retained for seven years
-        and can be exported in IRDAI-required format on demand.
+        and can be exported on demand.
       </p>
 
       <h3>2.4 Per-tenant isolation (DPDP, IT Act)</h3>
@@ -101,9 +109,11 @@ export default function Compliance() {
       <h3>2.5 Personal data hygiene (IT Act, DPDP)</h3>
       <p>
         Phone numbers, names, claim identifiers and other identifying fields
-        are hashed in all internal logs. Raw values are never written to
-        log lines, never sent to language models, and never persisted
-        outside the encrypted application database.
+        are masked or hashed in internal logs — raw values are never written
+        to log lines. Aadhaar, PAN, card and bank numbers are masked before a
+        conversation is stored. Every language-model call goes through our
+        own model gateway, and no Customer or claimant data is used to train
+        a model.
       </p>
 
       <h3>2.6 Operational mode (IRDAI, business continuity)</h3>
@@ -117,16 +127,18 @@ export default function Compliance() {
       <h3>2.7 Templates-only output (IRDAI, brand-safety)</h3>
       <p>
         Outbound to claimants is restricted to pre-approved, versioned
-        templates per channel and language. The approval workflow is
-        explicit; rollback to the last approved version is one click.
+        templates per channel and language, each approved by the Customer
+        before it is enabled.
       </p>
 
-      <h3>2.8 SLA observability (IRDAI 1hr / 3hr mandate)</h3>
+      <h3>2.8 IRDAI clocks and turnaround reporting</h3>
       <p>
-        Per-tenant dashboards track time-to-acknowledge, time-to-decision and
-        time-to-discharge against the regulatory clock. Breaches trigger
-        alerts and feed the audit ledger; nothing about SLA performance is
-        unobserved.
+        Every claim carries its IRDAI clock — 1 hour for cashless
+        authorisation, 3 hours for discharge, 15 days to settle — with the
+        interest at stake when it runs late, shown to the Customer&rsquo;s
+        team as the claim moves. Complaints carry their own clock. The
+        quarterly NL-48 turnaround report is built from the same record, and
+        a filed copy is frozen with its SHA-256.
       </p>
 
       <h2>3. Security architecture</h2>
@@ -138,17 +150,12 @@ export default function Compliance() {
           Zero-trust between internal services — no implicit network trust.
         </li>
         <li>
-          Continuous vulnerability scanning across container images and
-          dependencies.
-        </li>
-        <li>
-          Static analysis, secret scanning and policy checks on every code
-          change before merge.
+          Static analysis, dependency and secret scanning in the release
+          process.
         </li>
         <li>
           Responsible-disclosure channel at{" "}
-          <a href="mailto:security@gooclaim.com">security@gooclaim.com</a>{" "}
-          with a published acknowledgement window.
+          <a href="mailto:security@gooclaim.com">security@gooclaim.com</a>.
         </li>
       </ul>
 
@@ -156,55 +163,34 @@ export default function Compliance() {
       <p>
         Production data is processed in India unless an engaging Customer
         explicitly chooses otherwise. Audit ledger events are retained for
-        seven years in line with IRDAI record-keeping requirements.
-        Operational data (conversation content, claim metadata) is retained
-        only as long as the Customer instructs, after which it is purged or
-        returned per the engagement&rsquo;s data-processing terms.
+        seven years. A conversation that is part of a claim or complaint is
+        kept as a claim record for ten years, as IRDAI&rsquo;s record rules
+        require; other conversation content is deleted after 90 days. Beyond
+        that, data is purged or returned per the engagement&rsquo;s
+        data-processing terms.
       </p>
 
       <h2>5. Sub-processors</h2>
       <p>
-        Gooclaim OS uses a small, audited set of sub-processors for hosting,
-        channel delivery, telephony, observability and email. Each
+        Gooclaim OS uses a small set of sub-processors: cloud hosting and
+        email delivery, WhatsApp delivery, and AI models reached only through
+        our own model gateway. Each
         sub-processor is bound by a data-processing agreement and is reviewed
         annually. A live list is available to Customers under the MSA.
       </p>
 
-      <h2>6. Independent assurance roadmap</h2>
-      <p>
-        We are pursuing independent assurance commensurate with our scale and
-        regulatory exposure:
-      </p>
-      <ul>
-        <li>
-          <strong>ISO/IEC 27001</strong> — information security management
-          system certification (in progress).
-        </li>
-        <li>
-          <strong>SOC 2 Type II</strong> — controls report covering security,
-          availability and confidentiality (planned).
-        </li>
-        <li>
-          <strong>Annual VAPT</strong> — application and infrastructure
-          penetration testing by independent firms.
-        </li>
-        <li>
-          <strong>DPDP readiness review</strong> — annual independent review
-          against DPDP Act and forthcoming rules.
-        </li>
-      </ul>
-
-      <h2>7. Incident response</h2>
+      <h2>6. Incident response</h2>
       <p>
         We maintain an incident-response playbook covering detection,
         containment, eradication, recovery and post-incident review. Security
         incidents involving personal data are reported to the Data Fiduciary
-        (the engaging insurer or TPA) within the timelines required by DPDP
-        and the MSA, and to regulators where applicable. The current playbook
+        (the engaging insurer or TPA) without delay, so that it can inform the
+        people affected and the Data Protection Board of India within the
+        timelines the DPDP Rules set, and as the MSA requires. The current playbook
         version is available to Customers under NDA.
       </p>
 
-      <h2>8. Responsible AI posture</h2>
+      <h2>7. Responsible AI posture</h2>
       <ul>
         <li>
           Large language models are used for internal reasoning, not for
@@ -228,7 +214,7 @@ export default function Compliance() {
         </li>
       </ul>
 
-      <h2>9. Customer responsibilities</h2>
+      <h2>8. Customer responsibilities</h2>
       <p>
         Compliance is a shared model. Gooclaim OS provides platform-level
         controls; the engaging Customer remains responsible for:
@@ -250,7 +236,7 @@ export default function Compliance() {
         </li>
       </ul>
 
-      <h2>10. Contact</h2>
+      <h2>9. Contact</h2>
       <ul>
         <li>
           <strong>Compliance questions</strong> →{" "}
@@ -263,7 +249,8 @@ export default function Compliance() {
         <li>
           <strong>Grievance officer (DPDP)</strong> →{" "}
           <a href="mailto:contact@gooclaim.com">contact@gooclaim.com</a> ·
-          acknowledged within 3 business days, substantive response within 15
+          acknowledged within 3 business days, answered within the time the
+          DPDP Rules allow
         </li>
         <li>
           Read alongside this page — <a href="/privacy">Privacy Notice</a> and{" "}

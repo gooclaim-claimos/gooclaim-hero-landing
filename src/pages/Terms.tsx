@@ -4,7 +4,7 @@ import { SEO_TERMS } from "@/lib/seo";
 
 export default function Terms() {
   return (
-    <LegalShell eyebrow="Legal · Terms" title="Terms of Service" updated="07 Jun 2026">
+    <LegalShell eyebrow="Legal · Terms" title="Terms of Service" updated="13 Oct 2026">
       <SEOHead seo={SEO_TERMS} path="/terms" />
       <p>
         These terms govern access to the marketing website at gooclaim.com and
@@ -35,9 +35,9 @@ export default function Terms() {
       <p>
         Gooclaim OS is a multi-tenant agentic claim communication and
         coordination platform. It connects to a Customer&rsquo;s claims
-        management systems, knowledge sources, and customer channels
-        (WhatsApp, voice, SMS, email, web), and orchestrates workflows like
-        claim status, document collection and reason-for-rejection responses.
+        management systems, knowledge sources, and customer channels (such as
+        WhatsApp and email), and orchestrates workflows like claim status,
+        document collection, query reasons and complaints.
       </p>
 
       <h2>3. What the platform is not</h2>
@@ -51,8 +51,8 @@ export default function Terms() {
           template-only and routed through the Policy Gate before delivery.
         </li>
         <li>
-          <strong>Not a payment gateway.</strong> We integrate with payment
-          rails operated by licensed providers — we never custody funds.
+          <strong>Not a payment gateway.</strong> Gooclaim OS does not move or
+          hold money.
         </li>
         <li>
           <strong>Not a CMS replacement.</strong> We read from existing claim

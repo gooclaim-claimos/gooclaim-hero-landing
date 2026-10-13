@@ -4,198 +4,275 @@ import { SEO_PRIVACY } from "@/lib/seo";
 
 export default function Privacy() {
   return (
-    <LegalShell eyebrow="Legal · Privacy" title="Privacy Notice" updated="07 Jun 2026">
+    <LegalShell eyebrow="Legal · Privacy" title="Privacy Notice" updated="13 Oct 2026">
       <SEOHead seo={SEO_PRIVACY} path="/privacy" />
       <p>
-        Gooclaim OS is an Insurance AI Operating System built for TPAs and
-        insurers in India. We process personal data on behalf of our tenants
-        (TPAs and insurers) under the{" "}
-        <strong>Digital Personal Data Protection Act, 2023 (DPDP)</strong> and
-        applicable IRDAI regulations. This notice explains what we collect,
-        why, who sees it, and your rights.
+        Gooclaim OS is a Claim OS used by insurers and third-party
+        administrators (TPAs) in India. This notice explains what personal
+        data we handle, why, who sees it, how long we keep it and how to
+        exercise your rights under the{" "}
+        <strong>Digital Personal Data Protection Act, 2023 (DPDP Act)</strong>{" "}
+        and the <strong>DPDP Rules, 2025</strong>, as they come into force.
       </p>
 
       <div className="callout">
         <strong>One-line summary</strong>
-        Gooclaim OS is a data processor for the insurer or TPA you are
-        interacting with. We act only on their lawful instructions, never use
-        your data to train external models, and always require explicit
-        consent before any claim workflow begins.
+        If you are a claimant, your insurer or TPA decides how your data is
+        used and we process it only on their instructions. If you visit this
+        website or join our waitlist, we decide — and we use what you give us
+        only to contact you about Gooclaim OS. We do not sell personal data
+        and we do not use it to train AI models.
       </div>
 
       <h2>1. Who we are</h2>
       <p>
         Gooclaim Technologies Private Limited (&ldquo;Gooclaim&rdquo;,
         &ldquo;we&rdquo;, &ldquo;us&rdquo;) is a company incorporated in India
-        with its registered office in Bengaluru. We operate the Gooclaim OS
-        platform on behalf of insurance ecosystem partners.
+        with its registered office in Bengaluru. We build and operate the
+        Gooclaim OS platform and this website, gooclaim.com.
       </p>
 
-      <h2>2. Our role under DPDP</h2>
-      <p>
-        Under DPDP terminology, we act as a <strong>Data Processor</strong> for
-        the TPA or insurer (the <strong>Data Fiduciary</strong>) that engages
-        us. The Data Fiduciary determines what data is collected and why;
-        Gooclaim OS executes those instructions through an audited, multi-agent
-        runtime.
-      </p>
-
-      <h2>3. Data we process</h2>
-      <p>To run claim communication and coordination workflows, we may process:</p>
+      <h2>2. Our two roles under the DPDP Act</h2>
       <ul>
         <li>
-          Identifiers — name, phone number, email, claim reference, policy
-          number, member ID (always hashed in our logs).
+          <strong>For claimants and policyholders, we are a Data
+          Processor.</strong> The insurer or TPA handling your claim is the{" "}
+          <strong>Data Fiduciary</strong>: it decides what data is processed
+          and why, and its own privacy notice is the one that governs your
+          data. Gooclaim OS processes that data only on its instructions, under
+          a contract with it. Sections 3 to 9 describe how.
         </li>
         <li>
-          Claim context — claim status, requested documents, conversation
-          history across WhatsApp, voice, SMS, email and web.
-        </li>
-        <li>
-          Health-related information shared by the claimant for the limited
-          purpose of progressing the claim.
-        </li>
-        <li>
-          Channel metadata — message timestamps, delivery receipts, device
-          locale, language preference.
-        </li>
-        <li>
-          Consent records — every consent grant and withdrawal, immutably
-          logged.
+          <strong>For visitors to gooclaim.com and people who join our
+          waitlist, we are the Data Fiduciary.</strong> Section 10 describes
+          that data.
         </li>
       </ul>
+
+      <h2>3. Claimant data we process</h2>
+      <p>On behalf of your insurer or TPA, and only what a workflow needs:</p>
+      <ul>
+        <li>
+          <strong>Identity and contact</strong> — name, mobile number, email
+          address, policy number, member ID and claim reference.
+        </li>
+        <li>
+          <strong>Claim information</strong> — the claim&rsquo;s status, the
+          documents it still needs, the reason for a query, deduction or
+          decision, and its regulatory clock, as recorded in your
+          insurer&rsquo;s or TPA&rsquo;s own claims system.
+        </li>
+        <li>
+          <strong>Documents you upload</strong> through a secure upload link,
+          such as a discharge summary or bills. These can contain health
+          information.
+        </li>
+        <li>
+          <strong>Your conversation</strong> with the insurer or TPA on
+          WhatsApp, email or any other channel they turn on, including any
+          complaint you raise.
+        </li>
+        <li>
+          <strong>Consent and verification records</strong> — when you gave or
+          withdrew consent, and whether a one-time code was verified (the code
+          itself is not kept in the conversation record).
+        </li>
+        <li>
+          <strong>Technical data</strong> — message times, delivery receipts
+          and language preference.
+        </li>
+      </ul>
+      <p>
+        Aadhaar, PAN, card and bank numbers are masked before a conversation
+        is stored, and identifying details are masked or hashed in our
+        internal logs.
+      </p>
 
       <h2>4. Why we process it</h2>
       <ul>
-        <li>To answer claim status queries on behalf of the insurer or TPA.</li>
+        <li>To tell you the status of your claim, with the source and date.</li>
+        <li>To ask for, collect and check the documents your claim needs.</li>
         <li>
-          To request and collect pending documents needed to progress a claim.
+          To explain a query, deduction or decision, using wording your
+          insurer or TPA has approved.
         </li>
+        <li>To record and track a complaint, and send you its outcome.</li>
+        <li>To confirm it is you before sharing anything personal.</li>
         <li>
-          To explain rejection reasons or next-step actions using approved,
-          pre-reviewed templates only.
-        </li>
-        <li>
-          To meet regulatory obligations — including the IRDAI 1-hour
-          admission / 3-hour discharge cashless mandate.
-        </li>
-        <li>
-          To produce immutable audit records for ombudsman and regulator review.
+          To help your insurer or TPA meet IRDAI timelines and reporting, and
+          to keep an audit record of what was done and said.
         </li>
       </ul>
 
-      <h2>5. Consent gate</h2>
+      <h2>5. Consent, and the one exception</h2>
       <p>
-        No claim workflow runs without an explicit <code>CONSENT_GIVEN</code>{" "}
-        signal recorded against the claimant. Consent can be withdrawn at any
-        time through the same channel it was given. Withdrawal is honored
-        within one business day and the audit ledger reflects every state
-        change.
+        No conversation about your claim goes ahead until you have given
+        consent, and that consent is recorded. You can withdraw it at any time
+        on the channel where you gave it; once withdrawn, the conversation
+        stops.
+      </p>
+      <p>
+        The one exception is a notice your insurer or TPA is obliged by IRDAI
+        to send you — for example, a request for a document your claim still
+        needs. Such a notice goes only to the contact registered on your
+        policy, carries claim information only and nothing promotional, and is
+        never sent if you refused or withdrew consent.
       </p>
 
-      <h2>6. Free-text never leaves the platform</h2>
+      <h2>6. How messages to you are made</h2>
       <p>
-        Gooclaim OS sends only pre-approved templates to claimants. Every
-        outbound message passes a 4-tier safety check — exact-template match,
-        semantic safety, personal-data redaction, and source verification —
-        before it leaves the platform. Large language models are used for
-        internal reasoning, not for free-text responses to customers.
+        You receive only messages your insurer or TPA has approved. Before any
+        message is sent, every value in it is checked against your
+        insurer&rsquo;s or TPA&rsquo;s record. AI models help us understand
+        your question and choose the right approved message; they do not write
+        free-text replies to you. Every AI call goes through our own model
+        gateway, and your data is not used to train any model.
       </p>
 
       <h2>7. Who sees your data</h2>
       <ul>
         <li>
-          The TPA or insurer that engaged Gooclaim OS for your claim, under
-          their existing privacy obligations.
+          The insurer or TPA handling your claim, and only its staff whose role
+          allows it.
         </li>
         <li>
-          Sub-processors used for channel delivery (e.g. WhatsApp Cloud API),
-          telephony, hosting infrastructure, and observability. These are
-          bound by data-processing agreements.
+          Service providers we use to run the platform, under contract with us:
+          cloud hosting and email delivery (Amazon Web Services), WhatsApp
+          delivery (Meta&rsquo;s WhatsApp Business Platform), and AI model
+          providers reached only through our model gateway.
         </li>
-        <li>
-          Regulators, ombudsmen and courts where required by law.
-        </li>
+        <li>Regulators, courts and authorities, where the law requires it.</li>
       </ul>
       <p>
-        We do not sell personal data. We do not use claimant data to train any
-        third-party models. Multi-tenant data is strictly isolated; one
-        tenant&rsquo;s data is never accessible to another.
+        Each insurer&rsquo;s or TPA&rsquo;s data is kept apart from every
+        other&rsquo;s. We do not sell personal data.
       </p>
 
-      <h2>8. Security</h2>
+      <h2>8. How long we keep it</h2>
       <ul>
-        <li>Encryption in transit (TLS 1.2+) and at rest.</li>
-        <li>Per-tenant credential isolation and encrypted credential storage.</li>
         <li>
-          Personal data hashed in all internal logs — phone, name and claim
-          identifiers are never logged in plaintext.
+          A conversation that is part of a claim or complaint is kept as a claim
+          record for <strong>ten years</strong>, as the IRDAI (Maintenance of
+          Insurance Records) Regulations, 2015 require.
         </li>
         <li>
-          Zero-trust between internal services with short-lived machine tokens.
+          Other conversation content is deleted after <strong>90 days</strong>.
         </li>
         <li>
-          Immutable, SHA-256-chained audit ledger of every automated decision.
+          The audit record of what the platform did is kept for{" "}
+          <strong>seven years</strong>.
         </li>
         <li>
-          Continuous vulnerability scanning and a responsible-disclosure
-          channel at{" "}
+          When an insurer or TPA stops using Gooclaim OS, its data is returned
+          or deleted as its contract says, except where a law requires it to be
+          kept longer.
+        </li>
+      </ul>
+
+      <h2>9. Your rights as a claimant</h2>
+      <p>Under the DPDP Act you have the right to:</p>
+      <ul>
+        <li>get a summary of your personal data and how it is processed (section 11);</li>
+        <li>have it corrected, completed, updated or erased (section 12);</li>
+        <li>have a grievance addressed (section 13);</li>
+        <li>nominate someone to act for you if you die or cannot act (section 14);</li>
+        <li>withdraw consent at any time.</li>
+      </ul>
+      <p>
+        Because your insurer or TPA is the Data Fiduciary, please send these
+        requests to them first. If you cannot reach them, write to{" "}
+        <a href="mailto:contact@gooclaim.com">contact@gooclaim.com</a> and we
+        will pass your request to them and help them answer it. Erasure may be
+        limited where a law, such as IRDAI&rsquo;s record rules, requires a
+        claim record to be kept. If your grievance is not resolved, you may
+        complain to the <strong>Data Protection Board of India</strong>.
+      </p>
+      <p>
+        If we become aware of a breach affecting your data, we tell your
+        insurer or TPA without delay, so that it can inform you and the Data
+        Protection Board as the DPDP Rules require.
+      </p>
+
+      <h2>10. Website visitors and the waitlist</h2>
+      <p>For this data, Gooclaim is the Data Fiduciary.</p>
+      <ul>
+        <li>
+          <strong>What we collect</strong> — when you join the waitlist: your
+          name, work email, company, and, if you choose to give them, your role
+          and monthly claim volume, plus which button on the site you used.
+        </li>
+        <li>
+          <strong>Why</strong> — to reply to you, arrange a walkthrough and
+          keep you informed about Gooclaim OS. We do not use it for anything
+          else and we do not sell or share it for marketing.
+        </li>
+        <li>
+          <strong>Where it goes</strong> — the website runs on Vercel; waitlist
+          entries are kept in our Google Workspace and emails are sent through
+          Resend. These providers may process data outside India.
+        </li>
+        <li>
+          <strong>How long</strong> — until you ask us to remove it, or when we
+          no longer need it to contact you about Gooclaim OS.
+        </li>
+        <li>
+          <strong>Your rights</strong> — the same as in section 9. Write to{" "}
+          <a href="mailto:contact@gooclaim.com">contact@gooclaim.com</a> to
+          see, correct or delete your entry, or to stop hearing from us.
+        </li>
+      </ul>
+
+      <h2>11. Cookies and analytics on this website</h2>
+      <p>
+        This website shows no advertising and runs no advertising trackers. It
+        uses Vercel Web Analytics and Speed Insights to count page views and
+        measure page speed in aggregate; they do not use cookies to identify
+        you. The Gooclaim OS platform signs users in with short-lived tokens.
+      </p>
+
+      <h2>12. Security</h2>
+      <ul>
+        <li>Encryption in transit (TLS 1.2 or higher) and at rest.</li>
+        <li>Each insurer&rsquo;s or TPA&rsquo;s data encrypted with its own key.</li>
+        <li>Staff sign in with multi-factor authentication and see only what their role allows.</li>
+        <li>An append-only, tamper-evident audit ledger of what the platform does.</li>
+        <li>
+          A responsible-disclosure channel at{" "}
           <a href="mailto:security@gooclaim.com">security@gooclaim.com</a>.
         </li>
       </ul>
 
-      <h2>9. Retention</h2>
+      <h2>13. Where data is processed</h2>
       <p>
-        Audit ledger events are retained for <strong>7 years</strong> in line
-        with IRDAI record-keeping requirements. Conversation content and PII
-        are retained only as long as the engaging insurer or TPA instructs us
-        to retain them, after which the data is purged or returned.
+        Gooclaim OS processes claimant data in India unless the insurer or TPA
+        engaging us chooses otherwise in its contract. Any transfer outside
+        India is made only as section 16 of the DPDP Act allows — never to a
+        country the Government of India has restricted — and with contractual
+        safeguards.
       </p>
 
-      <h2>10. Your rights under DPDP</h2>
-      <ul>
-        <li>Right to access the personal data we hold about you.</li>
-        <li>Right to correction and erasure (subject to regulatory holds).</li>
-        <li>Right to grievance redressal and right to nominate.</li>
-        <li>Right to withdraw consent at any time.</li>
-      </ul>
+      <h2>14. Children</h2>
       <p>
-        Because we act as a processor, requests are typically routed through
-        the TPA or insurer that handles your claim. If you cannot reach them,
-        write to <a href="mailto:contact@gooclaim.com">contact@gooclaim.com</a>{" "}
-        and we will coordinate with the Data Fiduciary on your behalf.
+        This website and our waitlist are not meant for anyone under 18. Where
+        a claim concerns a child, the insurer or TPA deals with the parent or
+        lawful guardian, as the DPDP Act requires.
       </p>
 
-      <h2>11. International transfers</h2>
+      <h2>15. Changes to this notice</h2>
       <p>
-        Production data is processed in India unless an engaging tenant
-        explicitly chooses otherwise. Where transfers occur, they happen only
-        to jurisdictions notified by the Government of India for DPDP
-        transfers, with contractual safeguards in place.
+        We will update this notice when our practices or the law change. The
+        &ldquo;Last updated&rdquo; date at the top always shows the latest
+        version.
       </p>
 
-      <h2>12. Cookies on this website</h2>
+      <h2>16. Grievance officer and contact</h2>
       <p>
-        This marketing website (gooclaim.com) uses only essential cookies for
-        page-state and basic analytics. No advertising trackers run on this
-        site. The Gooclaim OS platform itself does not rely on cookies for
-        claim processing — authentication uses short-lived signed tokens.
-      </p>
-
-      <h2>13. Changes to this notice</h2>
-      <p>
-        We will update this notice when our practices change. The
-        &ldquo;Last updated&rdquo; date at the top will always reflect the
-        most recent revision. Material changes will be highlighted on the
-        marketing site for at least 30 days.
-      </p>
-
-      <h2>14. Grievance officer</h2>
-      <p>
-        Per the DPDP Act, you may contact our Grievance Officer at{" "}
+        For any question or grievance about personal data, write to our
+        Grievance Officer at{" "}
         <a href="mailto:contact@gooclaim.com">contact@gooclaim.com</a>. We will
-        acknowledge within three business days and respond substantively
-        within fifteen.
+        acknowledge it within three business days and respond within the time
+        the DPDP Rules allow. If you are not satisfied, you may complain to
+        the Data Protection Board of India.
       </p>
     </LegalShell>
   );
