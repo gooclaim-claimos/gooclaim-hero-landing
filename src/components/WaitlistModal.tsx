@@ -1,11 +1,7 @@
 import { forwardRef, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Wordmark from "@/components/Wordmark";
-import {
-  VOLUME_OPTIONS,
-  WAITLIST_OPEN_EVENT,
-  type WaitlistOpenDetail,
-} from "@/lib/waitlist";
+import { VOLUME_OPTIONS, WAITLIST_OPEN_EVENT, type WaitlistOpenDetail, sourceWithUtm } from "@/lib/waitlist";
 
 type SubmitState =
   | { phase: "idle" }
@@ -170,7 +166,7 @@ export default function WaitlistModal() {
       const res = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, source }),
+        body: JSON.stringify({ ...form, source: sourceWithUtm(source) }),
       });
       const data = (await res.json().catch(() => null)) as { ok?: boolean; error?: string } | null;
       if (!res.ok || !data?.ok) {

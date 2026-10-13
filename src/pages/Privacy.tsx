@@ -199,7 +199,10 @@ export default function Privacy() {
         <li>
           <strong>What we collect</strong> — when you join the waitlist: your
           name, work email, company, and, if you choose to give them, your role
-          and monthly claim volume, plus which button on the site you used.
+          and monthly claim volume, plus which button on the site you used and
+          the campaign tags in the link that brought you here (such as{" "}
+          <code>utm_source</code>). These tags are read from the link itself;
+          we do not set cookies to track you.
         </li>
         <li>
           <strong>Why</strong> — to reply to you, arrange a walkthrough and
