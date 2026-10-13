@@ -114,7 +114,7 @@ const DAYS: Day[] = [
 
 const LIMIT = 15;
 const CLAIM_RUPEES = 100_000;
-const RATE = (5.5 + 2) / 100; // RBI bank rate 5.50% + IRDAI's 2%, a year
+const RATE = (5.75 + 2) / 100; // RBI bank rate 5.75% (from 7 Oct 2026) + IRDAI's 2%, a year
 const STEP_MS = 2600;
 
 const inr = (n: number) => `₹${Math.round(n).toLocaleString("en-IN")}`;
@@ -352,7 +352,7 @@ function ClaimTimeline({ focus }: { focus: Job | null }) {
         </div>
       </div>
       <div className="mt-4 text-[10.5px] text-white/35">
-        Sample reimbursement of ₹1,00,000 · interest at RBI bank rate 5.50% + 2% a year from intimation · illustrative
+        Sample reimbursement of ₹1,00,000 · interest at RBI bank rate 5.75% + 2% a year from intimation · illustrative
       </div>
     </div>
   );

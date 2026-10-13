@@ -83,7 +83,7 @@ const ITEMS: Item[] = [
   },
   {
     title: "Consent, then verification",
-    body: "DPDP consent before any claim detail, and a one-time code to the registered mobile before anything personal.",
+    body: "DPDP consent before any claim detail. On WhatsApp the registered number proves who is writing; on email, a one-time code to it does.",
     hue: "#10b981",
     Icon: IconConsent,
   },

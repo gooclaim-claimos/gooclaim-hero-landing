@@ -57,7 +57,7 @@ const TILES: Tile[] = [
     key: "consent",
     label: "Consent & audit",
     title: "Before a word. After every word.",
-    body: "DPDP consent before any claim detail, an OTP before anything personal, and every decision in an append-only, SHA-256-chained ledger.",
+    body: "DPDP consent before any claim detail, identity checked before anything personal, and every decision in an append-only, SHA-256-chained ledger.",
     hue: "#10b981",
     full: true,
   },
@@ -120,7 +120,7 @@ function SourceDemo() {
 }
 
 const CLAIM_PAISE = 100_000 * 100;
-const LATE_RATE = (5.5 + 2) / 100; // RBI bank rate 5.50% + IRDAI's 2%, a year
+const LATE_RATE = (5.75 + 2) / 100; // RBI bank rate 5.75% (from 7 Oct 2026) + IRDAI's 2%, a year
 const LIMIT_DAYS = 15;
 
 /** The reimbursement clock as the engine counts it: 15 days, amber from day 10,
@@ -168,7 +168,7 @@ function ClockDemo() {
         </span>
       </div>
       <p className="font-display text-[10px] uppercase tracking-wider text-white/35">
-        Reimbursement · RBI bank rate 5.50% + 2% · illustrative
+        Reimbursement · RBI bank rate 5.75% + 2% · illustrative
       </p>
     </div>
   );
