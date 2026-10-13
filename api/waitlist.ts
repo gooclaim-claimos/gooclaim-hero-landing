@@ -335,7 +335,8 @@ export default async function handler(
   const company = (body.company || "").trim().slice(0, 200);
   const role = (body.role || "").trim().slice(0, 120);
   const monthly_claim_volume = (body.monthly_claim_volume || "").trim().slice(0, 60);
-  const source = (body.source || "hero-landing").trim().slice(0, 60);
+  // The button, plus the landing link's campaign tags (utm_*) when there were any.
+  const source = (body.source || "hero-landing").trim().slice(0, 240);
 
   if (!name) return send(res, 400, { ok: false, error: "name_required" });
   if (!EMAIL_RE.test(work_email)) return send(res, 400, { ok: false, error: "invalid_email" });
