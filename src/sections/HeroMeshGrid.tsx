@@ -6,6 +6,7 @@ import ComplianceBadge from "@/components/ComplianceBadge";
 import CTA from "@/components/CTA";
 import MobileMenu from "@/components/MobileMenu";
 import { openWaitlist } from "@/lib/waitlist";
+import { scrollToSection } from "@/lib/lenis";
 import { Link } from "react-router-dom";
 import SiteNav, { SITE_NAV } from "@/components/SiteNav";
 
@@ -325,14 +326,8 @@ export default function HeroMeshGrid() {
             </CTA>
             <CTA
               variant="ghost"
-              onClick={() =>
-                openWaitlist("hero-how", {
-                  eyebrow: "Live walkthrough · 30 min",
-                  headline: "Want to see how Gooclaim OS works?",
-                  subhead:
-                    "Join the waitlist — we'll show you. Real workflows on real channels, wired to a sample CMS. No slides.",
-                })
-              }
+              // The day-by-day claim demo on this page; it starts playing once in view.
+              onClick={() => scrollToSection("system-gap", 96)}
             >
               See how it works
             </CTA>
