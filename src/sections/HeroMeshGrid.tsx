@@ -310,7 +310,7 @@ export default function HeroMeshGrid() {
             Built for every claim.
             <br />
             <span className="text-gradient-cyan">
-              Every channel. Every CMS. Every vertical.
+              Every channel. Every CMS. Every workflow.
             </span>
           </motion.h1>
 

@@ -5,7 +5,7 @@ export const SITE = {
   twitter: "@gooclaim",
   defaultTitle: "Gooclaim OS · The operating system for India's claims industry",
   defaultDescription:
-    "Gooclaim OS is the multi-agent AI operating system for India's TPAs and insurers. Built for every claim — every channel, every CMS, every vertical. IRDAI + DPDP compliant by design.",
+    "Gooclaim OS is the multi-agent AI operating system for India's TPAs and insurers. Built for every claim — every channel, every CMS, every workflow. IRDAI + DPDP compliant by design.",
   defaultOgImage: "/og-default.png",
   locale: "en_IN",
 };
@@ -20,7 +20,7 @@ export interface PageSEO {
 export const SEO_HOME: PageSEO = {
   title: "Gooclaim OS · One Claims OS. Fully agentic.",
   description:
-    "The agentic claims operating system for India's TPAs and insurers. Multi-channel, multi-CMS, multi-vertical — IRDAI + DPDP compliant by design.",
+    "The agentic claims operating system for India's TPAs and insurers. Multi-channel, multi-CMS, any workflow — IRDAI + DPDP compliant by design.",
   keywords:
     "claims OS, insurance AI, TPA software, claims automation India, IRDAI cashless, DPDP compliance, multi-agent insurance, WhatsApp claims",
 };
