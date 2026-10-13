@@ -8,6 +8,22 @@ function isTouchOnlyDevice(): boolean {
   return window.matchMedia("(hover: none) and (pointer: coarse)").matches;
 }
 
+// The running instance, so an in-page link scrolls with Lenis instead of
+// fighting it. Null on touch devices and with reduced motion.
+let active: Lenis | null = null;
+
+/** Scroll to a section by id — Lenis when it runs, the browser otherwise. */
+export function scrollToSection(id: string, offset = 0) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  if (active) {
+    active.scrollTo(el, { offset });
+    return;
+  }
+  const top = el.getBoundingClientRect().top + window.scrollY + offset;
+  window.scrollTo({ top, behavior: prefersReducedMotion() ? "auto" : "smooth" });
+}
+
 export function initLenis() {
   if (prefersReducedMotion()) {
     return () => undefined;
@@ -28,6 +44,7 @@ export function initLenis() {
   });
 
   lenis.on("scroll", ScrollTrigger.update);
+  active = lenis;
 
   let rafId = 0;
   const raf = (time: number) => {
@@ -38,6 +55,7 @@ export function initLenis() {
 
   return () => {
     cancelAnimationFrame(rafId);
+    if (active === lenis) active = null;
     lenis.destroy();
   };
 }
