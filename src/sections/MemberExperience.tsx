@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useInView } from "framer-motion";
+import { AnimatePresence, motion, useScroll } from "framer-motion";
 import SectionShell from "@/components/SectionShell";
 import { MailIcon, TelegramIcon, WhatsAppIcon } from "@/components/BrandIcons";
 import { fadeUp, stagger, viewportOnce } from "@/lib/motion";
@@ -10,6 +10,8 @@ interface Message {
   /** What the OS did before it could send this — shown under the bubble. */
   note?: string;
   link?: string;
+  /** The guarantees this message demonstrates; lights those points as it arrives. */
+  points?: string[];
 }
 
 type Channel = "whatsapp" | "email" | "voice";
@@ -24,6 +26,7 @@ const CONVERSATIONS: Record<Channel, Message[]> = {
     {
       from: "os",
       text: "Hello! Before we look at your claim, may we use your details to help you with it? Reply YES to continue.",
+      points: ["Consent first"],
       note: "Consent first",
     },
     { from: "member", text: "Yes" },
@@ -32,6 +35,7 @@ const CONVERSATIONS: Record<Channel, Message[]> = {
       text: "The latest status of your claim CLM-24817 (as per your insurer's records, updated 3 Oct 2026): Documents pending. We still need your discharge summary — upload it securely here:",
       link: "Upload documents",
       note: "Registered number · source and date",
+      points: ["Source & date", "Never free text"],
     },
     { from: "member", text: "Uploaded ✓ discharge_summary.pdf" },
     {
@@ -45,12 +49,14 @@ const CONVERSATIONS: Record<Channel, Message[]> = {
     {
       from: "os",
       text: "Dear member, before we look at your claim, may we use your details to help you with it? Please reply YES along with your registered mobile number.",
+      points: ["Consent first"],
       note: "Consent first",
     },
     { from: "member", text: "YES — my mobile is 98•••••21." },
     {
       from: "os",
       text: "Thank you. Your claim details are private, so we've sent a 6-digit code to your registered mobile ending ••21. Please reply with the code.",
+      points: ["Verified"],
       note: "Verified before any detail",
     },
     { from: "member", text: "The code is 482913." },
@@ -59,6 +65,7 @@ const CONVERSATIONS: Record<Channel, Message[]> = {
       text: "The latest status of your claim CLM-24817 (as per your insurer's records, updated 3 Oct 2026): Documents pending. We still need your discharge summary — upload it securely here:",
       link: "Upload documents",
       note: "Source and date · checked before sending",
+      points: ["Source & date", "Never free text"],
     },
   ],
   // Not live yet — a preview of the voice agent. A caller ID proves less than a
@@ -68,18 +75,21 @@ const CONVERSATIONS: Record<Channel, Message[]> = {
     {
       from: "os",
       text: "Sure. Before I look at your claim, may I use your details to help you with it? Please say yes to continue.",
+      points: ["Consent first"],
       note: "Consent first",
     },
     { from: "member", text: "Yes." },
     {
       from: "os",
       text: "Thank you. I've sent a 6-digit code to your registered mobile ending 21. Please read it out.",
+      points: ["Verified"],
       note: "Verified before any detail",
     },
     { from: "member", text: "Four, eight, two, nine, one, three." },
     {
       from: "os",
       text: "As per your insurer's records, updated 3 October: claim CLM-24817 is waiting for one document — the discharge summary. I'll send a secure upload link to your registered mobile.",
+      points: ["Source & date", "Never free text"],
       note: "Source and date",
     },
   ],
@@ -136,7 +146,6 @@ const POINTS = [
   { label: "Never free text", body: "Approved templates only, in the member's language.", hue: "#f59e0b" },
 ];
 
-const STEP_MS = 1100;
 
 function Bubble({ m }: { m: Message }) {
   const mine = m.from === "member";
@@ -216,14 +225,14 @@ function Mail({ m }: { m: Message }) {
 
 const BARS = 28;
 
-function VoiceCall({ lines, run }: { lines: Message[]; run: number }) {
+function VoiceCall({ lines }: { lines: Message[] }) {
   const [secs, setSecs] = useState(0);
   const listRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     setSecs(0);
     const id = window.setInterval(() => setSecs((x) => x + 1), 1000);
     return () => window.clearInterval(id);
-  }, [run]);
+  }, []);
   useEffect(() => {
     const el = listRef.current;
     if (el) el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
@@ -265,7 +274,7 @@ function VoiceCall({ lines, run }: { lines: Message[]; run: number }) {
         <AnimatePresence initial={false}>
           {lines.map((m, i) => (
             <motion.div
-              key={`${run}-${i}`}
+              key={i}
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
@@ -293,43 +302,33 @@ function VoiceCall({ lines, run }: { lines: Message[]; run: number }) {
   );
 }
 
-function Phone() {
+/**
+ * The conversation is paced by the reader, not by a clock.
+ *
+ * It used to run on a timer once in view: a visitor who looked away missed
+ * messages, and a fast reader waited. Scroll position drives it instead, so
+ * the thread moves exactly as far as the reader has come — and stopping
+ * stops it.
+ */
+function Phone({
+  channel,
+  setChannel,
+  shown,
+}: {
+  channel: Channel;
+  setChannel: (c: Channel) => void;
+  shown: number;
+}) {
   const ref = useRef<HTMLDivElement | null>(null);
-  const inView = useInView(ref, { once: true, amount: 0.35 });
-  const [shown, setShown] = useState(0);
-  const [run, setRun] = useState(0);
-  const [channel, setChannel] = useState<Channel>("whatsapp");
   const conversation = CONVERSATIONS[channel];
   const meta = CHANNELS.find((c) => c.key === channel) ?? CHANNELS[0];
   const scrollRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    if (!inView) return;
-    const reduce = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) {
-      setShown(conversation.length);
-      return;
-    }
-    setShown(1);
-    const id = window.setInterval(() => {
-      setShown((n) => {
-        if (n >= conversation.length) {
-          window.clearInterval(id);
-          return n;
-        }
-        return n + 1;
-      });
-    }, channel === "voice" ? STEP_MS * 1.7 : STEP_MS); // speech is slower than text
-    return () => window.clearInterval(id);
-  }, [inView, run, conversation.length, channel]);
 
   // Keep the newest message in view, inside the phone only.
   useEffect(() => {
     const el = scrollRef.current;
     if (el) el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
   }, [shown]);
-
-  const done = shown >= conversation.length;
   return (
     <div ref={ref} className="relative mx-auto w-full max-w-[360px]">
       <div
@@ -347,8 +346,6 @@ function Phone() {
               onClick={() => {
                 if (on) return;
                 setChannel(c.key);
-                setShown(0);
-                setRun((r) => r + 1);
               }}
               className={`inline-flex min-h-[36px] items-center gap-1.5 rounded-full px-3 text-[12.5px] font-semibold transition-colors sm:gap-2 sm:px-4 ${
                 on ? "bg-white/[0.12] text-white" : "text-white/55 hover:text-white"
@@ -393,7 +390,7 @@ function Phone() {
             )}
           </div>
           {channel === "voice" ? (
-            <VoiceCall lines={conversation.slice(0, shown)} run={run} />
+            <VoiceCall key={channel} lines={conversation.slice(0, shown)} />
           ) : (
           <div
             ref={scrollRef}
@@ -404,34 +401,71 @@ function Phone() {
           >
             <AnimatePresence initial={false}>
               {conversation.slice(0, shown).map((m, i) =>
-                channel === "email" ? <Mail key={`${run}-${i}`} m={m} /> : <Bubble key={`${run}-${i}`} m={m} />,
+                channel === "email" ? <Mail key={i} m={m} /> : <Bubble key={i} m={m} />,
               )}
             </AnimatePresence>
           </div>
           )}
         </div>
       </div>
-      <div className="mt-4 flex justify-center">
-        <button
-          type="button"
-          onClick={() => {
-            setShown(0);
-            setRun((r) => r + 1);
-          }}
-          disabled={!done}
-          className="inline-flex min-h-[40px] items-center gap-2 rounded-full px-4 text-[12.5px] font-medium text-white/70 glass transition-all hover:text-white disabled:opacity-0"
-        >
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <path d="M3 12a9 9 0 1 0 3-6.7L3 8" /><path d="M3 3v5h5" />
-          </svg>
-          Replay conversation
-        </button>
-      </div>
+      {/* No replay button: scrolling back up is the replay. */}
     </div>
   );
 }
 
 export default function MemberExperience({ eyebrow = "05 · For members" }: { eyebrow?: string } = {}) {
+  const runway = useRef<HTMLDivElement | null>(null);
+  const [channel, setChannel] = useState<Channel>("whatsapp");
+  const [shown, setShown] = useState(1);
+
+  // Progress through the runway, from the stage pinning to it releasing.
+  const { scrollYProgress } = useScroll({
+    target: runway,
+    offset: ["start start", "end end"],
+  });
+  const total = CONVERSATIONS[channel].length;
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    // Below `lg` there is no runway and nothing is pinned, so scroll cannot
+    // pace the thread. Show it whole and let the phone's own scroll carry it —
+    // a second scroll region fighting the page is worse than no reveal.
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    let stop: (() => void) | undefined;
+
+    const apply = () => {
+      stop?.();
+      stop = undefined;
+      if (!mq.matches || reduce) {
+        setShown(total);
+        return;
+      }
+      setShown(1);
+      // The last stretch is left to read the final reply rather than to reveal.
+      stop = scrollYProgress.on("change", (v) => {
+        const eased = Math.min(1, v / 0.82);
+        setShown(Math.max(1, Math.min(total, Math.ceil(eased * total))));
+      });
+    };
+
+    apply();
+    mq.addEventListener("change", apply);
+    return () => {
+      stop?.();
+      mq.removeEventListener("change", apply);
+    };
+  }, [scrollYProgress, total]);
+
+  // Which guarantees the thread has demonstrated so far.
+  const reached = new Set(
+    CONVERSATIONS[channel]
+      .slice(0, shown)
+      .flatMap((m) => m.points ?? [])
+  );
+
   return (
     <SectionShell
       id="members"
@@ -444,7 +478,10 @@ export default function MemberExperience({ eyebrow = "05 · For members" }: { ey
       }
       intro="A member asks on WhatsApp or email, in their own words. The OS checks who they are, reads your claims system, and replies in an approved message — with the source and date, and the next thing they need to do."
     >
-      <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16">
+      {/* A runway tall enough to read the thread through. The stage pins to it,
+          so the conversation advances with the reader rather than a timer. */}
+      <div ref={runway} className="relative lg:h-[260vh]">
+      <div className="lg:sticky lg:top-[12vh] grid grid-cols-1 items-center gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16">
         <div className="order-2 lg:order-1">
         <motion.ul
           variants={stagger(0.06, 0.08)}
@@ -457,16 +494,22 @@ export default function MemberExperience({ eyebrow = "05 · For members" }: { ey
             <motion.li
               key={p.label}
               variants={fadeUp}
-              className="group relative overflow-clip rounded-2xl glass p-5 transition-all duration-500 hover:-translate-y-0.5 hover:border-white/15"
+              data-lit={reached.has(p.label) || undefined}
+              className="group relative overflow-clip rounded-2xl glass p-5 transition-all duration-500 hover:-translate-y-0.5 hover:border-white/15 data-[lit]:border-white/25 data-[lit]:bg-white/[0.06]"
             >
               <div
                 aria-hidden
-                className="pointer-events-none absolute -right-12 -top-12 h-28 w-28 rounded-full opacity-40 blur-3xl transition-opacity duration-700 group-hover:opacity-80"
-                style={{ background: `${p.hue}33` }}
+                className="pointer-events-none absolute -right-12 -top-12 h-28 w-28 rounded-full blur-3xl transition-opacity duration-700"
+                style={{ background: `${p.hue}33`, opacity: reached.has(p.label) ? 0.9 : 0.25 }}
               />
               <div className="relative z-10">
                 <div className="flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full" style={{ background: p.hue, boxShadow: `0 0 10px ${p.hue}` }} />
+                  <motion.span
+                    className="h-1.5 w-1.5 rounded-full"
+                    animate={{ scale: reached.has(p.label) ? 1 : 0.6, opacity: reached.has(p.label) ? 1 : 0.4 }}
+                    transition={{ duration: 0.35 }}
+                    style={{ background: p.hue, boxShadow: `0 0 10px ${p.hue}` }}
+                  />
                   <span className="font-display text-[11px] uppercase tracking-wider2" style={{ color: p.hue }}>
                     {p.label}
                   </span>
@@ -504,8 +547,9 @@ export default function MemberExperience({ eyebrow = "05 · For members" }: { ey
         </motion.div>
         </div>
         <div className="order-1 lg:order-2">
-          <Phone />
+          <Phone channel={channel} setChannel={setChannel} shown={shown} />
         </div>
+      </div>
       </div>
     </SectionShell>
   );

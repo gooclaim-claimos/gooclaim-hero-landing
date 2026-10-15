@@ -8,6 +8,7 @@ import {
   websiteJsonLd,
 } from "@/lib/structured";
 import HeroMeshGrid from "@/sections/HeroMeshGrid";
+import ProofBand from "@/sections/ProofBand";
 import ProblemJourney from "@/sections/ProblemJourney";
 import SystemGap from "@/sections/SystemGap";
 import ThreeJobs from "@/sections/ThreeJobs";
@@ -31,8 +32,9 @@ export default function Home() {
         path="/"
         jsonLd={[orgJsonLd, softwareJsonLd, websiteJsonLd]}
       />
-      <main className="relative isolate overflow-x-hidden bg-ink-950 text-white">
+      <main className="relative isolate overflow-x-clip bg-ink-950 text-white">
         <HeroMeshGrid />
+        <ProofBand />
         <ProblemJourney eyebrow="01 · The problem" />
         <SystemGap eyebrow="02 · Why your system can’t fix it" />
         <ThreeJobs eyebrow="03 · What it does" />

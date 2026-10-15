@@ -64,6 +64,66 @@ const MODES: Mode[] = [
   },
 ];
 
+/**
+ * What decides the price, shown where the price would normally be.
+ *
+ * A page whose fold is a headline and two buttons leaves the visitor's actual
+ * question unanswered — not "what does it cost", which no honest page here can
+ * answer yet, but "how will I be charged". These four dimensions already
+ * explain the no-price-card section further down; promoted to the fold they
+ * give it something concrete to hold.
+ */
+const BASIS: { k: string; v: string; hue: string }[] = [
+  { k: "Volume", v: "Claims a year, not seats", hue: "#0d99ff" },
+  { k: "Channels", v: "WhatsApp · email · voice", hue: "#7dc4ff" },
+  { k: "Lines", v: "Health first · motor, life next", hue: "#f59e0b" },
+  { k: "SLA", v: "1 hour · 3 hours · 15 days", hue: "#10b981" },
+];
+
+function PricingBasis() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+      className="rounded-3xl border border-white/[0.09] bg-white/[0.02] p-6 backdrop-blur-sm sm:p-7"
+    >
+      <div className="font-display text-[10px] uppercase tracking-wider2 text-white/40">
+        What your price depends on
+      </div>
+
+      <dl className="mt-5 space-y-0">
+        {BASIS.map((b, i) => (
+          <motion.div
+            key={b.k}
+            initial={{ opacity: 0, x: -8 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 + i * 0.09, ease: [0.16, 1, 0.3, 1] }}
+            className="flex items-baseline gap-4 border-t border-white/[0.07] py-3.5 first:border-t-0 first:pt-0"
+          >
+            <dt className="flex min-w-[88px] items-center gap-2.5">
+              <span
+                className="h-1.5 w-1.5 shrink-0 rounded-full"
+                style={{ background: b.hue, boxShadow: `0 0 9px ${b.hue}` }}
+              />
+              <span className="font-display text-[14px] font-semibold text-white">{b.k}</span>
+            </dt>
+            <dd className="text-[13.5px] leading-snug text-white/55">{b.v}</dd>
+          </motion.div>
+        ))}
+      </dl>
+
+      <div className="mt-6 border-t border-white/[0.07] pt-4">
+        <p className="text-[12.5px] leading-relaxed text-white/45">
+          No price card, because no two of these are the same.{" "}
+          <span className="text-white/75">A real number after one call</span> — not a
+          quote-form runaround.
+        </p>
+      </div>
+    </motion.div>
+  );
+}
+
 export default function Pricing() {
   useEffect(() => {
     document.title = "Pricing · Gooclaim OS";
@@ -82,41 +142,47 @@ export default function Pricing() {
         ])}
       />
       <section className="relative z-10 mx-auto w-full max-w-[1280px] px-5 pb-16 pt-10 sm:px-10 sm:pb-28 sm:pt-20 lg:px-14">
-        {/* Hero */}
-        <div className="mb-3 font-display text-[11px] uppercase tracking-wider2 text-white/45">
-          Pricing
-        </div>
-        <h1 className="max-w-3xl text-balance font-display text-[34px] font-semibold leading-[1.05] tracking-tightest text-white sm:text-[52px] sm:leading-[1.02] lg:text-[72px]">
-          Let&rsquo;s talk pricing.{" "}
-          <span className="text-white/55">
-            Built for India&rsquo;s TPAs and insurers.
-          </span>
-        </h1>
-        <p className="mt-6 max-w-2xl text-[16px] leading-relaxed text-white/65 sm:text-[17px]">
-          Gooclaim OS is sold as a partnership, not a SKU. Pricing follows the
-          shape of your operation — volume, channels, lines of insurance, SLA. Three
-          engagement modes below; we&rsquo;ll co-design the right one with you
-          in a 30-minute call.
-        </p>
+        {/* Hero — the words on the left, what decides the price on the right,
+            so the fold carries something concrete rather than two buttons. */}
+        <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+          <div>
+            <div className="mb-3 font-display text-[11px] uppercase tracking-wider2 text-white/45">
+              Pricing
+            </div>
+            <h1 className="text-balance font-display text-[34px] font-semibold leading-[1.05] tracking-tightest text-white sm:text-[52px] sm:leading-[1.02] lg:text-[64px]">
+              Let&rsquo;s talk pricing.{" "}
+              <span className="text-white/55">
+                Built for India&rsquo;s TPAs and insurers.
+              </span>
+            </h1>
+            <p className="mt-6 max-w-[54ch] text-[16px] leading-relaxed text-white/65 sm:text-[17px]">
+              Gooclaim OS is sold as a partnership, not a SKU. Pricing follows the
+              shape of your operation. Three engagement modes below; we&rsquo;ll
+              co-design the right one with you in a 30-minute call.
+            </p>
 
-        {/* Primary CTAs */}
-        <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:gap-4">
-          <a
-            href={CALENDLY}
-            target="_blank"
-            rel="noreferrer"
-            className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-[14px] font-semibold text-ink-950 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_40px_-12px_rgba(13,153,255,0.55)]"
-          >
-            Connect with us
-            <ArrowRight />
-          </a>
-          <Link
-            to="/demo"
-            className="group inline-flex items-center gap-2 rounded-full px-6 py-3 text-[14px] font-semibold text-white/85 glass transition-all duration-300 hover:-translate-y-0.5 hover:text-white hover:border-white/20"
-          >
-            Or book a demo first
-            <ArrowRight />
-          </Link>
+            {/* One primary action. The demo is a quieter alternative, not a rival. */}
+            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+              <a
+                href={CALENDLY}
+                target="_blank"
+                rel="noreferrer"
+                className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-[14px] font-semibold text-ink-950 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_40px_-12px_rgba(13,153,255,0.55)]"
+              >
+                Connect with us
+                <ArrowRight />
+              </a>
+              <Link
+                to="/demo"
+                className="group inline-flex items-center gap-1.5 text-[14px] font-medium text-white/55 underline-offset-4 transition-colors duration-300 hover:text-white hover:underline"
+              >
+                Or book a demo first
+                <ArrowRight />
+              </Link>
+            </div>
+          </div>
+
+          <PricingBasis />
         </div>
 
         {/* 3 engagement modes */}

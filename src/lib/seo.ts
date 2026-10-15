@@ -78,7 +78,7 @@ export const SEO_ORION: PageSEO = {
 export const SEO_SECURITY: PageSEO = {
   title: "Security & compliance · Gooclaim OS",
   description:
-    "How Gooclaim OS protects claims data: read-only to your claims system, per-customer encryption, masked personal numbers, DPDP consent, MFA and an append-only audit trail — plus IRDAI clocks on every claim.",
+    "How Gooclaim OS protects claims data: read-only to your claims system, strict per-tenant isolation, masked personal numbers, encryption at rest, DPDP consent and an append-only audit trail — plus IRDAI clocks on every claim.",
   keywords: "insurance data security, DPDP compliance, IRDAI compliance, claims data protection, audit trail",
 };
 
