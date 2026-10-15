@@ -152,15 +152,16 @@ export default function Privacy() {
       <p>
         There is no single answer, and we would rather give you the real one.
         Everything below turns on one question:{" "}
-        <strong>is this part of a claim record?</strong> If it is, the law
-        requires us to keep it for years. If it is not, it is deleted in
-        months.
+        <strong>is this part of a claim record?</strong> If it is, it is kept
+        for years. If it is not, it is deleted in months.
       </p>
 
       <p>
         <strong>Kept for ten years</strong> — from the last activity on the
-        claim, because the IRDAI (Maintenance of Insurance Records)
-        Regulations, 2015 require insurance records to be kept that long:
+        claim. IRDAI requires your insurer or TPA to keep insurance records
+        under a retention policy approved by its own board, rather than fixing
+        a period itself. Ten years is the default Gooclaim OS applies, and they
+        may set it higher:
       </p>
       <ul>
         <li>documents you upload for a claim;</li>
@@ -222,8 +223,8 @@ export default function Privacy() {
         requests to them first. If you cannot reach them, write to{" "}
         <a href="mailto:contact@gooclaim.com">contact@gooclaim.com</a> and we
         will pass your request to them and help them answer it. Erasure may be
-        limited where a law, such as IRDAI&rsquo;s record rules, requires a
-        claim record to be kept. If your grievance is not resolved, you may
+        limited where a claim record has to be kept — under your insurer&rsquo;s or
+        TPA&rsquo;s IRDAI records policy, or a legal hold. If your grievance is not resolved, you may
         complain to the <strong>Data Protection Board of India</strong>.
       </p>
       <p>
