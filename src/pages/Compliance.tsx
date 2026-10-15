@@ -94,8 +94,9 @@ export default function Compliance() {
       <p>
         Every automated decision, every outbound message, every consent
         change, every policy-gate outcome is written to an append-only,
-        SHA-256-chained audit ledger. Records are retained for seven years
-        and can be exported on demand.
+        SHA-256-chained audit ledger. Events that belong to a claim are
+        retained for ten years, operational events for 90 days (see
+        &sect;&nbsp;4), and both can be exported on demand.
       </p>
 
       <h3>2.4 Per-tenant isolation (DPDP, IT Act)</h3>
@@ -162,12 +163,34 @@ export default function Compliance() {
       <h2>4. Data residency and retention</h2>
       <p>
         Production data is processed in India unless an engaging Customer
-        explicitly chooses otherwise. Audit ledger events are retained for
-        seven years. A conversation that is part of a claim or complaint is
-        kept as a claim record for ten years, as IRDAI&rsquo;s record rules
-        require; other conversation content is deleted after 90 days. Beyond
-        that, data is purged or returned per the engagement&rsquo;s
-        data-processing terms.
+        explicitly chooses otherwise.
+      </p>
+      <p>
+        Retention is not one period. It turns on whether something is part of a
+        claim record:
+      </p>
+      <ul>
+        <li>
+          <strong>Ten years</strong>, from the last activity on the claim, as
+          IRDAI&rsquo;s record rules require — claim documents, a conversation
+          that belongs to a claim or complaint, and the audit ledger events for
+          that claim. A Customer may set this <em>higher</em>, up to thirty
+          years; it cannot be set lower.
+        </li>
+        <li>
+          <strong>90 days</strong> — conversation content that belongs to no
+          claim or complaint, expired or used upload links, and operational
+          ledger events that carry no compliance obligation.
+        </li>
+        <li>
+          <strong>30 days</strong> — the bytes of a file that was refused or
+          held and never became a claim document.
+        </li>
+      </ul>
+      <p>
+        A legal hold — a court case, a regulator&rsquo;s order — suspends every
+        deletion until the Customer lifts it. Beyond these periods, data is
+        purged or returned per the engagement&rsquo;s data-processing terms.
       </p>
 
       <h2>5. Sub-processors</h2>
