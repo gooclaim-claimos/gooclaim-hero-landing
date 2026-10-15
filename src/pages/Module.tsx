@@ -6,8 +6,8 @@ import { buildModuleSEO } from "@/lib/seo";
 import { breadcrumbJsonLd } from "@/lib/structured";
 import { viewportOnce, viewportItem } from "@/lib/motion";
 import { MODULES, type ModuleData } from "@/data/platform";
+import { openWaitlist } from "@/lib/waitlist";
 
-const CALENDLY = "https://calendly.com/contact-gooclaim/30min";
 
 export default function Module() {
   const { slug } = useParams<{ slug: string }>();
@@ -48,15 +48,14 @@ function ModuleBody({ data }: { data: ModuleData }) {
           </p>
 
           <div className="mt-9 flex flex-col items-start gap-3 sm:flex-row sm:gap-4">
-            <a
-              href={CALENDLY}
-              target="_blank"
-              rel="noreferrer"
+            <button
+              type="button"
+              onClick={() => openWaitlist(`module-${data.slug}`)}
               className="group inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-[14.5px] font-semibold text-ink-950 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_40px_-12px_rgba(13,153,255,0.55)]"
             >
               Talk to us about {data.label}
               <ArrowRight />
-            </a>
+            </button>
             <Link
               to="/demo"
               className="group inline-flex items-center gap-2 rounded-full px-6 py-3 text-[14px] font-semibold text-white/85 glass transition-all duration-300 hover:text-white hover:border-white/20"
@@ -265,15 +264,14 @@ function ModuleBody({ data }: { data: ModuleData }) {
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap lg:flex-col">
-            <a
-              href={CALENDLY}
-              target="_blank"
-              rel="noreferrer"
+            <button
+              type="button"
+              onClick={() => openWaitlist(`module-${data.slug}`)}
               className="group inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-3.5 text-[14.5px] font-semibold text-ink-950 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_40px_-12px_rgba(13,153,255,0.55)]"
             >
               Talk to us about {data.label}
               <ArrowRight />
-            </a>
+            </button>
             <a
               href="mailto:contact@gooclaim.com"
               className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-[14px] font-medium text-white/80 glass transition-all duration-300 hover:text-white hover:border-white/20"
