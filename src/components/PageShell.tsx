@@ -13,7 +13,7 @@ interface Props {
 
 export default function PageShell({ children }: Props) {
   return (
-    <main className="relative isolate min-h-screen overflow-x-hidden bg-ink-950 text-white">
+    <main className="relative isolate min-h-screen overflow-x-clip bg-ink-950 text-white">
       {/* Top bloom */}
       <div
         aria-hidden
