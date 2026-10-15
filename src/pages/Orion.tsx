@@ -5,6 +5,7 @@ import SEOHead from "@/components/SEOHead";
 import { SEO_ORION } from "@/lib/seo";
 import { breadcrumbJsonLd } from "@/lib/structured";
 import OrionCoworker from "@/sections/OrionCoworker";
+import OrionWorking from "@/sections/OrionWorking";
 import OrionLine from "@/sections/OrionLine";
 
 export default function Orion() {
@@ -31,7 +32,8 @@ export default function Orion() {
         secondary={{ label: "Explore the platform", to: "/platform" }}
       />
       <OrionCoworker eyebrow="01 · Inside Orion" />
-      <OrionLine eyebrow="02 · Where the line is" />
+      <OrionWorking eyebrow="02 · Watch it work" />
+      <OrionLine eyebrow="03 · Where the line is" />
       <CtaBand source="orion-close" next={{ label: "Security & compliance", to: "/security" }} />
     </PageShell>
   );
