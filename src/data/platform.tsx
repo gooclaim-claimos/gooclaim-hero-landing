@@ -40,7 +40,7 @@ export const MODULES: ModuleData[] = [
       </>
     ),
     heroIntro:
-      "Claim messages can come in on WhatsApp, voice, SMS, email or web. Channel Gateway receives all of them, normalises them into a single conversation thread, and routes each one to the right tenant — secure, audited, ready out of the box.",
+      "Claim messages come in on WhatsApp or email today, with voice, SMS and web next. Channel Gateway receives all of them, normalises them into a single conversation thread, and routes each one to the right tenant — secure, audited, ready out of the box.",
     capabilities: [
       {
         title: "WhatsApp",
@@ -48,12 +48,12 @@ export const MODULES: ModuleData[] = [
         hue: "#10b981",
       },
       {
-        title: "Voice agents",
-        body: "Inbound and outbound voice, in your customer’s language — handled by the same agent mesh that handles text.",
+        title: "Voice · SMS · Web — next",
+        body: "Not live yet. They arrive as new adapters on the same inbound contract, so a new channel is a connector and approved wording — not a second platform beside this one.",
         hue: "#0d99ff",
       },
       {
-        title: "SMS · Email · Web",
+        title: "Email",
         body: "Every other channel a claimant actually uses, on the same audited conversation thread.",
         hue: "#7dc4ff",
       },
@@ -76,7 +76,7 @@ export const MODULES: ModuleData[] = [
     outcomes: [
       {
         title: "No channel handoff loss",
-        body: "Context survives across WhatsApp, voice, SMS, email — the agent always knows the full history.",
+        body: "Context survives across every channel a member uses — the agent always knows the full history.",
       },
       {
         title: "One inbox for ops",
@@ -336,7 +336,7 @@ export const MODULES: ModuleData[] = [
       </>
     ),
     heroIntro:
-      "Policy Gate is the safety layer that sits between every workflow agent and every claimant. Every outbound message — WhatsApp, voice, SMS, email — passes a multi-tier safety check before it leaves the platform. Free text never reaches a customer on your brand.",
+      "Policy Gate is the safety layer that sits between every workflow agent and every claimant. Every outbound message, on whichever channel it leaves by, passes a multi-tier safety check before it leaves the platform. Free text never reaches a customer on your brand.",
     capabilities: [
       {
         title: "Exact-template match",
@@ -365,7 +365,7 @@ export const MODULES: ModuleData[] = [
       },
       {
         title: "Channel-aware safety",
-        body: "Different channels have different rules — voice TTS, WhatsApp HSM, SMS — the gate adapts.",
+        body: "Different channels have different rules — WhatsApp approved templates, email layout — the gate adapts.",
         hue: "#0d99ff",
       },
     ],

@@ -6,6 +6,7 @@ import SEOHead from "@/components/SEOHead";
 import { SEO_PRICING } from "@/lib/seo";
 import { breadcrumbJsonLd } from "@/lib/structured";
 import { fadeUp, stagger, viewportOnce } from "@/lib/motion";
+import { openWaitlist } from "@/lib/waitlist";
 
 interface Mode {
   badge: string;
@@ -26,7 +27,7 @@ const MODES: Mode[] = [
     includes: [
       "1 workflow · 1 channel · 1 tenant",
       "Truth-layer connector to your CMS",
-      "WhatsApp HSM or voice agent",
+      "WhatsApp approved templates, or email",
       "Per-tenant audit ledger",
       "Weekly success readout",
     ],
@@ -129,8 +130,7 @@ export default function Pricing() {
     document.title = "Pricing · Gooclaim OS";
   }, []);
 
-  const CALENDLY = "https://calendly.com/contact-gooclaim/30min";
-
+  
   return (
     <PageShell>
       <SEOHead
@@ -163,15 +163,14 @@ export default function Pricing() {
 
             {/* One primary action. The demo is a quieter alternative, not a rival. */}
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
-              <a
-                href={CALENDLY}
-                target="_blank"
-                rel="noreferrer"
+              <button
+                type="button"
+                onClick={() => openWaitlist("pricing-hero")}
                 className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-[14px] font-semibold text-ink-950 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_40px_-12px_rgba(13,153,255,0.55)]"
               >
                 Connect with us
                 <ArrowRight />
-              </a>
+              </button>
               <Link
                 to="/demo"
                 className="group inline-flex items-center gap-1.5 text-[14px] font-medium text-white/55 underline-offset-4 transition-colors duration-300 hover:text-white hover:underline"
@@ -282,15 +281,14 @@ export default function Pricing() {
                 </div>
 
                 {/* CTA */}
-                <a
-                  href={CALENDLY}
-                  target="_blank"
-                  rel="noreferrer"
+                <button
+                  type="button"
+                  onClick={() => openWaitlist(`pricing-${m.name.toLowerCase()}`)}
                   className="mt-7 inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-5 py-2.5 text-[13px] font-semibold text-white/90 transition-all duration-300 hover:border-white/25 hover:bg-white/[0.06]"
                 >
                   Talk about {m.name}
                   <ArrowRight />
-                </a>
+                </button>
               </div>
             </motion.article>
           ))}
@@ -317,7 +315,7 @@ export default function Pricing() {
             {[
               "Per-tenant pricing — TPAs and insurers don't share economics, and pricing shouldn't pretend they do.",
               "Lines of insurance matter — each has different volume, SLA and audit profiles.",
-              "Channels matter — voice agent + WhatsApp + email is a different cost profile than WhatsApp-only.",
+              "Channels matter — WhatsApp alone and WhatsApp with email are different cost profiles, and voice will be another when it lands.",
               "Compliance scope matters — IRDAI ombudsman exports, custom DPO reviews and security posture add real engineering.",
             ].map((line) => (
               <li key={line} className="flex items-start gap-3">
@@ -360,15 +358,14 @@ export default function Pricing() {
               </p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap lg:flex-col">
-              <a
-                href={CALENDLY}
-                target="_blank"
-                rel="noreferrer"
+              <button
+                type="button"
+                onClick={() => openWaitlist("pricing-close")}
                 className="group inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-[14px] font-semibold text-ink-950 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_40px_-12px_rgba(13,153,255,0.55)]"
               >
                 Connect with us
                 <ArrowRight />
-              </a>
+              </button>
               <a
                 href="mailto:contact@gooclaim.com"
                 className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-[14px] font-medium text-white/80 glass transition-all duration-300 hover:text-white hover:border-white/20"
