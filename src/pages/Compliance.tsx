@@ -44,9 +44,10 @@ export default function Compliance() {
           documents.
         </li>
         <li>
-          <strong>IRDAI (Maintenance of Insurance Records) Regulations,
-          2015</strong> — claim records, correspondence included, kept for at
-          least ten years.
+          <strong>IRDAI records rules</strong> — claim records,
+          correspondence included, kept under the Customer&rsquo;s own
+          board-approved retention policy, which those rules require it to
+          hold. Gooclaim OS defaults to ten years.
         </li>
         <li>
           <strong>IRDAI Internal Ombudsman Guidelines 2025</strong> —
@@ -171,11 +172,12 @@ export default function Compliance() {
       </p>
       <ul>
         <li>
-          <strong>Ten years</strong>, from the last activity on the claim, as
-          IRDAI&rsquo;s record rules require — claim documents, a conversation
-          that belongs to a claim or complaint, and the audit ledger events for
-          that claim. A Customer may set this <em>higher</em>, up to thirty
-          years; it cannot be set lower.
+          <strong>Ten years</strong>, from the last activity on the claim —
+          claim documents, a conversation that belongs to a claim or complaint,
+          and the audit ledger events for that claim. IRDAI requires a Customer
+          to hold a board-approved records and archival policy rather than
+          fixing a period itself, so ten years is our default: a Customer may
+          set it <em>higher</em>, up to thirty years, and cannot set it lower.
         </li>
         <li>
           <strong>90 days</strong> — conversation content that belongs to no
