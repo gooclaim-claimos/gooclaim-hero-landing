@@ -1,5 +1,39 @@
 import { type ReactNode } from "react";
 
+/**
+ * The four use cases.
+ *
+ * 🔴 Rewritten 2026-10-15 because the previous copy sold things that are not
+ * built and cited a circular that has been replaced. What was removed, and why:
+ *
+ *   - "Voice agent for reception", "Voice + WhatsApp + SMS", "WhatsApp, voice,
+ *     SMS or web" — there is no voice and no SMS. `gooclaim-gateway/CLAUDE.md`:
+ *     "Channels: WhatsApp WABA only (no voice, no SMS)". WhatsApp and email are
+ *     what run.
+ *   - "One inbox across every TPA", "Hospital sync — hospitals see the same
+ *     real-time state" — there is no hospital-facing surface anywhere in the
+ *     codebase. The hospitals page now says what actually changes for a
+ *     hospital when its TPA runs this, which is a real and checkable thing.
+ *   - "Cashless agent mesh — automated cashless authorisation … no human
+ *     queue" — that is deciding a claim. The platform never decides one, and
+ *     L2 is read-only with no write-back.
+ *   - "IRDAI Master Circular (29 May 2024)" — superseded. The operative one is
+ *     the Master Circular on Protection of Policyholders' Interests of
+ *     5 September 2024 (IRDAI/PP&GR/CIR/MISC/117/9/2024).
+ *   - "75–80% of grievances are health", "6–8 months", "₹26,037 Cr",
+ *     "6–48 hrs" — sourced to a magazine, to "RTI Wiki", or to "pilot field
+ *     interviews" we cannot show. Every number here is now the regulator's or
+ *     the government auditor's, named with its document, the same standard the
+ *     home page sets.
+ *   - "zero modern multi-channel infrastructure", "stone-age communication
+ *     layer" — sweeping claims about an industry, and an insult to the stack
+ *     the buyer chose.
+ *   - "Same actuarial. Different mouth." — the telling framing. The problem is
+ *     the claim not moving, not the quality of the narration.
+ *   - "7-year audit ledger" — `gooclaim_shared.contracts.retention`
+ *     `CLAIM_RECORD_YEARS = 10`.
+ */
+
 export interface UseCaseStat {
   big: string;
   caption: string;
@@ -42,79 +76,80 @@ export const USE_CASES: UseCaseData[] = [
       <>
         For TPAs.{" "}
         <span className="text-white/55">
-          The hidden bottleneck, now automated.
+          The claims that stop moving, and nobody is told.
         </span>
       </>
     ),
     heroIntro:
-      "TPAs sit between insurers, hospitals and members — yet have zero modern multi-channel infrastructure. Gooclaim OS plugs into the existing CMS and turns cashless ops into a default, not a fire drill.",
+      "A claim waiting on one document can sit for weeks while the clock runs, because asking for it is somebody's manual job. Gooclaim OS reads your existing claims system, asks the member itself, and keeps every clock and every message on the claim.",
     problemStat: {
-      big: "6–8 months",
-      caption: "hospital dues delayed by TPAs",
+      big: "5%",
+      caption: "of health claims were still open when the year ended",
       hue: "#f59e0b",
     },
     problemBody:
-      "IRDAI now allows 1 hour for cashless pre-auth, 3 hours for discharge and 15 days to settle a reimbursement. Miss it and interest runs at bank rate + 2% a year from the day of intimation — a cost TPAs can no longer absorb manually.",
-    problemSource: "Moneylife · IRDAI Master Circular (29 May 2024) · PPHI Circular (Sept 2024)",
+      "On every one of those days the 2024 circular runs interest at bank rate + 2% from the date of intimation, paid by the insurer of its own motion — and the same circular says a claim cannot be closed for want of documents. So an unanswered document request is not a backlog item. It is a meter.",
+    problemSource:
+      "IRDAI Annual Report 2024-25 · IRDAI circular, 5 September 2024",
     capabilities: [
       {
-        title: "Cashless agent mesh",
-        body: "Automated cashless authorisation + discharge handling against the regulator clock — no human queue.",
+        title: "Reads the system you already run",
+        body: "By API, a secure file drop or a batch upload — whichever your platform speaks. Read-only: nothing is ever written back.",
         hue: "#0d99ff",
       },
       {
-        title: "Multi-channel patient layer",
-        body: "WhatsApp + Voice + SMS for members, the same OS hospitals can pull status from.",
+        title: "Asks the member, and counts",
+        body: "A document request becomes a message with an upload link, a reminder on day 7 and 14, and a final notice on day 21 with a ticket for your team. The claim is never closed for it.",
         hue: "#7dc4ff",
       },
       {
-        title: "Read your CMS, never write",
-        body: "Plug into your existing TPA platform — modern or legacy — without write-back risk.",
+        title: "Checks the file before you see it",
+        body: "Is it readable, is it the document it was sent as, is it this member's? A file seen on another claim or marked as AI-generated is flagged for a person — never refused on its own.",
         hue: "#10b981",
       },
       {
-        title: "Audit-grade per insurer",
-        body: "Immutable ledger per partner insurer, IRDAI-format export on demand.",
+        title: "The clock on every claim",
+        body: "1 hour, 3 hours and 15 days from submission, counted per claim with the interest already estimated, so a breach is visible before it is a payment.",
         hue: "#f59e0b",
       },
       {
-        title: "Hospital sync",
-        body: "Hospitals see the same real-time state members do — no more “TPA blamed” loops.",
+        title: "Audit ledger per tenant",
+        body: "Append-only, SHA-256 chained, 10-year retention — and the NL-48 TAT report built from the record itself, frozen with its checksum.",
         hue: "#7c3aed",
       },
       {
-        title: "Penalty avoidance",
-        body: "SLA observability per workflow, alerts before a Bank Rate + 2% breach is logged.",
+        title: "Your wording, approved first",
+        body: "Templates only. Every value in a message is matched back to the record it came from, and nothing leaves until your team has signed the wording off.",
         hue: "#0d99ff",
       },
     ],
     personas: [
       {
         role: "Head of Claims Ops",
-        why: "Owns the 1hr / 3hr SLA against the regulator clock.",
+        why: "Owns the 1 hour and 3 hour windows, and the queue nobody can see the bottom of.",
       },
       {
         role: "COO",
-        why: "Owns late-settlement interest exposure and hospital-network goodwill.",
+        why: "Owns the interest that accrues on open claims, and the insurer relationships it costs.",
       },
       {
         role: "Compliance Officer",
-        why: "Owns the IRDAI audit trail and ombudsman exposure.",
+        why: "Owns the IRDAI trail, the NL-48 return, and what the ombudsman is shown.",
       },
     ],
     trustChips: [
-      { label: "IRDAI 1hr / 3hr SLA tracking", hue: "#0d99ff" },
-      { label: "Per-insurer audit ledger", hue: "#f59e0b" },
-      { label: "Multi-tenant by design", hue: "#10b981" },
+      { label: "Read-only on your CMS", hue: "#0d99ff" },
+      { label: "IRDAI clocks per claim", hue: "#f59e0b" },
+      { label: "One deployment, tenant from login", hue: "#10b981" },
     ],
     closingTitle: (
       <>
-        From regulatory exposure{" "}
-        <span className="text-white/55">to a competitive moat.</span>
+        The claim keeps moving{" "}
+        <span className="text-white/55">while nobody is watching it.</span>
       </>
     ),
     closingBody:
-      "Show insurers and hospitals real-time status, audited every step. The TPA that automates first wins the next book.",
+      "Your people decide the claims. The chasing, the counting and the record of what the member was told stop being somebody's memory.",
   },
   {
     slug: "insurers",
@@ -124,78 +159,79 @@ export const USE_CASES: UseCaseData[] = [
       <>
         For insurers.{" "}
         <span className="text-white/55">
-          One layer atop every TPA and every channel.
+          One record, across every TPA you work with.
         </span>
       </>
     ),
     heroIntro:
-      "Insurers carry the regulatory risk while TPAs handle the ops. Gooclaim OS gives the insurer a single, audited communication layer that works across every TPA and every channel — without ripping out the CMS.",
+      "You carry the regulatory duty while the handling sits with your TPAs, each on a different system with a different trail. Gooclaim OS sits on top of them and keeps one audited record of what every member was told, and when.",
     problemStat: {
-      big: "₹26,037 Cr",
-      caption: "of health claims rejected in FY24",
-      hue: "#ef4444",
+      big: "8%",
+      caption: "of health claims repudiated in a year",
+      hue: "#F26D6D",
     },
     problemBody:
-      "Most rejections are not policy-related — they are communication failures: missed deadlines, wrong format, no proactive nudge. Each one becomes an ombudsman case the insurer has to defend.",
-    problemSource: "Moneylife · IRDAI Annual Report 2024-25",
+      "Each one can become a complaint, and a complaint is answered with a record: what the member was asked for, when it was sent, what they were told about the decision. When that record lives in four systems and somebody's sent items, the answer takes weeks to assemble.",
+    problemSource: "IRDAI Annual Report 2024-25",
     capabilities: [
       {
-        title: "TPA-agnostic comms",
-        body: "Run a single member-facing OS across every TPA you partner with — no per-TPA project.",
+        title: "The same OS across every TPA",
+        body: "One member-facing layer, whichever partner handles the claim. No project per TPA, and no second trail to reconcile.",
         hue: "#0d99ff",
       },
       {
-        title: "Built around the claim",
-        body: "Built on what every claim shares. Health first — another line of insurance is new workflows, not a rebuild.",
-        hue: "#7c3aed",
+        title: "The complaint has its own clock",
+        body: "A complaint is tracked against its own deadline, separately from the claim it came from, with the member's own words kept on the record.",
+        hue: "#F26D6D",
       },
       {
-        title: "IRDAI Ombudsman ready",
-        body: "Immutable audit ledger with consent, content and decision history — ready for the new Internal Ombudsman Guidelines 2025.",
-        hue: "#f59e0b",
-      },
-      {
-        title: "Brand-safe outbound",
-        body: "Templates-only, 4-tier policy gate — free text never leaves on your letterhead.",
+        title: "Nothing leaves unchecked",
+        body: "Templates only, and a policy gate on every outbound message that matches each value to the record before it goes. Free text never reaches a member.",
         hue: "#10b981",
       },
       {
-        title: "Real-time SLA dashboards",
-        body: "Per-TPA, per-channel breach tracking against the 1hr / 3hr mandate.",
+        title: "The NL-48 return, from the record",
+        body: "Built from the claims themselves rather than typed up, frozen with a checksum so the file you filed is the file you can show.",
+        hue: "#f59e0b",
+      },
+      {
+        title: "Consent before anything",
+        body: "DPDP consent is checked before a workflow runs. A document notice still reaches the registered contact, because that duty is not optional.",
         hue: "#7dc4ff",
       },
       {
-        title: "DPDP-native",
-        body: "Consent gate at step zero, withdrawal honoured within one business day.",
-        hue: "#0d99ff",
+        title: "Isolated per tenant",
+        body: "One deployment serves every customer, and the tenant comes from the session alone — never from a header, a body or a setting.",
+        hue: "#7c3aed",
       },
     ],
     personas: [
       {
         role: "Head of Customer Operations",
-        why: "Owns CSAT, NPS, ombudsman volume and TAT.",
+        why: "Owns turnaround, complaint volume, and what a member hears while they wait.",
       },
       {
         role: "Chief Risk / Compliance Officer",
-        why: "Owns IRDAI exposure, audit posture, DPDP readiness.",
+        why: "Owns the IRDAI position, the audit posture and DPDP readiness.",
       },
       {
         role: "Chief Technology Officer",
-        why: "Owns CMS, channels and the never-ending integration backlog.",
+        why: "Owns the claims systems, the channels, and the integration queue behind both.",
       },
     ],
     trustChips: [
-      { label: "IRDAI + DPDP compliant by design", hue: "#0d99ff" },
-      { label: "Built around the claim", hue: "#7c3aed" },
-      { label: "Per-TPA isolated audit ledger", hue: "#f59e0b" },
+      { label: "IRDAI + DPDP by design", hue: "#0d99ff" },
+      { label: "Per-tenant audit ledger", hue: "#f59e0b" },
+      { label: "Templates only — no free text", hue: "#10b981" },
     ],
     closingTitle: (
       <>
-        Same actuarial. <span className="text-white/55">Different mouth.</span>
+        The duty is yours.{" "}
+        <span className="text-white/55">The record should be too.</span>
       </>
     ),
     closingBody:
-      "Your policies, pricing and underwriting are world-class. Replace the stone-age communication layer underneath — without touching the rest of the stack.",
+      "Your underwriting and pricing are not the problem. What is missing is one place that holds what every member was told, across every partner, ready the day someone asks.",
   },
   {
     slug: "hospitals",
@@ -205,79 +241,79 @@ export const USE_CASES: UseCaseData[] = [
       <>
         For hospitals.{" "}
         <span className="text-white/55">
-          Stop chasing TPAs. Start discharging on time.
+          When your TPA runs this, your desk stops being the help line.
         </span>
       </>
     ),
     heroIntro:
-      "Cashless denials happen at admission and discharge — and the patient always blames the hospital. Gooclaim OS gives your front desk and billing team a single, real-time view across every TPA your network deals with.",
+      "Gooclaim OS is bought by the TPA or the insurer, not by you. But your front desk is where the patient asks, so what it changes is worth knowing — and worth asking your TPA for.",
     problemStat: {
-      big: "6–48 hrs",
-      caption: "patients wait for cashless discharge today",
+      big: "3 hours",
+      caption: "allowed from your request to the final authorisation on discharge",
       hue: "#7c3aed",
     },
     problemBody:
-      "Multiple TPAs, multiple portals, multiple statuses. Hospital staff lose hours on phone-tag while patients sit in beds. The IRDAI 3-hour discharge mandate now penalises the whole chain.",
-    problemSource: "Pilot field interviews 2026 · RTI Wiki · IRDAI Master Circular 2024",
+      "That window belongs to the insurer, but the patient is sitting in your bed and asking your staff. Today the only way to know where the request stands is to call, so your billing desk spends the three hours on hold and the patient blames the people in front of them.",
+    problemSource: "IRDAI circular, 5 September 2024 — clause 3(iii)",
     capabilities: [
       {
-        title: "One inbox across every TPA",
-        body: "Unified status, unified queries, unified document requests — no more juggling portals.",
+        title: "The patient is told directly",
+        body: "Status, what is still needed and what a decision means go to the member on WhatsApp or email, in their own language — so fewer of those questions arrive at your counter.",
         hue: "#0d99ff",
       },
       {
-        title: "Voice agent for reception",
-        body: "Front-desk staff can’t always type. Voice in, voice out, audited.",
-        hue: "#10b981",
-      },
-      {
-        title: "Real-time patient updates",
-        body: "Send status changes to patients on WhatsApp the moment they happen — no IVR chase.",
+        title: "Documents stop going through you",
+        body: "The TPA asks, the member gets an upload link, the file is checked on arrival and lands in the TPA's own folder. Your desk is not the courier.",
         hue: "#7dc4ff",
       },
       {
-        title: "Document collection, automated",
-        body: "TPA asks for a document → Gooclaim OS asks the patient → patient uploads → file moves.",
+        title: "The clock is counted, not guessed",
+        body: "Every claim carries its 1 hour, 3 hour and 15 day windows with the time left on each — so a request that is about to breach is visible to the TPA before you have to chase it.",
         hue: "#f59e0b",
       },
       {
-        title: "Multi-lingual",
-        body: "Hindi · English · Hinglish — meet your patients where they are.",
+        title: "Nobody has to remember",
+        body: "Reminders go on day 7, day 14 and a final notice on day 21, and the claim is never closed for a missing document. Discharge paperwork stops depending on who was on shift.",
+        hue: "#10b981",
+      },
+      {
+        title: "A record you can point at",
+        body: "What the member was asked, when, and what they were told is on the claim with its timestamps. The “TPA said / hospital said” argument has an answer.",
         hue: "#7c3aed",
       },
       {
-        title: "Network-wide rollout",
-        body: "One pilot at one hospital, then network roll-out — no per-site rebuild.",
+        title: "Nothing to install",
+        body: "There is no hospital system to roll out, no portal to learn and no integration on your side. It runs where your TPA runs it.",
         hue: "#0d99ff",
       },
     ],
     personas: [
       {
         role: "Hospital Administrator",
-        why: "Owns bed turnover, patient satisfaction and TPA relationships.",
+        why: "Owns bed turnover and how the wait feels to the patient.",
       },
       {
-        role: "Billing / Insurance Desk Manager",
-        why: "Owns daily cashless throughput and revenue cycle.",
+        role: "Billing / Insurance Desk",
+        why: "Spends the day on hold with TPAs for statuses the patient has already asked for.",
       },
       {
         role: "Group IT Head",
-        why: "Owns the chaos of multiple TPA portals and integrations.",
+        why: "Would rather not add a seventh portal to the four already on the desk.",
       },
     ],
     trustChips: [
-      { label: "Works with every TPA", hue: "#0d99ff" },
-      { label: "Voice + WhatsApp + SMS", hue: "#10b981" },
-      { label: "Audited every step", hue: "#f59e0b" },
+      { label: "Nothing to install here", hue: "#0d99ff" },
+      { label: "Bought by your TPA or insurer", hue: "#7dc4ff" },
+      { label: "Every message on the record", hue: "#f59e0b" },
     ],
     closingTitle: (
       <>
-        Your team should run beds.{" "}
-        <span className="text-white/55">Not phone trees.</span>
+        Ask your TPA whether they run this.{" "}
+        <span className="text-white/55">Or tell us who they are.</span>
       </>
     ),
     closingBody:
-      "Bring TPAs, insurers, patients and your front desk into the same audited conversation. Discharge clocks become predictable, and the patient stops blaming the wrong people.",
+      "A hospital-facing surface is not built yet, and we would rather say so than sell you one. If the wait at your desk is worth fixing, the fastest route is the TPA your network already works with — and we are happy to talk to them with you.",
   },
   {
     slug: "health",
@@ -286,77 +322,78 @@ export const USE_CASES: UseCaseData[] = [
     heroTitle: (
       <>
         For health.{" "}
-        <span className="text-white/55">Where we started. Ready today.</span>
+        <span className="text-white/55">Where we started. Running today.</span>
       </>
     ),
     heroIntro:
-      "Health is where Gooclaim OS goes first — because it is where the broken communication layer hurts most. Full workflow coverage for cashless, query, document collection and rejection-reason, all template-only, all audited.",
+      "Health has the strictest clock in Indian insurance, which is why it is where Gooclaim OS runs first: claim status, document collection, the reason behind a decision and the complaint that follows — all on the record, all in the member's language.",
     problemStat: {
-      big: "75–80%",
-      caption: "of all insurance grievances in India are health",
-      hue: "#ef4444",
+      big: "39.57 lakh",
+      caption: "claims that missed their settlement deadline",
+      hue: "#F26D6D",
     },
     problemBody:
-      "Health complaints doubled in six years. ₹26,037 Cr of claims rejected in FY24. 13% rejected, another 9% repudiated. Most are process failures, not policy denials.",
-    problemSource: "IRDAI Annual Report 2024-25 · Bima Bharosa · Moneylife",
+      "A government audit counted them. Almost none of those were hard decisions — the claim was waiting on a document, a clarification or a reply, and the waiting was nobody's job. The 2024 circular made that waiting expensive: interest runs from intimation, and the claim cannot be closed for want of documents.",
+    problemSource:
+      "CAG performance audit, Report 11 of 2023 · IRDAI circular, 5 September 2024",
     capabilities: [
       {
-        title: "Claim status, any channel",
-        body: "“Where is my claim?” answered end-to-end on WhatsApp, voice, SMS or web.",
+        title: "Claim status, answered from the record",
+        body: "On WhatsApp and email, in English, Hindi or Hinglish — with the source and the date the record was read.",
         hue: "#0d99ff",
       },
       {
-        title: "Pending-doc workflow",
-        body: "Multi-day, durable, never-loses-state document collection — patient uploads, claim moves.",
+        title: "Document collection that survives days",
+        body: "A durable workflow that waits, reminds, accepts the file, checks it and puts it where the TPA's system expects it — without losing its place.",
         hue: "#7dc4ff",
       },
       {
-        title: "Reason-for-rejection",
-        body: "Safe templated explanations of why a claim was repudiated, with next-step actions.",
+        title: "Why a claim was decided that way",
+        body: "The reason in the record, explained in approved wording, with the next step the member can actually take.",
         hue: "#7c3aed",
       },
       {
-        title: "1hr / 3hr cashless SLA",
-        body: "Per-tenant SLA observability against the IRDAI cashless mandate.",
+        title: "Every clock the circular sets",
+        body: "1 hour for cashless authorisation, 3 hours at discharge, 15 days from submission — counted per claim, with the interest estimated as it runs.",
         hue: "#10b981",
       },
       {
-        title: "Multi-lingual outbound",
-        body: "Hindi · English · Hinglish — every claimant on their terms.",
+        title: "A complaint is its own thing",
+        body: "It gets its own deadline, the member's own words, and the decision sent back to them — not folded into the claim it came from.",
         hue: "#f59e0b",
       },
       {
-        title: "Templates-only safety",
-        body: "Every outbound passes the 4-tier policy gate — no free text on health PII.",
+        title: "Nothing free-text, ever",
+        body: "Templates only, every value matched to the record, and the whole message checked before it leaves. On health data that is not a preference.",
         hue: "#0d99ff",
       },
     ],
     personas: [
       {
-        role: "Health Insurer Customer Ops",
-        why: "Owns the 75-80% complaint share that lands on health.",
+        role: "Health insurer, customer operations",
+        why: "Owns what a member hears between intimation and settlement.",
       },
       {
-        role: "TPA Leadership",
-        why: "Owns the cashless clock and per-claim economics.",
+        role: "TPA leadership",
+        why: "Owns the cashless clock and the cost of every claim that stalls.",
       },
       {
-        role: "Hospital Chain Ops",
-        why: "Owns discharge predictability across every TPA partner.",
+        role: "Compliance",
+        why: "Owns the NL-48 return, the ombudsman file and the DPDP position.",
       },
     ],
     trustChips: [
-      { label: "IRDAI 1hr / 3hr ready", hue: "#0d99ff" },
-      { label: "DPDP consent gate", hue: "#10b981" },
-      { label: "7-year audit ledger", hue: "#f59e0b" },
+      { label: "IRDAI 1 hr / 3 hr / 15 days", hue: "#0d99ff" },
+      { label: "DPDP consent at step zero", hue: "#10b981" },
+      { label: "10-year audit ledger", hue: "#f59e0b" },
     ],
     closingTitle: (
       <>
-        Health is the wedge.{" "}
-        <span className="text-white/55">The OS is the moat.</span>
+        Health first.{" "}
+        <span className="text-white/55">Because its clock is the strictest.</span>
       </>
     ),
     closingBody:
-      "We started with health because its clock is the strictest. Gooclaim OS is built on what every claim shares — so another line of insurance is new workflows, not a rebuild.",
+      "Gooclaim OS is built on what every claim shares — a status to tell, documents to collect, a reason to explain and a clock to beat. Motor and life are new workflows on the same core, not a rebuild.",
   },
 ];

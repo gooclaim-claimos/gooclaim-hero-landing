@@ -410,7 +410,7 @@ export const MODULES: ModuleData[] = [
       </>
     ),
     heroIntro:
-      "Audit Ledger is the immutable event store at the heart of Gooclaim OS. Every automated decision, every customer message, every consent grant, every policy-gate outcome lands here — append-only, hash-chained, retained for seven years, exportable in IRDAI-required format.",
+      "Audit Ledger is the immutable event store at the heart of Gooclaim OS. Every automated decision, every customer message, every consent grant, every policy-gate outcome lands here — append-only, hash-chained, retained for ten years, exportable in IRDAI-required format.",
     capabilities: [
       {
         title: "Append-only by design",
@@ -423,7 +423,7 @@ export const MODULES: ModuleData[] = [
         hue: "#0d99ff",
       },
       {
-        title: "7-year retention",
+        title: "10-year retention",
         body: "Aligned to IRDAI record-keeping requirements — out of the box, per tenant.",
         hue: "#7dc4ff",
       },
@@ -459,7 +459,7 @@ export const MODULES: ModuleData[] = [
     ],
     trustChips: [
       { label: "Append-only · hash-chained", hue: "#f59e0b" },
-      { label: "7-year retention", hue: "#0d99ff" },
+      { label: "10-year retention", hue: "#0d99ff" },
       { label: "IRDAI export · DPDP native", hue: "#10b981" },
     ],
     closingTitle: (
