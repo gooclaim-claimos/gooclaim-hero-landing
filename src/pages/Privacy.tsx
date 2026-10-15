@@ -275,8 +275,15 @@ export default function Privacy() {
       <h2>12. Security</h2>
       <ul>
         <li>Encryption in transit (TLS 1.2 or higher) and at rest.</li>
-        <li>Each insurer&rsquo;s or TPA&rsquo;s data encrypted with its own key.</li>
-        <li>Staff sign in with multi-factor authentication and see only what their role allows.</li>
+        <li>
+          Each insurer&rsquo;s or TPA&rsquo;s data isolated at every layer. The tenant
+          is taken from the signed-in session alone, and a cross-tenant request
+          is refused and recorded.
+        </li>
+        <li>
+          Staff sign-in supports multi-factor authentication, and each person
+          sees only what their role allows.
+        </li>
         <li>An append-only, tamper-evident audit ledger of what the platform does.</li>
         <li>
           A responsible-disclosure channel at{" "}

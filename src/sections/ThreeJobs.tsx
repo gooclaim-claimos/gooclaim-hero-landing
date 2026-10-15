@@ -62,7 +62,7 @@ const JOBS: Job[] = [
     who: "For compliance",
     title: "Every claim, on the record.",
     body: "IRDAI clocks on every claim, complaints with their own deadlines, the NL-48 report from the record, and an append-only audit trail.",
-    points: ["IRDAI + DPDP by design", "Per-customer encryption", "NL-48 TAT report"],
+    points: ["IRDAI + DPDP by design", "Strict per-tenant isolation", "NL-48 TAT report"],
     cta: "Security & compliance",
     to: "/security",
     hue: "#f59e0b",

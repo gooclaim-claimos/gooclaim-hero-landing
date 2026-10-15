@@ -27,7 +27,7 @@ export const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Who can see our members' data?",
-    a: "Only your team, by role, after signing in with multi-factor authentication. Each customer's data is kept apart and encrypted with its own key, and personal numbers are masked before anything is stored.",
+    a: "Only your team, by role. Your tenant comes from the signed-in session alone, so one customer's data can never be reached from another's — a cross-tenant request is refused and recorded. Personal numbers are masked before anything is stored, and what has to be recoverable is encrypted at rest.",
   },
   {
     q: "How does Orion help our staff?",
