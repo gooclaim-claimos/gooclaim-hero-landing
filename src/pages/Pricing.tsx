@@ -26,7 +26,7 @@ const MODES: Mode[] = [
     includes: [
       "1 workflow · 1 channel · 1 tenant",
       "Truth-layer connector to your CMS",
-      "WhatsApp HSM or voice agent",
+      "WhatsApp approved templates, or email",
       "Per-tenant audit ledger",
       "Weekly success readout",
     ],
@@ -317,7 +317,7 @@ export default function Pricing() {
             {[
               "Per-tenant pricing — TPAs and insurers don't share economics, and pricing shouldn't pretend they do.",
               "Lines of insurance matter — each has different volume, SLA and audit profiles.",
-              "Channels matter — voice agent + WhatsApp + email is a different cost profile than WhatsApp-only.",
+              "Channels matter — WhatsApp alone and WhatsApp with email are different cost profiles, and voice will be another when it lands.",
               "Compliance scope matters — IRDAI ombudsman exports, custom DPO reviews and security posture add real engineering.",
             ].map((line) => (
               <li key={line} className="flex items-start gap-3">

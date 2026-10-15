@@ -6,8 +6,8 @@ import { fadeUp, stagger, viewportOnce } from "@/lib/motion";
 const CATEGORIES = [
   {
     label: "Channels",
-    count: "12+",
-    examples: "WhatsApp · Slack · Teams · Gmail · Voice",
+    count: "2 live",
+    examples: "WhatsApp · Email",
     hue: "#0d99ff",
   },
   {
@@ -23,9 +23,13 @@ const CATEGORIES = [
     hue: "#10b981",
   },
   {
-    label: "Voice-ready",
-    count: "1×",
-    examples: "ASR · TTS · IVR · WebRTC",
+    // 🔴 Was "Voice-ready · 1× · ASR · TTS · IVR · WebRTC". None of that
+    // stack exists — `gooclaim-gateway/CLAUDE.md`: "WhatsApp WABA only
+    // (no voice, no SMS)". What IS true is the inbound-channel contract a new
+    // adapter plugs into, which is the real claim worth making.
+    label: "More channels",
+    count: "next",
+    examples: "Voice · SMS · Web — one inbound contract",
     hue: "#f59e0b",
   },
 ];

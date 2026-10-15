@@ -77,7 +77,7 @@ const STATIONS: Station[] = [
   {
     key: "channel",
     title: "Any channel, any interaction",
-    reach: "WhatsApp · Voice · SMS · Web · IVR — text, voice or both",
+    reach: "WhatsApp and email today · voice, SMS and web next",
     does: "Leaves on the channel it arrived on, in the language it arrived in. If the member calls next, it is the same thread and the same agent — nothing is explained twice.",
     stamp: "Sent on WhatsApp",
     chatbot: "WhatsApp only, or voice only. Two bots, two threads.",
