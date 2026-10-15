@@ -70,14 +70,19 @@ const ITEMS: Item[] = [
     Icon: IconRead,
   },
   {
-    title: "Your data, your own key",
-    body: "Each customer's data is kept apart and encrypted with its own key. No customer can reach another's.",
+    // 🔴 This card used to read "Your data, your own key — each customer's
+    // data is encrypted with its own key". That is not what runs:
+    // `gooclaim-auth/security/envelope.py` takes no tenant and encrypts with
+    // one deployment key from the vault; a per-row data key is the v1.1 plan.
+    // The isolation claim below IS true and is the stronger one anyway.
+    title: "One tenant can never reach another",
+    body: "Your tenant is taken from the signed-in session alone — never from a header, a body or a setting. A cross-tenant request is refused, written to the ledger, and the session ends on the spot.",
     hue: "#7c3aed",
     Icon: IconKey,
   },
   {
     title: "Personal numbers masked",
-    body: "Aadhaar, PAN, card and bank numbers are masked before anything is stored. Contact details never reach a log.",
+    body: "Aadhaar, PAN, card and bank numbers are masked before anything is stored, and contact details never reach a log. What has to be recoverable is encrypted at rest with a key held in a managed vault — the service refuses to start without one.",
     hue: "#f59e0b",
     Icon: IconMask,
   },
@@ -89,7 +94,9 @@ const ITEMS: Item[] = [
   },
   {
     title: "Access by role",
-    body: "Your team signs in with multi-factor authentication, and each person sees only what their role allows.",
+    // MFA is built (TOTP, `gooclaim-auth` v1.0) but enrolment is not forced —
+    // `mfa_force_enrolment_privileged` ships off. "Supports" is the honest verb.
+    body: "Sign-in supports multi-factor with an authenticator app. Roles decide what each person sees, and the role is checked on every request — never assumed from the screen they are on.",
     hue: "#7dc4ff",
     Icon: IconRole,
   },

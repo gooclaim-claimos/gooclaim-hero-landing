@@ -354,7 +354,7 @@ export default function ModulesSplit({ eyebrow = "04 · Modules" }: { eyebrow?: 
             </p>
             <p className="mt-4 max-w-md text-[14px] leading-relaxed text-white/55 sm:text-[15px]">
               If IRDAI asks what happened on claim X at time Y — you have the
-              receipt. Append-only, SHA-256 chained, 7-year retention.
+              receipt. Append-only, SHA-256 chained, 10-year retention.
               DPDP-compliant.
             </p>
 
@@ -362,7 +362,7 @@ export default function ModulesSplit({ eyebrow = "04 · Modules" }: { eyebrow?: 
               {[
                 "Append-only",
                 "SHA-256 chained",
-                "7-year retention",
+                "10-year retention",
                 "IRDAI export",
                 "DPDP-native",
               ].map((b) => (

@@ -149,25 +149,64 @@ export default function Privacy() {
       </p>
 
       <h2>8. How long we keep it</h2>
+      <p>
+        There is no single answer, and we would rather give you the real one.
+        Everything below turns on one question:{" "}
+        <strong>is this part of a claim record?</strong> If it is, the law
+        requires us to keep it for years. If it is not, it is deleted in
+        months.
+      </p>
+
+      <p>
+        <strong>Kept for ten years</strong> — from the last activity on the
+        claim, because the IRDAI (Maintenance of Insurance Records)
+        Regulations, 2015 require insurance records to be kept that long:
+      </p>
       <ul>
+        <li>documents you upload for a claim;</li>
         <li>
-          A conversation that is part of a claim or complaint is kept as a claim
-          record for <strong>ten years</strong>, as the IRDAI (Maintenance of
-          Insurance Records) Regulations, 2015 require.
+          a conversation that is part of a claim or a complaint — including
+          what we asked you for and what we told you;
         </li>
         <li>
-          Other conversation content is deleted after <strong>90 days</strong>.
-        </li>
-        <li>
-          The audit record of what the platform did is kept for{" "}
-          <strong>seven years</strong>.
-        </li>
-        <li>
-          When an insurer or TPA stops using Gooclaim OS, its data is returned
-          or deleted as its contract says, except where a law requires it to be
-          kept longer.
+          the audit record of what the platform did on that claim: every
+          automated decision, every message sent, every consent change.
         </li>
       </ul>
+
+      <p>
+        <strong>Deleted after 90 days:</strong>
+      </p>
+      <ul>
+        <li>
+          a conversation that turns out not to belong to any claim or complaint
+          — if you write to us and there is no case, it does not become a
+          record;
+        </li>
+        <li>an upload link once it has been used or has expired;</li>
+        <li>
+          the platform&rsquo;s own operational logs, which carry no compliance
+          obligation.
+        </li>
+      </ul>
+
+      <p>
+        <strong>Deleted after 30 days:</strong> a file that was refused or held
+        — if we could not accept your upload, we do not keep it.
+      </p>
+
+      <p>
+        Two things can change these periods. Your insurer or TPA may choose to
+        keep claim records <em>longer</em> than ten years, up to thirty — never
+        shorter. And a legal hold, such as a court case or a regulator&rsquo;s
+        order, stops every deletion until it is lifted.
+      </p>
+
+      <p>
+        When an insurer or TPA stops using Gooclaim OS, its data is returned or
+        deleted as its contract says, except where a law requires it to be kept
+        longer.
+      </p>
 
       <h2>9. Your rights as a claimant</h2>
       <p>Under the DPDP Act you have the right to:</p>
@@ -236,8 +275,15 @@ export default function Privacy() {
       <h2>12. Security</h2>
       <ul>
         <li>Encryption in transit (TLS 1.2 or higher) and at rest.</li>
-        <li>Each insurer&rsquo;s or TPA&rsquo;s data encrypted with its own key.</li>
-        <li>Staff sign in with multi-factor authentication and see only what their role allows.</li>
+        <li>
+          Each insurer&rsquo;s or TPA&rsquo;s data isolated at every layer. The tenant
+          is taken from the signed-in session alone, and a cross-tenant request
+          is refused and recorded.
+        </li>
+        <li>
+          Staff sign-in supports multi-factor authentication, and each person
+          sees only what their role allows.
+        </li>
         <li>An append-only, tamper-evident audit ledger of what the platform does.</li>
         <li>
           A responsible-disclosure channel at{" "}

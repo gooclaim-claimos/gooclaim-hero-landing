@@ -1,130 +1,233 @@
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
 import SectionShell from "@/components/SectionShell";
-import { prefersReducedMotion } from "@/lib/gsap";
-import { fadeUp, stagger, viewportOnce } from "@/lib/motion";
 
-interface Capability {
-  id: string;
-  name: string;
-}
+/**
+ * Why one operating system beats five tools — told with the buyer's own stack.
+ *
+ * 🔴 What this replaces: a growing ring on a dashed orbit, a "T = 32% ·
+ * auto-loop" counter that measured the animation and nothing else, and a
+ * scorecard giving DIY 2/7, point solutions 4/7 and Gooclaim OS 7/7. Those
+ * denominators were invented. A vendor marking its own competitors out of
+ * seven is the first thing a buyer discounts, and the chips underneath
+ * repeated section 02's proof strip word for word.
+ *
+ * So this section rates nobody. It describes what a TPA already runs — five
+ * systems, each holding a piece of one member's answer — and then shows the
+ * same five facts as one record. The claim is CLM-2487, the claim this site
+ * follows throughout.
+ */
 
-const CAPABILITIES: Capability[] = [
-  { id: "multichannel", name: "Multi-channel, day one" },
-  { id: "cms", name: "Talks to any CMS" },
-  { id: "agents", name: "Multi-agent reasoning" },
-  { id: "compliance", name: "IRDAI + DPDP compliance pack" },
-  { id: "templates", name: "Templates-only output" },
-  { id: "time", name: "Time to production" },
-  { id: "vertical", name: "Built around the claim" },
-];
-
-interface Ring {
-  id: string;
+interface Piece {
+  key: string;
+  /** The system a TPA already runs. */
+  system: string;
+  /** The fragment of the answer it holds. */
+  holds: string;
+  /** Why that fragment never reaches the member. */
+  gap: string;
   hue: string;
-  label: string;
-  radiusPct: number; // % of container half-width
-  start: number; // p where ring begins growing
-  end: number; // p where ring is fully grown
-  covers: number; // number of capabilities (by index) this ring covers
+  /**
+   * Where it starts, measured from the middle of the stage — the point the
+   * five converge on. Viewport units so the spread tracks the screen and the
+   * cards stay clear of the record forming between them.
+   */
+  x: string;
+  y: string;
 }
 
-const RINGS: Ring[] = [
+const PIECES: Piece[] = [
   {
-    id: "diy",
-    hue: "#ef4444",
-    label: "DIY",
-    radiusPct: 0.18,
-    start: 0.0,
-    end: 0.3,
-    covers: 2,
+    key: "whatsapp",
+    system: "WhatsApp tool",
+    holds: "“Thanks, we will get back to you.”",
+    gap: "Never read the claim",
+    hue: "#7c3aed",
+    x: "-32vw",
+    y: "-18vh",
   },
   {
-    id: "point",
+    key: "cms",
+    system: "Your claims system",
+    holds: "Query raised on day 6",
+    gap: "Nobody asked it",
+    hue: "#0d99ff",
+    x: "32vw",
+    y: "-21vh",
+  },
+  {
+    key: "email",
+    system: "Email",
+    holds: "Query letter sent on day 6",
+    gap: "A separate thread, a separate history",
+    hue: "#7dc4ff",
+    x: "-30vw",
+    y: "15vh",
+  },
+  {
+    key: "sheet",
+    system: "A spreadsheet",
+    holds: "Chased? Someone thinks so",
+    gap: "Kept by hand, true until it is not",
     hue: "#f59e0b",
-    label: "Point Solutions",
-    radiusPct: 0.3,
-    start: 0.3,
-    end: 0.55,
-    covers: 4,
+    x: "31vw",
+    y: "18vh",
   },
   {
-    id: "goo",
-    hue: "#10b981",
-    label: "Gooclaim OS",
-    radiusPct: 0.42,
-    start: 0.55,
-    end: 0.95,
-    covers: 7,
+    key: "clock",
+    system: "The IRDAI clock",
+    holds: "15 days from submission",
+    gap: "Lives in no system at all",
+    hue: "#F26D6D",
+    x: "0vw",
+    y: "26vh",
   },
 ];
 
-const ORBIT_RADIUS_PCT = 0.4;
-const LOOP_MS = 9000;
+/** The same five facts, once they are rows on one claim. */
+const RECORD: { day: string; what: string; from: string }[] = [
+  { day: "Day 6", what: "Query raised", from: "read from your claims system" },
+  { day: "Day 6", what: "Query letter sent", from: "on the claim, not in an inbox" },
+  { day: "Day 9", what: "Member told, in their language", from: "WhatsApp · approved wording" },
+  { day: "Day 11", what: "Document received", from: "upload link · checked on arrival" },
+  { day: "Now", what: "4 days left of 15", from: "IRDAI clock, from submission" },
+];
 
-const lerpRange = (v: number, a: number, b: number) =>
-  v <= a ? 0 : v >= b ? 1 : (v - a) / (b - a);
-const easeOutCubic = (x: number) => 1 - Math.pow(1 - x, 3);
+/** Below `lg`, or with reduced motion, nothing is pinned and nothing is paced. */
+function useStatic() {
+  const [flat, setFlat] = useState(false);
 
-export default function CoverageBloom({ eyebrow = "08 · Coverage" }: { eyebrow?: string } = {}) {
-  const stageRef = useRef<HTMLDivElement | null>(null);
-  const [p, setP] = useState(0);
-  const [visible, setVisible] = useState(false);
-
-  // Trigger animation when section enters viewport
   useEffect(() => {
-    const node = stageRef.current;
-    if (!node) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) setVisible(true);
-        });
-      },
-      { threshold: 0.2 },
-    );
-    observer.observe(node);
-    return () => observer.disconnect();
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const apply = () => setFlat(!mq.matches || reduce);
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
   }, []);
 
-  // Auto-loop progress
-  useEffect(() => {
-    if (!visible) return;
-    if (prefersReducedMotion()) {
-      setP(0.96); // show full coverage immediately
-      return;
-    }
-    let raf = 0;
-    let lastTs = 0;
-    let cancelled = false;
-    const tick = (ts: number) => {
-      if (cancelled) return;
-      if (!lastTs) lastTs = ts;
-      const dt = ts - lastTs;
-      lastTs = ts;
-      setP((prev) => {
-        const next = prev + dt / LOOP_MS;
-        return next >= 1.25 ? 0 : next;
-      });
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => {
-      cancelled = true;
-      cancelAnimationFrame(raf);
-    };
-  }, [visible]);
+  return flat;
+}
 
-  // Compute capability coverage state
-  const capCoverage = CAPABILITIES.map((_, i) => {
-    for (let r = RINGS.length - 1; r >= 0; r--) {
-      const ring = RINGS[r];
-      const grow = easeOutCubic(lerpRange(p, ring.start, ring.end));
-      if (i < ring.covers && grow > 0.4) {
-        return { ringIdx: r, on: grow };
-      }
-    }
-    return { ringIdx: -1, on: 0 };
+/** One system a TPA already runs, drifting in toward the record. */
+function ScatterCard({
+  piece,
+  progress,
+  flat,
+}: {
+  piece: Piece;
+  progress: MotionValue<number>;
+  flat: boolean;
+}) {
+  // Scattered at the start, pulled to the middle and faded as the record forms.
+  // The fade starts well before the convergence ends: five cards arriving at
+  // the same point at full opacity is a pile of overlapping text, not a
+  // merge. They dissolve INTO the record rather than landing on top of it.
+  const x = useTransform(progress, [0.06, 0.56], [piece.x, "0vw"]);
+  const y = useTransform(progress, [0.06, 0.56], [piece.y, "0vh"]);
+  const opacity = useTransform(progress, [0, 0.2, 0.5], [1, 1, 0]);
+  const scale = useTransform(progress, [0.06, 0.56], [1, 0.72]);
+
+  const body = (
+    <div
+      className="w-full rounded-2xl border bg-ink-950/90 p-4 backdrop-blur-sm"
+      style={{ borderColor: `${piece.hue}3d` }}
+    >
+      <div
+        className="font-display text-[10px] uppercase tracking-wider2"
+        style={{ color: piece.hue }}
+      >
+        {piece.system}
+      </div>
+      <p className="mt-2 text-[13.5px] leading-snug text-white/85">{piece.holds}</p>
+      <div className="mt-3 flex items-start gap-1.5 text-[11.5px] leading-snug text-white/40">
+        <svg
+          className="mt-[3px] shrink-0"
+          width="10"
+          height="10"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="rgba(255,255,255,0.3)"
+          strokeWidth="2.6"
+          strokeLinecap="round"
+          aria-hidden="true"
+        >
+          <line x1="6" y1="6" x2="18" y2="18" />
+          <line x1="18" y1="6" x2="6" y2="18" />
+        </svg>
+        {piece.gap}
+      </div>
+    </div>
+  );
+
+  if (flat) return body;
+
+  // Every card is anchored on the stage's centre — the place they converge on
+  // — and held apart only by its own transform, so "come together" is a single
+  // transform running to zero rather than five layout positions being redone.
+  return (
+    <motion.div
+      style={{ x, y, opacity, scale }}
+      className="absolute left-1/2 top-1/2 -ml-[min(115px,9vw)] w-[clamp(165px,18vw,230px)] -translate-y-1/2 will-change-transform"
+    >
+      {body}
+    </motion.div>
+  );
+}
+
+/** The five facts as one claim. */
+function OneRecord({ progress, flat }: { progress: MotionValue<number>; flat: boolean }) {
+  const opacity = useTransform(progress, [0.42, 0.68], [0, 1]);
+  const y = useTransform(progress, [0.42, 0.68], [26, 0]);
+
+  const body = (
+    <div className="w-full max-w-[380px] rounded-3xl border border-emerald-500/25 bg-ink-950/95 p-6 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.9)] sm:p-7">
+      <div className="flex items-baseline justify-between">
+        <span className="font-display text-[10.5px] uppercase tracking-wider2 text-emerald-400">
+          One record
+        </span>
+        <span className="font-mono text-[11px] text-white/35">CLM-2487</span>
+      </div>
+
+      <ol className="mt-5 space-y-3.5">
+        {RECORD.map((r) => (
+          <li key={r.what} className="flex items-start gap-3">
+            <span className="mt-[2px] w-[52px] shrink-0 font-mono text-[11px] text-white/40">
+              {r.day}
+            </span>
+            <span>
+              <span className="block text-[13.5px] leading-snug text-white/90">{r.what}</span>
+              <span className="mt-0.5 block text-[11.5px] leading-snug text-white/40">
+                {r.from}
+              </span>
+            </span>
+          </li>
+        ))}
+      </ol>
+
+      <div className="mt-6 border-t border-white/[0.08] pt-4 text-[12.5px] leading-relaxed text-white/55">
+        Every line above is a row in one audit ledger, on this claim — not a
+        message in someone’s inbox.
+      </div>
+    </div>
+  );
+
+  if (flat) return body;
+
+  return (
+    <motion.div style={{ opacity, y }} className="flex w-full justify-center">
+      {body}
+    </motion.div>
+  );
+}
+
+export default function CoverageBloom({ eyebrow = "04 · One record" }: { eyebrow?: string } = {}) {
+  const flat = useStatic();
+  const runway = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: runway,
+    offset: ["start start", "end end"],
   });
 
   return (
@@ -133,320 +236,96 @@ export default function CoverageBloom({ eyebrow = "08 · Coverage" }: { eyebrow?
       eyebrow={eyebrow}
       title={
         <>
-          Coverage <span className="text-white/55">is a circle.</span>
+          Five systems hold a piece of the answer.{" "}
+          <span className="text-white/55">None of them holds the answer.</span>
         </>
       }
-      intro="Watch what each path can actually cover. The closer the ring reaches the orbit, the more of your claims operation it owns."
+      intro="“Has my claim moved?” is one question. Answering it today means a person opening five things, none of which can tell the member anything on its own — and none of which records what the member was finally told."
     >
-      <div className="grid grid-cols-1 gap-10 xl:grid-cols-[minmax(320px,400px)_1fr] xl:gap-14">
-        {/* Left column: legend + advantage callout */}
-        <div className="flex flex-col gap-5">
-          <motion.div
-            variants={stagger(0.08, 0.08)}
-            initial="hidden"
-            whileInView="show"
-            viewport={viewportOnce}
-            className="flex flex-col gap-3"
-          >
-            {RINGS.map((r) => {
-              const grow = easeOutCubic(lerpRange(p, r.start, r.end));
-              const active = grow > 0.05;
-              const fillPct = Math.round((r.covers / 7) * grow * 100);
-              return (
-                <motion.div
-                  key={r.id}
-                  variants={fadeUp}
-                  className="relative overflow-hidden rounded-xl px-5 py-4 transition-all duration-300"
-                  style={{
-                    background: active
-                      ? `linear-gradient(160deg, ${r.hue}1f 0%, rgba(255,255,255,0.02) 100%)`
-                      : "rgba(255,255,255,0.025)",
-                    border: `1px solid ${active ? `${r.hue}55` : "rgba(255,255,255,0.07)"}`,
-                    boxShadow: active
-                      ? `0 0 30px ${r.hue}22 inset, 0 10px 28px rgba(0,0,0,0.35)`
-                      : "0 6px 18px rgba(0,0,0,0.25)",
-                  }}
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2.5">
-                      <span
-                        className="inline-block h-2.5 w-2.5 rounded-full"
-                        style={{
-                          background: r.hue,
-                          boxShadow: `0 0 10px ${r.hue}`,
-                        }}
-                      />
-                      <span className="font-display text-[16px] font-semibold tracking-tight text-white sm:text-[17px]">
-                        {r.label}
-                      </span>
-                    </div>
-                    <span
-                      className="font-display text-[10.5px] uppercase tracking-wider2 transition-colors duration-300"
-                      style={{
-                        color: active ? r.hue : "rgba(255,255,255,0.45)",
-                      }}
-                    >
-                      {r.covers}/7
-                    </span>
-                  </div>
-                  {/* Progress bar */}
-                  <div className="relative mt-2.5 h-1 overflow-hidden rounded-full bg-white/[0.06]">
-                    <div
-                      className="absolute inset-y-0 left-0 rounded-full transition-[width] duration-300"
-                      style={{
-                        width: `${fillPct}%`,
-                        background: r.hue,
-                        boxShadow: `0 0 8px ${r.hue}aa`,
-                      }}
-                    />
-                  </div>
-                </motion.div>
-              );
-            })}
-          </motion.div>
-
-          {/* Advantage callout */}
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={viewportOnce}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-            className="relative overflow-hidden rounded-2xl glass-strong p-6"
-          >
-            <div
-              aria-hidden
-              className="pointer-events-none absolute -right-16 -top-16 h-44 w-44 rounded-full opacity-40 blur-3xl"
-              style={{ background: "rgba(16,185,129,0.35)" }}
-            />
-            <div className="relative z-10">
-              <h3 className="font-display text-[20px] font-semibold leading-[1.2] tracking-tight text-white sm:text-[22px]">
-                Everything in the circle{" "}
-                <span className="text-white/55">— built in, not bolted on.</span>
-              </h3>
-              <p className="mt-3 text-[13.5px] leading-relaxed text-white/60">
-                No vendor sprawl. No integration backlog. One operating system
-                that already does the whole job.
-              </p>
-              <div className="mt-5 flex flex-wrap gap-2">
-                {[
-                  "Any channel",
-                  "Any CMS",
-                  "Multi-agent",
-                  "IRDAI + DPDP",
-                  "Templates-only",
-                  "Built around the claim",
-                ].map((c) => (
-                  <span
-                    key={c}
-                    className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/35 bg-emerald-500/10 px-2.5 py-1 text-[12px] text-white/85"
-                  >
-                    <span
-                      className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-400"
-                      style={{ boxShadow: "0 0 8px #10b981" }}
-                    />
-                    {c}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Right column: animated coverage canvas */}
-        <div className="relative">
-          <div
-            ref={stageRef}
-            className="relative mx-auto aspect-square w-full max-w-[560px]"
-          >
-            {/* Outer bloom */}
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-0"
-              style={{
-                background:
-                  "radial-gradient(ellipse at center, rgba(13,153,255,0.15) 0%, rgba(124,58,237,0.06) 40%, transparent 70%)",
-                filter: "blur(14px)",
-              }}
-            />
-
-            <svg
-              viewBox="0 0 640 640"
-              className="absolute inset-0 h-full w-full"
-              aria-hidden
-            >
-              <defs>
-                <filter id="cov-ring-glow">
-                  <feGaussianBlur stdDeviation="3" />
-                </filter>
-              </defs>
-
-              {/* Orbit baseline (dashed circle where capabilities live) */}
-              <circle
-                cx="320"
-                cy="320"
-                r={ORBIT_RADIUS_PCT * 640}
-                fill="none"
-                stroke="rgba(255,255,255,0.1)"
-                strokeWidth="1"
-                strokeDasharray="4 7"
-              />
-
-              {/* Rings — small-to-large so largest renders last on top */}
-              {RINGS.slice()
-                .reverse()
-                .map((r) => {
-                  const grow = easeOutCubic(lerpRange(p, r.start, r.end));
-                  if (grow < 0.02) return null;
-                  const radius = r.radiusPct * 640 * grow;
-                  return (
-                    <g key={r.id}>
-                      <circle
-                        cx="320"
-                        cy="320"
-                        r={radius}
-                        fill={`${r.hue}0e`}
-                        stroke={`${r.hue}cc`}
-                        strokeWidth="1.6"
-                        filter="url(#cov-ring-glow)"
-                      />
-                      <circle
-                        cx="320"
-                        cy="320"
-                        r={radius}
-                        fill="none"
-                        stroke={r.hue}
-                        strokeWidth="1"
-                        opacity="0.6"
-                      />
-                    </g>
-                  );
-                })}
-
-              {/* Capability nodes on the orbit */}
-              {CAPABILITIES.map((cap, i) => {
-                const angle = (i / CAPABILITIES.length) * Math.PI * 2 - Math.PI / 2;
-                const x = 320 + Math.cos(angle) * ORBIT_RADIUS_PCT * 640;
-                const y = 320 + Math.sin(angle) * ORBIT_RADIUS_PCT * 640;
-                const cov = capCoverage[i];
-                const ring = cov.ringIdx >= 0 ? RINGS[cov.ringIdx] : null;
-                const hue = ring ? ring.hue : "rgba(255,255,255,0.18)";
-                return (
-                  <g key={cap.id}>
-                    <circle
-                      cx={x}
-                      cy={y}
-                      r="7"
-                      fill={ring ? hue : "rgba(7,10,18,0.9)"}
-                      stroke={hue}
-                      strokeWidth="1.6"
-                    />
-                    {ring && (
-                      <circle
-                        cx={x}
-                        cy={y}
-                        r="13"
-                        fill="none"
-                        stroke={ring.hue}
-                        strokeWidth="1"
-                        opacity="0.5"
-                      />
-                    )}
-                  </g>
-                );
-              })}
-            </svg>
-
-            {/* Capability labels positioned outside their orbit dots — desktop only */}
-            <div className="pointer-events-none absolute inset-0 hidden sm:block">
-            {CAPABILITIES.map((cap, i) => {
-              const angle = (i / CAPABILITIES.length) * Math.PI * 2 - Math.PI / 2;
-              const labelRadius = ORBIT_RADIUS_PCT + 0.04;
-              const left = 50 + Math.cos(angle) * labelRadius * 100;
-              const top = 50 + Math.sin(angle) * labelRadius * 100;
-              const cov = capCoverage[i];
-              const ring = cov.ringIdx >= 0 ? RINGS[cov.ringIdx] : null;
-              const rightSide = Math.cos(angle) > 0.15;
-              const leftSide = Math.cos(angle) < -0.15;
-              const padX = "6px";
-              return (
-                <div
-                  key={cap.id}
-                  className="pointer-events-none absolute transition-all duration-300"
-                  style={{
-                    left: `${left}%`,
-                    top: `${top}%`,
-                    transform: rightSide
-                      ? `translate(${padX}, -50%)`
-                      : leftSide
-                        ? `translate(calc(-100% - ${padX}), -50%)`
-                        : "translate(-50%, -50%)",
-                    color: ring ? "#fff" : "rgba(255,255,255,0.55)",
-                    opacity: 0.55 + (ring ? 0.45 : 0),
-                  }}
-                >
-                  <div className="flex items-center gap-1.5 whitespace-nowrap text-[10.5px] sm:text-[11px]">
-                    <span className="font-display text-[9px] uppercase tracking-wider text-white/40">
-                      0{i + 1}
-                    </span>
-                    <span className="font-medium">{cap.name}</span>
-                  </div>
-                </div>
-              );
-            })}
-            </div>
-
-            {/* Progress timeline at the bottom */}
-            <div className="absolute -bottom-4 left-4 right-4 flex items-center gap-3 font-display text-[10px] uppercase tracking-wider2 text-white/45 sm:left-0 sm:right-0">
-              <span>T = {Math.round(p * 100)}%</span>
-              <span className="relative h-[3px] flex-1 overflow-hidden rounded-full bg-white/8">
-                <span
-                  className="absolute inset-y-0 left-0 rounded-full transition-[width] duration-100"
-                  style={{
-                    width: `${Math.min(100, p * 100)}%`,
-                    background:
-                      "linear-gradient(90deg, #ef4444 0%, #f59e0b 50%, #10b981 100%)",
-                    boxShadow: "0 0 12px rgba(16,185,129,0.45)",
-                  }}
-                />
-              </span>
-              <span className="hidden text-white/35 sm:inline">
-                Coverage · auto-loop
-              </span>
-            </div>
+      {flat ? (
+        /* No runway on a phone, and none under reduced motion: both halves are
+           shown in full, in order, rather than waiting for a scroll that
+           cannot pace them. */
+        <div>
+          <div className="font-display text-[10.5px] uppercase tracking-wider2 text-white/40">
+            Today · one member question
+          </div>
+          <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {PIECES.map((p) => (
+              <ScatterCard key={p.key} piece={p} progress={scrollYProgress} flat />
+            ))}
           </div>
 
-          {/* Mobile-only numbered legend below the canvas */}
-          <ul className="mt-10 grid grid-cols-1 gap-2 sm:hidden">
-            {CAPABILITIES.map((cap, i) => {
-              const cov = capCoverage[i];
-              const ring = cov.ringIdx >= 0 ? RINGS[cov.ringIdx] : null;
-              return (
-                <li
-                  key={cap.id}
-                  className="flex items-center gap-3 rounded-lg border border-white/8 bg-white/[0.02] px-3.5 py-2.5 transition-colors duration-300"
-                  style={{
-                    borderColor: ring ? `${ring.hue}55` : undefined,
-                    background: ring ? `${ring.hue}0e` : undefined,
-                  }}
-                >
-                  <span
-                    className="font-display text-[10.5px] uppercase tracking-wider2"
-                    style={{ color: ring ? ring.hue : "rgba(255,255,255,0.4)" }}
-                  >
-                    0{i + 1}
-                  </span>
-                  <span
-                    className="text-[13px] font-medium"
-                    style={{ color: ring ? "#fff" : "rgba(255,255,255,0.55)" }}
-                  >
-                    {cap.name}
-                  </span>
-                </li>
-              );
-            })}
-          </ul>
+          <p className="mt-6 text-[14px] leading-relaxed text-white/50">
+            Five places. No single record of what the member was told, or when.
+          </p>
+
+          <div className="mt-12 font-display text-[10.5px] uppercase tracking-wider2 text-emerald-400/80">
+            With Gooclaim OS
+          </div>
+          <div className="mt-4">
+            <OneRecord progress={scrollYProgress} flat />
+          </div>
+        </div>
+      ) : (
+        /* The runway is the scroll distance the five take to come together. */
+        <div ref={runway} className="relative h-[200vh]">
+          <div className="sticky top-0 flex h-screen flex-col items-center justify-center">
+            <ScatterStage progress={scrollYProgress} />
+          </div>
+        </div>
+      )}
+    </SectionShell>
+  );
+}
+
+/** The pinned stage: five cards drifting in, one record forming behind them. */
+function ScatterStage({ progress }: { progress: MotionValue<number> }) {
+  const labelOpacity = useTransform(progress, [0, 0.18, 0.36], [1, 1, 0]);
+  const noteOpacity = useTransform(progress, [0.06, 0.18, 0.36], [0, 1, 0]);
+  const closeOpacity = useTransform(progress, [0.72, 0.88], [0, 1]);
+
+  return (
+    <div className="relative w-full">
+      <motion.div
+        style={{ opacity: labelOpacity }}
+        className="absolute -top-2 left-0 font-display text-[10.5px] uppercase tracking-wider2 text-white/40"
+      >
+        Today · one member question
+      </motion.div>
+
+      <motion.div
+        style={{ opacity: closeOpacity }}
+        className="absolute -top-2 left-0 font-display text-[10.5px] uppercase tracking-wider2 text-emerald-400/80"
+      >
+        With Gooclaim OS
+      </motion.div>
+
+      {/* The five, spread around the middle and pulled in as you scroll. */}
+      <div className="relative flex min-h-[72vh] items-center justify-center">
+        {PIECES.map((p) => (
+          <ScatterCard key={p.key} piece={p} progress={progress} flat={false} />
+        ))}
+
+        {/* The record forms in the same place the five converge on. */}
+        <div className="relative z-10 flex w-full justify-center">
+          <OneRecord progress={progress} flat={false} />
         </div>
       </div>
-    </SectionShell>
+
+      <motion.p
+        style={{ opacity: noteOpacity }}
+        className="absolute -bottom-12 left-0 right-0 text-center text-[13.5px] text-white/45"
+      >
+        Five places. No single record of what the member was told, or when.
+      </motion.p>
+
+      <motion.p
+        style={{ opacity: closeOpacity }}
+        className="absolute -bottom-12 left-0 right-0 text-center text-[13.5px] text-white/45"
+      >
+        The same five facts. One place to read them, and one place they are kept.
+      </motion.p>
+    </div>
   );
 }

@@ -1,123 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import SectionShell from "@/components/SectionShell";
-import { fadeUp, stagger, viewportOnce } from "@/lib/motion";
-
-/** The six things a claims system was never built to do — each one a job Gooclaim OS takes on. */
-type Job = "clock" | "chase" | "queue" | "member" | "gate" | "record";
-
-const JOBS: { key: Job; issue: string; theirs: string; ours: string; hue: string }[] = [
-  {
-    key: "clock",
-    issue: "The legal clock",
-    theirs: "Stores dates. Runs no countdown and cannot say what a late claim is costing.",
-    ours: "Runs the 1-hour, 3-hour and 15-day clocks on every claim, with the interest at stake.",
-    hue: "#f59e0b",
-  },
-  {
-    key: "chase",
-    issue: "Missing documents",
-    theirs: "Marks the claim “deficient”. Nothing asks, reminds or escalates.",
-    ours: "Asks for what is owed, reminds on a schedule, and hands it to a person when nobody answers.",
-    hue: "#0d99ff",
-  },
-  {
-    key: "queue",
-    issue: "Your team’s work list",
-    theirs: "A list sorted by date. No way to see which claim is closest to its limit.",
-    ours: "Orion puts the claim nearest its limit on top, with the next safe step and its evidence.",
-    hue: "#7c3aed",
-  },
-  {
-    key: "member",
-    issue: "The member",
-    theirs: "A row in a table. No channel, no language, no thread.",
-    ours: "Answered on WhatsApp or email, in their language, with the source and date.",
-    hue: "#10b981",
-  },
-  {
-    key: "gate",
-    issue: "What goes out",
-    theirs: "No check on a message before it reaches a member.",
-    ours: "Approved templates only. Every value is checked against your record before sending.",
-    hue: "#7dc4ff",
-  },
-  {
-    key: "record",
-    issue: "What was said",
-    theirs: "Logs decisions and field changes — not the words sent to the member.",
-    ours: "Every message on a tamper-evident ledger, with its source and date.",
-    hue: "#e879f9",
-  },
-];
-const HUE = Object.fromEntries(JOBS.map((j) => [j.key, j.hue])) as Record<Job, string>;
-const LABEL: Record<Job, string> = {
-  clock: "Clock",
-  chase: "Chasing",
-  queue: "Work queue",
-  member: "Member",
-  gate: "Checked",
-  record: "On record",
-};
-
-interface Day {
-  day: number;
-  /** What the claims system shows — accurate, and the same for weeks. */
-  status: string;
-  deficiency?: string;
-  /** What Gooclaim OS did that day. */
-  event: string;
-  jobs: Job[];
-}
-
-// A sample reimbursement claim — sample number, never real data.
-const DAYS: Day[] = [
-  { day: 0, status: "Under process", event: "Claim intimated. The 15-day clock starts, and so does the interest meter.", jobs: ["clock", "record"] },
-  {
-    day: 2,
-    status: "On hold — deficient",
-    deficiency: "Discharge summary",
-    event: "Discharge summary requested through a secure upload link — approved wording, checked before sending.",
-    jobs: ["chase", "gate", "record"],
-  },
-  {
-    day: 5,
-    status: "On hold — deficient",
-    deficiency: "Discharge summary",
-    event: "Member asks on WhatsApp. Answered: which document is pending, the upload link, the source and date.",
-    jobs: ["member", "gate", "record"],
-  },
-  { day: 7, status: "On hold — deficient", deficiency: "Discharge summary", event: "First reminder sent.", jobs: ["chase", "record"] },
-  {
-    day: 12,
-    status: "On hold — deficient",
-    deficiency: "Discharge summary",
-    event: "Three days to the limit. Orion moves the claim to the top of your team’s queue, with the next step.",
-    jobs: ["queue", "clock"],
-  },
-  { day: 14, status: "On hold — deficient", deficiency: "Discharge summary", event: "Second reminder sent. A person is told it is still open.", jobs: ["chase", "queue", "record"] },
-  {
-    day: 16,
-    status: "On hold — deficient",
-    deficiency: "Discharge summary",
-    event: "Past 15 days. The claim shows overdue, with the interest owed since day 0.",
-    jobs: ["clock", "queue"],
-  },
-  {
-    day: 21,
-    status: "On hold — deficient",
-    deficiency: "Discharge summary",
-    event: "Final notice sent and a ticket opened for your team. The claim stays open — the law does not allow closing it.",
-    jobs: ["chase", "queue", "record"],
-  },
-];
-
-const LIMIT = 15;
-const CLAIM_RUPEES = 100_000;
-const RATE = (5.75 + 2) / 100; // RBI bank rate 5.75% (from 7 Oct 2026) + IRDAI's 2%, a year
-const STEP_MS = 2600;
-
-const inr = (n: number) => `₹${Math.round(n).toLocaleString("en-IN")}`;
+import JobsSequence from "./JobsSequence";
+import {
+  CLAIM_RUPEES,
+  DAYS,
+  HUE,
+  JOBS,
+  LABEL,
+  LIMIT,
+  RATE,
+  STEP_MS,
+  inr,
+  type Job,
+} from "./systemGapData";
 
 function Chip({ job, dim }: { job: Job; dim: boolean }) {
   const hue = HUE[job];
@@ -359,7 +255,7 @@ function ClaimTimeline({ focus }: { focus: Job | null }) {
 }
 
 export default function SystemGap({ eyebrow = "02 · Why your system can’t fix it" }: { eyebrow?: string } = {}) {
-  const [focus, setFocus] = useState<Job | null>(null);
+  const [focus] = useState<Job | null>(null);
   return (
     <SectionShell
       id="system-gap"
@@ -374,73 +270,8 @@ export default function SystemGap({ eyebrow = "02 · Why your system can’t fix
     >
       <ClaimTimeline focus={focus} />
 
-      {/* Issue → what happens today → what Gooclaim OS does */}
-      <div className="mt-14">
-        <h3 className="text-balance font-display text-[24px] font-semibold leading-tight tracking-tighter text-white sm:text-[30px]">
-          Six things it was never built to do.{" "}
-          <span className="text-white/55">Six jobs Gooclaim OS takes on.</span>
-        </h3>
-        <div className="mt-6 hidden grid-cols-[0.8fr_1fr_1.15fr] gap-4 px-5 font-display text-[10.5px] uppercase tracking-wider2 text-white/40 md:grid">
-          <span>The issue</span>
-          <span>Your claims system</span>
-          <span className="text-accent-cyan">Gooclaim OS</span>
-        </div>
-        <motion.ul
-          variants={stagger(0.04, 0.06)}
-          initial="hidden"
-          whileInView="show"
-          viewport={viewportOnce}
-          className="mt-3 space-y-2.5"
-          onMouseLeave={() => setFocus(null)}
-        >
-          {JOBS.map((j) => {
-            const on = focus === j.key;
-            return (
-              <motion.li key={j.key} variants={fadeUp}>
-                <button
-                  type="button"
-                  onMouseEnter={() => setFocus(j.key)}
-                  onFocus={() => setFocus(j.key)}
-                  onBlur={() => setFocus(null)}
-                  // Hover already lit it; a click (or a tap on a phone) must not unlight it.
-                  onClick={() => setFocus(j.key)}
-                  aria-pressed={on}
-                  className={`grid w-full grid-cols-1 gap-3 rounded-2xl border p-5 text-left transition-all duration-300 md:grid-cols-[0.8fr_1fr_1.15fr] md:items-center md:gap-4 ${
-                    on ? "border-white/20 bg-white/[0.06]" : "border-white/[0.08] bg-white/[0.02] hover:border-white/15"
-                  }`}
-                >
-                  <span className="flex items-center gap-2.5">
-                    <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: j.hue, boxShadow: `0 0 10px ${j.hue}` }} />
-                    <span className="font-display text-[16px] font-semibold text-white">{j.issue}</span>
-                  </span>
-                  <span className="flex items-start gap-2.5 text-[13.5px] leading-relaxed text-white/50">
-                    <svg className="mt-[3px] shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true">
-                      <path d="M5 12h14" />
-                    </svg>
-                    <span>
-                      <span className="mr-1 font-semibold text-white/60 md:hidden">Your system:</span>
-                      {j.theirs}
-                    </span>
-                  </span>
-                  <span className="flex items-start gap-2.5 text-[13.5px] leading-relaxed text-white/85">
-                    <svg className="mt-[3px] shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={j.hue} strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <path d="M5 12.5l4.5 4.5L19 7.5" />
-                    </svg>
-                    <span>
-                      <span className="mr-1 font-semibold text-white md:hidden">Gooclaim OS:</span>
-                      {j.ours}
-                      <span className="mt-1.5 block font-display text-[10px] uppercase tracking-wider2" style={{ color: `${j.hue}cc` }}>
-                        In the claim above: day {DAYS.filter((x) => x.jobs.includes(j.key)).map((x) => x.day).join(" · ")}
-                      </span>
-                    </span>
-                  </span>
-                </button>
-              </motion.li>
-            );
-          })}
-        </motion.ul>
-        <p className="mt-4 text-[12.5px] text-white/40">Point at a row to light up where it happens in the claim above.</p>
-      </div>
+      <JobsSequence jobs={JOBS} days={DAYS} />
+
     </SectionShell>
   );
 }
