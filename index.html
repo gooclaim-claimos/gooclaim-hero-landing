@@ -6,31 +6,20 @@
     <meta name="theme-color" content="#070a12" />
     <meta name="format-detection" content="telephone=no" />
 
-    <!-- Fallback meta — overridden per-route by react-helmet-async -->
+    <!--
+      Only the <title> belongs here. react-helmet-async REPLACES the title but
+      APPENDS every meta and link, so anything else written here survives
+      alongside the route's own tag and is served twice.
+
+      🔴 The canonical was the costly one: this file hard-coded
+      `https://www.gooclaim.com/`, so /pricing, /security, /orion, /platform and
+      every use-case page told Google they were the homepage — an instruction to
+      drop them from the index as duplicates. SEOHead already emits a correct
+      per-route canonical, plus description, og:*, twitter:* and robots, and
+      every route is prerendered, so each page ships its own set. Do not add
+      meta or link tags back here; add them to SEOHead.
+    -->
     <title>Gooclaim OS · The operating system for India's claims industry</title>
-    <meta
-      name="description"
-      content="Gooclaim OS is the multi-agent AI operating system for India's TPAs and insurers. Built for every claim — every channel, every CMS, every workflow. IRDAI + DPDP compliant by design."
-    />
-    <meta name="robots" content="index, follow, max-image-preview:large" />
-    <link rel="canonical" href="https://www.gooclaim.com/" />
-
-    <!-- Open Graph fallback -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Gooclaim OS" />
-    <meta property="og:title" content="Gooclaim OS · The operating system for India's claims industry" />
-    <meta property="og:description" content="Multi-agent AI for India's TPAs and insurers. Built for every claim — every channel, every CMS, every workflow." />
-    <meta property="og:url" content="https://www.gooclaim.com/" />
-    <meta property="og:image" content="https://www.gooclaim.com/og-default.png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:locale" content="en_IN" />
-
-    <!-- Twitter fallback -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Gooclaim OS · The operating system for India's claims industry" />
-    <meta name="twitter:description" content="Multi-agent AI for India's TPAs and insurers. Built for every claim — every channel, every CMS, every workflow." />
-    <meta name="twitter:image" content="https://www.gooclaim.com/og-default.png" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/logo-gooclaim.svg" />
