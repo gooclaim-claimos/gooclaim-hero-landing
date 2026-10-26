@@ -7,7 +7,7 @@ export default function Compliance() {
     <LegalShell
       eyebrow="Legal · Compliance"
       title="Compliance"
-      updated="13 Oct 2026"
+      updated="26 Oct 2026"
     >
       <SEOHead seo={SEO_COMPLIANCE} path="/compliance" />
       <p>
@@ -163,8 +163,10 @@ export default function Compliance() {
 
       <h2>4. Data residency and retention</h2>
       <p>
-        Production data is processed in India unless an engaging Customer
-        explicitly chooses otherwise.
+        Gooclaim OS runs on Amazon Web Services. The hosting region is agreed
+        with each Customer in its contract and can be an India region. AI
+        models are reached only through our own model gateway; their providers
+        are listed in section 5.
       </p>
       <p>
         Retention is not one period. It turns on whether something is part of a
@@ -197,9 +199,10 @@ export default function Compliance() {
 
       <h2>5. Sub-processors</h2>
       <p>
-        Gooclaim OS uses a small set of sub-processors: cloud hosting and
-        email delivery, WhatsApp delivery, and AI models reached only through
-        our own model gateway. Each
+        Gooclaim OS uses a small set of sub-processors: Amazon Web Services
+        (cloud hosting, storage, encryption keys and email delivery), Meta
+        (WhatsApp delivery), and Anthropic, OpenAI and Mistral AI (AI models,
+        reached only through our own model gateway). Each
         sub-processor is bound by a data-processing agreement and is reviewed
         annually. A live list is available to Customers under the MSA.
       </p>
