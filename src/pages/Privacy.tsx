@@ -4,7 +4,7 @@ import { SEO_PRIVACY } from "@/lib/seo";
 
 export default function Privacy() {
   return (
-    <LegalShell eyebrow="Legal · Privacy" title="Privacy Notice" updated="13 Oct 2026">
+    <LegalShell eyebrow="Legal · Privacy" title="Privacy Notice" updated="26 Oct 2026">
       <SEOHead seo={SEO_PRIVACY} path="/privacy" />
       <p>
         Gooclaim OS is a Claim OS used by insurers and third-party
@@ -137,9 +137,10 @@ export default function Privacy() {
         </li>
         <li>
           Service providers we use to run the platform, under contract with us:
-          cloud hosting and email delivery (Amazon Web Services), WhatsApp
-          delivery (Meta&rsquo;s WhatsApp Business Platform), and AI model
-          providers reached only through our model gateway.
+          cloud hosting, storage, encryption keys and email delivery (Amazon
+          Web Services), WhatsApp delivery (Meta&rsquo;s WhatsApp Business
+          Platform), and AI models (Anthropic, OpenAI and Mistral AI), reached
+          only through our own model gateway.
         </li>
         <li>Regulators, courts and authorities, where the law requires it.</li>
       </ul>
@@ -294,11 +295,12 @@ export default function Privacy() {
 
       <h2>13. Where data is processed</h2>
       <p>
-        Gooclaim OS processes claimant data in India unless the insurer or TPA
-        engaging us chooses otherwise in its contract. Any transfer outside
-        India is made only as section 16 of the DPDP Act allows — never to a
-        country the Government of India has restricted — and with contractual
-        safeguards.
+        Gooclaim OS runs on Amazon Web Services. The hosting region is agreed
+        with each insurer or TPA in its contract and can be an India region.
+        The AI model providers named in section 7 may process data outside
+        India. Any transfer outside India is made only as section 16 of the
+        DPDP Act allows — never to a country the Government of India has
+        restricted — and with contractual safeguards.
       </p>
 
       <h2>14. Children</h2>
