@@ -88,9 +88,9 @@ export const USE_CASES: UseCaseData[] = [
       hue: "#f59e0b",
     },
     problemBody:
-      "On every one of those days the 2024 circular runs interest at bank rate + 2% from the date of intimation, paid by the insurer of its own motion — and the same circular says a claim cannot be closed for want of documents. So an unanswered document request is not a backlog item. It is a meter.",
+      "In India, on every one of those days the 2024 IRDAI circular runs interest at bank rate + 2% from the date of intimation, paid by the insurer of its own motion — and the same circular says a claim cannot be closed for want of documents. So an unanswered document request is not a backlog item. It is a meter.",
     problemSource:
-      "IRDAI Annual Report 2024-25 · IRDAI circular, 5 September 2024",
+      "India · IRDAI Annual Report 2024-25 · IRDAI circular, 5 September 2024",
     capabilities: [
       {
         title: "Reads the system you already run",
@@ -109,12 +109,12 @@ export const USE_CASES: UseCaseData[] = [
       },
       {
         title: "The clock on every claim",
-        body: "1 hour, 3 hours and 15 days from submission, counted per claim with the interest already estimated, so a breach is visible before it is a payment.",
+        body: "The regulator's deadlines — in India, 1 hour, 3 hours and 15 days from submission — counted per claim with the interest already estimated, so a breach is visible before it is a payment.",
         hue: "#f59e0b",
       },
       {
         title: "Audit ledger per tenant",
-        body: "Append-only, SHA-256 chained, 10-year retention — and the NL-48 TAT report built from the record itself, frozen with its checksum.",
+        body: "Append-only, SHA-256 chained, 10-year retention — and turnaround reports, such as India's NL-48, built from the record itself and frozen with their checksum.",
         hue: "#7c3aed",
       },
       {
@@ -126,7 +126,7 @@ export const USE_CASES: UseCaseData[] = [
     personas: [
       {
         role: "Head of Claims Ops",
-        why: "Owns the 1 hour and 3 hour windows, and the queue nobody can see the bottom of.",
+        why: "Owns the pre-approval windows, and the queue nobody can see the bottom of.",
       },
       {
         role: "COO",
@@ -134,12 +134,12 @@ export const USE_CASES: UseCaseData[] = [
       },
       {
         role: "Compliance Officer",
-        why: "Owns the IRDAI trail, the NL-48 return, and what the ombudsman is shown.",
+        why: "Owns the regulator trail, the turnaround return, and what the ombudsman is shown.",
       },
     ],
     trustChips: [
       { label: "Read-only on your CMS", hue: "#0d99ff" },
-      { label: "IRDAI clocks per claim", hue: "#f59e0b" },
+      { label: "Regulator clocks per claim", hue: "#f59e0b" },
       { label: "One deployment, tenant from login", hue: "#10b981" },
     ],
     closingTitle: (
@@ -172,7 +172,7 @@ export const USE_CASES: UseCaseData[] = [
     },
     problemBody:
       "Each one can become a complaint, and a complaint is answered with a record: what the member was asked for, when it was sent, what they were told about the decision. When that record lives in four systems and somebody's sent items, the answer takes weeks to assemble.",
-    problemSource: "IRDAI Annual Report 2024-25",
+    problemSource: "India · IRDAI Annual Report 2024-25",
     capabilities: [
       {
         title: "The same OS across every TPA",
@@ -190,13 +190,13 @@ export const USE_CASES: UseCaseData[] = [
         hue: "#10b981",
       },
       {
-        title: "The NL-48 return, from the record",
+        title: "The turnaround return, from the record",
         body: "Built from the claims themselves rather than typed up, frozen with a checksum so the file you filed is the file you can show.",
         hue: "#f59e0b",
       },
       {
         title: "Consent before anything",
-        body: "DPDP consent is checked before a workflow runs. A document notice still reaches the registered contact, because that duty is not optional.",
+        body: "Consent is checked before a workflow runs. A document notice still reaches the registered contact, because that duty is not optional.",
         hue: "#7dc4ff",
       },
       {
@@ -212,7 +212,7 @@ export const USE_CASES: UseCaseData[] = [
       },
       {
         role: "Chief Risk / Compliance Officer",
-        why: "Owns the IRDAI position, the audit posture and DPDP readiness.",
+        why: "Owns the regulator position, the audit posture and data-protection readiness.",
       },
       {
         role: "Chief Technology Officer",
@@ -220,7 +220,7 @@ export const USE_CASES: UseCaseData[] = [
       },
     ],
     trustChips: [
-      { label: "IRDAI + DPDP by design", hue: "#0d99ff" },
+      { label: "Compliance by design", hue: "#0d99ff" },
       { label: "Per-tenant audit ledger", hue: "#f59e0b" },
       { label: "Templates only — no free text", hue: "#10b981" },
     ],
@@ -254,7 +254,7 @@ export const USE_CASES: UseCaseData[] = [
     },
     problemBody:
       "That window belongs to the insurer, but the patient is sitting in your bed and asking your staff. Today the only way to know where the request stands is to call, so your billing desk spends the three hours on hold and the patient blames the people in front of them.",
-    problemSource: "IRDAI circular, 5 September 2024 — clause 3(iii)",
+    problemSource: "India · IRDAI circular, 5 September 2024 — clause 3(iii)",
     capabilities: [
       {
         title: "The patient is told directly",
@@ -268,7 +268,7 @@ export const USE_CASES: UseCaseData[] = [
       },
       {
         title: "The clock is counted, not guessed",
-        body: "Every claim carries its 1 hour, 3 hour and 15 day windows with the time left on each — so a request that is about to breach is visible to the TPA before you have to chase it.",
+        body: "Every claim carries its legal windows — in India, 1 hour, 3 hours and 15 days — with the time left on each — so a request that is about to breach is visible to the TPA before you have to chase it.",
         hue: "#f59e0b",
       },
       {
@@ -326,7 +326,7 @@ export const USE_CASES: UseCaseData[] = [
       </>
     ),
     heroIntro:
-      "Health has the strictest clock in Indian insurance, which is why it is where Gooclaim OS runs first: claim status, document collection, the reason behind a decision and the complaint that follows — all on the record, all in the member's language.",
+      "Health is where the clock is strictest, which is why it is where Gooclaim OS runs first: claim status, document collection, the reason behind a decision and the complaint that follows — all on the record, all in the member's language.",
     problemStat: {
       big: "39.57 lakh",
       caption: "PM-JAY claims over the 12-hour pre-auth limit",
@@ -335,7 +335,7 @@ export const USE_CASES: UseCaseData[] = [
     problemBody:
       "A government audit counted them, in India's own health scheme: claims that waited more than twelve hours for a pre-auth answer. Waiting is where claims stall — on a document, a clarification or a reply that is nobody's job. The 2024 circular made that waiting expensive: interest runs from intimation, and the claim cannot be closed for want of documents.",
     problemSource:
-      "CAG Report No. 11 of 2023 · audit of PM-JAY · IRDAI circular, 5 September 2024",
+      "India · CAG Report No. 11 of 2023 · audit of PM-JAY · IRDAI circular, 5 September 2024",
     capabilities: [
       {
         title: "Claim status, answered from the record",
@@ -354,7 +354,7 @@ export const USE_CASES: UseCaseData[] = [
       },
       {
         title: "Every clock the circular sets",
-        body: "1 hour for cashless authorisation, 3 hours at discharge, 15 days from submission — counted per claim, with the interest estimated as it runs.",
+        body: "The legal windows — in India, 1 hour for cashless authorisation, 3 hours at discharge and 15 days from submission — counted per claim, with the interest estimated as it runs.",
         hue: "#10b981",
       },
       {
@@ -375,16 +375,16 @@ export const USE_CASES: UseCaseData[] = [
       },
       {
         role: "TPA leadership",
-        why: "Owns the cashless clock and the cost of every claim that stalls.",
+        why: "Owns the pre-approval clock and the cost of every claim that stalls.",
       },
       {
         role: "Compliance",
-        why: "Owns the NL-48 return, the ombudsman file and the DPDP position.",
+        why: "Owns the turnaround return, the complaint file and the privacy position.",
       },
     ],
     trustChips: [
-      { label: "IRDAI 1 hr / 3 hr / 15 days", hue: "#0d99ff" },
-      { label: "DPDP consent at step zero", hue: "#10b981" },
+      { label: "Regulator clocks per claim", hue: "#0d99ff" },
+      { label: "Consent at step zero", hue: "#10b981" },
       { label: "10-year audit ledger", hue: "#f59e0b" },
     ],
     closingTitle: (

@@ -54,7 +54,7 @@ const CAPABILITIES: Capability[] = [
   {
     key: "pulse",
     name: "Work Pulse",
-    line: "What needs a person, why, and how long the IRDAI clock has left — not a queue of every claim.",
+    line: "What needs a person, why, and how long the legal clock has left — not a queue of every claim.",
     hue: "#0d99ff",
     Icon: IconPulse,
   },
@@ -144,7 +144,7 @@ function BriefView() {
     { k: "Status", v: "Under review", src: "Your claims system · updated 3 Oct" },
     { k: "Hospital bill", v: "Received", src: "Your claims system · 30 Sep" },
     { k: "Discharge summary", v: "Still owed · sent by member 5 Oct", src: "Upload · scanned, accepted" },
-    { k: "IRDAI clock", v: "Reimbursement · past 15 days", src: "Counted from intimation" },
+    { k: "Legal clock", v: "Reimbursement · past 15 days", src: "India's IRDAI clock · from intimation" },
     { k: "Member was told", v: "Reminder 2 · email · 9 Oct", src: "Conversation record" },
   ];
   return (

@@ -50,7 +50,7 @@ const BANDS: Band[] = [
         what: "Reads the claim fresh, every time",
         note: "Never from a stored copy — and every read is on the audit ledger.",
       },
-      { what: "Watches the IRDAI clock on each claim" },
+      { what: "Watches the legal clock on each claim" },
       {
         what: "Opens the member’s uploaded documents",
         note: "The opening is recorded before the file is shown.",

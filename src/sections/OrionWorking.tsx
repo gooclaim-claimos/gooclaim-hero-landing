@@ -129,8 +129,8 @@ function Answer({ accepted, onAccept }: { accepted: boolean; onAccept: () => voi
       className="mt-5"
     >
       <p className="text-[14px] leading-relaxed text-white/85">
-        Two reminders have gone out and the discharge summary is still owed. The IRDAI
-        clock went past its 15 days on 12 October
+        Two reminders have gone out and the discharge summary is still owed. India&rsquo;s
+        15-day IRDAI clock ran out on 12 October
         <span
           className="ml-0.5 rounded px-1 font-display text-[10.5px]"
           style={{ color: "#7c3aed", background: "rgba(124,58,237,0.15)" }}

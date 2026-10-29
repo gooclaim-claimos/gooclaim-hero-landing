@@ -34,8 +34,8 @@ export const FAQS: { q: string; a: string }[] = [
     a: "Orion shows what needs a person and why, reads the claim for them, and suggests the next safe step with its evidence. A person always says yes — Orion never decides a claim.",
   },
   {
-    q: "How do IRDAI timelines and reports work?",
-    a: "Every claim carries its IRDAI clock — 1 hour for pre-auth, 3 hours for discharge, 15 days to settle a reimbursement — and complaints carry theirs. The quarterly NL-48 turnaround report is built from the same record.",
+    q: "How do the legal timelines and reports work?",
+    a: "Every claim carries the clock its regulator sets — in India, IRDAI's 1 hour for pre-auth, 3 hours for discharge and 15 days to settle a reimbursement — and complaints carry theirs. Turnaround reports, such as India's quarterly NL-48, are built from the same record.",
   },
   {
     q: "How do we get started?",

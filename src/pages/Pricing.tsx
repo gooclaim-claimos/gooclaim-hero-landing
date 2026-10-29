@@ -38,15 +38,15 @@ const MODES: Mode[] = [
     name: "Production",
     hue: "#10b981",
     blurb:
-      "Annual engagement covering multiple workflows, all live channels, IRDAI-grade SLAs and support hours agreed in the contract. Pricing scales with tenant volume.",
+      "Annual engagement covering multiple workflows, all live channels, regulator-grade SLAs and support hours agreed in the contract. Pricing scales with tenant volume.",
     includes: [
       "Every live workflow and channel",
-      "Production SLAs · 1hr / 3hr cashless mandate tracking",
-      "Per-tenant dashboards + IRDAI export",
+      "Production SLAs · regulator clock tracking",
+      "Per-tenant dashboards + regulator reports",
       "A named contact on our team",
       "Quarterly architecture review",
     ],
-    fit: "TPAs and insurers running cashless ops at scale and ready to standardize on Gooclaim OS.",
+    fit: "TPAs and insurers running claims ops at scale and ready to standardize on Gooclaim OS.",
   },
   {
     badge: "Mode 03",
@@ -152,7 +152,7 @@ export default function Pricing() {
             <h1 className="text-balance font-display text-[34px] font-semibold leading-[1.05] tracking-tightest text-white sm:text-[52px] sm:leading-[1.02] lg:text-[64px]">
               Let&rsquo;s talk pricing.{" "}
               <span className="text-white/55">
-                Built for India&rsquo;s TPAs and insurers.
+                Built for TPAs and insurers.
               </span>
             </h1>
             <p className="mt-6 max-w-[54ch] text-[16px] leading-relaxed text-white/65 sm:text-[17px]">
@@ -316,7 +316,7 @@ export default function Pricing() {
               "Per-tenant pricing — TPAs and insurers don't share economics, and pricing shouldn't pretend they do.",
               "Lines of insurance matter — each has different volume, SLA and audit profiles.",
               "Channels matter — WhatsApp alone and WhatsApp with email are different cost profiles, and voice will be another when it lands.",
-              "Compliance scope matters — IRDAI ombudsman exports, custom DPO reviews and security posture add real engineering.",
+              "Compliance scope matters — regulator and complaint exports, custom DPO reviews and security posture add real engineering.",
             ].map((line) => (
               <li key={line} className="flex items-start gap-3">
                 <span

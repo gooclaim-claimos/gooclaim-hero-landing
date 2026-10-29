@@ -46,7 +46,7 @@ export const SEO_INDIA: PageSEO = {
 export const SEO_PRICING: PageSEO = {
   title: "Pricing · Gooclaim OS",
   description:
-    "Engagement modes for India's TPAs and insurers — Pilot, Production, Enterprise. Custom quotes shaped to your channels, verticals and volume. Book a 20-minute walkthrough.",
+    "Engagement modes for TPAs and insurers — Pilot, Production, Enterprise. Custom quotes shaped to your channels, verticals and volume. Book a 20-minute walkthrough.",
   keywords: "Gooclaim OS pricing, insurance AI pricing, TPA software pricing",
 };
 
@@ -59,7 +59,7 @@ export const SEO_DEMO: PageSEO = {
 };
 
 export const SEO_COMPLIANCE: PageSEO = {
-  title: "Compliance · IRDAI + DPDP · Gooclaim OS",
+  title: "Compliance in India · IRDAI + DPDP · Gooclaim OS",
   description:
     "How Gooclaim OS maps to IRDAI Master Circular, PPHI penalties, Internal Ombudsman Guidelines 2025 and the DPDP Act 2023 — control by control.",
   keywords:
@@ -83,27 +83,27 @@ export const SEO_PLATFORM: PageSEO = {
   description:
     "Gooclaim OS is a Claim OS: one multi-agent core that reads any claims system, answers on WhatsApp and email, and checks every message before it leaves. Seven layers, one audit ledger.",
   keywords:
-    "claims operating system, claims automation platform, insurance AI platform India, TPA software, claims CMS integration",
+    "claims operating system, claims automation platform, insurance AI platform, TPA software, claims CMS integration",
 };
 
 export const SEO_ORION: PageSEO = {
   title: "Orion · The AI claims coworker · Gooclaim OS",
   description:
-    "Orion works beside your claims staff — Work Pulse with IRDAI clocks, a live claim brief, the next safe step with its evidence, and answers from your own policy library. A person always decides.",
+    "Orion works beside your claims staff — Work Pulse with legal clocks, a live claim brief, the next safe step with its evidence, and answers from your own policy library. A person always decides.",
   keywords: "AI claims coworker, claims copilot, TPA staff AI, claims operations AI, Orion Gooclaim",
 };
 
 export const SEO_SECURITY: PageSEO = {
   title: "Security & compliance · Gooclaim OS",
   description:
-    "How Gooclaim OS protects claims data: read-only to your claims system, strict per-tenant isolation, masked personal numbers, encryption at rest, DPDP consent and an append-only audit trail — plus IRDAI clocks on every claim.",
-  keywords: "insurance data security, DPDP compliance, IRDAI compliance, claims data protection, audit trail",
+    "How Gooclaim OS protects claims data: read-only to your claims system, strict per-tenant isolation, masked personal numbers, encryption at rest, consent first and an append-only audit trail — plus legal clocks on every claim.",
+  keywords: "insurance data security, data protection, claims compliance, claims data protection, audit trail",
 };
 
 export function buildUseCaseSEO(slug: string, label: string): PageSEO {
   return {
     title: `${label} · Use cases · Gooclaim OS`,
-    description: `Gooclaim OS for ${label}. The agentic claims operating system built for India's TPAs and insurers to handle ${label.toLowerCase()} workflows end-to-end — multi-channel, audit-grade, IRDAI + DPDP compliant.`,
+    description: `Gooclaim OS for ${label}. The agentic claims operating system built for TPAs and insurers to handle ${label.toLowerCase()} workflows end-to-end — multi-channel, audit-grade, compliant by design.`,
     keywords: `Gooclaim OS ${label}, ${label} insurance AI, claims automation ${label}`,
     ogImage: `/og-default.png`,
     ...(slug ? {} : {}),

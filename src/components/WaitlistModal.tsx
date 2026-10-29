@@ -66,7 +66,7 @@ const NEXT_STEPS = [
   },
 ];
 
-const TRUST = ["IRDAI clocks on every claim", "DPDP consent before a word", "Append-only audit ledger"];
+const TRUST = ["Regulator clocks on every claim", "Consent before a word", "Append-only audit ledger"];
 
 export default function WaitlistModal() {
   const [open, setOpen] = useState(false);

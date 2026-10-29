@@ -24,7 +24,7 @@ const COLUMNS = [
   },
   {
     title: "Resources",
-    links: ["Gooclaim OS in India", "Security", "Compliance", "Pricing"],
+    links: ["Gooclaim OS in India", "Security", "Compliance in India", "Pricing"],
   },
   {
     title: "Contact",
@@ -42,7 +42,7 @@ const LINK_ROUTES: Record<string, string> = {
   "Gooclaim OS in India": "/in",
   Orion: "/orion",
   Security: "/security",
-  Compliance: "/compliance",
+  "Compliance in India": "/compliance",
   Privacy: "/privacy",
   Terms: "/terms",
   Pricing: "/pricing",

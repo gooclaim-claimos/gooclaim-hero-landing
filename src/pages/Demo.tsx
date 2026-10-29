@@ -105,8 +105,8 @@ export default function Demo() {
             {/* Trust strip */}
             <div className="mt-10 flex flex-wrap items-center gap-2.5 sm:gap-3">
               {[
-                "IRDAI clocks · 1 h · 3 h · 15 days",
-                "DPDP consent gate",
+                "Regulator clocks on every claim",
+                "Consent before a word",
                 "Audit ledger · SHA-256",
               ].map((b) => (
                 <span

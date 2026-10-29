@@ -75,8 +75,8 @@ const PIECES: Piece[] = [
   },
   {
     key: "clock",
-    system: "The IRDAI clock",
-    holds: "15 days from submission",
+    system: "The legal clock",
+    holds: "In India, 15 days from submission",
     gap: "Lives in no system at all",
     hue: "#F26D6D",
     x: "0vw",
@@ -90,7 +90,7 @@ const RECORD: { day: string; what: string; from: string }[] = [
   { day: "Day 6", what: "Query letter sent", from: "on the claim, not in an inbox" },
   { day: "Day 9", what: "Member told, in their language", from: "WhatsApp · approved wording" },
   { day: "Day 11", what: "Document received", from: "upload link · checked on arrival" },
-  { day: "Now", what: "4 days left of 15", from: "IRDAI clock, from submission" },
+  { day: "Now", what: "4 days left of 15", from: "India's IRDAI clock, from submission" },
 ];
 
 /** Below `lg`, or with reduced motion, nothing is pinned and nothing is paced. */
