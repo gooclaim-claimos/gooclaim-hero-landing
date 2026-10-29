@@ -329,13 +329,13 @@ export const USE_CASES: UseCaseData[] = [
       "Health has the strictest clock in Indian insurance, which is why it is where Gooclaim OS runs first: claim status, document collection, the reason behind a decision and the complaint that follows — all on the record, all in the member's language.",
     problemStat: {
       big: "39.57 lakh",
-      caption: "claims that missed their settlement deadline",
+      caption: "PM-JAY claims over the 12-hour pre-auth limit",
       hue: "#F26D6D",
     },
     problemBody:
-      "A government audit counted them. Almost none of those were hard decisions — the claim was waiting on a document, a clarification or a reply, and the waiting was nobody's job. The 2024 circular made that waiting expensive: interest runs from intimation, and the claim cannot be closed for want of documents.",
+      "A government audit counted them, in India's own health scheme: claims that waited more than twelve hours for a pre-auth answer. Waiting is where claims stall — on a document, a clarification or a reply that is nobody's job. The 2024 circular made that waiting expensive: interest runs from intimation, and the claim cannot be closed for want of documents.",
     problemSource:
-      "CAG performance audit, Report 11 of 2023 · IRDAI circular, 5 September 2024",
+      "CAG Report No. 11 of 2023 · audit of PM-JAY · IRDAI circular, 5 September 2024",
     capabilities: [
       {
         title: "Claim status, answered from the record",

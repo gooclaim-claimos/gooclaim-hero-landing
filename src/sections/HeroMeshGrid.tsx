@@ -7,6 +7,7 @@ import CTA from "@/components/CTA";
 import MobileMenu from "@/components/MobileMenu";
 import { openWaitlist } from "@/lib/waitlist";
 import { scrollToSection } from "@/lib/lenis";
+import type { Market } from "@/lib/market";
 import { Link } from "react-router-dom";
 import SiteNav, { SITE_NAV } from "@/components/SiteNav";
 
@@ -14,7 +15,8 @@ import SiteNav, { SITE_NAV } from "@/components/SiteNav";
 const MUX_PLAYBACK =
   "https://stream.mux.com/Aa02T7oM1wH5Mk5EEVDYhbZ1ChcdhRsS2m1NYyx4Ua1g.m3u8";
 
-export default function HeroMeshGrid() {
+export default function HeroMeshGrid({ market = "global" }: { market?: Market } = {}) {
+  const india = market === "in";
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [videoReady, setVideoReady] = useState(false);
@@ -299,7 +301,7 @@ export default function HeroMeshGrid() {
             </span>
             <span className="font-medium text-white/90">Gooclaim OS is a Claim OS</span>
             <span aria-hidden className="h-3.5 w-px bg-white/20" />
-            <span className="text-white/50">for TPAs &amp; insurers</span>
+            <span className="text-white/50">{india ? "for India’s TPAs & insurers" : "for TPAs & insurers"}</span>
           </motion.div>
 
           <motion.h1
@@ -330,16 +332,22 @@ export default function HeroMeshGrid() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
             className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4"
           >
-            <CTA onClick={() => openWaitlist("hero-primary")}>
+            <CTA onClick={() => openWaitlist(india ? "india-hero-primary" : "hero-primary")}>
               Book a walkthrough
             </CTA>
-            <CTA
-              variant="ghost"
-              // The day-by-day claim demo on this page; it starts playing once in view.
-              onClick={() => scrollToSection("system-gap", 96)}
-            >
-              See how it works
-            </CTA>
+            {india ? (
+              <CTA
+                variant="ghost"
+                // The day-by-day claim demo on this page; it starts playing once in view.
+                onClick={() => scrollToSection("system-gap", 96)}
+              >
+                See how it works
+              </CTA>
+            ) : (
+              <CTA variant="ghost" onClick={() => scrollToSection("what-it-does", 96)}>
+                See what it does
+              </CTA>
+            )}
           </motion.div>
         </div>
 
@@ -348,9 +356,13 @@ export default function HeroMeshGrid() {
           data-hero-fade
           className="mt-12 flex flex-wrap items-center justify-center gap-2 sm:mt-20 sm:gap-3"
         >
-          <ComplianceBadge label="IRDAI clocks · 1 h · 3 h · 15 days" hue="#0d99ff" delay={0.45} />
           <ComplianceBadge
-            label="DPDP consent gate"
+            label={india ? "IRDAI clocks · 1 h · 3 h · 15 days" : "Regulator clocks on every claim"}
+            hue="#0d99ff"
+            delay={0.45}
+          />
+          <ComplianceBadge
+            label={india ? "DPDP consent gate" : "Consent before a word"}
             hue="#10b981"
             delay={0.55}
           />

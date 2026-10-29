@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import SectionShell from "@/components/SectionShell";
 import { fadeUp, stagger, viewportOnce } from "@/lib/motion";
 import { openWaitlist } from "@/lib/waitlist";
+import type { Market } from "@/lib/market";
 
 interface Stage {
   key: string;
@@ -40,7 +41,7 @@ const STAGES: Stage[] = [
     label: "Pre-auth",
     stops: true,
     rule: "1 hour to approve a cashless request. 3 hours to authorise a discharge.",
-    reality: "In India's own government health scheme, 39.57 lakh claims took longer than 12 hours to approve.",
+    reality: "In India's own government health scheme, 39.57 lakh claims took longer than 12 hours for pre-auth approval.",
     source: "CAG Report No. 11 of 2023 · audit of PM-JAY",
   },
   {
@@ -83,8 +84,9 @@ const HEALTH_WORKFLOWS = [
   "Pending documents, asked and reminded",
   "Query reasons, in the insurer's own words",
   "Insurance questions, from your knowledge library",
-  "Complaints, on the IRDAI clock",
 ];
+/** The fifth names India's regulator on the India page only. */
+const COMPLAINTS = { global: "Complaints, with their own deadlines", in: "Complaints, on the IRDAI clock" };
 
 const STOP = "#ef4444";
 const METER = "#f59e0b";
@@ -205,7 +207,11 @@ function Journey() {
   );
 }
 
-export default function ProblemJourney({ eyebrow = "01 · The problem" }: { eyebrow?: string } = {}) {
+export default function ProblemJourney({
+  eyebrow = "01 · The problem",
+  market = "global",
+}: { eyebrow?: string; market?: Market } = {}) {
+  const india = market === "in";
   return (
     <SectionShell
       id="problem"
@@ -216,12 +222,17 @@ export default function ProblemJourney({ eyebrow = "01 · The problem" }: { eyeb
           <span className="text-white/55">It&rsquo;s moved by people &mdash; and there aren&rsquo;t enough of them.</span>
         </>
       }
-      intro="India settles 3.26 crore health claims a year against a one-hour legal clock. The decision is rarely the problem. Claims stop between the steps — and since 2024, every day they wait costs money."
+      intro={
+        india
+          ? "India settles 3.26 crore health claims a year against a one-hour legal clock. The decision is rarely the problem. Claims stop between the steps — and since 2024, every day they wait costs money."
+          : "The decision is rarely the problem. Claims stop between the steps — waiting on a document, a reply or a person — while the clock the law sets keeps running."
+      }
     >
-      <Journey />
+      {/* The six steps quote India's rules and India's numbers, so they run on the India page. */}
+      {india && <Journey />}
 
       {/* Nobody owns the movement */}
-      <div className="mt-14">
+      <div className={india ? "mt-14" : ""}>
         <h3 className="text-balance font-display text-[24px] font-semibold leading-tight tracking-tighter text-white sm:text-[30px]">
           The decision has an owner. <span className="text-white/55">The movement doesn&rsquo;t.</span>
         </h3>
@@ -320,7 +331,7 @@ export default function ProblemJourney({ eyebrow = "01 · The problem" }: { eyeb
               </div>
               <div className="mt-3 font-display text-[24px] font-semibold text-white">Health insurance</div>
               <ul className="mt-4 space-y-2">
-                {HEALTH_WORKFLOWS.map((w) => (
+                {[...HEALTH_WORKFLOWS, COMPLAINTS[market]].map((w) => (
                   <li key={w} className="flex items-start gap-2.5 text-[14px] text-white/75">
                     <svg className="mt-[3px] shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#34d399" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       <path d="M5 12.5l4.5 4.5L19 7.5" />

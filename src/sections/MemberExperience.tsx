@@ -3,6 +3,7 @@ import { AnimatePresence, motion, useScroll } from "framer-motion";
 import SectionShell from "@/components/SectionShell";
 import { MailIcon, TelegramIcon, WhatsAppIcon } from "@/components/BrandIcons";
 import { fadeUp, stagger, viewportOnce } from "@/lib/motion";
+import type { Market } from "@/lib/market";
 
 interface Message {
   from: "member" | "os";
@@ -140,7 +141,7 @@ const CHANNELS: {
 ];
 
 const POINTS = [
-  { label: "Consent first", body: "DPDP consent before a single claim detail.", hue: "#10b981" },
+  { label: "Consent first", body: "Consent before a single claim detail.", hue: "#10b981" },
   { label: "Verified", body: "On WhatsApp, the registered number. On email, a code sent to it first.", hue: "#0d99ff" },
   { label: "Source & date", body: "Every answer names whose record it read, and when.", hue: "#7dc4ff" },
   { label: "Never free text", body: "Approved templates only, in the member's language.", hue: "#f59e0b" },
@@ -413,7 +414,15 @@ function Phone({
   );
 }
 
-export default function MemberExperience({ eyebrow = "05 · For members" }: { eyebrow?: string } = {}) {
+export default function MemberExperience({
+  eyebrow = "05 · For members",
+  market = "global",
+}: { eyebrow?: string; market?: Market } = {}) {
+  // India's law is named on the India page; the home page speaks to every country.
+  const points =
+    market === "in"
+      ? POINTS.map((p) => (p.label === "Consent first" ? { ...p, body: "DPDP consent before a single claim detail." } : p))
+      : POINTS;
   const runway = useRef<HTMLDivElement | null>(null);
   const [channel, setChannel] = useState<Channel>("whatsapp");
   const [shown, setShown] = useState(1);
@@ -490,7 +499,7 @@ export default function MemberExperience({ eyebrow = "05 · For members" }: { ey
           viewport={viewportOnce}
           className="grid grid-cols-1 gap-3 sm:grid-cols-2"
         >
-          {POINTS.map((p) => (
+          {points.map((p) => (
             <motion.li
               key={p.label}
               variants={fadeUp}

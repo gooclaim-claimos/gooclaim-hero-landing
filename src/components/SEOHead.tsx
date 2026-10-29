@@ -5,9 +5,11 @@ interface Props {
   seo: PageSEO;
   path: string;
   jsonLd?: object | object[];
+  /** The same page in other countries (`hreflang`), e.g. `COUNTRY_ALTERNATES`. */
+  alternates?: { hreflang: string; path: string }[];
 }
 
-export default function SEOHead({ seo, path, jsonLd }: Props) {
+export default function SEOHead({ seo, path, jsonLd, alternates = [] }: Props) {
   const url = `${SITE.url}${path}`;
   const ogImage = `${SITE.url}${seo.ogImage ?? SITE.defaultOgImage}`;
   const jsonLdArray = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
@@ -19,6 +21,9 @@ export default function SEOHead({ seo, path, jsonLd }: Props) {
       {seo.keywords && <meta name="keywords" content={seo.keywords} />}
 
       <link rel="canonical" href={url} />
+      {alternates.map((a) => (
+        <link key={a.hreflang} rel="alternate" hrefLang={a.hreflang} href={`${SITE.url}${a.path}`} />
+      ))}
 
       {/* Open Graph */}
       <meta property="og:type" content="website" />

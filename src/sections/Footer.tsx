@@ -24,7 +24,7 @@ const COLUMNS = [
   },
   {
     title: "Resources",
-    links: ["Security", "Compliance", "Pricing"],
+    links: ["Gooclaim OS in India", "Security", "Compliance", "Pricing"],
   },
   {
     title: "Contact",
@@ -39,6 +39,7 @@ const COLUMNS = [
 
 const LINK_ROUTES: Record<string, string> = {
   "Platform overview": "/platform",
+  "Gooclaim OS in India": "/in",
   Orion: "/orion",
   Security: "/security",
   Compliance: "/compliance",
@@ -67,8 +68,8 @@ const LINK_EXTERNAL: Record<string, string> = {
 };
 
 const BADGES = [
-  { label: "IRDAI clocks · 1 h · 3 h · 15 days", hue: "#0d99ff" },
-  { label: "DPDP consent gate", hue: "#10b981" },
+  { label: "Regulator clocks on every claim", hue: "#0d99ff" },
+  { label: "Consent before a word", hue: "#10b981" },
   { label: "Immutable audit ledger · SHA-256", hue: "#f59e0b" },
 ];
 
@@ -123,7 +124,7 @@ export default function Footer() {
           <motion.div variants={fadeUp} className="col-span-2 sm:col-span-3 lg:col-span-1">
             <Wordmark size={24} />
             <p className="mt-5 max-w-[300px] text-[14px] leading-relaxed text-white/60">
-              The operating system for India&rsquo;s claims industry.
+              The Claim OS for TPAs and insurers.
             </p>
             <div className="mt-6 flex items-center gap-2.5">
               <a

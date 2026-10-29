@@ -9,6 +9,7 @@ const templatePath = join(distDir, "index.html");
 
 const ROUTES = [
   "/",
+  "/in",
   "/platform",
   "/orion",
   "/security",

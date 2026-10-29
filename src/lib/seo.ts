@@ -3,9 +3,9 @@ export const SITE = {
   name: "Gooclaim OS",
   brand: "Gooclaim",
   twitter: "@gooclaim",
-  defaultTitle: "Gooclaim OS · The operating system for India's claims industry",
+  defaultTitle: "Gooclaim OS · The Claim OS for TPAs and insurers",
   defaultDescription:
-    "Gooclaim OS is the multi-agent AI operating system for India's TPAs and insurers. Built for every claim — every channel, every CMS, every workflow. IRDAI + DPDP compliant by design.",
+    "Gooclaim OS is a Claim OS for TPAs and insurers. Built for every claim — every channel, every CMS, every workflow — with consent, approved messages and an audit trail on every claim.",
   defaultOgImage: "/og-default.png",
   locale: "en_IN",
 };
@@ -17,12 +17,30 @@ export interface PageSEO {
   keywords?: string;
 }
 
+/**
+ * The same page in other countries, for `hreflang`. Every version lists every
+ * version, itself included; the home page is the `x-default` for anyone else.
+ * `/us` and `/ae` are added here when those pages exist — not before.
+ */
+export const COUNTRY_ALTERNATES = [
+  { hreflang: "x-default", path: "/" },
+  { hreflang: "en-IN", path: "/in" },
+];
+
 export const SEO_HOME: PageSEO = {
   title: "Gooclaim OS · One Claims OS. Fully agentic.",
   description:
-    "The agentic claims operating system for India's TPAs and insurers. Multi-channel, multi-CMS, any workflow — IRDAI + DPDP compliant by design.",
+    "Gooclaim OS is a Claim OS for TPAs and insurers: one agentic core that answers members, works beside your team and keeps every claim on the record — on the claims system you already run.",
   keywords:
-    "claims OS, insurance AI, TPA software, claims automation India, IRDAI cashless, DPDP compliance, multi-agent insurance, WhatsApp claims",
+    "claims OS, insurance AI, TPA software, claims automation, multi-agent insurance, WhatsApp claims, email claims",
+};
+
+export const SEO_INDIA: PageSEO = {
+  title: "Gooclaim OS India · The Claim OS for India's TPAs and insurers",
+  description:
+    "Gooclaim OS for India: IRDAI's 1-hour, 3-hour and 15-day clocks on every claim, DPDP consent before a word, and members answered on WhatsApp and email in English, Hindi and Hinglish.",
+  keywords:
+    "claims automation India, IRDAI cashless, IRDAI 15 days, DPDP compliance, TPA software India, health insurance claims India",
 };
 
 export const SEO_PRICING: PageSEO = {

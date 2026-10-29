@@ -19,7 +19,7 @@ export const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Is it only for health insurance?",
-    a: "No. Every claim — health, motor or life — has the same moments: a status to tell, documents to collect, a reason to explain and a clock to beat. Gooclaim OS is built on those. We started with health, where the IRDAI clock is strictest. Running another line of insurance? Talk to us.",
+    a: "No. Every claim — health, motor or life — has the same moments: a status to tell, documents to collect, a reason to explain and a clock to beat. Gooclaim OS is built on those. We started with health, where the clock is strictest. Running another line of insurance? Talk to us.",
   },
   {
     q: "Which channels and languages work today?",
