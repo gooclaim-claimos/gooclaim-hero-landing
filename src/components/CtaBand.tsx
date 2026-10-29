@@ -31,10 +31,10 @@ export default function CtaBand({
             See Gooclaim OS on a real claim.
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-[15.5px] leading-relaxed text-white/60">
-            A 30-minute walkthrough — real workflows on real channels, wired to a sample claims system. No slides.
+            A 20-minute walkthrough — your workflow first, on a sample claims system. No slides.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
-            <CTA onClick={() => openWaitlist(source)}>Join the waitlist</CTA>
+            <CTA onClick={() => openWaitlist(source)}>Book a walkthrough</CTA>
             {next && (
               <Link
                 to={next.to}

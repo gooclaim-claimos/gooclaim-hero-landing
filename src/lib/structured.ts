@@ -45,7 +45,7 @@ export const softwareJsonLd = {
     priceCurrency: "INR",
     price: "0",
     description:
-      "Pricing follows the shape of your operation — book a 30-minute call for a custom quote.",
+      "Pricing follows the shape of your operation — book a 20-minute walkthrough for a quote.",
     url: `${SITE.url}/pricing`,
   },
   audience: {

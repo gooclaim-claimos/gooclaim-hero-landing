@@ -45,10 +45,10 @@ const PERSONAL_DOMAINS = new Set([
 ]);
 
 const DEFAULT_COPY = {
-  eyebrow: "Early access · rolling out now",
-  headline: "Join the waitlist.",
+  eyebrow: "20-minute walkthrough",
+  headline: "Book a walkthrough.",
   subhead:
-    "We're onboarding our first TPAs and insurers. Drop your details and we'll reach out personally when we're ready for your operation.",
+    "Leave your details and we'll fix a time. On the call, we show the workflow that costs your team the most first — on a sample claims system, in 20 minutes.",
 };
 
 const NEXT_STEPS = [
@@ -57,11 +57,11 @@ const NEXT_STEPS = [
     body: "Your note goes to the founding team — not a drip sequence.",
   },
   {
-    title: "A 30-minute walkthrough",
-    body: "Real workflows on real channels, wired to a sample CMS. No slides.",
+    title: "A 20-minute walkthrough",
+    body: "Your workflow first, on a sample claims system. No slides.",
   },
   {
-    title: "A pilot on your claims",
+    title: "A 90-day pilot on your claims",
     body: "One workflow, one channel, your own record — then we grow it together.",
   },
 ];
@@ -208,7 +208,7 @@ export default function WaitlistModal() {
           {/* Backdrop */}
           <button
             type="button"
-            aria-label="Close waitlist"
+            aria-label="Close"
             onClick={() => setOpen(false)}
             className="absolute inset-0 cursor-default bg-ink-950/80 backdrop-blur-md"
           />
@@ -406,7 +406,7 @@ export default function WaitlistModal() {
                           </>
                         ) : (
                           <>
-                            Join the waitlist
+                            Book a walkthrough
                             <Arrow />
                           </>
                         )}
@@ -508,10 +508,10 @@ function SuccessPanel({ name, onClose }: { name: string; onClose: () => void }) 
         </svg>
       </div>
       <h3 className="font-display text-[26px] font-semibold leading-tight tracking-tight text-white">
-        You&rsquo;re on the list{name ? `, ${name.split(" ")[0]}` : ""}.
+        Thank you{name ? `, ${name.split(" ")[0]}` : ""}.
       </h3>
       <p className="mx-auto mt-3 max-w-sm text-[14px] leading-relaxed text-white/65">
-        We&rsquo;ve got your details. Someone from the team will reach out personally when we&rsquo;re ready for your operation — usually within a week.
+        We&rsquo;ve got your details. Someone from the team will write to you personally to fix a time — usually within a week.
       </p>
       <div className="mt-2 text-[12.5px] text-white/45">A confirmation email is on its way.</div>
       <button

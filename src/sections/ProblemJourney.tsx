@@ -82,6 +82,7 @@ const HEALTH_WORKFLOWS = [
   "Claim status, with the source and date",
   "Pending documents, asked and reminded",
   "Query reasons, in the insurer's own words",
+  "Insurance questions, from your knowledge library",
   "Complaints, on the IRDAI clock",
 ];
 

@@ -28,14 +28,14 @@ export const SEO_HOME: PageSEO = {
 export const SEO_PRICING: PageSEO = {
   title: "Pricing · Gooclaim OS",
   description:
-    "Engagement modes for India's TPAs and insurers — Pilot, Production, Enterprise. Custom quotes shaped to your channels, verticals and volume. Connect for a 30-minute call.",
+    "Engagement modes for India's TPAs and insurers — Pilot, Production, Enterprise. Custom quotes shaped to your channels, verticals and volume. Book a 20-minute walkthrough.",
   keywords: "Gooclaim OS pricing, insurance AI pricing, TPA software pricing",
 };
 
 export const SEO_DEMO: PageSEO = {
   title: "Book a demo · Gooclaim OS",
   description:
-    "See Gooclaim OS in a live 30-minute walkthrough — real workflows on real channels against a sample CMS. Pilot proposal scoped to your operation.",
+    "See Gooclaim OS in a live 20-minute walkthrough — your costliest workflow first, on a sample claims system, and how a 90-day pilot would run.",
   keywords:
     "Gooclaim OS demo, claims AI demo, insurance automation demo, TPA software demo",
 };

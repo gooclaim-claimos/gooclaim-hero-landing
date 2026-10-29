@@ -40,7 +40,7 @@ export default function PageShell({ children }: Props) {
             onClick={() => openWaitlist("page-nav")}
             className="hidden items-center gap-2 rounded-full bg-white px-4 py-2 text-[13px] font-semibold text-ink-950 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_36px_-12px_rgba(13,153,255,0.55)] sm:inline-flex"
           >
-            Join the waitlist
+            Book a walkthrough
           </button>
           <MobileMenu items={SITE_NAV} />
         </div>

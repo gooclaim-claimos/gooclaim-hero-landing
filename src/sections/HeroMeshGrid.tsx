@@ -278,7 +278,7 @@ export default function HeroMeshGrid() {
             className="hidden sm:inline-flex"
             onClick={() => openWaitlist("hero-header")}
           >
-            Join the waitlist
+            Book a walkthrough
           </CTA>
           <MobileMenu items={SITE_NAV} />
         </div>
@@ -315,6 +315,15 @@ export default function HeroMeshGrid() {
             </span>
           </motion.h1>
 
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+            className="mt-6 text-[14px] text-white/55 sm:text-[15px]"
+          >
+            Live today on WhatsApp and email. More channels next.
+          </motion.p>
+
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
@@ -322,7 +331,7 @@ export default function HeroMeshGrid() {
             className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4"
           >
             <CTA onClick={() => openWaitlist("hero-primary")}>
-              Join the waitlist
+              Book a walkthrough
             </CTA>
             <CTA
               variant="ghost"

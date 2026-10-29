@@ -204,7 +204,7 @@ function LanguageBar({
           Coming next
         </span>
         <span className="text-[11.5px] text-white/30">
-          — already read today. Tap yours and we will put a date on it.
+          — already read today. Tap the one you need, and we'll talk it through.
         </span>
       </div>
       <div
@@ -293,7 +293,7 @@ function NotYetPanel({ lang }: { lang: ReadLanguage }) {
             eyebrow: "Language request",
             headline: `Should ${lang.name} go live next?`,
             subhead:
-              "Tell us your claim volume and which channels, and we will come back with a date for this language.",
+              "Tell us your claim volume and which channels, and we'll talk through what it would take for this language.",
           })
         }
         className="group mt-4 inline-flex min-h-[44px] items-center gap-2 rounded-full border border-amber-500/35 bg-amber-500/[0.08] px-4 text-[13.5px] font-semibold text-white transition-colors hover:bg-amber-500/[0.14] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/50"

@@ -155,7 +155,7 @@ export default function MobileMenu({ items, triggerClassName }: Props) {
             }}
             className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-[14px] font-semibold text-ink-950 transition-all hover:-translate-y-0.5 hover:shadow-[0_12px_36px_-12px_rgba(13,153,255,0.55)]"
           >
-            Join the waitlist
+            Book a walkthrough
             <svg
               width="13"
               height="13"

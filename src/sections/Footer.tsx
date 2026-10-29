@@ -31,7 +31,7 @@ const COLUMNS = [
     links: [
       "contact@gooclaim.com",
       "security@gooclaim.com",
-      "Join the waitlist",
+      "Book a walkthrough",
       "LinkedIn",
     ],
   },
@@ -164,7 +164,7 @@ export default function Footer() {
                   const route = LINK_ROUTES[link];
                   const mailto = LINK_MAILTOS[link];
                   const external = LINK_EXTERNAL[link];
-                  const isWaitlist = link === "Join the waitlist";
+                  const isWaitlist = link === "Book a walkthrough";
                   const cls =
                     "text-[13.5px] text-white/65 transition-colors hover:text-white";
                   return (

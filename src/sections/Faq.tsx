@@ -39,7 +39,7 @@ export const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "How do we get started?",
-    a: "Join the waitlist and we'll set up a 30-minute walkthrough on a sample claims system. From there, a pilot runs one workflow on one channel, on your own claims.",
+    a: "Book a walkthrough and we'll show the workflow that costs you most, in 20 minutes on a sample claims system. From there, a 90-day pilot runs one workflow on one channel, on your own claims.",
   },
 ];
 

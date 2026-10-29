@@ -162,7 +162,7 @@ export default function GoLive({ eyebrow = "10 · Going live" }: { eyebrow?: str
       >
         <CTA onClick={() => openWaitlist("go-live")}>Start with a walkthrough</CTA>
         <p className="text-[13px] text-white/45">
-          30 minutes · real workflows on a sample claims system · no slides
+          20 minutes · your workflow first, on a sample claims system · no slides
         </p>
       </motion.div>
     </SectionShell>
