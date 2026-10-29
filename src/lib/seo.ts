@@ -7,7 +7,6 @@ export const SITE = {
   defaultDescription:
     "Gooclaim OS is a Claim OS for TPAs and insurers. Built for every claim — every channel, every CMS, every workflow — with consent, approved messages and an audit trail on every claim.",
   defaultOgImage: "/og-default.png",
-  locale: "en_IN",
 };
 
 export interface PageSEO {
@@ -15,6 +14,8 @@ export interface PageSEO {
   description: string;
   ogImage?: string;
   keywords?: string;
+  /** `og:locale`, only on a country page (`en_IN`); the other pages serve every country. */
+  locale?: string;
 }
 
 /**
@@ -41,6 +42,8 @@ export const SEO_INDIA: PageSEO = {
     "Gooclaim OS for India: IRDAI's 1-hour, 3-hour and 15-day clocks on every claim, DPDP consent before a word, and members answered on WhatsApp and email in English, Hindi and Hinglish.",
   keywords:
     "claims automation India, IRDAI cashless, IRDAI 15 days, DPDP compliance, TPA software India, health insurance claims India",
+  ogImage: "/og-india.png",
+  locale: "en_IN",
 };
 
 export const SEO_PRICING: PageSEO = {

@@ -120,7 +120,7 @@ function PulseView() {
   return (
     <div className="space-y-2.5">
       {[
-        { claim: "CLM-24817", why: "Documents still outstanding", sub: "Reimbursement · 2 of 3 received · reminder 2 sent", clock: "Past 15 days", tone: "#ef4444", extra: "₹410 interest est." },
+        { claim: "CLM-24817", why: "Documents still outstanding", sub: "Reimbursement · 2 of 3 received · reminder 2 sent", clock: "Past 15 days", tone: "#ef4444", extra: "₹410 interest est. · India" },
         { claim: "CLM-24833", why: "Uploaded file held for checking", sub: "Reimbursement · final bill · awaiting review", clock: "13 days left", tone: "#10b981", extra: "Raised automatically" },
         { claim: "CLM-24790", why: "Open complaint after a decision", sub: "Rejected · complaint received · resolve by 28 Oct", clock: "12 days left", tone: "#f59e0b", extra: "Needs an owner" },
       ].map((r) => (

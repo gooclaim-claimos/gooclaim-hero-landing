@@ -289,6 +289,19 @@ export default function HeroMeshGrid({ market = "global" }: { market?: Market } 
       {/* Hero copy */}
       <div className="relative z-10 mx-auto flex w-full max-w-[1280px] flex-1 flex-col items-center justify-center px-5 pb-24 pt-6 text-center sm:px-10 sm:pb-32 sm:pt-12 lg:px-14">
         <div data-hero-parallax>
+          {india && (
+            // Which country this page is, and the way back to the others.
+            <div className="flex justify-center">
+              <Link
+                to="/"
+                className="mb-4 inline-flex min-h-[44px] items-center gap-2 rounded-full px-3 font-display text-[11px] uppercase tracking-wider2 text-white/55 transition-colors hover:text-white sm:min-h-0 sm:py-1.5"
+              >
+                <span className="text-emerald-400">IN</span> India
+                <span aria-hidden className="h-3 w-px bg-white/20" />
+                <span className="normal-case tracking-normal text-white/45">Change country</span>
+              </Link>
+            </div>
+          )}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}

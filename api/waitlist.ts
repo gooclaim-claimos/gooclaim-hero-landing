@@ -196,7 +196,7 @@ function userHtml(name: string): string {
             <div style="display:inline-block;padding:4px 10px;background-color:#ecfdf5;color:#059669;font-size:11px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;border-radius:999px;margin-bottom:14px">Walkthrough request received</div>
             <h1 style="margin:0 0 18px;font-size:24px;font-weight:600;color:#0f172a;letter-spacing:-0.015em;line-height:1.25">Hi ${esc(firstName)} — welcome to Gooclaim.</h1>
 
-            <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.65">Thanks for asking for a walkthrough. We work with a small number of TPAs and insurers at a time — on operations where we can actually move the needle on TAT, channel coverage, and IRDAI audit posture.</p>
+            <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.65">Thanks for asking for a walkthrough. We work with a small number of TPAs and insurers at a time — on operations where we can actually move the needle on turnaround, channel coverage, and audit posture.</p>
 
             <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.65">Someone from our team will write to you personally to fix a 20-minute slot — not a templated drip campaign. Usually within a week.</p>
 
@@ -216,7 +216,7 @@ function userHtml(name: string): string {
                   &nbsp;·&nbsp;
                   <a href="${SITE_URL}" style="color:#0d99ff;text-decoration:none">gooclaim.com</a>
                 </td>
-                <td align="right" style="color:#94a3b8;font-size:11.5px">IRDAI · DPDP · SHA-256 audit</td>
+                <td align="right" style="color:#94a3b8;font-size:11.5px">Regulator clocks · consent first · SHA-256 audit</td>
               </tr>
             </table>`;
 
@@ -234,7 +234,7 @@ function userText(name: string): string {
     "",
     "Thanks for asking for a walkthrough. We work with a small number of TPAs",
     "and insurers at a time, on operations where we can actually move the",
-    "needle on TAT, channel coverage, and IRDAI audit posture.",
+    "needle on turnaround, channel coverage, and audit posture.",
     "",
     "Someone from our team will write to you personally to fix a 20-minute",
     "slot — not a templated drip. Usually within a week.",

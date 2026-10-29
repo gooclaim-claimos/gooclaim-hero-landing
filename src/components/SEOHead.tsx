@@ -34,7 +34,7 @@ export default function SEOHead({ seo, path, jsonLd, alternates = [] }: Props) {
       <meta property="og:image" content={ogImage} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
-      <meta property="og:locale" content={SITE.locale} />
+      {seo.locale && <meta property="og:locale" content={seo.locale} />}
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
