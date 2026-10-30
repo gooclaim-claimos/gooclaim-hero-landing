@@ -240,7 +240,8 @@ export default function Privacy() {
         <li>
           <strong>What we collect</strong> — when you ask for a walkthrough: your
           name, work email, company, and, if you choose to give them, your role
-          and monthly claim volume, plus which button on the site you used and
+          and monthly claim volume; if you book a time, the slot you pick and
+          any notes you add; plus which button on the site you used and
           the campaign tags in the link that brought you here (such as{" "}
           <code>utm_source</code>). These tags are read from the link itself;
           we do not set cookies to track you.
@@ -252,8 +253,10 @@ export default function Privacy() {
         </li>
         <li>
           <strong>Where it goes</strong> — the website runs on Vercel; walkthrough
-          requests are kept in our Google Workspace and emails are sent through
-          Resend. These providers may process data outside India.
+          requests are kept in a Google Sheet in our Google account and emails
+          are sent through Resend. If you pick a time, the booking is handled
+          by Cal.com and added to our Google Calendar. These providers may
+          process data outside India.
         </li>
         <li>
           <strong>How long</strong> — until you ask us to remove it, or when we

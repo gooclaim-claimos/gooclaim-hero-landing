@@ -45,6 +45,9 @@ function esc(s: string): string {
 
 const SITE_URL = process.env.SITE_URL || "https://www.gooclaim.com";
 const LOGO_URL = process.env.LOGO_URL || `${SITE_URL}/logo-gooclaim.png`;
+// The founder's Cal.com page for a 20-minute walkthrough; empty = no booking link in the email.
+// Keep in step with BOOKING_URL in src/lib/booking.ts.
+const BOOKING_URL = process.env.BOOKING_URL || "https://cal.com/gooclaimos/walkthrough";
 
 /** Hidden preview-pane text that shows in inbox lists before the user opens the email. */
 function preheader(text: string): string {
@@ -198,7 +201,11 @@ function userHtml(name: string): string {
 
             <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.65">Thanks for asking for a walkthrough. We work with a small number of TPAs and insurers at a time — on operations where we can actually move the needle on turnaround, channel coverage, and audit posture.</p>
 
-            <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.65">Someone from our team will write to you personally to fix a 20-minute slot — not a templated drip campaign. Usually within a week.</p>
+            <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.65">${
+              BOOKING_URL
+                ? `Pick a 20-minute slot that suits you: <a href="${esc(BOOKING_URL)}" style="color:#0d99ff;text-decoration:none;font-weight:600">choose a time</a>. If none fits, reply and we&rsquo;ll find one.`
+                : "Someone from our team will write to you personally to fix a 20-minute slot — not a templated drip campaign. Usually within a week."
+            }</p>
 
             <div style="margin:24px 0;padding:18px 20px;background-color:#f9fafb;border:1px solid #eef0f3;border-radius:10px">
               <div style="font-size:11px;font-weight:600;color:#6b7280;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:10px">Before we meet</div>
@@ -236,8 +243,12 @@ function userText(name: string): string {
     "and insurers at a time, on operations where we can actually move the",
     "needle on turnaround, channel coverage, and audit posture.",
     "",
-    "Someone from our team will write to you personally to fix a 20-minute",
-    "slot — not a templated drip. Usually within a week.",
+    ...(BOOKING_URL
+      ? [`Pick a 20-minute slot that suits you: ${BOOKING_URL}`, "If none fits, reply and we'll find one."]
+      : [
+          "Someone from our team will write to you personally to fix a 20-minute",
+          "slot — not a templated drip. Usually within a week.",
+        ]),
     "",
     "Before we meet: reply to this email with the workflow that costs your team",
     "the most (claim status, pending documents, query reasons, insurance",
