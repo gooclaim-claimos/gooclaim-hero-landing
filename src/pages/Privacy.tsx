@@ -274,7 +274,11 @@ export default function Privacy() {
         This website shows no advertising and runs no advertising trackers. It
         uses Vercel Web Analytics and Speed Insights to count page views and
         measure page speed in aggregate; they do not use cookies to identify
-        you. The Gooclaim OS platform signs users in with short-lived tokens.
+        you. To suggest the page for your country, the home page reads only
+        your country from your connection; we do not read or keep your IP
+        address, and we do not store your country. If you close that
+        suggestion, your browser remembers it so it does not appear again.
+        The Gooclaim OS platform signs users in with short-lived tokens.
       </p>
 
       <h2>12. Security</h2>
