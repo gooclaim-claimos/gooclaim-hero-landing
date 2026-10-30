@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
 import SectionShell from "@/components/SectionShell";
+import type { Market } from "@/lib/market";
 
 interface Job {
   who: string;
@@ -182,7 +183,20 @@ function StackCard({ job, index, total }: { job: Job; index: number; total: numb
   );
 }
 
-export default function ThreeJobs({ eyebrow = "02 · What it does" }: { eyebrow?: string } = {}) {
+/** The same jobs, minus India's rules by name — the home page speaks to every country. */
+const NEUTRAL: Record<string, Partial<Job>> = {
+  "For your team": { points: ["Work Pulse with regulator clocks", "Live Claim Brief", "Next Safe Step"] },
+  "For compliance": {
+    body: "The regulator's clocks on every claim, complaints with their own deadlines, turnaround reports from the record, and an append-only audit trail.",
+    points: ["Consent and data protection by design", "Strict per-tenant isolation", "Turnaround reports"],
+  },
+};
+
+export default function ThreeJobs({
+  eyebrow = "02 · What it does",
+  market = "global",
+}: { eyebrow?: string; market?: Market } = {}) {
+  const jobs = market === "in" ? JOBS : JOBS.map((j) => ({ ...j, ...NEUTRAL[j.who] }));
   return (
     <SectionShell
       id="what-it-does"
@@ -197,8 +211,8 @@ export default function ThreeJobs({ eyebrow = "02 · What it does" }: { eyebrow?
     >
       {/* The gap between cards is the scroll distance each one holds for. */}
       <div className="flex flex-col gap-5 lg:gap-[46vh] lg:pb-[30vh]">
-        {JOBS.map((j, i) => (
-          <StackCard key={j.to} job={j} index={i} total={JOBS.length} />
+        {jobs.map((j, i) => (
+          <StackCard key={j.to} job={j} index={i} total={jobs.length} />
         ))}
       </div>
     </SectionShell>

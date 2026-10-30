@@ -3,11 +3,10 @@ export const SITE = {
   name: "Gooclaim OS",
   brand: "Gooclaim",
   twitter: "@gooclaim",
-  defaultTitle: "Gooclaim OS · The operating system for India's claims industry",
+  defaultTitle: "Gooclaim OS · The Claim OS for TPAs and insurers",
   defaultDescription:
-    "Gooclaim OS is the multi-agent AI operating system for India's TPAs and insurers. Built for every claim — every channel, every CMS, every workflow. IRDAI + DPDP compliant by design.",
+    "Gooclaim OS is a Claim OS for TPAs and insurers. Built for every claim — every channel, every CMS, every workflow — with consent, approved messages and an audit trail on every claim.",
   defaultOgImage: "/og-default.png",
-  locale: "en_IN",
 };
 
 export interface PageSEO {
@@ -15,33 +14,55 @@ export interface PageSEO {
   description: string;
   ogImage?: string;
   keywords?: string;
+  /** `og:locale`, only on a country page (`en_IN`); the other pages serve every country. */
+  locale?: string;
 }
+
+/**
+ * The same page in other countries, for `hreflang`. Every version lists every
+ * version, itself included; the home page is the `x-default` for anyone else.
+ * `/us` and `/ae` are added here when those pages exist — not before.
+ */
+export const COUNTRY_ALTERNATES = [
+  { hreflang: "x-default", path: "/" },
+  { hreflang: "en-IN", path: "/in" },
+];
 
 export const SEO_HOME: PageSEO = {
   title: "Gooclaim OS · One Claims OS. Fully agentic.",
   description:
-    "The agentic claims operating system for India's TPAs and insurers. Multi-channel, multi-CMS, any workflow — IRDAI + DPDP compliant by design.",
+    "Gooclaim OS is a Claim OS for TPAs and insurers: one agentic core that answers members, works beside your team and keeps every claim on the record — on the claims system you already run.",
   keywords:
-    "claims OS, insurance AI, TPA software, claims automation India, IRDAI cashless, DPDP compliance, multi-agent insurance, WhatsApp claims",
+    "claims OS, insurance AI, TPA software, claims automation, multi-agent insurance, WhatsApp claims, email claims",
+};
+
+export const SEO_INDIA: PageSEO = {
+  title: "Gooclaim OS India · The Claim OS for India's TPAs and insurers",
+  description:
+    "Gooclaim OS for India: IRDAI's 1-hour, 3-hour and 15-day clocks on every claim, DPDP consent before a word, and members answered on WhatsApp and email in English, Hindi and Hinglish.",
+  keywords:
+    "claims automation India, IRDAI cashless, IRDAI 15 days, DPDP compliance, TPA software India, health insurance claims India",
+  ogImage: "/og-india.png",
+  locale: "en_IN",
 };
 
 export const SEO_PRICING: PageSEO = {
   title: "Pricing · Gooclaim OS",
   description:
-    "Engagement modes for India's TPAs and insurers — Pilot, Production, Enterprise. Custom quotes shaped to your channels, verticals and volume. Connect for a 30-minute call.",
+    "Engagement modes for TPAs and insurers — Pilot, Production, Enterprise. Custom quotes shaped to your channels, verticals and volume. Book a 20-minute walkthrough.",
   keywords: "Gooclaim OS pricing, insurance AI pricing, TPA software pricing",
 };
 
 export const SEO_DEMO: PageSEO = {
   title: "Book a demo · Gooclaim OS",
   description:
-    "See Gooclaim OS in a live 30-minute walkthrough — real workflows on real channels against a sample CMS. Pilot proposal scoped to your operation.",
+    "See Gooclaim OS in a live 20-minute walkthrough — your costliest workflow first, on a sample claims system, and how a 90-day pilot would run.",
   keywords:
     "Gooclaim OS demo, claims AI demo, insurance automation demo, TPA software demo",
 };
 
 export const SEO_COMPLIANCE: PageSEO = {
-  title: "Compliance · IRDAI + DPDP · Gooclaim OS",
+  title: "Compliance in India · IRDAI + DPDP · Gooclaim OS",
   description:
     "How Gooclaim OS maps to IRDAI Master Circular, PPHI penalties, Internal Ombudsman Guidelines 2025 and the DPDP Act 2023 — control by control.",
   keywords:
@@ -65,27 +86,27 @@ export const SEO_PLATFORM: PageSEO = {
   description:
     "Gooclaim OS is a Claim OS: one multi-agent core that reads any claims system, answers on WhatsApp and email, and checks every message before it leaves. Seven layers, one audit ledger.",
   keywords:
-    "claims operating system, claims automation platform, insurance AI platform India, TPA software, claims CMS integration",
+    "claims operating system, claims automation platform, insurance AI platform, TPA software, claims CMS integration",
 };
 
 export const SEO_ORION: PageSEO = {
   title: "Orion · The AI claims coworker · Gooclaim OS",
   description:
-    "Orion works beside your claims staff — Work Pulse with IRDAI clocks, a live claim brief, the next safe step with its evidence, and answers from your own policy library. A person always decides.",
+    "Orion works beside your claims staff — Work Pulse with legal clocks, a live claim brief, the next safe step with its evidence, and answers from your own policy library. A person always decides.",
   keywords: "AI claims coworker, claims copilot, TPA staff AI, claims operations AI, Orion Gooclaim",
 };
 
 export const SEO_SECURITY: PageSEO = {
   title: "Security & compliance · Gooclaim OS",
   description:
-    "How Gooclaim OS protects claims data: read-only to your claims system, strict per-tenant isolation, masked personal numbers, encryption at rest, DPDP consent and an append-only audit trail — plus IRDAI clocks on every claim.",
-  keywords: "insurance data security, DPDP compliance, IRDAI compliance, claims data protection, audit trail",
+    "How Gooclaim OS protects claims data: read-only to your claims system, strict per-tenant isolation, masked personal numbers, encryption at rest, consent first and an append-only audit trail — plus legal clocks on every claim.",
+  keywords: "insurance data security, data protection, claims compliance, claims data protection, audit trail",
 };
 
 export function buildUseCaseSEO(slug: string, label: string): PageSEO {
   return {
     title: `${label} · Use cases · Gooclaim OS`,
-    description: `Gooclaim OS for ${label}. The agentic claims operating system built for India's TPAs and insurers to handle ${label.toLowerCase()} workflows end-to-end — multi-channel, audit-grade, IRDAI + DPDP compliant.`,
+    description: `Gooclaim OS for ${label}. The agentic claims operating system built for TPAs and insurers to handle ${label.toLowerCase()} workflows end-to-end — multi-channel, audit-grade, compliant by design.`,
     keywords: `Gooclaim OS ${label}, ${label} insurance AI, claims automation ${label}`,
     ogImage: `/og-default.png`,
     ...(slug ? {} : {}),

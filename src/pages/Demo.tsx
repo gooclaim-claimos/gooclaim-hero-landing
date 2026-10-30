@@ -10,26 +10,26 @@ import { openWaitlist } from "@/lib/waitlist";
 const AGENDA = [
   {
     n: "01",
-    t: "Your operation, mapped",
-    b: "We talk through your claim volume, channels, CMS, and the moments your team is spending the most time on.",
+    t: "Your workflow first",
+    b: "Tell us the workflow that costs your team the most. If it is one of our five, we run it on a sample claim; if not, we run the closest one and show how yours would work.",
     hue: "#0d99ff",
   },
   {
     n: "02",
-    t: "Live walkthrough of Gooclaim OS",
-    b: "Real workflows on real channels — WhatsApp, voice, email — wired into a sample CMS. No slides.",
+    t: "The rest of the claim path",
+    b: "Claim status with the source and date, pending documents through a secure upload link, and the reason for a decision — live on email, wired into a sample claims system. No slides.",
     hue: "#7dc4ff",
   },
   {
     n: "03",
-    t: "Compliance + audit posture",
-    b: "How the policy gate, audit ledger, IRDAI exports and DPDP consent flows work in practice.",
+    t: "The staff side",
+    b: "Orion, the AI claims coworker: a claim brief, and an answer that cites the page it came from.",
     hue: "#10b981",
   },
   {
     n: "04",
-    t: "What a pilot looks like for you",
-    b: "Bounded 4–8 week pilot proposal — workflows, channels, success metrics — co-designed live.",
+    t: "How you would start",
+    b: "How we connect to your claims system, read-only, and what a 90-day pilot on one workflow and one channel looks like.",
     hue: "#f59e0b",
   },
 ];
@@ -42,10 +42,11 @@ const PREP = [
 ];
 
 const TIMELINE = [
-  { time: "0 – 5 min", label: "Your operation, mapped" },
-  { time: "5 – 20 min", label: "Live walkthrough of Gooclaim OS" },
-  { time: "20 – 25 min", label: "Compliance + audit posture" },
-  { time: "25 – 30 min", label: "Pilot proposal for your team" },
+  { time: "0 – 2 min", label: "Who we are" },
+  { time: "2 – 8 min", label: "Your workflow, first" },
+  { time: "8 – 14 min", label: "The rest of the claim path" },
+  { time: "14 – 17 min", label: "The staff side" },
+  { time: "17 – 20 min", label: "Connecting, the pilot, next step" },
 ];
 
 export default function Demo() {
@@ -72,16 +73,16 @@ export default function Demo() {
                 <span className="absolute inset-0 rounded-full bg-accent-cyan opacity-70 blur-[2px] animate-pulse-soft" />
                 <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent-cyan" />
               </span>
-              30-minute walkthrough · live demo
+              20-minute walkthrough · live demo
             </div>
             <h1 className="text-balance font-display text-[34px] font-semibold leading-[1.05] tracking-tightest text-white sm:text-[56px] sm:leading-[1] lg:text-[80px]">
               See Gooclaim OS{" "}
               <span className="text-gradient-cyan">in your shoes.</span>
             </h1>
             <p className="mt-6 max-w-xl text-balance text-[16px] leading-relaxed text-white/65 sm:text-[18px]">
-              No deck. We&rsquo;ll wire a sample workflow against a sample CMS,
-              walk through how your team would use it, and end with a pilot
-              proposal scoped to your operation.
+              No deck. Tell us the workflow that costs your team the most,
+              and we&rsquo;ll run it first, on a sample claims system — then
+              show how a 90-day pilot on your own claims would work.
             </p>
 
             <div className="mt-9 flex flex-col items-start gap-3 sm:flex-row sm:gap-4">
@@ -90,7 +91,7 @@ export default function Demo() {
                 onClick={() => openWaitlist("demo-hero")}
                 className="group inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-[14.5px] font-semibold text-ink-950 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_40px_-12px_rgba(13,153,255,0.55)]"
               >
-                Join the waitlist
+                Book a walkthrough
                 <ArrowRight />
               </button>
               <a
@@ -104,8 +105,8 @@ export default function Demo() {
             {/* Trust strip */}
             <div className="mt-10 flex flex-wrap items-center gap-2.5 sm:gap-3">
               {[
-                "IRDAI clocks · 1 h · 3 h · 15 days",
-                "DPDP consent gate",
+                "Regulator clocks on every claim",
+                "Consent before a word",
                 "Audit ledger · SHA-256",
               ].map((b) => (
                 <span
@@ -143,7 +144,7 @@ export default function Demo() {
                   Live demo · what you&rsquo;ll see
                 </span>
                 <span className="font-display text-[10px] uppercase tracking-wider2 text-white/40">
-                  ~30 min
+                  ~20 min
                 </span>
               </div>
               <h3 className="mt-4 font-display text-[26px] font-semibold leading-[1.1] tracking-tight text-white sm:text-[28px]">
@@ -298,12 +299,12 @@ export default function Demo() {
           <div className="relative z-10 grid items-center gap-8 lg:grid-cols-[1.4fr_1fr] lg:gap-14">
             <div>
               <h3 className="text-balance font-display text-[30px] font-semibold leading-[1] tracking-tightest text-white sm:text-[44px]">
-                Get on the list.{" "}
+                Book 20 minutes.{" "}
                 <span className="text-white/55">We&rsquo;ll take it from there.</span>
               </h3>
               <p className="mt-4 max-w-md text-[15px] leading-relaxed text-white/65 sm:text-[16px]">
-                Drop your details and we&rsquo;ll reach out personally when
-                we&rsquo;re ready for your operation — usually within a week.
+                Drop your details and someone from the team will write to you
+                personally to fix a time — usually within a week.
               </p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap lg:flex-col">
@@ -312,7 +313,7 @@ export default function Demo() {
                 onClick={() => openWaitlist("demo-footer")}
                 className="group inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-3.5 text-[14.5px] font-semibold text-ink-950 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_40px_-12px_rgba(13,153,255,0.55)]"
               >
-                Join the waitlist
+                Book a walkthrough
                 <ArrowRight />
               </button>
               <a

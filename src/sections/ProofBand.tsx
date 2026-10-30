@@ -36,8 +36,8 @@ const STATS: Stat[] = [
     value: 39.57,
     decimals: 2,
     suffix: " lakh",
-    label: "claims that missed their deadline",
-    source: "CAG performance audit, Report 11 of 2023",
+    label: "PM-JAY claims over the 12-hour pre-auth limit",
+    source: "CAG Report No. 11 of 2023 · audit of PM-JAY",
     hue: "#F26D6D",
   },
   {

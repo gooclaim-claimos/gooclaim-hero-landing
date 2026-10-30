@@ -26,7 +26,7 @@ export default function Security() {
             <span className="text-gradient-cyan">handled like health data.</span>
           </>
         }
-        intro="Claims data is health data. Gooclaim OS is designed around what IRDAI and the DPDP Act expect — consent, verification, encryption, masking and an audit trail on every claim."
+        intro="Claims data is health data. Gooclaim OS is designed around what insurance regulators and data-protection law expect — consent, verification, encryption, masking and an audit trail on every claim."
         source="security-hero"
         secondary={{ label: "Read the full control map", to: "/compliance" }}
       />

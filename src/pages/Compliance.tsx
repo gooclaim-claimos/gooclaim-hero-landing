@@ -5,9 +5,9 @@ import { SEO_COMPLIANCE } from "@/lib/seo";
 export default function Compliance() {
   return (
     <LegalShell
-      eyebrow="Legal · Compliance"
-      title="Compliance"
-      updated="26 Oct 2026"
+      eyebrow="Legal · Compliance · India"
+      title="Compliance in India"
+      updated="30 Oct 2026"
     >
       <SEOHead seo={SEO_COMPLIANCE} path="/compliance" />
       <p>

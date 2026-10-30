@@ -7,6 +7,7 @@ import CTA from "@/components/CTA";
 import MobileMenu from "@/components/MobileMenu";
 import { openWaitlist } from "@/lib/waitlist";
 import { scrollToSection } from "@/lib/lenis";
+import type { Market } from "@/lib/market";
 import { Link } from "react-router-dom";
 import SiteNav, { SITE_NAV } from "@/components/SiteNav";
 
@@ -14,7 +15,8 @@ import SiteNav, { SITE_NAV } from "@/components/SiteNav";
 const MUX_PLAYBACK =
   "https://stream.mux.com/Aa02T7oM1wH5Mk5EEVDYhbZ1ChcdhRsS2m1NYyx4Ua1g.m3u8";
 
-export default function HeroMeshGrid() {
+export default function HeroMeshGrid({ market = "global" }: { market?: Market } = {}) {
+  const india = market === "in";
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [videoReady, setVideoReady] = useState(false);
@@ -278,7 +280,7 @@ export default function HeroMeshGrid() {
             className="hidden sm:inline-flex"
             onClick={() => openWaitlist("hero-header")}
           >
-            Join the waitlist
+            Book a walkthrough
           </CTA>
           <MobileMenu items={SITE_NAV} />
         </div>
@@ -287,6 +289,19 @@ export default function HeroMeshGrid() {
       {/* Hero copy */}
       <div className="relative z-10 mx-auto flex w-full max-w-[1280px] flex-1 flex-col items-center justify-center px-5 pb-24 pt-6 text-center sm:px-10 sm:pb-32 sm:pt-12 lg:px-14">
         <div data-hero-parallax>
+          {india && (
+            // Which country this page is, and the way back to the others.
+            <div className="flex justify-center">
+              <Link
+                to="/"
+                className="mb-4 inline-flex min-h-[44px] items-center gap-2 rounded-full px-3 font-display text-[11px] uppercase tracking-wider2 text-white/55 transition-colors hover:text-white sm:min-h-0 sm:py-1.5"
+              >
+                <span className="text-emerald-400">IN</span> India
+                <span aria-hidden className="h-3 w-px bg-white/20" />
+                <span className="normal-case tracking-normal text-white/45">Change country</span>
+              </Link>
+            </div>
+          )}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -299,7 +314,7 @@ export default function HeroMeshGrid() {
             </span>
             <span className="font-medium text-white/90">Gooclaim OS is a Claim OS</span>
             <span aria-hidden className="h-3.5 w-px bg-white/20" />
-            <span className="text-white/50">for TPAs &amp; insurers</span>
+            <span className="text-white/50">{india ? "for India’s TPAs & insurers" : "for TPAs & insurers"}</span>
           </motion.div>
 
           <motion.h1
@@ -315,22 +330,37 @@ export default function HeroMeshGrid() {
             </span>
           </motion.h1>
 
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+            className="mt-6 text-[14px] text-white/55 sm:text-[15px]"
+          >
+            Live today on WhatsApp and email. More channels next.
+          </motion.p>
+
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
             className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4"
           >
-            <CTA onClick={() => openWaitlist("hero-primary")}>
-              Join the waitlist
+            <CTA onClick={() => openWaitlist(india ? "india-hero-primary" : "hero-primary")}>
+              Book a walkthrough
             </CTA>
-            <CTA
-              variant="ghost"
-              // The day-by-day claim demo on this page; it starts playing once in view.
-              onClick={() => scrollToSection("system-gap", 96)}
-            >
-              See how it works
-            </CTA>
+            {india ? (
+              <CTA
+                variant="ghost"
+                // The day-by-day claim demo on this page; it starts playing once in view.
+                onClick={() => scrollToSection("system-gap", 96)}
+              >
+                See how it works
+              </CTA>
+            ) : (
+              <CTA variant="ghost" onClick={() => scrollToSection("what-it-does", 96)}>
+                See what it does
+              </CTA>
+            )}
           </motion.div>
         </div>
 
@@ -339,9 +369,13 @@ export default function HeroMeshGrid() {
           data-hero-fade
           className="mt-12 flex flex-wrap items-center justify-center gap-2 sm:mt-20 sm:gap-3"
         >
-          <ComplianceBadge label="IRDAI clocks · 1 h · 3 h · 15 days" hue="#0d99ff" delay={0.45} />
           <ComplianceBadge
-            label="DPDP consent gate"
+            label={india ? "IRDAI clocks · 1 h · 3 h · 15 days" : "Regulator clocks on every claim"}
+            hue="#0d99ff"
+            delay={0.45}
+          />
+          <ComplianceBadge
+            label={india ? "DPDP consent gate" : "Consent before a word"}
             hue="#10b981"
             delay={0.55}
           />

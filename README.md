@@ -1,6 +1,6 @@
 # gooclaim-hero-landing
 
-The marketing site for **Gooclaim OS** — a Claim OS for India's TPAs and insurers.
+The marketing site for **Gooclaim OS** — a Claim OS for TPAs and insurers.
 
 Live at **https://www.gooclaim.com** (Vercel, deployed from `main`).
 
@@ -61,11 +61,12 @@ only automatic check is the Vercel build.
   privacy-notice update first.
 - Static prerendering through a Vite SSR bundle and `scripts/prerender.mjs`
 
-## Routes (19, all prerendered)
+## Routes (20, all prerendered)
 
 | Route | What it is |
 |---|---|
-| `/` | Home: hero → the problem (one claim, six steps) → why your claims system can't fix it (day-by-day demo) → three jobs → what your member sees (WhatsApp / Email / Voice preview) → going live → FAQ |
+| `/` | Home, for every country — names no country's regulator, clock or currency: hero → the problem → where it runs (country switcher) → three jobs → what your member sees (WhatsApp / Email / Voice preview) → going live → FAQ |
+| `/in` | Gooclaim OS in India: IRDAI clocks, DPDP, rupees, India's numbers with sources (ProofBand), the six steps, the day-by-day claim demo. `hreflang` en-IN; `/` is x-default. Sections take `market="in"` |
 | `/platform` | One core, OS not chatbot, the six modules, coverage, health moments, full FAQ |
 | `/orion` | Orion, the AI claims coworker for staff (interactive) |
 | `/security` | Security and data, and what happens on every claim |
@@ -140,11 +141,14 @@ Everything on the site is a public claim. Keep these rules when editing:
    **3 hours** for discharge and **15 days** to settle, with interest at **bank rate + 2% a year from
    intimation**. These come from the 2024 circulars. The 30/45-day figures are the repealed 2017
    rule — never use them.
-6. **Do not show a feature as live unless it is live.** Upcoming channels (voice, SMS, Telegram,
+6. **Countries.** The home page names no country's rules; a country's clocks, law, numbers and
+   currency go on its own page (`/in`). A country joins the switcher (`WhereWeRun.tsx`) and
+   `COUNTRY_ALTERNATES` (`src/lib/seo.ts`) only when the product runs under its rules. No IP redirect.
+7. **Do not show a feature as live unless it is live.** Upcoming channels (voice, SMS, Telegram,
    web chat) are labelled *Soon*.
-7. **Interest demos use the current RBI bank rate** (5.75% from 7 Oct 2026) and say "illustrative".
+8. **Interest demos use the current RBI bank rate** (5.75% from 7 Oct 2026) and say "illustrative".
    When the RBI changes the rate, update `OnEveryClaim.tsx` and `SystemGap.tsx`.
-8. **Legal pages** (`/privacy`, `/compliance`, `/terms`) describe only what the product does today.
+9. **Legal pages** (`/privacy`, `/compliance`, `/terms`) describe only what the product does today.
    Bump the "Last updated" date on any change, and have the founder's legal advisor review changes
    to the privacy notice.
 

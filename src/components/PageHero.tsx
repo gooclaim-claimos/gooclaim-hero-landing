@@ -42,7 +42,7 @@ export default function PageHero({
         </h1>
         <p className="mt-6 max-w-2xl text-[16px] leading-relaxed text-white/65 sm:text-[18px]">{intro}</p>
         <div className="mt-9 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-4">
-          <CTA onClick={() => openWaitlist(source)}>Join the waitlist</CTA>
+          <CTA onClick={() => openWaitlist(source)}>Book a walkthrough</CTA>
           {secondary && (
             <Link
               to={secondary.to}

@@ -37,7 +37,7 @@ export const softwareJsonLd = {
   applicationSubCategory: "Insurance · Claims · Operating System",
   operatingSystem: "Cloud",
   description:
-    "Multi-agent AI operating system for India's TPAs and insurers — built for every claim, every channel, every CMS, every workflow.",
+    "A Claim OS for TPAs and insurers — built for every claim, every channel, every CMS, every workflow.",
   url: SITE.url,
   brand: { "@type": "Brand", name: SITE.brand },
   offers: {
@@ -45,7 +45,7 @@ export const softwareJsonLd = {
     priceCurrency: "INR",
     price: "0",
     description:
-      "Pricing follows the shape of your operation — book a 30-minute call for a custom quote.",
+      "Pricing follows the shape of your operation — book a 20-minute walkthrough for a quote.",
     url: `${SITE.url}/pricing`,
   },
   audience: {

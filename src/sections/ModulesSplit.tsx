@@ -165,7 +165,7 @@ const MODULES: Module[] = [
       "Personal data redaction",
       "Source verification",
     ],
-    solves: "Compliance risk — one wrong message = IRDAI penalty + ombudsman case.",
+    solves: "Compliance risk — one wrong message = a regulator penalty + a complaint case.",
     hue: "#10b981",
     Icon: IconGate,
   },
@@ -173,12 +173,12 @@ const MODULES: Module[] = [
     key: "observability",
     tag: "Observability layer",
     name: "Observability",
-    line: "Clocks · Dashboards · IRDAI reports.",
-    body: "Every claim carries its IRDAI clock — 1 hour for pre-auth, 3 hours for discharge, 15 days to settle — with estimated interest when one runs out. Per-tenant performance dashboards, and the quarterly NL-48 TAT report built straight from the record.",
+    line: "Clocks · Dashboards · Regulator reports.",
+    body: "Every claim carries its legal clock — in India, IRDAI's 1 hour for pre-auth, 3 hours for discharge and 15 days to settle — with estimated interest when one runs out. Per-tenant performance dashboards, and turnaround reports such as India's quarterly NL-48 built straight from the record.",
     capabilities: [
-      "IRDAI clock on every claim",
+      "Legal clock on every claim",
       "Per-tenant performance dashboards",
-      "NL-48 TAT report · CSV + filed copy",
+      "Turnaround report · CSV + filed copy",
       "End-to-end traceability",
     ],
     solves: "Black box — when something breaks, no one knows why.",
@@ -357,9 +357,9 @@ export default function ModulesSplit({ eyebrow = "04 · Modules" }: { eyebrow?: 
               consent.
             </p>
             <p className="mt-4 max-w-md text-[14px] leading-relaxed text-white/55 sm:text-[15px]">
-              If IRDAI asks what happened on claim X at time Y — you have the
-              receipt. Append-only, SHA-256 chained, 10-year retention.
-              DPDP-compliant.
+              If the regulator asks what happened on claim X at time Y — you
+              have the receipt. Append-only, SHA-256 chained, 10-year
+              retention. Personal data minimised.
             </p>
 
             <div className="mt-7 flex flex-wrap gap-2">
@@ -367,8 +367,8 @@ export default function ModulesSplit({ eyebrow = "04 · Modules" }: { eyebrow?: 
                 "Append-only",
                 "SHA-256 chained",
                 "10-year retention",
-                "IRDAI export",
-                "DPDP-native",
+                "Regulator export",
+                "Consent native",
               ].map((b) => (
                 <span
                   key={b}

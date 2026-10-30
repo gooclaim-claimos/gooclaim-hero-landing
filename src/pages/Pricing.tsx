@@ -23,7 +23,7 @@ const MODES: Mode[] = [
     name: "Pilot",
     hue: "#0d99ff",
     blurb:
-      "A bounded 4–8 week proof-of-value with one workflow on one channel. We co-design success metrics with your team before kick-off.",
+      "A 90-day pilot with one workflow on one channel, on your own claims. We agree the success measures with your team on day one, and check them every three weeks.",
     includes: [
       "1 workflow · 1 channel · 1 tenant",
       "Truth-layer connector to your CMS",
@@ -38,27 +38,27 @@ const MODES: Mode[] = [
     name: "Production",
     hue: "#10b981",
     blurb:
-      "Annual engagement covering multiple workflows, all live channels, IRDAI-grade SLAs, and 24×7 support. Pricing scales with tenant volume.",
+      "Annual engagement covering multiple workflows, all live channels, regulator-grade SLAs and support hours agreed in the contract. Pricing scales with tenant volume.",
     includes: [
-      "Unlimited workflows + channels",
-      "Production SLAs · 1hr / 3hr cashless mandate tracking",
-      "Per-tenant dashboards + IRDAI export",
-      "Dedicated solutions engineer",
+      "Every live workflow and channel",
+      "Production SLAs · regulator clock tracking",
+      "Per-tenant dashboards + regulator reports",
+      "A named contact on our team",
       "Quarterly architecture review",
     ],
-    fit: "TPAs and insurers running cashless ops at scale and ready to standardize on Gooclaim OS.",
+    fit: "TPAs and insurers running claims ops at scale and ready to standardize on Gooclaim OS.",
   },
   {
     badge: "Mode 03",
     name: "Enterprise",
     hue: "#7c3aed",
     blurb:
-      "Multi-tenant deployment with custom security posture, dedicated infra and named architects. For groups running claims across several TPAs or lines of insurance.",
+      "Multi-tenant deployment with a custom security review and, on request, dedicated infrastructure and named architects. For groups running claims across several TPAs or lines of insurance.",
     includes: [
       "Custom workflow suite",
-      "Dedicated cluster · custom region",
+      "Dedicated infrastructure or region, on request",
       "Custom security review · DPO sync",
-      "Named architects + on-call",
+      "Named architects and on-call, on request",
       "Roadmap influence",
     ],
     fit: "Insurance groups, large TPAs and multi-line carriers.",
@@ -76,8 +76,8 @@ const MODES: Mode[] = [
  */
 const BASIS: { k: string; v: string; hue: string }[] = [
   { k: "Volume", v: "Claims a year, not seats", hue: "#0d99ff" },
-  { k: "Channels", v: "WhatsApp · email · voice", hue: "#7dc4ff" },
-  { k: "Lines", v: "Health first · motor, life next", hue: "#f59e0b" },
+  { k: "Channels", v: "WhatsApp · email today", hue: "#7dc4ff" },
+  { k: "Lines", v: "Started with health", hue: "#f59e0b" },
   { k: "SLA", v: "1 hour · 3 hours · 15 days", hue: "#10b981" },
 ];
 
@@ -152,13 +152,13 @@ export default function Pricing() {
             <h1 className="text-balance font-display text-[34px] font-semibold leading-[1.05] tracking-tightest text-white sm:text-[52px] sm:leading-[1.02] lg:text-[64px]">
               Let&rsquo;s talk pricing.{" "}
               <span className="text-white/55">
-                Built for India&rsquo;s TPAs and insurers.
+                Built for TPAs and insurers.
               </span>
             </h1>
             <p className="mt-6 max-w-[54ch] text-[16px] leading-relaxed text-white/65 sm:text-[17px]">
               Gooclaim OS is sold as a partnership, not a SKU. Pricing follows the
               shape of your operation. Three engagement modes below; we&rsquo;ll
-              co-design the right one with you in a 30-minute call.
+              co-design the right one with you in a 20-minute call.
             </p>
 
             {/* One primary action. The demo is a quieter alternative, not a rival. */}
@@ -316,7 +316,7 @@ export default function Pricing() {
               "Per-tenant pricing — TPAs and insurers don't share economics, and pricing shouldn't pretend they do.",
               "Lines of insurance matter — each has different volume, SLA and audit profiles.",
               "Channels matter — WhatsApp alone and WhatsApp with email are different cost profiles, and voice will be another when it lands.",
-              "Compliance scope matters — IRDAI ombudsman exports, custom DPO reviews and security posture add real engineering.",
+              "Compliance scope matters — regulator and complaint exports, custom DPO reviews and security posture add real engineering.",
             ].map((line) => (
               <li key={line} className="flex items-start gap-3">
                 <span
@@ -352,7 +352,7 @@ export default function Pricing() {
                 One call. <span className="text-white/55">A real number.</span>
               </h3>
               <p className="mt-4 max-w-md text-[15px] leading-relaxed text-white/65 sm:text-[16px]">
-                Pick a 30-minute slot — tell us your volume, channels and
+                Pick a 20-minute slot — tell us your volume, channels and
                 lines of insurance. We&rsquo;ll come back with a real number,
                 not a quote-form runaround.
               </p>

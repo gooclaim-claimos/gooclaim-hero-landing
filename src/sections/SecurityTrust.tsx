@@ -82,13 +82,13 @@ const ITEMS: Item[] = [
   },
   {
     title: "Personal numbers masked",
-    body: "Aadhaar, PAN, card and bank numbers are masked before anything is stored, and contact details never reach a log. What has to be recoverable is encrypted at rest with a key held in a managed vault — the service refuses to start without one.",
+    body: "ID, card and bank numbers — in India, Aadhaar and PAN too — are masked before anything is stored, and contact details never reach a log. What has to be recoverable is encrypted at rest with a key held in a managed vault — the service refuses to start without one.",
     hue: "#f59e0b",
     Icon: IconMask,
   },
   {
     title: "Consent, then verification",
-    body: "DPDP consent before any claim detail. On WhatsApp the registered number proves who is writing; on email, a one-time code to it does.",
+    body: "Consent before any claim detail. On WhatsApp the registered number proves who is writing; on email, a one-time code to it does.",
     hue: "#10b981",
     Icon: IconConsent,
   },
@@ -119,7 +119,7 @@ export default function SecurityTrust({ eyebrow = "09 · Security & data" }: { e
           <span className="text-white/55">From the first message.</span>
         </>
       }
-      intro="Claims data is health data. Every layer of the OS is designed around what IRDAI and the DPDP Act expect — not bolted on after."
+      intro="Claims data is health data. Every layer of the OS is designed around what insurance regulators and data-protection law expect — not bolted on after."
     >
       <motion.div
         variants={stagger(0.06, 0.07)}

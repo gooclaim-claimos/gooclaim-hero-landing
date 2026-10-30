@@ -19,7 +19,7 @@ export const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Is it only for health insurance?",
-    a: "No. Every claim — health, motor or life — has the same moments: a status to tell, documents to collect, a reason to explain and a clock to beat. Gooclaim OS is built on those. We started with health, where the IRDAI clock is strictest. Running another line of insurance? Talk to us.",
+    a: "No. Every claim — health, motor or life — has the same moments: a status to tell, documents to collect, a reason to explain and a clock to beat. Gooclaim OS is built on those. We started with health, where the clock is strictest. Running another line of insurance? Talk to us.",
   },
   {
     q: "Which channels and languages work today?",
@@ -34,12 +34,12 @@ export const FAQS: { q: string; a: string }[] = [
     a: "Orion shows what needs a person and why, reads the claim for them, and suggests the next safe step with its evidence. A person always says yes — Orion never decides a claim.",
   },
   {
-    q: "How do IRDAI timelines and reports work?",
-    a: "Every claim carries its IRDAI clock — 1 hour for pre-auth, 3 hours for discharge, 15 days to settle a reimbursement — and complaints carry theirs. The quarterly NL-48 turnaround report is built from the same record.",
+    q: "How do the legal timelines and reports work?",
+    a: "Every claim carries the clock its regulator sets — in India, IRDAI's 1 hour for pre-auth, 3 hours for discharge and 15 days to settle a reimbursement — and complaints carry theirs. Turnaround reports, such as India's quarterly NL-48, are built from the same record.",
   },
   {
     q: "How do we get started?",
-    a: "Join the waitlist and we'll set up a 30-minute walkthrough on a sample claims system. From there, a pilot runs one workflow on one channel, on your own claims.",
+    a: "Book a walkthrough and we'll show the workflow that costs you most, in 20 minutes on a sample claims system. From there, a 90-day pilot runs one workflow on one channel, on your own claims.",
   },
 ];
 

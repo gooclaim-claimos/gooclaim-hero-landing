@@ -212,7 +212,7 @@ export const MODULES: ModuleData[] = [
       },
       {
         title: "Audited every call",
-        body: "Every fetch is logged with claim, time, layer and outcome — useful for both debugging and ombudsman defence.",
+        body: "Every fetch is logged with claim, time, layer and outcome — useful for both debugging and defending a complaint.",
         hue: "#7dc4ff",
       },
       {
@@ -375,12 +375,12 @@ export const MODULES: ModuleData[] = [
         body: "No surprise outbound on your letterhead, no compliance fire-drill at 11pm.",
       },
       {
-        title: "Ombudsman-defensible",
+        title: "Defensible in a complaint",
         body: "Every message ever sent passed the same gate — and the audit ledger proves it.",
       },
       {
         title: "Regulator-ready",
-        body: "Meets the spirit and letter of IRDAI brand-safety and DPDP personal-data rules.",
+        body: "Designed around insurance brand-safety rules and data-protection law — in India, IRDAI's rules and the DPDP Act.",
       },
     ],
     trustChips: [
@@ -405,12 +405,12 @@ export const MODULES: ModuleData[] = [
     accent: "#f59e0b",
     heroTitle: (
       <>
-        When IRDAI asks,{" "}
+        When the regulator asks,{" "}
         <span className="text-white/55">you have the receipt.</span>
       </>
     ),
     heroIntro:
-      "Audit Ledger is the immutable event store at the heart of Gooclaim OS. Every automated decision, every customer message, every consent grant, every policy-gate outcome lands here — append-only, hash-chained, retained for ten years, exportable in IRDAI-required format.",
+      "Audit Ledger is the immutable event store at the heart of Gooclaim OS. Every automated decision, every customer message, every consent grant, every policy-gate outcome lands here — append-only, hash-chained, retained for ten years, exportable in the format the regulator asks for.",
     capabilities: [
       {
         title: "Append-only by design",
@@ -424,16 +424,16 @@ export const MODULES: ModuleData[] = [
       },
       {
         title: "10-year retention",
-        body: "Aligned to IRDAI record-keeping requirements — out of the box, per tenant.",
+        body: "The default for every tenant — IRDAI's minimum in India. A tenant may keep longer, never shorter.",
         hue: "#7dc4ff",
       },
       {
-        title: "IRDAI-format export",
+        title: "Regulator-format export",
         body: "When the regulator asks, your team produces the audit pack with one query — no scramble.",
         hue: "#10b981",
       },
       {
-        title: "DPDP-compliant",
+        title: "Personal data minimised",
         body: "Personal data inside events is hashed where possible — full audit, zero needless exposure.",
         hue: "#7c3aed",
       },
@@ -445,12 +445,12 @@ export const MODULES: ModuleData[] = [
     ],
     outcomes: [
       {
-        title: "Ombudsman cases defended",
+        title: "Complaints defended",
         body: "Every contested claim has a complete, time-stamped, tamper-evident history.",
       },
       {
         title: "Regulator confidence",
-        body: "IRDAI Internal Ombudsman Guidelines 2025 ready, with the audit trail to prove it.",
+        body: "The trail a complaint review asks for — in India, ready for IRDAI's Internal Ombudsman Guidelines 2025.",
       },
       {
         title: "Internal accountability",
@@ -460,7 +460,7 @@ export const MODULES: ModuleData[] = [
     trustChips: [
       { label: "Append-only · hash-chained", hue: "#f59e0b" },
       { label: "10-year retention", hue: "#0d99ff" },
-      { label: "IRDAI export · DPDP native", hue: "#10b981" },
+      { label: "Regulator export · consent native", hue: "#10b981" },
     ],
     closingTitle: (
       <>

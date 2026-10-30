@@ -4,7 +4,7 @@ import { SEO_PRIVACY } from "@/lib/seo";
 
 export default function Privacy() {
   return (
-    <LegalShell eyebrow="Legal · Privacy" title="Privacy Notice" updated="26 Oct 2026">
+    <LegalShell eyebrow="Legal · Privacy" title="Privacy Notice" updated="30 Oct 2026">
       <SEOHead seo={SEO_PRIVACY} path="/privacy" />
       <p>
         Gooclaim OS is a Claim OS used by insurers and third-party
@@ -19,7 +19,7 @@ export default function Privacy() {
         <strong>One-line summary</strong>
         If you are a claimant, your insurer or TPA decides how your data is
         used and we process it only on their instructions. If you visit this
-        website or join our waitlist, we decide — and we use what you give us
+        website or ask us for a walkthrough, we decide — and we use what you give us
         only to contact you about Gooclaim OS. We do not sell personal data
         and we do not use it to train AI models.
       </div>
@@ -43,8 +43,8 @@ export default function Privacy() {
           a contract with it. Sections 3 to 9 describe how.
         </li>
         <li>
-          <strong>For visitors to gooclaim.com and people who join our
-          waitlist, we are the Data Fiduciary.</strong> Section 10 describes
+          <strong>For visitors to gooclaim.com and people who ask us for a
+          walkthrough, we are the Data Fiduciary.</strong> Section 10 describes
           that data.
         </li>
       </ul>
@@ -234,13 +234,14 @@ export default function Privacy() {
         Protection Board as the DPDP Rules require.
       </p>
 
-      <h2>10. Website visitors and the waitlist</h2>
+      <h2>10. Website visitors and walkthrough requests</h2>
       <p>For this data, Gooclaim is the Data Fiduciary.</p>
       <ul>
         <li>
-          <strong>What we collect</strong> — when you join the waitlist: your
+          <strong>What we collect</strong> — when you ask for a walkthrough: your
           name, work email, company, and, if you choose to give them, your role
-          and monthly claim volume, plus which button on the site you used and
+          and monthly claim volume; if you book a time, the slot you pick and
+          any notes you add; plus which button on the site you used and
           the campaign tags in the link that brought you here (such as{" "}
           <code>utm_source</code>). These tags are read from the link itself;
           we do not set cookies to track you.
@@ -251,9 +252,11 @@ export default function Privacy() {
           else and we do not sell or share it for marketing.
         </li>
         <li>
-          <strong>Where it goes</strong> — the website runs on Vercel; waitlist
-          entries are kept in our Google Workspace and emails are sent through
-          Resend. These providers may process data outside India.
+          <strong>Where it goes</strong> — the website runs on Vercel; walkthrough
+          requests are kept in a Google Sheet in our Google account and emails
+          are sent through Resend. If you pick a time, the booking is handled
+          by Cal.com and added to our Google Calendar. These providers may
+          process data outside India.
         </li>
         <li>
           <strong>How long</strong> — until you ask us to remove it, or when we
@@ -271,7 +274,11 @@ export default function Privacy() {
         This website shows no advertising and runs no advertising trackers. It
         uses Vercel Web Analytics and Speed Insights to count page views and
         measure page speed in aggregate; they do not use cookies to identify
-        you. The Gooclaim OS platform signs users in with short-lived tokens.
+        you. To suggest the page for your country, the home page reads only
+        your country from your connection; we do not read or keep your IP
+        address, and we do not store your country. If you close that
+        suggestion, your browser remembers it so it does not appear again.
+        The Gooclaim OS platform signs users in with short-lived tokens.
       </p>
 
       <h2>12. Security</h2>
@@ -305,7 +312,7 @@ export default function Privacy() {
 
       <h2>14. Children</h2>
       <p>
-        This website and our waitlist are not meant for anyone under 18. Where
+        This website and our walkthrough requests are not meant for anyone under 18. Where
         a claim concerns a child, the insurer or TPA deals with the parent or
         lawful guardian, as the DPDP Act requires.
       </p>

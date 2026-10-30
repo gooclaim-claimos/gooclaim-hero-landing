@@ -26,10 +26,10 @@ const TILES: Tile[] = [
   },
   {
     key: "clocks",
-    label: "IRDAI clocks",
+    label: "Legal clocks",
     title: "On every claim.",
     big: "1 h · 3 h · 15 d",
-    body: "Pre-auth, discharge, reimbursement. Slide to see the reimbursement clock run out.",
+    body: "Pre-auth, discharge, reimbursement — shown here with India's IRDAI clocks. Slide to see the reimbursement clock run out.",
     hue: "#f59e0b",
   },
   {
@@ -43,21 +43,21 @@ const TILES: Tile[] = [
     key: "complaints",
     label: "Complaints",
     title: "Each with its own clock.",
-    body: "Acknowledged within 3 working days, resolved within 14 — and the decision goes back to the member, in their language.",
+    body: "In India, acknowledged within 3 working days and resolved within 14 — and the decision goes back to the member, in their language.",
     hue: "#ef4444",
   },
   {
     key: "nl48",
-    label: "NL-48 TAT report",
+    label: "Turnaround report",
     title: "Built from the record.",
-    body: "The quarterly turnaround report insurers publish — hour bands, month bands, ageing, complaints — straight from your claims. File it once and the copy is frozen with its SHA-256.",
+    body: "In India, the quarterly NL-48 turnaround report insurers publish — hour bands, month bands, ageing, complaints — straight from your claims. File it once and the copy is frozen with its SHA-256.",
     hue: "#7c3aed",
   },
   {
     key: "consent",
     label: "Consent & audit",
     title: "Before a word. After every word.",
-    body: "DPDP consent before any claim detail, identity checked before anything personal, and every decision in an append-only, SHA-256-chained ledger.",
+    body: "Consent before any claim detail, identity checked before anything personal, and every decision in an append-only, SHA-256-chained ledger.",
     hue: "#10b981",
     full: true,
   },
@@ -168,7 +168,7 @@ function ClockDemo() {
         </span>
       </div>
       <p className="font-display text-[10px] uppercase tracking-wider text-white/35">
-        Reimbursement · RBI bank rate 5.75% + 2% · illustrative
+        Sample · India · reimbursement · RBI bank rate 5.75% + 2% · illustrative
       </p>
     </div>
   );

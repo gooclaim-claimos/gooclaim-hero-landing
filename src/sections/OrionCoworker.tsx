@@ -54,7 +54,7 @@ const CAPABILITIES: Capability[] = [
   {
     key: "pulse",
     name: "Work Pulse",
-    line: "What needs a person, why, and how long the IRDAI clock has left — not a queue of every claim.",
+    line: "What needs a person, why, and how long the legal clock has left — not a queue of every claim.",
     hue: "#0d99ff",
     Icon: IconPulse,
   },
@@ -120,7 +120,7 @@ function PulseView() {
   return (
     <div className="space-y-2.5">
       {[
-        { claim: "CLM-24817", why: "Documents still outstanding", sub: "Reimbursement · 2 of 3 received · reminder 2 sent", clock: "Past 15 days", tone: "#ef4444", extra: "₹410 interest est." },
+        { claim: "CLM-24817", why: "Documents still outstanding", sub: "Reimbursement · 2 of 3 received · reminder 2 sent", clock: "Past 15 days", tone: "#ef4444", extra: "₹410 interest est. · India" },
         { claim: "CLM-24833", why: "Uploaded file held for checking", sub: "Reimbursement · final bill · awaiting review", clock: "13 days left", tone: "#10b981", extra: "Raised automatically" },
         { claim: "CLM-24790", why: "Open complaint after a decision", sub: "Rejected · complaint received · resolve by 28 Oct", clock: "12 days left", tone: "#f59e0b", extra: "Needs an owner" },
       ].map((r) => (
@@ -144,7 +144,7 @@ function BriefView() {
     { k: "Status", v: "Under review", src: "Your claims system · updated 3 Oct" },
     { k: "Hospital bill", v: "Received", src: "Your claims system · 30 Sep" },
     { k: "Discharge summary", v: "Still owed · sent by member 5 Oct", src: "Upload · scanned, accepted" },
-    { k: "IRDAI clock", v: "Reimbursement · past 15 days", src: "Counted from intimation" },
+    { k: "Legal clock", v: "Reimbursement · past 15 days", src: "India's IRDAI clock · from intimation" },
     { k: "Member was told", v: "Reminder 2 · email · 9 Oct", src: "Conversation record" },
   ];
   return (

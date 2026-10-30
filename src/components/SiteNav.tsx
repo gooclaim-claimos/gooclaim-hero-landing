@@ -6,7 +6,7 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 export const SOLUTIONS = [
   { label: "TPAs", to: "/use-cases/tpas", line: "Member questions answered, staff freed up" },
   { label: "Insurers", to: "/use-cases/insurers", line: "One OS across every TPA and channel" },
-  { label: "Hospitals", to: "/use-cases/hospitals", line: "Cashless status without the phone-tag" },
+  { label: "Hospitals", to: "/use-cases/hospitals", line: "Pre-approval status without the phone-tag" },
   { label: "Health", to: "/use-cases/health", line: "Pre-auth, discharge and reimbursement" },
 ];
 

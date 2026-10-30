@@ -25,7 +25,7 @@ export default function LinesOfBusiness({ eyebrow = "Every line of business" }: 
           <span className="text-white/55">Started with health.</span>
         </>
       }
-      intro="Every claim — health, motor or life — has the same moments: a status to tell, documents to collect, a reason to explain and a clock to beat. This is what they look like in health, where the IRDAI clock is strictest."
+      intro="Every claim — health, motor or life — has the same moments: a status to tell, documents to collect, a reason to explain and a clock to beat. This is what they look like in health, where the clock is strictest."
     >
       <motion.div
         initial={{ opacity: 0, y: 18 }}
@@ -72,14 +72,14 @@ export default function LinesOfBusiness({ eyebrow = "Every line of business" }: 
 
             <div className="flex flex-col justify-between gap-6 rounded-xl border border-white/10 bg-black/20 p-6">
               <div>
-                <div className="font-display text-[10.5px] uppercase tracking-wider2 text-white/45">Health, in one number</div>
+                <div className="font-display text-[10.5px] uppercase tracking-wider2 text-white/45">Health in India, in one number</div>
                 <div className="mt-4 font-display text-[40px] font-semibold leading-none tracking-tightest text-white sm:text-[48px]">
                   ₹15,100 crore
                 </div>
                 <p className="mt-3 text-[14.5px] leading-relaxed text-white/65">cut from approved health claims in FY24.</p>
               </div>
               <div className="inline-flex items-center gap-2 font-display text-[10px] uppercase tracking-wider2 text-white/35">
-                <span className="h-px w-5 bg-white/20" /> IRDAI data, FY24 · Business Standard
+                <span className="h-px w-5 bg-white/20" /> India · IRDAI data, FY24 · Business Standard
               </div>
             </div>
           </div>
