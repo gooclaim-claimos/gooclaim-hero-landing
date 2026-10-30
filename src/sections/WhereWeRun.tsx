@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import SectionShell from "@/components/SectionShell";
+import { COUNTRY_PAGES, type CountryPage } from "@/lib/market";
 import { viewportOnce } from "@/lib/motion";
 
 /**
@@ -8,21 +9,19 @@ import { viewportOnce } from "@/lib/motion";
  * so search engines index it and a prospect can be sent straight to it; a tab
  * that only swapped this section's text would leave every country but one
  * invisible to search. A country joins this list when the product runs under its
- * rules, never as a promise: `/us` and `/ae` are added with their pages.
+ * rules, never as a promise: `/us` and `/ae` are added with their pages, in
+ * `COUNTRY_PAGES`.
  */
-const COUNTRIES = [
-  {
-    code: "IN",
-    name: "India",
-    to: "/in",
-    points: [
-      "IRDAI's 1-hour, 3-hour and 15-day clocks on every claim",
-      "DPDP consent before a single claim detail",
-      "Members answered in English, Hindi and Hinglish",
-      "Amounts in rupees, interest at bank rate + 2%",
-    ],
-  },
-];
+const POINTS: Record<CountryPage["code"], string[]> = {
+  IN: [
+    "IRDAI's 1-hour, 3-hour and 15-day clocks on every claim",
+    "DPDP consent before a single claim detail",
+    "Members answered in English, Hindi and Hinglish",
+    "Amounts in rupees, interest at bank rate + 2%",
+  ],
+};
+
+const COUNTRIES = COUNTRY_PAGES.map((c) => ({ ...c, points: POINTS[c.code] }));
 
 export default function WhereWeRun({ eyebrow = "Where it runs" }: { eyebrow?: string } = {}) {
   return (

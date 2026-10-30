@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { initLenis } from "@/lib/lenis";
 import SEOHead from "@/components/SEOHead";
+import CountryBanner from "@/components/CountryBanner";
 import { COUNTRY_ALTERNATES, SEO_HOME } from "@/lib/seo";
 import {
   orgJsonLd,
@@ -43,6 +44,7 @@ export default function Home() {
         <Faq eyebrow="Questions" limit={4} moreHref="/platform#faq" />
         <Footer />
       </main>
+      <CountryBanner />
     </>
   );
 }
