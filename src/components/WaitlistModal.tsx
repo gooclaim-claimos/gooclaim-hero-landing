@@ -2,6 +2,7 @@ import { forwardRef, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Wordmark from "@/components/Wordmark";
 import { VOLUME_OPTIONS, WAITLIST_OPEN_EVENT, type WaitlistOpenDetail, sourceWithUtm } from "@/lib/waitlist";
+import { BOOKING_URL, bookingLink } from "@/lib/booking";
 
 type SubmitState =
   | { phase: "idle" }
@@ -292,7 +293,7 @@ export default function WaitlistModal() {
               />
               <div className="relative z-10 px-6 pb-7 pt-7 sm:px-9 sm:pb-9 sm:pt-9">
                 {state.phase === "success" ? (
-                  <SuccessPanel name={form.name} onClose={() => setOpen(false)} />
+                  <SuccessPanel form={form} onClose={() => setOpen(false)} />
                 ) : (
                   <>
                     <div className="inline-flex items-center gap-2 rounded-full px-2.5 py-1 font-display text-[10.5px] uppercase tracking-wider2 text-white/60 glass">
@@ -493,7 +494,8 @@ const Field = forwardRef<HTMLInputElement, FieldProps>(function Field(
   );
 });
 
-function SuccessPanel({ name, onClose }: { name: string; onClose: () => void }) {
+function SuccessPanel({ form, onClose }: { form: FormState; onClose: () => void }) {
+  const name = form.name;
   return (
     <div className="flex min-h-[420px] flex-col items-center justify-center py-6 text-center sm:py-10">
       <div
@@ -510,17 +512,37 @@ function SuccessPanel({ name, onClose }: { name: string; onClose: () => void }) 
       <h3 className="font-display text-[26px] font-semibold leading-tight tracking-tight text-white">
         Thank you{name ? `, ${name.split(" ")[0]}` : ""}.
       </h3>
-      <p className="mx-auto mt-3 max-w-sm text-[14px] leading-relaxed text-white/65">
-        We&rsquo;ve got your details. Someone from the team will write to you personally to fix a time — usually within a week.
-      </p>
+      {BOOKING_URL ? (
+        <p className="mx-auto mt-3 max-w-sm text-[14px] leading-relaxed text-white/65">
+          We&rsquo;ve got your details. Pick a 20-minute slot now — or close this, and someone from the team will
+          write to you to fix one.
+        </p>
+      ) : (
+        <p className="mx-auto mt-3 max-w-sm text-[14px] leading-relaxed text-white/65">
+          We&rsquo;ve got your details. Someone from the team will write to you personally to fix a time — usually within a week.
+        </p>
+      )}
       <div className="mt-2 text-[12.5px] text-white/45">A confirmation email is on its way.</div>
-      <button
-        type="button"
-        onClick={onClose}
-        className="mt-7 inline-flex min-h-[44px] items-center gap-2 rounded-full px-6 text-[13.5px] font-medium text-white/85 glass transition-all hover:border-white/20 hover:text-white"
-      >
-        Close
-      </button>
+      <div className="mt-7 flex flex-col items-center gap-3 sm:flex-row">
+        {BOOKING_URL && (
+          <a
+            href={bookingLink(form)}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-white px-6 text-[13.5px] font-semibold text-ink-950 transition-all hover:-translate-y-0.5"
+          >
+            Pick a time now
+            <span aria-hidden>&rarr;</span>
+          </a>
+        )}
+        <button
+          type="button"
+          onClick={onClose}
+          className="inline-flex min-h-[44px] items-center gap-2 rounded-full px-6 text-[13.5px] font-medium text-white/85 glass transition-all hover:border-white/20 hover:text-white"
+        >
+          Close
+        </button>
+      </div>
     </div>
   );
 }
