@@ -17,9 +17,12 @@ import { type ReactNode } from "react";
  *   - "Cashless agent mesh — automated cashless authorisation … no human
  *     queue" — that is deciding a claim. The platform never decides one, and
  *     L2 is read-only with no write-back.
- *   - "IRDAI Master Circular (29 May 2024)" — superseded. The operative one is
- *     the Master Circular on Protection of Policyholders' Interests of
- *     5 September 2024 (IRDAI/PP&GR/CIR/MISC/117/9/2024).
+ *   - "IRDAI Master Circular (29 May 2024)" — replaced here by the Master
+ *     Circular on Protection of Policyholders' Interests of 5 September 2024
+ *     (IRDAI/PP&GR/CIR/MISC/117/9/2024), which carries the same one-hour and
+ *     three-hour cashless rule in Part B, para 3(i). The 29 May 2024 health
+ *     master circular (IRDAI/HLT/CIR/PRO/84/5/2024) is NOT superseded: the
+ *     5 September one sends readers to it (para 4), and /compliance cites it.
  *   - "75–80% of grievances are health", "6–8 months", "₹26,037 Cr",
  *     "6–48 hrs" — sourced to a magazine, to "RTI Wiki", or to "pilot field
  *     interviews" we cannot show. Every number here is now the regulator's or
