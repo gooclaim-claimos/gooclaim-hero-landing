@@ -9,7 +9,9 @@ import { type ReactNode } from "react";
  *   - "Voice agent for reception", "Voice + WhatsApp + SMS", "WhatsApp, voice,
  *     SMS or web" — there is no voice and no SMS. `gooclaim-gateway/CLAUDE.md`:
  *     "Channels: WhatsApp WABA only (no voice, no SMS)". WhatsApp and email are
- *     what run.
+ *     what run. (Update, November 2026: voice calls are now built and offered
+ *     in early access — say "early access", never "live". There is no web
+ *     chat channel; never list "Web".)
  *   - "One inbox across every TPA", "Hospital sync — hospitals see the same
  *     real-time state" — there is no hospital-facing surface anywhere in the
  *     codebase. The hospitals page now says what actually changes for a
@@ -342,7 +344,7 @@ export const USE_CASES: UseCaseData[] = [
     capabilities: [
       {
         title: "Claim status, answered from the record",
-        body: "On WhatsApp and email, in English, Hindi or Hinglish — with the source and the date the record was read.",
+        body: "On messaging tools and email, in English, Hindi or Hinglish — with the source and the date the record was read.",
         hue: "#0d99ff",
       },
       {

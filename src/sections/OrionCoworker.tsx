@@ -88,6 +88,30 @@ const CAPABILITIES: Capability[] = [
   },
 ];
 
+/**
+ * Three Orion features that have no preview screen of their own yet, shown as
+ * plain cards. All three are built (morning brief at 9:00, claim watch every
+ * 15 minutes, one line per payment) — described as what they do, not as live
+ * with a customer.
+ */
+const ALSO = [
+  {
+    name: "Morning brief",
+    line: "Every morning, the claims that need your team today — with the reason and the time left on the clock.",
+    hue: "#0d99ff",
+  },
+  {
+    name: "Claim watch",
+    line: "Orion keeps an eye on open claims and flags the ones that start to slip.",
+    hue: "#10b981",
+  },
+  {
+    name: "Payment status",
+    line: "Every payment on a claim in one line, so your team can answer “has it been paid?” at once.",
+    hue: "#f59e0b",
+  },
+];
+
 const PRINCIPLES = [
   { label: "Reads the record every time", hue: "#0d99ff" },
   { label: "Suggests with evidence", hue: "#10b981" },
@@ -434,6 +458,32 @@ export default function OrionCoworker({ eyebrow = "06 · Orion" }: { eyebrow?: s
           <OrionPreview active={active} />
         </motion.div>
       </div>
+
+      <motion.ul
+        variants={stagger(0.06, 0.07)}
+        initial="hidden"
+        whileInView="show"
+        viewport={viewportOnce}
+        aria-label="Also in Orion"
+        className="mt-12 grid grid-cols-1 gap-3 md:grid-cols-3"
+      >
+        {ALSO.map((a) => (
+          <motion.li key={a.name} variants={fadeUp} className="relative overflow-clip rounded-2xl p-5 glass">
+            <span
+              aria-hidden
+              className="pointer-events-none absolute -right-12 -top-12 h-28 w-28 rounded-full opacity-50 blur-3xl"
+              style={{ background: `${a.hue}33` }}
+            />
+            <span className="relative z-10 block font-display text-[10.5px] uppercase tracking-wider2" style={{ color: a.hue }}>
+              Also in Orion
+            </span>
+            <span className="relative z-10 mt-2 block font-display text-[17px] font-semibold tracking-tight text-white">
+              {a.name}
+            </span>
+            <span className="relative z-10 mt-1 block text-[13.5px] leading-relaxed text-white/60">{a.line}</span>
+          </motion.li>
+        ))}
+      </motion.ul>
 
       <motion.div
         initial={{ opacity: 0, y: 10 }}

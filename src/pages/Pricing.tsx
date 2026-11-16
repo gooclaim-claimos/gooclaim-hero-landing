@@ -76,7 +76,7 @@ const MODES: Mode[] = [
  */
 const BASIS: { k: string; v: string; hue: string }[] = [
   { k: "Volume", v: "Claims a year, not seats", hue: "#0d99ff" },
-  { k: "Channels", v: "WhatsApp · email today", hue: "#7dc4ff" },
+  { k: "Channels", v: "Messaging tools · email · voice (early access)", hue: "#7dc4ff" },
   { k: "Lines", v: "Started with health", hue: "#f59e0b" },
   { k: "SLA", v: "1 hour · 3 hours · 15 days", hue: "#10b981" },
 ];
@@ -315,7 +315,7 @@ export default function Pricing() {
             {[
               "Per-tenant pricing — TPAs and insurers don't share economics, and pricing shouldn't pretend they do.",
               "Lines of insurance matter — each has different volume, SLA and audit profiles.",
-              "Channels matter — WhatsApp alone and WhatsApp with email are different cost profiles, and voice will be another when it lands.",
+              "Channels matter — messaging tools, email and voice calls each have their own cost profile. For voice, talk to our sales team.",
               "Compliance scope matters — regulator and complaint exports, custom DPO reviews and security posture add real engineering.",
             ].map((line) => (
               <li key={line} className="flex items-start gap-3">
