@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ensureGsap, prefersReducedMotion } from "@/lib/gsap";
 import Wordmark from "@/components/Wordmark";
@@ -12,114 +12,55 @@ import { Link } from "react-router-dom";
 import SiteNav, { SITE_NAV } from "@/components/SiteNav";
 
 /**
- * The hero background is the canvas grid alone. A Mux video used to play
- * behind it; that stream started answering 403 (November 2026) and was
- * removed. A self-hosted video may come back later — as a file this site
- * serves, never a third-party stream that can disappear.
+ * Background loop, served from Gooclaim's own CDN (assets.gooclaim.com =
+ * CloudFront in front of S3 `gooclaim-nprd-assets`, key under `gooclaim/site/`)
+ * — never a third-party stream: the old Mux one started answering 403 in
+ * November 2026 and left the hero empty. 1080p, 12 s, no sound, ~1 MB,
+ * `moov` at the front so it starts before it has fully downloaded.
+ *
+ * 🔴 The name is versioned and cached for a year: a new video is a NEW key
+ * (hero-loop-v2.mp4), never new bytes behind this one. The video is the whole
+ * background (founder, November 2026: the canvas perspective grid and the
+ * square grid overlay were removed); it fades in once frames are playing.
  */
+const HERO_VIDEO = "https://assets.gooclaim.com/gooclaim/site/hero-loop-v1.mp4";
 
 export default function HeroMeshGrid({ market = "global" }: { market?: Market } = {}) {
   const india = market === "in";
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [videoReady, setVideoReady] = useState(false);
 
-  // Animated Tron-style perspective grid on canvas
+  // Background loop: started after the first paint, skipped for reduced motion.
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    let raf = 0;
-    let scrollOffset = 0;
-    const reduced = prefersReducedMotion();
-
-    const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = canvas.clientWidth * dpr;
-      canvas.height = canvas.clientHeight * dpr;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    if (prefersReducedMotion()) return;
+    const video = videoRef.current;
+    if (!video) return;
+    let cancelled = false;
+    const onPlaying = () => {
+      if (!cancelled) setVideoReady(true);
     };
-    resize();
-    window.addEventListener("resize", resize);
-
-    const drawFrame = (t: number) => {
-      const w = canvas.clientWidth;
-      const h = canvas.clientHeight;
-      ctx.clearRect(0, 0, w, h);
-
-      // Horizon line
-      const horizonY = h * 0.63;
-
-      // Vanishing point
-      const vx = w / 2;
-      const vy = horizonY;
-
-      ctx.lineWidth = 1;
-
-      // Perspective lines (radiating from vanishing point downward)
-      const lineCount = 28;
-      for (let i = -lineCount; i <= lineCount; i++) {
-        const angle = (i / lineCount) * Math.PI * 0.5;
-        const reach = h * 0.8;
-        const endX = vx + Math.tan(angle) * reach;
-        const endY = vy + reach;
-
-        // distance-based fade
-        const dist = Math.abs(i) / lineCount;
-        const alpha = 0.16 * (1 - dist * 0.85);
-        ctx.strokeStyle = `rgba(125,196,255,${alpha})`;
-        ctx.beginPath();
-        ctx.moveTo(vx, vy);
-        ctx.lineTo(endX, endY);
-        ctx.stroke();
+    video.addEventListener("playing", onPlaying);
+    // React sets `muted` as a property only; iOS Safari wants the attribute
+    // before it will autoplay inline.
+    video.muted = true;
+    video.setAttribute("muted", "");
+    // A tab opened in the background cannot autoplay; start when it is seen.
+    const onVisible = () => {
+      if (document.visibilityState === "visible" && video.paused && video.readyState > 0) {
+        video.play().catch(() => undefined);
       }
-
-      // Horizontal grid lines (moving toward viewer)
-      const rowCount = 14;
-      for (let r = 0; r < rowCount; r++) {
-        const phase = reduced ? r / rowCount : ((r + scrollOffset) % rowCount) / rowCount;
-        const yScreen = vy + Math.pow(phase, 1.6) * (h * 0.5);
-        const widthAtY = (yScreen - vy) * 4.5;
-        const alpha = 0.34 * (1 - phase) ** 1.2;
-        ctx.strokeStyle = `rgba(13,153,255,${alpha})`;
-        ctx.lineWidth = 1 + (1 - phase) * 0.6;
-        ctx.beginPath();
-        ctx.moveTo(vx - widthAtY, yScreen);
-        ctx.lineTo(vx + widthAtY, yScreen);
-        ctx.stroke();
-      }
-
-      // Horizon glow
-      const grad = ctx.createLinearGradient(0, vy - 60, 0, vy + 6);
-      grad.addColorStop(0, "rgba(13,153,255,0)");
-      grad.addColorStop(1, "rgba(125,196,255,0.55)");
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, vy - 60, w, 60);
-
-      // Sun bloom on horizon
-      const bloom = ctx.createRadialGradient(vx, vy, 0, vx, vy, w * 0.4);
-      bloom.addColorStop(0, "rgba(13,153,255,0.35)");
-      bloom.addColorStop(0.4, "rgba(124,58,237,0.12)");
-      bloom.addColorStop(1, "rgba(124,58,237,0)");
-      ctx.fillStyle = bloom;
-      ctx.fillRect(0, 0, w, h);
-
-      if (!reduced) {
-        scrollOffset += 0.018;
-        raf = requestAnimationFrame(drawFrame);
-      }
-      void t;
     };
-
-    if (reduced) {
-      drawFrame(0);
-    } else {
-      raf = requestAnimationFrame(drawFrame);
-    }
-
+    document.addEventListener("visibilitychange", onVisible);
+    const id = window.setTimeout(() => {
+      if (cancelled) return;
+      video.src = HERO_VIDEO;
+      video.play().catch(() => undefined);
+    }, 400);
     return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener("resize", resize);
+      cancelled = true;
+      window.clearTimeout(id);
+      video.removeEventListener("playing", onPlaying);
+      document.removeEventListener("visibilitychange", onVisible);
     };
   }, []);
 
@@ -160,17 +101,18 @@ export default function HeroMeshGrid({ market = "global" }: { market?: Market } 
       data-hero-root
       className="relative isolate flex min-h-[100svh] w-full flex-col overflow-hidden bg-ink-950"
     >
-      {/* Mesh grid + Tron perspective on canvas */}
-      <canvas
-        ref={canvasRef}
+      {/* Background loop (self-hosted, lazy) */}
+      <video
+        ref={videoRef}
+        muted
+        playsInline
+        loop
+        preload="none"
         aria-hidden
-        className="pointer-events-none absolute inset-0 h-full w-full"
-      />
-
-      {/* CSS grid overlay (subtle) */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-grid opacity-[0.35] [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_75%)]"
+        tabIndex={-1}
+        className={`pointer-events-none absolute inset-0 h-full w-full object-cover transition-opacity duration-[1400ms] ease-out ${
+          videoReady ? "opacity-90" : "opacity-0"
+        }`}
       />
 
       {/* Top deep gradient */}
