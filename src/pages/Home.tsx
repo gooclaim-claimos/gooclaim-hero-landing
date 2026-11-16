@@ -15,6 +15,7 @@ import ThreeJobs from "@/sections/ThreeJobs";
 import MemberExperience from "@/sections/MemberExperience";
 import VoiceAgent from "@/sections/VoiceAgent";
 import TestedDaily from "@/sections/TestedDaily";
+import HowTheAiWorks from "@/sections/HowTheAiWorks";
 import GoLive from "@/sections/GoLive";
 import Faq from "@/sections/Faq";
 import Footer from "@/sections/Footer";
@@ -44,7 +45,8 @@ export default function Home() {
         <MemberExperience eyebrow="04 · What your member sees" />
         <VoiceAgent eyebrow="05 · Voice calls" />
         <TestedDaily eyebrow="06 · Tested every day" />
-        <GoLive eyebrow="07 · Going live" />
+        <HowTheAiWorks eyebrow="07 · How the AI works" />
+        <GoLive eyebrow="08 · Going live" />
         <Faq eyebrow="Questions" limit={4} moreHref="/platform#faq" />
         <Footer />
       </main>
