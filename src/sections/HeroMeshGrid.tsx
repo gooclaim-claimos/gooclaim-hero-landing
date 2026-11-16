@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { ensureGsap, prefersReducedMotion } from "@/lib/gsap";
 import Wordmark from "@/components/Wordmark";
@@ -11,15 +11,16 @@ import type { Market } from "@/lib/market";
 import { Link } from "react-router-dom";
 import SiteNav, { SITE_NAV } from "@/components/SiteNav";
 
-
-const MUX_PLAYBACK =
-  "https://stream.mux.com/Aa02T7oM1wH5Mk5EEVDYhbZ1ChcdhRsS2m1NYyx4Ua1g.m3u8";
+/**
+ * The hero background is the canvas grid alone. A Mux video used to play
+ * behind it; that stream started answering 403 (November 2026) and was
+ * removed. A self-hosted video may come back later — as a file this site
+ * serves, never a third-party stream that can disappear.
+ */
 
 export default function HeroMeshGrid({ market = "global" }: { market?: Market } = {}) {
   const india = market === "in";
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [videoReady, setVideoReady] = useState(false);
 
   // Animated Tron-style perspective grid on canvas
   useEffect(() => {
@@ -122,69 +123,6 @@ export default function HeroMeshGrid({ market = "global" }: { market?: Market } 
     };
   }, []);
 
-  // Mux HLS lazy load
-  useEffect(() => {
-    if (prefersReducedMotion()) return;
-    const video = videoRef.current;
-    if (!video) return;
-
-    let cancelled = false;
-    let hls: { destroy: () => void } | null = null;
-    // Shown only once frames are actually playing — never a blank box.
-    const onPlaying = () => {
-      if (!cancelled) setVideoReady(true);
-    };
-    video.addEventListener("playing", onPlaying);
-    // React sets `muted` as a property only; iOS Safari wants the attribute
-    // before it will autoplay inline.
-    video.muted = true;
-    video.setAttribute("muted", "");
-    // A tab opened in the background cannot autoplay; start when it is seen.
-    const onVisible = () => {
-      if (document.visibilityState === "visible" && video.paused && video.readyState > 0) {
-        video.play().catch(() => undefined);
-      }
-    };
-    document.addEventListener("visibilitychange", onVisible);
-
-    const load = async () => {
-      try {
-        // hls.js FIRST, native HLS only as the fallback (hls.js's own guidance).
-        // `canPlayType` is not a promise to play: Chrome 152 answers "maybe"
-        // for HLS and then fails the source (MEDIA_ERR_SRC_NOT_SUPPORTED), so
-        // checking it first left the hero video dead in Chrome.
-        const { default: Hls } = await import("hls.js");
-        if (cancelled) return;
-        if (Hls.isSupported()) {
-          const player = new Hls({ maxBufferLength: 12, capLevelToPlayerSize: true });
-          hls = player;
-          player.loadSource(MUX_PLAYBACK);
-          player.attachMedia(video);
-          player.on(Hls.Events.MANIFEST_PARSED, () => {
-            video.play().catch(() => undefined);
-          });
-          return;
-        }
-        // No MediaSource (older iPhones): Safari plays HLS natively.
-        if (video.canPlayType("application/vnd.apple.mpegurl")) {
-          video.src = MUX_PLAYBACK;
-          await video.play().catch(() => undefined);
-        }
-      } catch {
-        /* ignore — canvas fallback already running */
-      }
-    };
-    // Defer to next idle moment so the grid paints first
-    const id = window.setTimeout(load, 400);
-    return () => {
-      cancelled = true;
-      window.clearTimeout(id);
-      video.removeEventListener("playing", onPlaying);
-      document.removeEventListener("visibilitychange", onVisible);
-      hls?.destroy();
-    };
-  }, []);
-
   // GSAP scroll-pinned parallax on hero text
   useEffect(() => {
     if (prefersReducedMotion()) return;
@@ -222,20 +160,6 @@ export default function HeroMeshGrid({ market = "global" }: { market?: Market } 
       data-hero-root
       className="relative isolate flex min-h-[100svh] w-full flex-col overflow-hidden bg-ink-950"
     >
-      {/* Background video (lazy) */}
-      <video
-        ref={videoRef}
-        muted
-        playsInline
-        loop
-        autoPlay
-        preload="none"
-        className={`pointer-events-none absolute inset-0 h-full w-full object-cover transition-opacity duration-[1400ms] ease-out ${
-          videoReady ? "opacity-30" : "opacity-0"
-        }`}
-        aria-hidden
-      />
-
       {/* Mesh grid + Tron perspective on canvas */}
       <canvas
         ref={canvasRef}
@@ -336,7 +260,7 @@ export default function HeroMeshGrid({ market = "global" }: { market?: Market } 
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
             className="mt-6 text-[14px] text-white/55 sm:text-[15px]"
           >
-            Live today on WhatsApp and email. More channels next.
+            Messaging tools and email today. Voice calls in early access.
           </motion.p>
 
           <motion.div

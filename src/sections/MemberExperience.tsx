@@ -1,108 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { AnimatePresence, motion, useScroll } from "framer-motion";
 import SectionShell from "@/components/SectionShell";
 import { MailIcon, TelegramIcon, WhatsAppIcon } from "@/components/BrandIcons";
 import { fadeUp, stagger, viewportOnce } from "@/lib/motion";
 import type { Market } from "@/lib/market";
+import { CONVERSATIONS, LANGS, type Channel, type Lang, type Message } from "@/data/memberConversations";
+import MemberVoiceCall, { PhoneIcon } from "./MemberVoiceCall";
 
-interface Message {
-  from: "member" | "os";
-  text: string;
-  /** What the OS did before it could send this — shown under the bubble. */
-  note?: string;
-  link?: string;
-  /** The guarantees this message demonstrates; lights those points as it arrives. */
-  points?: string[];
-}
-
-type Channel = "whatsapp" | "email" | "voice";
-
-// Sample conversations — sample claim, sample member, never real data. Each
-// follows its channel's real check: WhatsApp's number is verified by the
-// platform, so consent is enough; an email address proves nothing, so email
-// also asks for the registered mobile and sends a code to it.
-const CONVERSATIONS: Record<Channel, Message[]> = {
-  whatsapp: [
-    { from: "member", text: "Hi, what's the status of my claim?" },
-    {
-      from: "os",
-      text: "Hello! Before we look at your claim, may we use your details to help you with it? Reply YES to continue.",
-      points: ["Consent first"],
-      note: "Consent first",
-    },
-    { from: "member", text: "Yes" },
-    {
-      from: "os",
-      text: "The latest status of your claim CLM-24817 (as per your insurer's records, updated 3 Oct 2026): Documents pending. We still need your discharge summary — upload it securely here:",
-      link: "Upload documents",
-      note: "Registered number · source and date",
-      points: ["Source & date", "Never free text"],
-    },
-    { from: "member", text: "Uploaded ✓ discharge_summary.pdf" },
-    {
-      from: "os",
-      text: "Received, thank you. We'll pass it to your claims team and let you know when it's checked.",
-      note: "Approved template",
-    },
-  ],
-  email: [
-    { from: "member", text: "Hello, could you tell me the status of my hospital claim?" },
-    {
-      from: "os",
-      text: "Dear member, before we look at your claim, may we use your details to help you with it? Please reply YES along with your registered mobile number.",
-      points: ["Consent first"],
-      note: "Consent first",
-    },
-    { from: "member", text: "YES — my mobile is 98•••••21." },
-    {
-      from: "os",
-      text: "Thank you. Your claim details are private, so we've sent a 6-digit code to your registered mobile ending ••21. Please reply with the code.",
-      points: ["Verified"],
-      note: "Verified before any detail",
-    },
-    { from: "member", text: "The code is 482913." },
-    {
-      from: "os",
-      text: "The latest status of your claim CLM-24817 (as per your insurer's records, updated 3 Oct 2026): Documents pending. We still need your discharge summary — upload it securely here:",
-      link: "Upload documents",
-      note: "Source and date · checked before sending",
-      points: ["Source & date", "Never free text"],
-    },
-  ],
-  // Not live yet — a preview of the voice agent. A caller ID proves less than a
-  // WhatsApp number, so the call asks for the code, as email does.
-  voice: [
-    { from: "member", text: "Hi, I want to know the status of my claim." },
-    {
-      from: "os",
-      text: "Sure. Before I look at your claim, may I use your details to help you with it? Please say yes to continue.",
-      points: ["Consent first"],
-      note: "Consent first",
-    },
-    { from: "member", text: "Yes." },
-    {
-      from: "os",
-      text: "Thank you. I've sent a 6-digit code to your registered mobile ending 21. Please read it out.",
-      points: ["Verified"],
-      note: "Verified before any detail",
-    },
-    { from: "member", text: "Four, eight, two, nine, one, three." },
-    {
-      from: "os",
-      text: "As per your insurer's records, updated 3 October: claim CLM-24817 is waiting for one document — the discharge summary. I'll send a secure upload link to your registered mobile.",
-      points: ["Source & date", "Never free text"],
-      note: "Source and date",
-    },
-  ],
-};
-
-function PhoneIcon({ size = 22 }: { size?: number; className?: string }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="#a78bfa" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z" />
-    </svg>
-  );
-}
 function SmsIcon({ size = 22 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -111,20 +15,10 @@ function SmsIcon({ size = 22 }: { size?: number }) {
     </svg>
   );
 }
-function WebChatIcon({ size = 22 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="#7dc4ff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <circle cx="12" cy="12" r="9" />
-      <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" />
-    </svg>
-  );
-}
-
+// Voice has its own tab now (early access); there is no web chat channel.
 const SOON = [
-  { label: "Voice agent", Icon: PhoneIcon },
   { label: "SMS", Icon: SmsIcon },
   { label: "Telegram", Icon: TelegramIcon },
-  { label: "Web chat", Icon: WebChatIcon },
 ];
 
 const CHANNELS: {
@@ -133,22 +27,31 @@ const CHANNELS: {
   line: string;
   Icon: (p: { size?: number; className?: string }) => JSX.Element;
   ring: string;
-  soon?: boolean;
+  /** Built, offered to early customers, not yet run by any — never "live". */
+  early?: boolean;
 }[] = [
   { key: "whatsapp", label: "WhatsApp", line: "WhatsApp · Claims desk", Icon: WhatsAppIcon, ring: "#25D366" },
   { key: "email", label: "Email", line: "Email · Claims desk", Icon: MailIcon, ring: "#0d99ff" },
-  { key: "voice", label: "Voice", line: "Voice agent · Claims line", Icon: PhoneIcon, ring: "#a78bfa", soon: true },
+  { key: "voice", label: "Voice", line: "Voice agent · Claims line", Icon: PhoneIcon, ring: "#a78bfa", early: true },
 ];
 
 const POINTS = [
   { label: "Consent first", body: "Consent before a single claim detail.", hue: "#10b981" },
-  { label: "Verified", body: "On WhatsApp, the registered number. On email, a code sent to it first.", hue: "#0d99ff" },
+  { label: "Verified", body: "On WhatsApp, the registered number. On email and calls, a code sent to it first.", hue: "#0d99ff" },
   { label: "Source & date", body: "Every answer names whose record it read, and when.", hue: "#7dc4ff" },
-  { label: "Never free text", body: "Approved templates only, in the member's language.", hue: "#f59e0b" },
+  { label: "Never free text", body: "Messages use approved wording only, in the member's language.", hue: "#f59e0b" },
 ];
 
+// On a call the agent speaks from the claim rather than a template, so the
+// fourth promise is a different one there (gooclaim-voice turn/prompt.py).
+const VOICE_POINT = {
+  label: "Facts only",
+  body: "On a call, the agent answers only from the member's own claim — and says so when it cannot see an answer.",
+  hue: "#f59e0b",
+};
 
-function Bubble({ m }: { m: Message }) {
+
+function Bubble({ m, lang }: { m: Message; lang: string }) {
   const mine = m.from === "member";
   return (
     <motion.div
@@ -161,6 +64,7 @@ function Bubble({ m }: { m: Message }) {
         className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 text-[13px] leading-relaxed ${
           mine ? "rounded-br-md bg-[#0d99ff] text-paper" : "rounded-bl-md border border-white/10 bg-white/[0.06] text-white/90"
         }`}
+        lang={lang}
       >
         {m.text}
         {m.link && (
@@ -179,7 +83,7 @@ function Bubble({ m }: { m: Message }) {
   );
 }
 
-function Mail({ m }: { m: Message }) {
+function Mail({ m, lang }: { m: Message; lang: string }) {
   const mine = m.from === "member";
   return (
     <motion.div
@@ -207,13 +111,13 @@ function Mail({ m }: { m: Message }) {
           </span>
           <span className="ml-auto shrink-0 text-[10.5px] text-white/35">Re: My claim</span>
         </div>
-        <p className="mt-2 text-[12.5px] leading-relaxed text-white/80">{m.text}</p>
+        <p lang={lang} className="mt-2 text-[12.5px] leading-relaxed text-white/80">{m.text}</p>
         {m.link && (
           <span className="mt-2.5 inline-flex items-center gap-1.5 rounded-lg border border-white/15 bg-white/[0.06] px-3 py-1.5 text-[12px] font-semibold text-accent-cyan">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><path d="M17 8l-5-5-5 5" /><path d="M12 3v12" />
             </svg>
-            {m.link}
+            <span lang={lang}>{m.link}</span>
           </span>
         )}
       </div>
@@ -224,81 +128,47 @@ function Mail({ m }: { m: Message }) {
   );
 }
 
-const BARS = 28;
-
-function VoiceCall({ lines }: { lines: Message[] }) {
-  const [secs, setSecs] = useState(0);
-  const listRef = useRef<HTMLDivElement | null>(null);
-  useEffect(() => {
-    setSecs(0);
-    const id = window.setInterval(() => setSecs((x) => x + 1), 1000);
-    return () => window.clearInterval(id);
-  }, []);
-  useEffect(() => {
-    const el = listRef.current;
-    if (el) el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
-  }, [lines.length]);
-  const speaking = lines.length > 0 ? lines[lines.length - 1].from : "os";
-  const mm = String(Math.floor(secs / 60)).padStart(2, "0");
-  const ss = String(secs % 60).padStart(2, "0");
+/** A row of choices with a sliding highlight — the channel and the language. */
+function Segmented<K extends string>({
+  label,
+  options,
+  value,
+  onChange,
+  id,
+}: {
+  label: string;
+  options: { key: K; node: ReactNode; lang?: string }[];
+  value: K;
+  onChange: (k: K) => void;
+  id: string;
+}) {
   return (
-    <div className="flex h-[460px] flex-col">
-      <div className="flex flex-col items-center px-4 pb-3 pt-5">
-        <div className="relative">
-          <span className="absolute inset-0 animate-ping rounded-full bg-[#a78bfa]/25" />
-          <span className="relative inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#a78bfa]/15 ring-1 ring-[#a78bfa]/40">
-            <PhoneIcon size={22} />
-          </span>
-        </div>
-        <div className="mt-3 text-[14px] font-semibold text-white">Your insurer · Claims line</div>
-        <div className="mt-0.5 text-[11.5px] tabular-nums text-white/45">
-          {mm}:{ss} · {speaking === "os" ? "Agent speaking" : "Member speaking"}
-        </div>
-        <div className="mt-3 flex h-8 items-center gap-[3px]" aria-hidden>
-          {Array.from({ length: BARS }, (_, i) => (
-            <motion.span
-              key={i}
-              className="w-[3px] rounded-full"
-              style={{ background: speaking === "os" ? "#a78bfa" : "#0d99ff", height: 28 }}
-              animate={{ scaleY: [0.15, 0.35 + ((i * 37) % 60) / 100, 0.2] }}
-              transition={{ duration: 0.9 + (i % 5) * 0.12, repeat: Infinity, ease: "easeInOut", delay: (i % 7) * 0.06 }}
-            />
-          ))}
-        </div>
-      </div>
-      <div
-        ref={listRef}
-        className="flex-1 space-y-2 overflow-y-auto overscroll-contain border-t border-white/10 px-3.5 py-3"
-        data-lenis-prevent
-      >
-        <div className="font-display text-[9.5px] uppercase tracking-wider2 text-white/35">Live transcript</div>
-        <AnimatePresence initial={false}>
-          {lines.map((m, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
-              className="text-[12.5px] leading-relaxed"
-            >
-              <span className={`mr-1.5 font-semibold ${m.from === "os" ? "text-[#c4b5fd]" : "text-accent-cyan"}`}>
-                {m.from === "os" ? "Agent" : "Member"}
-              </span>
-              <span className="text-white/80">{m.text}</span>
-              {m.note && (
-                <span className="ml-1.5 font-display text-[9.5px] uppercase tracking-wider2 text-white/35">· {m.note}</span>
-              )}
-            </motion.div>
-          ))}
-        </AnimatePresence>
-      </div>
-      <div className="flex items-center justify-center gap-5 border-t border-white/10 py-3" aria-hidden>
-        <span className="h-9 w-9 rounded-full bg-white/[0.07]" />
-        <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#ef4444]">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.4" strokeLinecap="round"><path d="M5 12h14" /></svg>
-        </span>
-        <span className="h-9 w-9 rounded-full bg-white/[0.07]" />
-      </div>
+    <div role="group" aria-label={label} className="relative z-10 mx-auto flex w-fit max-w-full gap-1 rounded-full p-1 glass">
+      {options.map((o) => {
+        const on = o.key === value;
+        return (
+          <button
+            key={o.key}
+            type="button"
+            lang={o.lang}
+            aria-pressed={on}
+            onClick={() => onChange(o.key)}
+            className={`relative inline-flex min-h-[40px] cursor-pointer touch-manipulation items-center gap-1.5 rounded-full px-3 text-[12.5px] font-semibold transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/70 sm:gap-2 sm:px-4 ${
+              on ? "text-white" : "text-white/60 hover:text-white"
+            }`}
+          >
+            {on && (
+              <motion.span
+                layoutId={`${id}-on`}
+                aria-hidden
+                className="absolute inset-0 rounded-full bg-white/[0.12] ring-1 ring-white/15"
+                transition={{ type: "spring", stiffness: 420, damping: 34 }}
+              />
+            )}
+            <span className="relative z-10 inline-flex items-center gap-1.5 sm:gap-2">{o.node}</span>
+          </button>
+        );
+      })}
     </div>
   );
 }
@@ -309,59 +179,49 @@ function VoiceCall({ lines }: { lines: Message[] }) {
  * It used to run on a timer once in view: a visitor who looked away missed
  * messages, and a fast reader waited. Scroll position drives it instead, so
  * the thread moves exactly as far as the reader has come — and stopping
- * stops it.
+ * stops it. Switching the channel or the language keeps the reader's place.
  */
 function Phone({
   channel,
   setChannel,
+  lang,
+  setLang,
   shown,
 }: {
   channel: Channel;
   setChannel: (c: Channel) => void;
+  lang: Lang;
+  setLang: (l: Lang) => void;
   shown: number;
 }) {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const conversation = CONVERSATIONS[channel];
+  const conversation = CONVERSATIONS[channel][lang];
   const meta = CHANNELS.find((c) => c.key === channel) ?? CHANNELS[0];
+  const language = LANGS.find((l) => l.key === lang) ?? LANGS[0];
+  const thread = `${channel}-${lang}`;
   const scrollRef = useRef<HTMLDivElement | null>(null);
 
   // Keep the newest message in view, inside the phone only.
   useEffect(() => {
     const el = scrollRef.current;
     if (el) el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
-  }, [shown]);
+  }, [shown, thread]);
   return (
-    <div ref={ref} className="relative mx-auto w-full max-w-[360px]">
-      <div
-        role="group"
-        aria-label="Choose a channel"
-        className="relative z-10 mx-auto mb-4 flex w-fit gap-1 rounded-full p-1 glass"
-      >
-        {CHANNELS.map((c) => {
-          const on = c.key === channel;
-          return (
-            <button
-              key={c.key}
-              type="button"
-              aria-pressed={on}
-              onClick={() => {
-                if (on) return;
-                setChannel(c.key);
-              }}
-              className={`inline-flex min-h-[36px] items-center gap-1.5 rounded-full px-3 text-[12.5px] font-semibold transition-colors sm:gap-2 sm:px-4 ${
-                on ? "bg-white/[0.12] text-white" : "text-white/55 hover:text-white"
-              }`}
-            >
-              <c.Icon size={15} />
-              {c.label}
-              {c.soon && (
-                <span className="rounded-full bg-[#a78bfa]/20 px-1.5 py-px font-display text-[9px] uppercase tracking-wider2 text-[#c4b5fd]">
-                  Soon
-                </span>
-              )}
-            </button>
-          );
-        })}
+    <div className="relative mx-auto w-full max-w-[360px]">
+      <div className="relative z-10 mb-4 space-y-2">
+        <Segmented
+          id="channel"
+          label="Choose a channel"
+          value={channel}
+          onChange={setChannel}
+          options={CHANNELS.map((c) => ({ key: c.key, node: <><c.Icon size={15} />{c.label}</> }))}
+        />
+        <Segmented
+          id="language"
+          label="Choose a language"
+          value={lang}
+          onChange={setLang}
+          options={LANGS.map((l) => ({ key: l.key, node: l.label, lang: l.htmlLang }))}
+        />
       </div>
       <div
         aria-hidden
@@ -373,42 +233,57 @@ function Phone({
           {/* Chat header */}
           <div className="flex items-center gap-3 border-b border-white/10 bg-white/[0.03] px-4 py-3">
             <span
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full ring-1"
+              className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full ring-1"
               style={{ background: `${meta.ring}26`, ["--tw-ring-color" as string]: `${meta.ring}4d` }}
             >
               <meta.Icon size={18} />
             </span>
             <div className="min-w-0">
               <div className="truncate text-[13.5px] font-semibold text-white">Your insurer · Claims</div>
-              <div className="truncate text-[11px] text-white/45">{meta.line}</div>
+              <div className="truncate text-[11px] text-white/50">{meta.line}</div>
             </div>
-            {meta.soon ? (
+            {meta.early ? (
               <span className="ml-auto shrink-0 whitespace-nowrap rounded-full border border-[#a78bfa]/40 bg-[#a78bfa]/10 px-2 py-0.5 font-display text-[9.5px] uppercase tracking-wider2 text-[#c4b5fd]">
-                Soon
+                Early access
               </span>
             ) : (
-              <span className="ml-auto font-display text-[10px] uppercase tracking-wider2 text-white/35">Sample</span>
+              <span className="ml-auto shrink-0 font-display text-[10px] uppercase tracking-wider2 text-white/40">Sample</span>
             )}
           </div>
           {channel === "voice" ? (
-            <VoiceCall key={channel} lines={conversation.slice(0, shown)} />
+            <MemberVoiceCall
+              key={channel}
+              lines={conversation.slice(0, shown)}
+              language={language.spoken}
+              htmlLang={language.htmlLang}
+              thread={thread}
+            />
           ) : (
-          <div
-            ref={scrollRef}
-            className="h-[460px] space-y-3 overflow-y-auto overscroll-contain px-3.5 py-4"
-            data-lenis-prevent
-            aria-live="polite"
-            aria-label={`Sample ${meta.label} conversation between a member and their insurer`}
-          >
-            <AnimatePresence initial={false}>
-              {conversation.slice(0, shown).map((m, i) =>
-                channel === "email" ? <Mail key={i} m={m} /> : <Bubble key={i} m={m} />,
-              )}
-            </AnimatePresence>
-          </div>
+            <div
+              ref={scrollRef}
+              className="h-[460px] space-y-3 overflow-y-auto overscroll-contain px-3.5 py-4"
+              data-lenis-prevent
+              aria-live="polite"
+              aria-label={`Sample ${meta.label} conversation in ${language.spoken} between a member and their insurer`}
+            >
+              <AnimatePresence initial={false}>
+                {conversation.slice(0, shown).map((m, i) =>
+                  channel === "email" ? (
+                    <Mail key={`${thread}-${i}`} m={m} lang={language.htmlLang} />
+                  ) : (
+                    <Bubble key={`${thread}-${i}`} m={m} lang={language.htmlLang} />
+                  ),
+                )}
+              </AnimatePresence>
+            </div>
           )}
         </div>
       </div>
+      <p className="mt-4 text-center text-[12px] leading-relaxed text-white/50">
+        {channel === "voice"
+          ? "Sample call. The agent answers in the caller's language — and switches when the caller does."
+          : "Sample data. The same checks and the same answer, in the member's own language."}
+      </p>
       {/* No replay button: scrolling back up is the replay. */}
     </div>
   );
@@ -418,21 +293,24 @@ export default function MemberExperience({
   eyebrow = "05 · For members",
   market = "global",
 }: { eyebrow?: string; market?: Market } = {}) {
-  // India's law is named on the India page; the home page speaks to every country.
-  const points =
-    market === "in"
-      ? POINTS.map((p) => (p.label === "Consent first" ? { ...p, body: "DPDP consent before a single claim detail." } : p))
-      : POINTS;
   const runway = useRef<HTMLDivElement | null>(null);
   const [channel, setChannel] = useState<Channel>("whatsapp");
+  const [lang, setLang] = useState<Lang>("en");
   const [shown, setShown] = useState(1);
+
+  // India's law is named on the India page; the home page speaks to every country.
+  const points = POINTS.map((p) => {
+    if (p.label === "Never free text" && channel === "voice") return VOICE_POINT;
+    if (p.label === "Consent first" && market === "in") return { ...p, body: "DPDP consent before a single claim detail." };
+    return p;
+  });
 
   // Progress through the runway, from the stage pinning to it releasing.
   const { scrollYProgress } = useScroll({
     target: runway,
     offset: ["start start", "end end"],
   });
-  const total = CONVERSATIONS[channel].length;
+  const total = CONVERSATIONS[channel][lang].length;
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -444,6 +322,8 @@ export default function MemberExperience({
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     let stop: (() => void) | undefined;
+    // The last stretch is left to read the final reply rather than to reveal.
+    const at = (v: number) => Math.max(1, Math.min(total, Math.ceil(Math.min(1, v / 0.82) * total)));
 
     const apply = () => {
       stop?.();
@@ -452,12 +332,9 @@ export default function MemberExperience({
         setShown(total);
         return;
       }
-      setShown(1);
-      // The last stretch is left to read the final reply rather than to reveal.
-      stop = scrollYProgress.on("change", (v) => {
-        const eased = Math.min(1, v / 0.82);
-        setShown(Math.max(1, Math.min(total, Math.ceil(eased * total))));
-      });
+      // Start from where the reader already is — a switch mid-thread keeps the place.
+      setShown(at(scrollYProgress.get()));
+      stop = scrollYProgress.on("change", (v) => setShown(at(v)));
     };
 
     apply();
@@ -470,7 +347,7 @@ export default function MemberExperience({
 
   // Which guarantees the thread has demonstrated so far.
   const reached = new Set(
-    CONVERSATIONS[channel]
+    CONVERSATIONS[channel][lang]
       .slice(0, shown)
       .flatMap((m) => m.points ?? [])
   );
@@ -485,12 +362,12 @@ export default function MemberExperience({
           <span className="text-white/55">An answer, not a helpline number.</span>
         </>
       }
-      intro="A member asks on WhatsApp or email, in their own words. The OS checks who they are, reads your claims system, and replies in an approved message — with the source and date, and the next thing they need to do."
+      intro="A member asks on a messaging tool, by email or on a call — in English, Hindi or Hinglish, in their own words. The OS checks who they are, reads your claims system and answers with the source and date, and the next thing they need to do."
     >
       {/* A runway tall enough to read the thread through. The stage pins to it,
           so the conversation advances with the reader rather than a timer. */}
       <div ref={runway} className="relative lg:h-[260vh]">
-      <div className="lg:sticky lg:top-[12vh] grid grid-cols-1 items-center gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16">
+      <div className="lg:sticky lg:top-[10vh] grid grid-cols-1 items-center gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16">
         <div className="order-2 lg:order-1">
         <motion.ul
           variants={stagger(0.06, 0.08)}
@@ -536,7 +413,7 @@ export default function MemberExperience({
           className="mt-3 rounded-2xl border border-[#a78bfa]/25 bg-[#a78bfa]/[0.05] p-5"
         >
           <div className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#a78bfa]" />
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#a78bfa] motion-reduce:animate-none" />
             <span className="font-display text-[11px] uppercase tracking-wider2 text-[#c4b5fd]">More channels · coming soon</span>
           </div>
           <p className="mt-2.5 text-[14px] leading-relaxed text-white/70">
@@ -556,7 +433,7 @@ export default function MemberExperience({
         </motion.div>
         </div>
         <div className="order-1 lg:order-2">
-          <Phone channel={channel} setChannel={setChannel} shown={shown} />
+          <Phone channel={channel} setChannel={setChannel} lang={lang} setLang={setLang} shown={shown} />
         </div>
       </div>
       </div>

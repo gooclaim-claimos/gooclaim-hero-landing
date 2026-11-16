@@ -13,6 +13,8 @@ import ProblemJourney from "@/sections/ProblemJourney";
 import WhereWeRun from "@/sections/WhereWeRun";
 import ThreeJobs from "@/sections/ThreeJobs";
 import MemberExperience from "@/sections/MemberExperience";
+import VoiceAgent from "@/sections/VoiceAgent";
+import TestedDaily from "@/sections/TestedDaily";
 import GoLive from "@/sections/GoLive";
 import Faq from "@/sections/Faq";
 import Footer from "@/sections/Footer";
@@ -40,7 +42,9 @@ export default function Home() {
         <WhereWeRun eyebrow="02 · Where it runs" />
         <ThreeJobs eyebrow="03 · What it does" />
         <MemberExperience eyebrow="04 · What your member sees" />
-        <GoLive eyebrow="05 · Going live" />
+        <VoiceAgent eyebrow="05 · Voice calls" />
+        <TestedDaily eyebrow="06 · Tested every day" />
+        <GoLive eyebrow="07 · Going live" />
         <Faq eyebrow="Questions" limit={4} moreHref="/platform#faq" />
         <Footer />
       </main>

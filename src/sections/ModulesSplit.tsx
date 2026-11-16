@@ -79,11 +79,10 @@ const MODULES: Module[] = [
       "WhatsApp",
       "Email",
       "Per-tenant routing",
-      // 🔴 Voice, SMS and web are NOT built. `gooclaim-gateway/CLAUDE.md`:
-      // "Channels: WhatsApp WABA only (no voice, no SMS)". Naming them as
-      // capabilities of a layer that ships is the same overclaim the use-case
-      // pages carried; naming them as next is true and sells the same point.
-      "Voice · SMS · Web — next",
+      // Voice calls are built and offered in early access (not live with a
+      // customer yet). SMS is next. There is no web chat channel — never "Web".
+      "Voice calls — early access",
+      "SMS — next",
     ],
     solves: "Channel fragmentation — customer on WhatsApp, agent on portal, no unified view.",
     hue: "#0d99ff",
@@ -141,7 +140,7 @@ const MODULES: Module[] = [
     key: "outbound",
     tag: "Outbound layer",
     name: "Outbound Engine",
-    line: "WhatsApp and email — pre-approved wording only.",
+    line: "Messaging tools and email — pre-approved wording only.",
     body: "Sends only pre-approved messages on the channel your customer prefers. One template, every channel — rollback in a click.",
     capabilities: [
       "Channel-aware templates",

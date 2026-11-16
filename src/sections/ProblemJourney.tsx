@@ -84,6 +84,7 @@ const HEALTH_WORKFLOWS = [
   "Pending documents, asked and reminded",
   "Query reasons, in the insurer's own words",
   "Insurance questions, from your knowledge library",
+  "Cashless and pre-authorisation status, against the clock",
 ];
 /** The fifth names India's regulator on the India page only. */
 const COMPLAINTS = { global: "Complaints, with their own deadlines", in: "Complaints, on the IRDAI clock" };

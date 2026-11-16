@@ -23,7 +23,7 @@ export const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Which channels and languages work today?",
-    a: "WhatsApp and email today, in English, Hindi and Hinglish. A member writes in their own words; the reply comes back in their language.",
+    a: "Messaging tools and email today, in English, Hindi and Hinglish. A member writes in their own words; the reply comes back in their language. Voice calls are in early access, and SMS is next.",
   },
   {
     q: "Who can see our members' data?",
