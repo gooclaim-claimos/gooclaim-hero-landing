@@ -23,13 +23,12 @@ const CATEGORIES = [
     hue: "#10b981",
   },
   {
-    // 🔴 Was "Voice-ready · 1× · ASR · TTS · IVR · WebRTC". None of that
-    // stack exists — `gooclaim-gateway/CLAUDE.md`: "WhatsApp WABA only
-    // (no voice, no SMS)". What IS true is the inbound-channel contract a new
-    // adapter plugs into, which is the real claim worth making.
+    // Voice calls are built (gooclaim-voice) and offered in early access — not
+    // live with a customer yet, so "early access", never "live". SMS is next.
+    // There is no web chat channel (founder decision, Nov 2026): never list "Web".
     label: "More channels",
-    count: "next",
-    examples: "Voice · SMS · Web — one inbound contract",
+    count: "early access",
+    examples: "Voice calls in early access · SMS next — one inbound contract",
     hue: "#f59e0b",
   },
 ];

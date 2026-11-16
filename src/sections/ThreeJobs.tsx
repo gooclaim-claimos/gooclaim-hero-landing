@@ -42,7 +42,7 @@ const JOBS: Job[] = [
   {
     who: "For your members",
     title: "Answers, not a helpline number.",
-    body: "Status, pending documents and decisions on WhatsApp and email — in the member's language, with the source and date.",
+    body: "Status, pending documents and decisions on messaging tools and email, and by voice call in early access — in the member's language, with the source and date.",
     points: ["Consent and OTP first", "Approved messages only", "Secure document upload"],
     cta: "How it works",
     to: "/platform",
@@ -63,7 +63,7 @@ const JOBS: Job[] = [
     who: "For compliance",
     title: "Every claim, on the record.",
     body: "IRDAI clocks on every claim, complaints with their own deadlines, the NL-48 report from the record, and an append-only audit trail.",
-    points: ["IRDAI + DPDP by design", "Strict per-tenant isolation", "NL-48 TAT report"],
+    points: ["IRDAI + DPDP by design", "Strict per-tenant isolation", "Tested every day, on every channel"],
     cta: "Security & compliance",
     to: "/security",
     hue: "#f59e0b",
@@ -188,7 +188,7 @@ const NEUTRAL: Record<string, Partial<Job>> = {
   "For your team": { points: ["Work Pulse with regulator clocks", "Live Claim Brief", "Next Safe Step"] },
   "For compliance": {
     body: "The regulator's clocks on every claim, complaints with their own deadlines, turnaround reports from the record, and an append-only audit trail.",
-    points: ["Consent and data protection by design", "Strict per-tenant isolation", "Turnaround reports"],
+    points: ["Consent and data protection by design", "Strict per-tenant isolation", "Tested every day, on every channel"],
   },
 };
 

@@ -40,7 +40,7 @@ export const MODULES: ModuleData[] = [
       </>
     ),
     heroIntro:
-      "Claim messages come in on WhatsApp or email today, with voice, SMS and web next. Channel Gateway receives all of them, normalises them into a single conversation thread, and routes each one to the right tenant — secure, audited, ready out of the box.",
+      "Claim messages come in on messaging tools and email today, with voice calls in early access and SMS next. Channel Gateway receives all of them, normalises them into a single conversation thread, and routes each one to the right tenant — secure, audited, ready out of the box.",
     capabilities: [
       {
         title: "WhatsApp",
@@ -48,8 +48,8 @@ export const MODULES: ModuleData[] = [
         hue: "#10b981",
       },
       {
-        title: "Voice · SMS · Web — next",
-        body: "Not live yet. They arrive as new adapters on the same inbound contract, so a new channel is a connector and approved wording — not a second platform beside this one.",
+        title: "Voice calls — early access",
+        body: "A member can call and talk to an agent that confirms who they are and answers from their own claim, in their language. SMS comes next, as a new adapter on the same inbound contract — not a second platform beside this one.",
         hue: "#0d99ff",
       },
       {
