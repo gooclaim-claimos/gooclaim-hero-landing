@@ -228,6 +228,29 @@ export default function HeroMeshGrid({ market = "global" }: { market?: Market } 
               </CTA>
             )}
           </motion.div>
+
+          {/* Hospitals are not a buyer today (the hospital tenant is not built), so
+              they get a way in, not a place in the headline. The page says plainly
+              that the TPA or insurer buys Gooclaim OS. When a hospital becomes a
+              tenant, this line and that page change together. */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
+            className="mt-4 flex justify-center"
+          >
+            <Link
+              to="/use-cases/hospitals"
+              className="group inline-flex min-h-[44px] items-center gap-1.5 rounded-full px-3 text-[13px] text-white/55 transition-colors duration-200 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/70"
+            >
+              <span>
+                Hospitals: <span className="text-white/75 group-hover:text-white">see what changes for your desk</span>
+              </span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-0.5">
+                <path d="M5 12h14" /><path d="M13 6l6 6-6 6" />
+              </svg>
+            </Link>
+          </motion.div>
         </div>
 
         {/* Compliance badges row */}
