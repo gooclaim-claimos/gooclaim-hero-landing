@@ -6,6 +6,7 @@ import { SEO_SECURITY } from "@/lib/seo";
 import { breadcrumbJsonLd } from "@/lib/structured";
 import SecurityTrust from "@/sections/SecurityTrust";
 import OnEveryClaim from "@/sections/OnEveryClaim";
+import SecurityReview from "@/sections/SecurityReview";
 
 export default function Security() {
   return (
@@ -32,6 +33,7 @@ export default function Security() {
       />
       <SecurityTrust eyebrow="01 · Security & data" />
       <OnEveryClaim eyebrow="02 · On every claim" />
+      <SecurityReview />
       <CtaBand source="security-close" next={{ label: "Explore the platform", to: "/platform" }} />
     </PageShell>
   );
