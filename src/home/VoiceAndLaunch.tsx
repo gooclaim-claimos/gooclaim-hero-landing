@@ -88,7 +88,7 @@ export function Walkthrough() {
         <div style={{ position: "relative" }}>
           <h2 style={{ margin: 0, fontSize: "clamp(34px, 4.6vw, 60px)", lineHeight: 1.05, fontWeight: 500, letterSpacing: "-0.035em" }}>Start with a walkthrough.</h2>
           <p style={{ margin: "16px auto 0", fontSize: 18, color: "#D6D3D1", maxWidth: 540 }}>20 minutes. Your workflow first, on a sample claims system. No slides.</p>
-          <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginTop: 32 }}>
+          <div className="gc-cta-row" style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginTop: 32 }}>
             <button type="button" onClick={() => openWaitlist("home-walkthrough")} style={{ padding: "14px 26px", borderRadius: 999, border: "none", background: "#FAFAF9", color: "#0C0A09", fontWeight: 500 }}>Book a walkthrough</button>
             <Link to="/call" style={{ padding: "14px 26px", borderRadius: 999, border: "1px solid rgba(250,250,249,.35)", fontWeight: 500 }}>Try a 30-second call</Link>
           </div>

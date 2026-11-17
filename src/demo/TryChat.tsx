@@ -15,7 +15,7 @@ export default function TryChat({ chat }: { chat: Chat }) {
   }, [chat.msgs, chat.typing]);
 
   return (
-    <div style={{ maxWidth: 560, margin: "0 auto", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 24, boxShadow: t.cardShadow, overflow: "hidden", display: "flex", flexDirection: "column", height: 640 }}>
+    <div className="gc-chat-box" style={{ maxWidth: 560, margin: "0 auto", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 24, boxShadow: t.cardShadow, overflow: "hidden", display: "flex", flexDirection: "column", height: 640 }}>
       <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "14px 18px", borderBottom: `1px solid ${t.border}` }}>
         <span style={{ width: 38, height: 38, borderRadius: 999, background: t.brandSoft, color: t.brand, display: "flex", alignItems: "center", justifyContent: "center" }}>
           <Logo size={22} />
@@ -74,7 +74,7 @@ export default function TryChat({ chat }: { chat: Chat }) {
             }
           }}
           placeholder={chat.placeholder}
-          style={{ flex: 1, minWidth: 0, height: 46, padding: "0 16px", borderRadius: 12, border: `1px solid ${t.border}`, background: t.surface2, color: t.text, font: "inherit", fontSize: 15, outline: "none" }}
+          style={{ flex: 1, minWidth: 0, height: 46, padding: "0 16px", borderRadius: 12, border: `1px solid ${t.border}`, background: t.surface2, color: t.text, font: "inherit", fontSize: 16, outline: "none" }}
         />
         <button type="button" onClick={() => chat.send(chat.draft)} aria-label="Send" style={{ width: 46, height: 46, borderRadius: 12, border: "none", background: t.btnBg, color: t.btnText, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>

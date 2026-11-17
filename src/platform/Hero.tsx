@@ -21,7 +21,7 @@ export function PlatformHero() {
         <p style={{ margin: "20px 0 0", fontSize: 18, color: t.text2, maxWidth: 640 }}>
           Gooclaim OS is a Claim OS — a multi-agent system that reads any claims system, answers on any channel, and checks every word against your record before it leaves.
         </p>
-        <div style={{ display: "flex", gap: 12, marginTop: 28, flexWrap: "wrap" }}>
+        <div className="gc-cta-row" style={{ display: "flex", gap: 12, marginTop: 28, flexWrap: "wrap" }}>
           <button type="button" onClick={() => openWaitlist("platform-hero")} style={{ padding: "14px 26px", borderRadius: 999, border: "none", background: t.btnBg, color: t.btnText, font: "inherit", fontWeight: 500, cursor: "pointer" }}>
             Book a walkthrough
           </button>

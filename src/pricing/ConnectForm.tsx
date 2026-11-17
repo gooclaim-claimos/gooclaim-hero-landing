@@ -17,7 +17,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 type Phase = { phase: "idle" } | { phase: "submitting" } | { phase: "sent" } | { phase: "error"; message: string };
 type Field = "name" | "work_email" | "company";
 
-const input = { width: "100%", height: 44, padding: "0 14px", borderRadius: 10, border: `1px solid ${t.border}`, background: t.surface2, color: t.text, font: "inherit", fontSize: 15 } as const;
+const input = { width: "100%", height: 44, padding: "0 14px", borderRadius: 10, border: `1px solid ${t.border}`, background: t.surface2, color: t.text, font: "inherit", fontSize: 16 } as const;
 const labelStyle = { display: "block", fontSize: 13, fontWeight: 500, marginBottom: 6 } as const;
 
 function FieldError({ id, text }: { id: string; text?: string }) {

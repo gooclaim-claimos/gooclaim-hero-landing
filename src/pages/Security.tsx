@@ -56,7 +56,7 @@ export default function Security() {
             <p style={{ margin: "20px auto 0", fontSize: 18, color: t.text2, maxWidth: 680 }}>
               Consent, verification, encryption, masking and an audit trail on every claim — designed around what insurance regulators and data-protection law expect, not bolted on after.
             </p>
-            <div style={{ display: "flex", gap: 12, marginTop: 28, flexWrap: "wrap", justifyContent: "center" }}>
+            <div className="gc-cta-row" style={{ display: "flex", gap: 12, marginTop: 28, flexWrap: "wrap", justifyContent: "center" }}>
               <button type="button" onClick={requestSecurityDetails} style={{ ...pill, border: "none", background: t.btnBg, color: t.btnText }}>Request security details</button>
               <button type="button" onClick={() => openWaitlist("security-hero")} style={{ ...pill, border: `1px solid ${t.border}`, background: t.surface, color: t.text }}>Book a walkthrough</button>
             </div>
