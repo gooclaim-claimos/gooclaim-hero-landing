@@ -23,7 +23,7 @@ export function OrionHero() {
           <p style={{ margin: "20px 0 0", fontSize: 18, color: t.text2, maxWidth: 540 }}>
             Orion works beside your claims staff. It reads every claim, shows what needs a person and why, and prepares the next safe step with its evidence. Your team decides — Orion never does.
           </p>
-          <div style={{ display: "flex", gap: 12, marginTop: 28, flexWrap: "wrap" }}>
+          <div className="gc-cta-row" style={{ display: "flex", gap: 12, marginTop: 28, flexWrap: "wrap" }}>
             <button type="button" onClick={() => openWaitlist("orion-hero")} style={{ padding: "14px 26px", borderRadius: 999, border: "none", background: t.btnBg, color: t.btnText, font: "inherit", fontWeight: 500, cursor: "pointer" }}>
               Book a walkthrough
             </button>

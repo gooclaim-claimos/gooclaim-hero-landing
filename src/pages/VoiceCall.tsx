@@ -143,7 +143,7 @@ export default function VoiceCall() {
           <div style={{ borderRadius: 32, padding: "clamp(36px, 6vw, 72px)", background: t.ctaBg, color: "#FAFAF9", textAlign: "center" }}>
             <h2 style={{ margin: 0, fontSize: "clamp(28px, 3.6vw, 46px)", fontWeight: 500, letterSpacing: "-0.045em" }}>Put this voice on your helpline.</h2>
             <p style={{ margin: "12px auto 0", color: "#D6D3D1", maxWidth: 520 }}>A 20-minute walkthrough — your workflow first, on a sample claims system. No slides.</p>
-            <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap", marginTop: 26 }}>
+            <div className="gc-cta-row" style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap", marginTop: 26 }}>
               <button type="button" onClick={() => openWaitlist("call-cta")} style={{ padding: "14px 26px", borderRadius: 999, border: "none", background: "#FAFAF9", color: "#0C0A09", font: "inherit", fontWeight: 500, cursor: "pointer" }}>
                 Book a walkthrough
               </button>

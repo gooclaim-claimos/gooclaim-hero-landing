@@ -31,8 +31,9 @@ export default function Hero() {
 
       <div style={{ position: "relative", maxWidth: 1080, margin: "0 auto", padding: "clamp(52px, 7.22vw, 104px) 24px 56px", textAlign: "center" }}>
         <div style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "6px 6px 6px 14px", border: `1px solid ${t.glassLine}`, borderRadius: 999, background: t.glass, backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", fontSize: 13, color: t.text2 }}>
-          <span>The Claim OS for TPAs &amp; insurers</span>
-          <Link to="/call" style={{ padding: "3px 10px", borderRadius: 999, background: t.btnBg, color: t.btnText, fontSize: 12, fontWeight: 500 }}>New · Voice agent →</Link>
+          <span className="gc-wide-text">The Claim OS for TPAs &amp; insurers</span>
+          <span className="gc-narrow-text" style={{ whiteSpace: "nowrap" }}>For TPAs &amp; insurers</span>
+          <Link to="/call" style={{ padding: "3px 10px", borderRadius: 999, background: t.btnBg, color: t.btnText, fontSize: 12, fontWeight: 500, whiteSpace: "nowrap" }}>New · Voice agent →</Link>
         </div>
         <h1 style={{ margin: "28px auto 0", fontSize: "clamp(46px, 6.8vw, 96px)", lineHeight: 0.98, fontWeight: 500, letterSpacing: "-0.055em" }}>
           Built for every claim.
@@ -40,7 +41,7 @@ export default function Hero() {
           <span style={{ backgroundImage: t.brandGrad, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>Every channel. Every CMS.</span>
         </h1>
         <p style={{ margin: "26px auto 0", fontSize: 19, color: t.text2, maxWidth: 600 }}>Claims don’t get stuck at the decision. They get stuck between the steps. Gooclaim OS keeps every claim moving — and every clock in sight.</p>
-        <div style={{ display: "flex", gap: 12, marginTop: 34, flexWrap: "wrap", justifyContent: "center" }}>
+        <div className="gc-cta-row" style={{ display: "flex", gap: 12, marginTop: 34, flexWrap: "wrap", justifyContent: "center" }}>
           <a href="#walkthrough" style={{ display: "inline-flex", alignItems: "center", height: 52, padding: "0 26px", borderRadius: 999, background: t.btnBg, color: t.btnText, fontWeight: 500, boxShadow: "0 10px 30px rgba(12,10,9,.16)" }}>Book a walkthrough</a>
           <Link to="/call" style={{ display: "inline-flex", alignItems: "center", gap: 10, height: 52, padding: "0 22px", borderRadius: 999, border: `1px solid ${t.glassLine}`, background: t.glassStrong, backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", fontWeight: 500 }}>
             <span style={{ width: 26, height: 26, borderRadius: 999, background: "linear-gradient(135deg, #2563EB, #0891B2)", color: "#fff", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>

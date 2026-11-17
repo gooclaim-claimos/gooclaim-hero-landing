@@ -75,7 +75,7 @@ export default function Demo() {
             <p style={{ margin: "18px 0 0", fontSize: 18, color: t.text2, maxWidth: 580 }}>
               No deck. Tell us the workflow that costs your team the most, and we&rsquo;ll run it first, on a sample claims system — then show how a 90-day pilot on your own claims would work.
             </p>
-            <div style={{ marginTop: 28, display: "flex", flexWrap: "wrap", gap: 12 }}>
+            <div className="gc-cta-row" style={{ marginTop: 28, display: "flex", flexWrap: "wrap", gap: 12 }}>
               <Pill onClick={() => openWaitlist("demo-hero")}>Book a walkthrough</Pill>
               <Pill variant="secondary" href="mailto:contact@gooclaim.com">contact@gooclaim.com</Pill>
             </div>
