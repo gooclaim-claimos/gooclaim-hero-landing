@@ -15,7 +15,7 @@ export default function LegalLayout({ eyebrow, title, updated, children }: Props
     <LegacyPage>
       <article style={{ position: "relative", overflow: "hidden" }}>
         <div aria-hidden="true" style={{ position: "absolute", width: 700, height: 700, left: "50%", top: -460, marginLeft: -350, borderRadius: 999, background: t.glow, pointerEvents: "none" }} />
-        <div style={{ position: "relative", maxWidth: 760, margin: "0 auto", padding: "88px 24px 112px" }}>
+        <div style={{ position: "relative", maxWidth: 760, margin: "0 auto", padding: "clamp(44px, 6.11vw, 88px) 24px clamp(56px, 7.78vw, 112px)" }}>
           <Eyebrow>{eyebrow}</Eyebrow>
           <h1 style={{ margin: "14px 0 0", fontSize: "clamp(36px, 5vw, 60px)", lineHeight: 1.04, fontWeight: 600, letterSpacing: "-0.045em" }}>{title}</h1>
           <p style={{ margin: "16px 0 0", fontFamily: mono, fontSize: 12, letterSpacing: ".08em", textTransform: "uppercase", color: t.text3 }}>Last updated · {updated}</p>

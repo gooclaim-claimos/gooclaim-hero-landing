@@ -14,9 +14,9 @@ export const h2 = { margin: "16px 0 0", fontSize: "clamp(34px, 4.4vw, 56px)", li
 export function TrustStrip() {
   return (
     <section style={{ maxWidth: 1200, margin: "56px auto 0", padding: "0 24px" }}>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 32, flexWrap: "wrap", padding: "28px 36px", borderRadius: 999, border: `1px solid ${t.glassLine}`, background: t.glass, backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)" }}>
+      <div className="gc-trust" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 32, flexWrap: "wrap", padding: "28px 36px", borderRadius: 999, border: `1px solid ${t.glassLine}`, background: t.glass, backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)" }}>
         <div style={{ fontSize: 14, color: t.text2, maxWidth: 260 }}>Built in India, for the strictest claim clocks in the world.</div>
-        <div style={{ display: "flex", gap: 36, flexWrap: "wrap", fontSize: 19, fontWeight: 500, letterSpacing: "-0.02em", color: t.text3 }}>
+        <div className="gc-trust-items" style={{ display: "flex", gap: 36, flexWrap: "wrap", fontSize: 19, fontWeight: 500, letterSpacing: "-0.02em", color: t.text3 }}>
           <span>IRDAI clocks</span>
           <span>DPDP consent</span>
           <span>SHA-256 ledger</span>
@@ -31,7 +31,7 @@ export function TrustStrip() {
 
 export default function Problem() {
   return (
-    <section style={{ maxWidth: 1240, margin: "0 auto", padding: "120px 24px 40px" }}>
+    <section style={{ maxWidth: 1240, margin: "0 auto", padding: "clamp(60px, 8.33vw, 120px) 24px 40px" }}>
       <div style={eyebrow}>01 · THE PROBLEM</div>
       <h2 style={{ ...h2, maxWidth: 880 }}>
         A claim is decided by a system. <span style={{ color: t.text3 }}>It’s moved by people — and there aren’t enough of them.</span>

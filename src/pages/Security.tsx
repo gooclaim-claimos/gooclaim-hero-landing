@@ -42,7 +42,7 @@ export default function Security() {
       <div style={{ background: t.bg, color: t.text }}>
         <section style={{ position: "relative", overflow: "hidden" }}>
           <div aria-hidden="true" style={{ position: "absolute", inset: 0, backgroundImage: `radial-gradient(${t.dot} 1px, transparent 1.4px)`, backgroundSize: "22px 22px", WebkitMaskImage: "radial-gradient(55% 70% at 50% 0%, #000 20%, transparent 75%)", maskImage: "radial-gradient(55% 70% at 50% 0%, #000 20%, transparent 75%)" }} />
-          <div style={{ position: "relative", maxWidth: 1240, margin: "0 auto", padding: "88px 24px 56px", textAlign: "center" }}>
+          <div style={{ position: "relative", maxWidth: 1240, margin: "0 auto", padding: "clamp(44px, 6.11vw, 88px) 24px 56px", textAlign: "center" }}>
             <div style={{ display: "inline-flex", width: 64, height: 64, borderRadius: 18, background: t.amberSoft, color: t.amber, alignItems: "center", justifyContent: "center" }}>
               <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <rect x="5" y="11" width="14" height="10" rx="2" />
@@ -81,7 +81,7 @@ export default function Security() {
 
         <OnEveryClaim />
 
-        <section style={{ maxWidth: 1240, margin: "0 auto", padding: "96px 24px 112px" }}>
+        <section style={{ maxWidth: 1240, margin: "0 auto", padding: "clamp(48px, 6.67vw, 96px) 24px clamp(56px, 7.78vw, 112px)" }}>
           <div style={{ borderRadius: 28, padding: "clamp(36px, 6vw, 72px)", background: t.ctaBg, color: "#FAFAF9", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 28, flexWrap: "wrap" }}>
             <div style={{ maxWidth: 640 }}>
               <div style={{ fontFamily: mono, fontSize: 12, letterSpacing: ".08em", color: "#FCD34D" }}>SECURITY REVIEW</div>

@@ -13,7 +13,7 @@ interface Props {
 /** The closing band on Platform and Orion: always dark, light text. */
 export default function CtaBand({ bg, title, sub, source, secondary }: Props) {
   return (
-    <section style={{ maxWidth: 1240, margin: "0 auto", padding: "96px 24px 112px" }}>
+    <section style={{ maxWidth: 1240, margin: "0 auto", padding: "clamp(48px, 6.67vw, 96px) 24px clamp(56px, 7.78vw, 112px)" }}>
       <div style={{ borderRadius: 28, padding: "clamp(36px, 6vw, 72px)", background: bg, color: "#FAFAF9", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 28, flexWrap: "wrap" }}>
         <div>
           <h2 style={{ margin: 0, fontSize: "clamp(28px, 3.6vw, 44px)", fontWeight: 600, letterSpacing: "-0.04em" }}>{title}</h2>

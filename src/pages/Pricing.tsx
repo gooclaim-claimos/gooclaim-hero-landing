@@ -19,7 +19,7 @@ const FAQS: [string, string][] = [
 function Faq() {
   const [open, setOpen] = useState(0);
   return (
-    <section style={{ maxWidth: 880, margin: "0 auto", padding: "80px 24px 112px" }}>
+    <section style={{ maxWidth: 880, margin: "0 auto", padding: "clamp(40px, 5.56vw, 80px) 24px clamp(56px, 7.78vw, 112px)" }}>
       <h2 style={{ margin: 0, fontSize: "clamp(28px, 3.4vw, 42px)", fontWeight: 600, letterSpacing: "-0.04em", textAlign: "center" }}>
         The questions TPAs ask. <span style={{ color: t.text3 }}>Answered plainly.</span>
       </h2>
@@ -58,7 +58,7 @@ export default function Pricing() {
       <div style={{ background: t.bg, color: t.text }}>
         <section style={{ position: "relative", overflow: "hidden" }}>
           <div aria-hidden="true" style={{ position: "absolute", width: 700, height: 700, left: "50%", top: -420, marginLeft: -350, borderRadius: 999, background: t.glow }} />
-          <div style={{ position: "relative", maxWidth: 1240, margin: "0 auto", padding: "88px 24px 40px", textAlign: "center" }}>
+          <div style={{ position: "relative", maxWidth: 1240, margin: "0 auto", padding: "clamp(44px, 6.11vw, 88px) 24px 40px", textAlign: "center" }}>
             <div style={{ fontFamily: mono, fontSize: 12, letterSpacing: ".1em", color: t.brand }}>PRICING</div>
             <h1 style={{ margin: "14px auto 0", fontSize: "clamp(40px, 5.4vw, 72px)", lineHeight: 1.03, fontWeight: 600, letterSpacing: "-0.045em", maxWidth: 880 }}>
               A partnership, <span style={{ background: t.brandGrad, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>not a SKU.</span>
@@ -71,7 +71,7 @@ export default function Pricing() {
 
         <Modes />
 
-        <section id="connect" style={{ maxWidth: 1240, margin: "0 auto", padding: "80px 24px 40px", scrollMarginTop: 80 }}>
+        <section id="connect" style={{ maxWidth: 1240, margin: "0 auto", padding: "clamp(40px, 5.56vw, 80px) 24px 40px", scrollMarginTop: 80 }}>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 32, padding: "clamp(24px, 4vw, 48px)", borderRadius: 28, background: t.panel }}>
             <div style={{ flex: "1 1 340px", minWidth: 0 }}>
               <h2 style={{ margin: 0, fontSize: "clamp(30px, 3.6vw, 46px)", lineHeight: 1.08, fontWeight: 600, letterSpacing: "-0.04em" }}>Connect with us.</h2>

@@ -70,7 +70,7 @@ export default function TryIt() {
       <div style={{ background: t.bg, color: t.text, fontFamily: "Inter, 'Noto Sans Devanagari', system-ui, sans-serif", lineHeight: 1.5 }}>
         <section style={{ position: "relative", overflow: "hidden" }}>
           <div aria-hidden="true" style={{ position: "absolute", inset: 0, backgroundImage: `radial-gradient(${t.dot} 1px, transparent 1.4px)`, backgroundSize: "22px 22px", WebkitMaskImage: "radial-gradient(60% 80% at 50% 0%, #000 20%, transparent 75%)", maskImage: "radial-gradient(60% 80% at 50% 0%, #000 20%, transparent 75%)" }} />
-          <div style={{ position: "relative", maxWidth: 1240, margin: "0 auto", padding: "64px 24px 24px", textAlign: "center" }}>
+          <div style={{ position: "relative", maxWidth: 1240, margin: "0 auto", padding: "clamp(32px, 4.44vw, 64px) 24px 24px", textAlign: "center" }}>
             <div style={{ fontFamily: mono, fontSize: 12, letterSpacing: ".1em", color: t.brand }}>TRY GOOCLAIM OS · SAMPLE CLAIM</div>
             <h1 style={{ margin: "14px auto 0", fontSize: "clamp(36px, 4.8vw, 64px)", lineHeight: 1.04, fontWeight: 600, letterSpacing: "-0.045em", maxWidth: 900 }}>
               Message it. Call it. <span style={gradText}>Same claim, same record.</span>
@@ -102,7 +102,7 @@ export default function TryIt() {
           </div>
         </section>
 
-        <section style={{ maxWidth: 1240, margin: "0 auto", padding: "24px 24px 96px", display: "flex", flexWrap: "wrap", gap: 24, alignItems: "stretch" }}>
+        <section style={{ maxWidth: 1240, margin: "0 auto", padding: "24px 24px clamp(48px, 6.67vw, 96px)", display: "flex", flexWrap: "wrap", gap: 24, alignItems: "stretch" }}>
           <div style={{ flex: "1.5 1 560px", minWidth: 0, borderRadius: 28, padding: "clamp(14px, 3vw, 32px)", background: t.panel }}>
             {isChat ? <TryChat chat={chat} /> : <TryVoice voice={voice} lang={lang} setLang={setLang} />}
           </div>

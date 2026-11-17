@@ -69,7 +69,7 @@ function MembersChat() {
 
 export default function ThreeJobs() {
   return (
-    <section id="platform" style={{ maxWidth: 1240, margin: "0 auto", padding: "120px 24px 40px" }}>
+    <section id="platform" style={{ maxWidth: 1240, margin: "0 auto", padding: "clamp(60px, 8.33vw, 120px) 24px 40px" }}>
       <div style={eyebrow}>02 · WHAT IT DOES</div>
       <h2 style={h2}>
         One OS. <span style={{ color: t.text3 }}>Three jobs done.</span>

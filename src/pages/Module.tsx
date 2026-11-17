@@ -42,7 +42,7 @@ function ModuleBody({ data }: { data: ModuleData }) {
     <>
       <section style={{ position: "relative", overflow: "hidden" }}>
         <div aria-hidden="true" style={{ position: "absolute", width: 700, height: 700, left: "30%", top: -420, marginLeft: -350, borderRadius: 999, background: t.glow, pointerEvents: "none" }} />
-        <div style={{ position: "relative", maxWidth: 1240, margin: "0 auto", padding: "88px 24px 40px", display: "flex", flexWrap: "wrap", alignItems: "center", gap: 48 }}>
+        <div style={{ position: "relative", maxWidth: 1240, margin: "0 auto", padding: "clamp(44px, 6.11vw, 88px) 24px 40px", display: "flex", flexWrap: "wrap", alignItems: "center", gap: 48 }}>
           <div style={{ flex: "1 1 520px", minWidth: 0 }}>
             <Eyebrow>{data.eyebrow}</Eyebrow>
             <h1 style={{ margin: "14px 0 0", fontSize: "clamp(40px, 5.4vw, 72px)", lineHeight: 1.03, fontWeight: 600, letterSpacing: "-0.045em" }}>{data.heroTitle}</h1>

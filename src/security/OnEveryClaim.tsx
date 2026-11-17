@@ -81,7 +81,7 @@ function ReimbursementClock() {
 
 export default function OnEveryClaim() {
   return (
-    <section style={{ maxWidth: 1240, margin: "0 auto", padding: "96px 24px 40px" }}>
+    <section style={{ maxWidth: 1240, margin: "0 auto", padding: "clamp(48px, 6.67vw, 96px) 24px 40px" }}>
       <div style={{ fontFamily: mono, fontSize: 12, letterSpacing: ".08em", color: t.text3 }}>02 · ON EVERY CLAIM</div>
       <h2 style={{ margin: "14px 0 0", fontSize: "clamp(32px, 4.2vw, 54px)", lineHeight: 1.06, fontWeight: 600, letterSpacing: "-0.04em", maxWidth: 880 }}>
         Every answer, on the record. <span style={{ color: t.text3 }}>Every clock, running.</span>

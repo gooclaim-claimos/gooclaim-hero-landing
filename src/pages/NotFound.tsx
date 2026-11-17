@@ -31,7 +31,7 @@ export default function NotFound() {
         <meta name="robots" content="noindex" />
       </Helmet>
       <ThemeStyle css={css} />
-      <section style={{ maxWidth: 760, margin: "0 auto", padding: "120px 24px 140px", textAlign: "center", color: t.text }}>
+      <section style={{ maxWidth: 760, margin: "0 auto", padding: "clamp(60px, 8.33vw, 120px) 24px clamp(70px, 9.72vw, 140px)", textAlign: "center", color: t.text }}>
         <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, letterSpacing: ".1em", color: t.text3 }}>404 · PAGE NOT FOUND</div>
         <h1 style={{ margin: "16px 0 0", fontSize: "clamp(36px, 5vw, 60px)", lineHeight: 1.05, fontWeight: 600, letterSpacing: "-0.045em" }}>
           This page has moved on. <span style={{ background: t.brandGrad, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>Your claims don’t have to.</span>

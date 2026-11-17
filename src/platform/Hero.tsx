@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { openWaitlist } from "@/lib/waitlist";
 import { STATS } from "./data";
@@ -11,7 +12,7 @@ export function PlatformHero() {
   return (
     <section style={{ position: "relative", overflow: "hidden" }}>
       <div aria-hidden="true" style={{ position: "absolute", inset: 0, backgroundImage: `radial-gradient(${t.dot} 1px, transparent 1.4px)`, backgroundSize: "22px 22px", WebkitMaskImage: fade, maskImage: fade }} />
-      <div style={{ position: "relative", maxWidth: 1240, margin: "0 auto", padding: "80px 24px 56px" }}>
+      <div style={{ position: "relative", maxWidth: 1240, margin: "0 auto", padding: "clamp(40px, 5.56vw, 80px) 24px 56px" }}>
         <div style={{ fontFamily: mono, fontSize: 12, letterSpacing: ".1em", color: t.brand }}>THE PLATFORM</div>
         <h1 style={{ margin: "14px 0 0", fontSize: "clamp(40px, 5.4vw, 72px)", lineHeight: 1.03, fontWeight: 600, letterSpacing: "-0.045em", maxWidth: 960 }}>
           One agentic core.{" "}
@@ -43,6 +44,7 @@ export function PlatformHero() {
 }
 
 export function Connectors() {
+  const [allShown, setAllShown] = useState(false);
   return (
     <section style={{ borderTop: `1px solid ${t.border}`, borderBottom: `1px solid ${t.border}`, background: t.surface2 }}>
       <div style={{ maxWidth: 1240, margin: "0 auto", padding: "56px 24px" }}>
@@ -52,7 +54,7 @@ export function Connectors() {
           </h2>
           <span style={{ fontFamily: mono, fontSize: 12, color: t.text3 }}>AND MORE VIA CONNECTOR HUB</span>
         </div>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 28 }}>
+        <div className={allShown ? "gc-conn-wall gc-open" : "gc-conn-wall"} style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 28 }}>
           {ALL_CONNECTORS.map((c) => (
             <span key={c.id} style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "8px 14px", borderRadius: 10, border: `1px solid ${t.border}`, background: t.surface, fontSize: 13, fontWeight: 500, color: t.text2 }}>
               <ConnectorIcon c={c} size={18} />
@@ -60,6 +62,11 @@ export function Connectors() {
             </span>
           ))}
         </div>
+        {!allShown && (
+          <button type="button" className="gc-conn-more" onClick={() => setAllShown(true)} style={{ marginTop: 14, alignItems: "center", gap: 6, padding: "10px 16px", borderRadius: 999, border: `1px solid ${t.border}`, background: t.surface, color: t.text, font: "inherit", fontSize: 14, fontWeight: 500, cursor: "pointer" }}>
+            Show all {ALL_CONNECTORS.length} connectors
+          </button>
+        )}
       </div>
     </section>
   );
