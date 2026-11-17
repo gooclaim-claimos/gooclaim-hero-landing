@@ -12,6 +12,7 @@ import Demo from "./pages/Demo";
 import Solution from "./pages/Solution";
 import TryIt from "./pages/TryIt";
 import VoiceCall from "./pages/VoiceCall";
+import NotFound from "./pages/NotFound";
 import Module from "./pages/Module";
 import Platform from "./pages/Platform";
 import Orion from "./pages/Orion";
@@ -54,6 +55,7 @@ function AppRoutes() {
         <Route path="/solutions/:slug" element={<Solution />} />
         <Route path="/try" element={<TryIt />} />
         <Route path="/call" element={<VoiceCall />} />
+        <Route path="*" element={<NotFound />} />
         <Route path="/platform" element={<Platform />} />
         <Route path="/platform/:slug" element={<Module />} />
         <Route path="/orion" element={<Orion />} />

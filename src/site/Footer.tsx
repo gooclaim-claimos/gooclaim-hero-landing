@@ -23,7 +23,8 @@ interface FooterLink {
 const COLS: { title: string; links: FooterLink[] }[] = [
   { title: "PRODUCT", links: [{ label: "Platform overview", href: "/platform" }, { label: "Orion", href: "/orion" }, { label: "Try it live", href: "/try" }, { label: "Audit Ledger", href: "/platform/audit-ledger" }] },
   { title: "SOLUTIONS", links: [{ label: "TPAs", href: "/solutions/tpas" }, { label: "Insurers", href: "/solutions/insurers" }, { label: "Hospitals", href: "/solutions/hospitals" }, { label: "Health", href: "/solutions/health" }] },
-  { title: "RESOURCES", links: [{ label: "Security", href: "/security" }, { label: "Pricing", href: "/pricing" }, { label: "Gooclaim OS in India", href: "/in" }, { label: "Compliance in India", href: "/compliance" }] },
+  { title: "RESOURCES", links: [{ label: "Security", href: "/security" }, { label: "Pricing", href: "/pricing" }, { label: "Gooclaim OS in India", href: "/in" }] },
+  { title: "LEGAL", links: [{ label: "Privacy notice", href: "/privacy" }, { label: "Terms of service", href: "/terms" }, { label: "Compliance in India", href: "/compliance" }] },
   { title: "CONTACT", links: [{ label: "contact@gooclaim.com", href: "mailto:contact@gooclaim.com" }, { label: "security@gooclaim.com", href: "mailto:security@gooclaim.com" }, { label: "LinkedIn", href: LINKEDIN }] },
 ];
 
@@ -44,8 +45,8 @@ export default function Footer() {
   return (
     <footer style={{ borderTop: `1px solid ${t.border}`, background: t.bg, color: t.text, fontFamily: "Inter, system-ui, sans-serif" }}>
       <ThemeStyle css={css} />
-      <div style={{ maxWidth: 1240, margin: "0 auto", padding: "64px 24px 32px", display: "flex", flexWrap: "wrap", gap: 48 }}>
-        <div style={{ flex: "1 1 260px" }}>
+      <div style={{ maxWidth: 1240, margin: "0 auto", padding: "64px 24px 32px", display: "flex", flexWrap: "wrap", gap: 40 }}>
+        <div style={{ flex: "1 1 220px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10, fontWeight: 600, fontSize: 18, letterSpacing: "-0.02em" }}>
             <Logo size={24} />
             Gooclaim OS
@@ -57,7 +58,7 @@ export default function Footer() {
           </Link>
         </div>
         {COLS.map((c) => (
-          <div key={c.title} style={{ flex: "0 1 170px", display: "flex", flexDirection: "column", gap: 10, fontSize: 14 }}>
+          <div key={c.title} style={{ flex: "0 1 140px", display: "flex", flexDirection: "column", gap: 10, fontSize: 14 }}>
             <div style={{ fontFamily: mono, fontSize: 11, letterSpacing: ".08em", color: t.text3, marginBottom: 4 }}>{c.title}</div>
             {c.links.map((l) => (
               <FooterAnchor key={l.label} link={l} />
@@ -67,9 +68,7 @@ export default function Footer() {
       </div>
       <div style={{ maxWidth: 1240, margin: "0 auto", padding: "20px 24px 36px", borderTop: `1px solid ${t.border}`, display: "flex", justifyContent: "space-between", gap: 16, flexWrap: "wrap", fontSize: 13, color: t.text3 }}>
         <span>
-          © 2026 Gooclaim. All rights reserved. ·{" "}
-          <Link to="/privacy" style={{ color: t.text3 }}>Privacy</Link> ·{" "}
-          <Link to="/terms" style={{ color: t.text3 }}>Terms</Link>
+          © 2026 Gooclaim. All rights reserved.
         </span>
         <span>Regulator clocks on every claim · Consent before a word · Immutable audit ledger</span>
         <span>Agentic brain. Compliant mouth. Made in India.</span>
