@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import type { Autoplay } from "@/site/useAutoplay";
 import Logo from "@/site/Logo";
-import { useAutoplay, useSeen } from "@/site/useAutoplay";
 import { SAMPLE_QUEUE } from "@/data/sampleClaim";
 import { mono, t } from "./theme";
 
@@ -22,7 +22,6 @@ const STAGES: StageDef[] = [
   { who: "Member", status: "Member updated", clock: "CLOSED WITHIN THE CLOCK", left: "Done", leftSub: "on time", deg: 360, channel: "WHATSAPP", action: "Tells the member in their own language — with the source and date — and logs it on the audit ledger." },
 ];
 
-const STAGE_MS = 2800;
 
 /** The ring sweeps to its new angle instead of jumping (conic gradients cannot transition). */
 function useSweep(target: number): number {
@@ -48,17 +47,18 @@ function useSweep(target: number): number {
   return deg;
 }
 
+/** The hero's four claim steps; the tour that walks them is the Hero's (side cards follow it). */
+export const STAGE_COUNT = STAGES.length;
+
 /** The live claim in the hero: it walks its four steps by itself; click a step to take over. */
-export default function ClaimCard() {
-  const ref = useRef<HTMLDivElement>(null);
-  const tour = useAutoplay({ count: STAGES.length, stepMs: STAGE_MS, start: useSeen(ref), loop: true, initial: 0, rest: 1 });
+export default function ClaimCard({ tour }: { tour: Autoplay }) {
   const tab = tour.step;
   const stage = STAGES[tab];
   const ring = tab === 3 ? t.done : t.brand;
   const deg = useSweep(stage.deg);
 
   return (
-    <div ref={ref} style={{ flex: "0 1 520px", minWidth: 0, background: t.glassStrong, border: `1px solid ${t.glassLine}`, borderRadius: 26, boxShadow: t.cardShadow, padding: 24, textAlign: "left", backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)" }}>
+    <div style={{ flex: "0 1 520px", minWidth: 0, background: t.glassStrong, border: `1px solid ${t.glassLine}`, borderRadius: 26, boxShadow: t.cardShadow, padding: 24, textAlign: "left", backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <span style={{ position: "relative", width: 10, height: 10, borderRadius: 999, background: ring, boxShadow: `0 0 0 4px ${t.brandSoft}` }} />

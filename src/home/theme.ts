@@ -64,6 +64,7 @@ export const homeCss =
   `.gc-home button{font:inherit;cursor:pointer}` +
   `@media (max-width:860px){.gc-home .gc-hide-sm{display:none}}` +
   `@keyframes gcDrift{0%{transform:translate(0,0)}50%{transform:translate(40px,-24px)}100%{transform:translate(0,0)}}` +
-  `@keyframes gcBar{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}`;
+  `@keyframes gcBar{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}` +
+  `@keyframes gcFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}`;
 
 export const mono = "'JetBrains Mono', monospace";

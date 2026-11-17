@@ -29,7 +29,7 @@ export function prefersReducedMotion(): boolean {
   return typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-interface Autoplay {
+export interface Autoplay {
   /** The step on show. */
   step: number;
   /** Still advancing by itself. */

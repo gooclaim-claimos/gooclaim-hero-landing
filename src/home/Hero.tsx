@@ -1,23 +1,13 @@
-import { type CSSProperties } from "react";
+import { useRef, type CSSProperties } from "react";
 import { Link } from "react-router-dom";
-import ClaimCard from "./ClaimCard";
-import { mono, t } from "./theme";
-import { useSampleDates } from "./useSampleDates";
+import { useAutoplay, useSeen } from "@/site/useAutoplay";
+import ClaimCard, { STAGE_COUNT } from "./ClaimCard";
+import { LeftCards, RightCards } from "./HeroCards";
+import { t } from "./theme";
 
-const BARS: [number, string][] = [[12, "0s"], [22, "-.2s"], [28, "-.4s"], [16, "-.6s"], [24, "-.8s"], [14, "-.3s"], [26, "-.5s"], [18, "-.7s"]];
+const STAGE_MS = 2800;
+
 const TRUST = ["Regulator clocks on every claim", "Consent before a word", "Immutable audit ledger"];
-
-const floatCard = (rotate: string): CSSProperties => ({
-  padding: 16,
-  borderRadius: 20,
-  background: t.glassStrong,
-  border: `1px solid ${t.glassLine}`,
-  backdropFilter: "blur(16px)",
-  WebkitBackdropFilter: "blur(16px)",
-  boxShadow: t.floatShadow,
-  textAlign: "left",
-  transform: `rotate(${rotate})`,
-});
 
 const blob = (style: CSSProperties): CSSProperties => ({ position: "absolute", borderRadius: 999, ...style });
 
@@ -29,68 +19,11 @@ function Check({ size, stroke, width }: { size: number; stroke: string; width: s
   );
 }
 
-function LeftCards() {
-  const dates = useSampleDates();
-  return (
-    <div className="gc-hide-sm" style={{ flex: "0 1 250px", display: "flex", flexDirection: "column", gap: 16 }}>
-      <div style={floatCard("-2deg")}>
-        <div style={{ display: "flex", justifyContent: "space-between", fontFamily: mono, fontSize: 10, color: t.text3 }}>
-          <span>WHATSAPP · MEMBER</span>
-          <span>09:14</span>
-        </div>
-        <div style={{ marginTop: 10, padding: "9px 12px", borderRadius: "14px 14px 4px 14px", background: t.btnBg, color: t.btnText, fontSize: 13, marginLeft: 18 }}>Mera claim kahan tak pahuncha?</div>
-        <div style={{ marginTop: 8, padding: "9px 12px", borderRadius: "14px 14px 14px 4px", background: t.surface2, fontSize: 13, marginRight: 18 }}>
-          Documents pending — discharge summary. Source: insurer{dates ? `, ${dates.updated}` : ""}.
-        </div>
-      </div>
-      <div style={floatCard("1.5deg")}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <span style={{ fontFamily: mono, fontSize: 10, color: t.text3 }}>VOICE · HINDI</span>
-          <span style={{ fontFamily: mono, fontSize: 10, color: t.green }}>● LIVE 0:42</span>
-        </div>
-        <div aria-hidden="true" style={{ display: "flex", alignItems: "center", gap: 3, height: 30, marginTop: 10 }}>
-          {BARS.map(([h, delay], i) => (
-            <span key={i} style={{ width: 3, height: h, borderRadius: 3, background: t.brand, animation: "gcBar 1s ease-in-out infinite", animationDelay: delay }} />
-          ))}
-        </div>
-        <div lang="hi" style={{ fontSize: 13, marginTop: 8 }}>“दो दस्तावेज़ बाकी हैं — डिस्चार्ज समरी और फ़ाइनल बिल।”</div>
-      </div>
-    </div>
-  );
-}
-
-function RightCards() {
-  return (
-    <div className="gc-hide-sm" style={{ flex: "0 1 250px", display: "flex", flexDirection: "column", gap: 16 }}>
-      <div style={floatCard("2deg")}>
-        <div style={{ fontFamily: mono, fontSize: 10, color: t.text3 }}>POLICY GATE</div>
-        <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 10 }}>
-          <span style={{ width: 30, height: 30, borderRadius: 999, background: t.greenSoft, color: t.green, display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <Check size={15} stroke="currentColor" width="2.6" />
-          </span>
-          <div>
-            <div style={{ fontSize: 14, fontWeight: 600 }}>4 of 4 values matched</div>
-            <div style={{ fontSize: 12, color: t.text2 }}>Approved wording · sent</div>
-          </div>
-        </div>
-      </div>
-      <div style={floatCard("-1.5deg")}>
-        <div style={{ fontFamily: mono, fontSize: 10, color: t.text3 }}>AUDIT LEDGER</div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 6, marginTop: 10, fontFamily: mono, fontSize: 11 }}>
-          {[["consent.granted", "14:22:01"], ["cms.read", "14:22:04"], ["message.sent", "14:22:08"]].map(([ev, at]) => (
-            <div key={ev} style={{ display: "flex", justifyContent: "space-between" }}>
-              <span>{ev}</span>
-              <span style={{ color: t.text3 }}>{at}</span>
-            </div>
-          ))}
-        </div>
-        <div style={{ marginTop: 8, fontSize: 11, color: t.amber }}>Sealed · SHA-256 chained</div>
-      </div>
-    </div>
-  );
-}
-
 export default function Hero() {
+  const stage = useRef<HTMLDivElement>(null);
+  // One tour for the whole stage: the claim card and the cards around it move together.
+  const tour = useAutoplay({ count: STAGE_COUNT, stepMs: STAGE_MS, start: useSeen(stage), loop: true, initial: 0, rest: STAGE_COUNT - 1 });
+
   return (
     <section id="top" style={{ position: "relative", overflow: "hidden" }}>
       <div aria-hidden="true" style={blob({ width: 720, height: 720, left: -260, top: -320, background: t.meshA, animation: "gcDrift 16s ease-in-out infinite" })} />
@@ -126,10 +59,10 @@ export default function Hero() {
           <div aria-hidden="true" style={blob({ width: 560, height: 560, left: -120, bottom: -260, background: t.meshA, animation: "gcDrift 14s ease-in-out infinite" })} />
           <div aria-hidden="true" style={blob({ width: 520, height: 520, right: -140, top: -220, background: t.meshB, animation: "gcDrift 18s ease-in-out infinite reverse" })} />
           <div aria-hidden="true" style={blob({ width: 360, height: 360, left: "40%", top: "30%", background: t.meshC })} />
-          <div style={{ position: "relative", display: "flex", flexWrap: "wrap", gap: 24, alignItems: "center", justifyContent: "center" }}>
-            <LeftCards />
-            <ClaimCard />
-            <RightCards />
+          <div ref={stage} style={{ position: "relative", display: "flex", flexWrap: "wrap", gap: 24, alignItems: "center", justifyContent: "center" }}>
+            <LeftCards step={tour.step} playing={tour.playing} />
+            <ClaimCard tour={tour} />
+            <RightCards step={tour.step} />
           </div>
         </div>
       </div>
