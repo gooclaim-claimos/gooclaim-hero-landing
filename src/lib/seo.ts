@@ -105,7 +105,7 @@ export const SEO_SECURITY: PageSEO = {
 
 export function buildUseCaseSEO(slug: string, label: string): PageSEO {
   return {
-    title: `${label} · Use cases · Gooclaim OS`,
+    title: `${label} · Solutions · Gooclaim OS`,
     description: `Gooclaim OS for ${label}. The agentic claims operating system built for TPAs and insurers to handle ${label.toLowerCase()} workflows end-to-end — multi-channel, audit-grade, compliant by design.`,
     keywords: `Gooclaim OS ${label}, ${label} insurance AI, claims automation ${label}`,
     ogImage: `/og-default.png`,

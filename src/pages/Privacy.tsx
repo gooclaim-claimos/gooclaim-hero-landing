@@ -1,10 +1,10 @@
-import LegalShell from "@/components/LegalShell";
+import LegalLayout from "@/legacy/LegalLayout";
 import SEOHead from "@/components/SEOHead";
 import { SEO_PRIVACY } from "@/lib/seo";
 
 export default function Privacy() {
   return (
-    <LegalShell eyebrow="Legal · Privacy" title="Privacy Notice" updated="30 Oct 2026">
+    <LegalLayout eyebrow="Legal · Privacy" title="Privacy Notice" updated="30 Oct 2026">
       <SEOHead seo={SEO_PRIVACY} path="/privacy" />
       <p>
         Gooclaim OS is a Claim OS used by insurers and third-party
@@ -333,6 +333,6 @@ export default function Privacy() {
         the DPDP Rules allow. If you are not satisfied, you may complain to
         the Data Protection Board of India.
       </p>
-    </LegalShell>
+    </LegalLayout>
   );
 }

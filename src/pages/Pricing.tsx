@@ -1,138 +1,51 @@
-import { useEffect } from "react";
-import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
-import PageShell from "@/components/PageShell";
+import { useState } from "react";
+import SiteLayout from "@/site/SiteLayout";
 import SEOHead from "@/components/SEOHead";
+import { ThemeStyle } from "@/theme/ThemeProvider";
 import { SEO_PRICING } from "@/lib/seo";
 import { breadcrumbJsonLd } from "@/lib/structured";
-import { fadeUp, stagger, viewportOnce } from "@/lib/motion";
-import { openWaitlist } from "@/lib/waitlist";
+import Modes from "@/pricing/Modes";
+import ConnectForm from "@/pricing/ConnectForm";
+import { css, mono, t } from "@/pricing/theme";
 
-interface Mode {
-  badge: string;
-  name: string;
-  hue: string;
-  blurb: string;
-  includes: string[];
-  fit: string;
-}
-
-const MODES: Mode[] = [
-  {
-    badge: "Mode 01",
-    name: "Pilot",
-    hue: "#0d99ff",
-    blurb:
-      "A 90-day pilot with one workflow on one channel, on your own claims. We agree the success measures with your team on day one, and check them every three weeks.",
-    includes: [
-      "1 workflow · 1 channel · 1 tenant",
-      "Truth-layer connector to your CMS",
-      "WhatsApp approved templates, or email",
-      "Per-tenant audit ledger",
-      "Weekly success readout",
-    ],
-    fit: "TPAs and insurers evaluating Gooclaim OS against a specific operational pain.",
-  },
-  {
-    badge: "Mode 02",
-    name: "Production",
-    hue: "#10b981",
-    blurb:
-      "Annual engagement covering multiple workflows, all live channels, regulator-grade SLAs and support hours agreed in the contract. Pricing scales with tenant volume.",
-    includes: [
-      "Every live workflow and channel",
-      "Production SLAs · regulator clock tracking",
-      "Per-tenant dashboards + regulator reports",
-      "A named contact on our team",
-      "Quarterly architecture review",
-    ],
-    fit: "TPAs and insurers running claims ops at scale and ready to standardize on Gooclaim OS.",
-  },
-  {
-    badge: "Mode 03",
-    name: "Enterprise",
-    hue: "#7c3aed",
-    blurb:
-      "Multi-tenant deployment with a custom security review and, on request, dedicated infrastructure and named architects. For groups running claims across several TPAs or lines of insurance.",
-    includes: [
-      "Custom workflow suite",
-      "Dedicated infrastructure or region, on request",
-      "Custom security review · DPO sync",
-      "Named architects and on-call, on request",
-      "Roadmap influence",
-    ],
-    fit: "Insurance groups, large TPAs and multi-line carriers.",
-  },
+const FAQS: [string, string][] = [
+  ["Do we have to replace our claims system?", "No. Gooclaim OS reads from the claims system you already run — by API, a secure file drop or a batch upload — and never writes back to it. Your system stays the source of truth."],
+  ["Does the AI write messages to our members?", "Members only ever receive wording your team approved, in their language. Every value in a message is matched to your record before it leaves — free text never reaches a member."],
+  ["What happens when the AI isn’t sure?", "It says so and hands the case to your team with the reason. It never guesses."],
+  ["Which channels and languages work today?", "Messaging tools and email today, with voice calls in early access and SMS next. Members are answered in English, Hindi and Hinglish."],
+  ["Is it only for health insurance?", "We started with health, where the clock is strictest. Motor and life have the same moments — talk to us if you run another line."],
 ];
 
-/**
- * What decides the price, shown where the price would normally be.
- *
- * A page whose fold is a headline and two buttons leaves the visitor's actual
- * question unanswered — not "what does it cost", which no honest page here can
- * answer yet, but "how will I be charged". These four dimensions already
- * explain the no-price-card section further down; promoted to the fold they
- * give it something concrete to hold.
- */
-const BASIS: { k: string; v: string; hue: string }[] = [
-  { k: "Volume", v: "Claims a year, not seats", hue: "#0d99ff" },
-  { k: "Channels", v: "Messaging tools · email · voice (early access)", hue: "#7dc4ff" },
-  { k: "Lines", v: "Started with health", hue: "#f59e0b" },
-  { k: "SLA", v: "1 hour · 3 hours · 15 days", hue: "#10b981" },
-];
-
-function PricingBasis() {
+function Faq() {
+  const [open, setOpen] = useState(0);
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-      className="rounded-3xl border border-white/[0.09] bg-white/[0.02] p-6 backdrop-blur-sm sm:p-7"
-    >
-      <div className="font-display text-[10px] uppercase tracking-wider2 text-white/40">
-        What your price depends on
+    <section style={{ maxWidth: 880, margin: "0 auto", padding: "80px 24px 112px" }}>
+      <h2 style={{ margin: 0, fontSize: "clamp(28px, 3.4vw, 42px)", fontWeight: 600, letterSpacing: "-0.04em", textAlign: "center" }}>
+        The questions TPAs ask. <span style={{ color: t.text3 }}>Answered plainly.</span>
+      </h2>
+      <div style={{ marginTop: 32, borderTop: `1px solid ${t.border}` }}>
+        {FAQS.map(([q, a], i) => {
+          const isOpen = open === i;
+          return (
+            <div key={q} style={{ borderBottom: `1px solid ${t.border}` }}>
+              <button type="button" onClick={() => setOpen(isOpen ? -1 : i)} aria-expanded={isOpen} aria-controls={`faq-${i}`} style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 16, padding: "20px 4px", border: "none", background: "none", color: t.text, font: "inherit", fontSize: 17, fontWeight: 500, textAlign: "left", cursor: "pointer" }}>
+                <span>{q}</span>
+                <span aria-hidden="true" style={{ flex: "none", fontSize: 22, color: t.text3 }}>{isOpen ? "−" : "+"}</span>
+              </button>
+              {isOpen && (
+                <div id={`faq-${i}`} style={{ padding: "0 4px 20px", fontSize: 15, color: t.text2 }}>{a}</div>
+              )}
+            </div>
+          );
+        })}
       </div>
-
-      <dl className="mt-5 space-y-0">
-        {BASIS.map((b, i) => (
-          <motion.div
-            key={b.k}
-            initial={{ opacity: 0, x: -8 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 + i * 0.09, ease: [0.16, 1, 0.3, 1] }}
-            className="flex items-baseline gap-4 border-t border-white/[0.07] py-3.5 first:border-t-0 first:pt-0"
-          >
-            <dt className="flex min-w-[88px] items-center gap-2.5">
-              <span
-                className="h-1.5 w-1.5 shrink-0 rounded-full"
-                style={{ background: b.hue, boxShadow: `0 0 9px ${b.hue}` }}
-              />
-              <span className="font-display text-[14px] font-semibold text-white">{b.k}</span>
-            </dt>
-            <dd className="text-[13.5px] leading-snug text-white/55">{b.v}</dd>
-          </motion.div>
-        ))}
-      </dl>
-
-      <div className="mt-6 border-t border-white/[0.07] pt-4">
-        <p className="text-[12.5px] leading-relaxed text-white/45">
-          No price card, because no two of these are the same.{" "}
-          <span className="text-white/75">A real number after one call</span> — not a
-          quote-form runaround.
-        </p>
-      </div>
-    </motion.div>
+    </section>
   );
 }
 
 export default function Pricing() {
-  useEffect(() => {
-    document.title = "Pricing · Gooclaim OS";
-  }, []);
-
-  
   return (
-    <PageShell>
+    <SiteLayout>
       <SEOHead
         seo={SEO_PRICING}
         path="/pricing"
@@ -141,279 +54,42 @@ export default function Pricing() {
           { name: "Pricing", path: "/pricing" },
         ])}
       />
-      <section className="relative z-10 mx-auto w-full max-w-[1280px] px-5 pb-16 pt-10 sm:px-10 sm:pb-28 sm:pt-20 lg:px-14">
-        {/* Hero — the words on the left, what decides the price on the right,
-            so the fold carries something concrete rather than two buttons. */}
-        <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
-          <div>
-            <div className="mb-3 font-display text-[11px] uppercase tracking-wider2 text-white/45">
-              Pricing
-            </div>
-            <h1 className="text-balance font-display text-[34px] font-semibold leading-[1.05] tracking-tightest text-white sm:text-[52px] sm:leading-[1.02] lg:text-[64px]">
-              Let&rsquo;s talk pricing.{" "}
-              <span className="text-white/55">
-                Built for TPAs and insurers.
-              </span>
+      <ThemeStyle css={css} />
+      <div style={{ background: t.bg, color: t.text }}>
+        <section style={{ position: "relative", overflow: "hidden" }}>
+          <div aria-hidden="true" style={{ position: "absolute", width: 700, height: 700, left: "50%", top: -420, marginLeft: -350, borderRadius: 999, background: t.glow }} />
+          <div style={{ position: "relative", maxWidth: 1240, margin: "0 auto", padding: "88px 24px 40px", textAlign: "center" }}>
+            <div style={{ fontFamily: mono, fontSize: 12, letterSpacing: ".1em", color: t.brand }}>PRICING</div>
+            <h1 style={{ margin: "14px auto 0", fontSize: "clamp(40px, 5.4vw, 72px)", lineHeight: 1.03, fontWeight: 600, letterSpacing: "-0.045em", maxWidth: 880 }}>
+              A partnership, <span style={{ background: t.brandGrad, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>not a SKU.</span>
             </h1>
-            <p className="mt-6 max-w-[54ch] text-[16px] leading-relaxed text-white/65 sm:text-[17px]">
-              Gooclaim OS is sold as a partnership, not a SKU. Pricing follows the
-              shape of your operation. Three engagement modes below; we&rsquo;ll
-              co-design the right one with you in a 20-minute call.
+            <p style={{ margin: "18px auto 0", fontSize: 18, color: t.text2, maxWidth: 620 }}>
+              Pricing follows the shape of your operation. Three engagement modes — we’ll co-design the right one with you in a 20-minute call.
             </p>
-
-            {/* One primary action. The demo is a quieter alternative, not a rival. */}
-            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
-              <button
-                type="button"
-                onClick={() => openWaitlist("pricing-hero")}
-                className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-[14px] font-semibold text-ink-950 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_40px_-12px_rgba(13,153,255,0.55)]"
-              >
-                Connect with us
-                <ArrowRight />
-              </button>
-              <Link
-                to="/demo"
-                className="group inline-flex items-center gap-1.5 text-[14px] font-medium text-white/55 underline-offset-4 transition-colors duration-300 hover:text-white hover:underline"
-              >
-                Or book a demo first
-                <ArrowRight />
-              </Link>
-            </div>
           </div>
+        </section>
 
-          <PricingBasis />
-        </div>
+        <Modes />
 
-        {/* 3 engagement modes */}
-        <motion.div
-          variants={stagger(0.06, 0.1)}
-          initial="hidden"
-          whileInView="show"
-          viewport={viewportOnce}
-          className="mt-20 grid grid-cols-1 gap-5 lg:grid-cols-3"
-        >
-          {MODES.map((m) => (
-            <motion.article
-              key={m.badge}
-              variants={fadeUp}
-              className="group relative overflow-hidden rounded-2xl glass-strong p-7 transition-all duration-500 hover:-translate-y-0.5 hover:border-white/15 sm:p-8"
-            >
-              <div
-                aria-hidden
-                className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full opacity-40 blur-3xl transition-opacity duration-700 group-hover:opacity-80"
-                style={{ background: `${m.hue}40` }}
-              />
-              <div
-                aria-hidden
-                className="absolute left-0 top-7 h-12 w-[3px] rounded-r"
-                style={{
-                  background: m.hue,
-                  boxShadow: `0 0 18px ${m.hue}88`,
-                }}
-              />
-
-              <div className="relative z-10 flex h-full flex-col">
-                {/* Header */}
-                <div className="flex items-center justify-between gap-3">
-                  <span
-                    className="font-display text-[11px] uppercase tracking-wider2"
-                    style={{ color: m.hue }}
-                  >
-                    {m.badge}
-                  </span>
-                </div>
-                <h3 className="mt-3 font-display text-[28px] font-semibold leading-[1.05] tracking-tighter text-white sm:text-[32px]">
-                  {m.name}
-                </h3>
-
-                {/* Price-like row */}
-                <div className="mt-4 flex items-baseline gap-2">
-                  <span
-                    className="font-display text-[22px] font-semibold tracking-tight"
-                    style={{ color: m.hue }}
-                  >
-                    Custom
-                  </span>
-                  <span className="font-display text-[10.5px] uppercase tracking-wider2 text-white/40">
-                    quote on request
-                  </span>
-                </div>
-
-                <p className="mt-5 text-[14px] leading-relaxed text-white/60 sm:text-[14.5px]">
-                  {m.blurb}
-                </p>
-
-                {/* Includes */}
-                <div className="mt-7">
-                  <div className="mb-3 font-display text-[10.5px] uppercase tracking-wider2 text-white/40">
-                    What&rsquo;s included
-                  </div>
-                  <ul className="space-y-2">
-                    {m.includes.map((line) => (
-                      <li
-                        key={line}
-                        className="flex items-start gap-2.5 text-[13px] text-white/75 sm:text-[13.5px]"
-                      >
-                        <CheckGlyph color={m.hue} />
-                        <span>{line}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Fit */}
-                <div
-                  className="mt-7 rounded-lg border p-3.5"
-                  style={{
-                    borderColor: `${m.hue}33`,
-                    background: `linear-gradient(135deg, ${m.hue}10 0%, rgba(255,255,255,0.01) 100%)`,
-                  }}
-                >
-                  <div
-                    className="font-display text-[10px] uppercase tracking-wider2"
-                    style={{ color: m.hue }}
-                  >
-                    Best fit
-                  </div>
-                  <p className="mt-1.5 text-[12.5px] leading-relaxed text-white/70">
-                    {m.fit}
-                  </p>
-                </div>
-
-                {/* CTA */}
-                <button
-                  type="button"
-                  onClick={() => openWaitlist(`pricing-${m.name.toLowerCase()}`)}
-                  className="mt-7 inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-5 py-2.5 text-[13px] font-semibold text-white/90 transition-all duration-300 hover:border-white/25 hover:bg-white/[0.06]"
-                >
-                  Talk about {m.name}
-                  <ArrowRight />
-                </button>
+        <section id="connect" style={{ maxWidth: 1240, margin: "0 auto", padding: "80px 24px 40px", scrollMarginTop: 80 }}>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 32, padding: "clamp(24px, 4vw, 48px)", borderRadius: 28, background: t.panel }}>
+            <div style={{ flex: "1 1 340px", minWidth: 0 }}>
+              <h2 style={{ margin: 0, fontSize: "clamp(30px, 3.6vw, 46px)", lineHeight: 1.08, fontWeight: 600, letterSpacing: "-0.04em" }}>Connect with us.</h2>
+              <p style={{ margin: "14px 0 0", color: t.text2, fontSize: 16 }}>Tell us the shape of your operation. We come back with a real number after one call — your workflow first, on a sample claims system.</p>
+              <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 22, fontSize: 14 }}>
+                <span>✓&nbsp; 20 minutes · no slides</span>
+                <span>✓&nbsp; Read-only on your claims system</span>
+                <span>✓&nbsp; Nothing reaches a member until you approve it</span>
               </div>
-            </motion.article>
-          ))}
-        </motion.div>
-
-        {/* "Why we don't publish a price card" */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={viewportOnce}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-16 grid items-start gap-8 lg:grid-cols-[1fr_1fr] lg:gap-14"
-        >
-          <div>
-            <div className="font-display text-[10.5px] uppercase tracking-wider2 text-white/45">
-              Why no price card?
             </div>
-            <h2 className="mt-3 font-display text-[26px] font-semibold leading-[1.15] tracking-tighter text-white sm:text-[32px]">
-              Insurance ops aren&rsquo;t one-size.{" "}
-              <span className="text-white/55">Neither is our pricing.</span>
-            </h2>
-          </div>
-          <ul className="space-y-3 text-[14.5px] leading-relaxed text-white/65">
-            {[
-              "Per-tenant pricing — TPAs and insurers don't share economics, and pricing shouldn't pretend they do.",
-              "Lines of insurance matter — each has different volume, SLA and audit profiles.",
-              "Channels matter — messaging tools, email and voice calls each have their own cost profile. For voice, talk to our sales team.",
-              "Compliance scope matters — regulator and complaint exports, custom DPO reviews and security posture add real engineering.",
-            ].map((line) => (
-              <li key={line} className="flex items-start gap-3">
-                <span
-                  aria-hidden
-                  className="mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-accent-cyan"
-                  style={{ boxShadow: "0 0 8px rgba(125,196,255,0.7)" }}
-                />
-                <span>{line}</span>
-              </li>
-            ))}
-          </ul>
-        </motion.div>
-
-        {/* Closing CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={viewportOnce}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="relative mt-20 overflow-hidden rounded-3xl glass-strong p-8 sm:p-12 lg:p-14"
-        >
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -right-32 -top-32 h-[420px] w-[420px] rounded-full opacity-50 blur-3xl"
-            style={{
-              background:
-                "radial-gradient(circle, rgba(13,153,255,0.35) 0%, rgba(124,58,237,0.18) 50%, transparent 80%)",
-            }}
-          />
-          <div className="relative z-10 grid items-center gap-8 lg:grid-cols-[1.4fr_1fr] lg:gap-14">
-            <div>
-              <h3 className="text-balance font-display text-[28px] font-semibold leading-[1.05] tracking-tightest text-white sm:text-[40px]">
-                One call. <span className="text-white/55">A real number.</span>
-              </h3>
-              <p className="mt-4 max-w-md text-[15px] leading-relaxed text-white/65 sm:text-[16px]">
-                Pick a 20-minute slot — tell us your volume, channels and
-                lines of insurance. We&rsquo;ll come back with a real number,
-                not a quote-form runaround.
-              </p>
-            </div>
-            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap lg:flex-col">
-              <button
-                type="button"
-                onClick={() => openWaitlist("pricing-close")}
-                className="group inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-[14px] font-semibold text-ink-950 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_40px_-12px_rgba(13,153,255,0.55)]"
-              >
-                Connect with us
-                <ArrowRight />
-              </button>
-              <a
-                href="mailto:contact@gooclaim.com"
-                className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-[14px] font-medium text-white/80 glass transition-all duration-300 hover:text-white hover:border-white/20"
-              >
-                contact@gooclaim.com
-              </a>
+            <div style={{ flex: "1 1 400px", minWidth: 0, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 22, padding: 24 }}>
+              <ConnectForm />
             </div>
           </div>
-        </motion.div>
-      </section>
-    </PageShell>
-  );
-}
+        </section>
 
-function ArrowRight() {
-  return (
-    <svg
-      width="14"
-      height="14"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.4"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="transition-transform duration-300 group-hover:translate-x-0.5"
-    >
-      <path d="M5 12h14" />
-      <path d="M13 5l7 7-7 7" />
-    </svg>
-  );
-}
-
-function CheckGlyph({ color }: { color: string }) {
-  return (
-    <svg
-      width="13"
-      height="13"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke={color}
-      strokeWidth="2.6"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="mt-1 shrink-0"
-      style={{ filter: `drop-shadow(0 0 6px ${color}66)` }}
-    >
-      <polyline points="20 6 9 17 4 12" />
-    </svg>
+        <Faq />
+      </div>
+    </SiteLayout>
   );
 }

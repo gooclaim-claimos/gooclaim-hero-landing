@@ -262,11 +262,11 @@ export const MODULES: ModuleData[] = [
       </>
     ),
     heroIntro:
-      "Knowledge Layer connects to wherever your policy and past-claim knowledge already lives — SharePoint, Drive, Notion, Confluence, SQL, S3 and 50+ more sources — and makes all of it searchable in plain language for the workflow agents that need it.",
+      "Knowledge Layer connects to wherever your policy and past-claim knowledge already lives — SharePoint, Drive, Notion, Confluence, S3 and dozens more sources — and makes all of it searchable in plain language for the workflow agents that need it.",
     capabilities: [
       {
         title: "50+ source connectors",
-        body: "Notion, Drive, SharePoint, SQL, S3, Slack, Confluence and more — your knowledge stays where your team already keeps it.",
+        body: "Notion, Drive, SharePoint, S3, Slack, Confluence and more — your knowledge stays where your team already keeps it.",
         hue: "#0d99ff",
       },
       {

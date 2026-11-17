@@ -2,6 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "redirects": [
     { "source": "/use-cases/life", "destination": "/", "permanent": true },
-    { "source": "/use-cases/motor", "destination": "/", "permanent": true }
+    { "source": "/use-cases/motor", "destination": "/", "permanent": true },
+    { "source": "/use-cases/:slug", "destination": "/solutions/:slug", "permanent": true }
   ]
 }
