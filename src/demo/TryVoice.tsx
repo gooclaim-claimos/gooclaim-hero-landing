@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { openWaitlist } from "@/lib/waitlist";
-import { mono, PHONE_PATH, SHIELD_PATHS, tryTheme } from "./tryTheme";
+import Logo from "@/site/Logo";
+import { mono, PHONE_PATH, tryTheme } from "./tryTheme";
 import type { UiLang } from "./useChatDemo";
 import type { CallPhase, useVoiceAgent } from "./useVoiceAgent";
 
@@ -53,9 +54,7 @@ export default function TryVoice({ voice, lang, setLang }: { voice: Voice; lang:
       </div>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "8px 20px 0" }}>
         <div style={{ width: 92, height: 92, borderRadius: 999, background: "linear-gradient(135deg, #1D4ED8, #0891B2)", display: "flex", alignItems: "center", justifyContent: "center", animation: active ? "gcpulse 1.4s ease-out infinite" : "none" }}>
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            {SHIELD_PATHS.map((d) => <path key={d} d={d} />)}
-          </svg>
+          <span style={{ position: "relative", width: 60, height: 60, borderRadius: 999, background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 6px 20px rgba(15,23,42,.18)" }}><Logo size={38} /></span>
         </div>
         <div style={{ marginTop: 12, fontWeight: 600, fontSize: 17 }}>Gooclaim voice agent</div>
         <div style={{ fontSize: 13, color: statusColor }} aria-live="polite">{statusText}</div>

@@ -6,7 +6,7 @@ import { ThemeStyle } from "@/theme/ThemeProvider";
 import CtaBand from "@/platform/CtaBand";
 import { Connectors, PlatformHero } from "@/platform/Hero";
 import { FiveThings } from "@/platform/FiveThings";
-import { SevenLayers } from "@/platform/Interactive";
+import { SevenLayers } from "@/platform/SevenLayers";
 import { AuditLedger, Coverage } from "@/platform/Record";
 import { css, t } from "@/platform/theme";
 

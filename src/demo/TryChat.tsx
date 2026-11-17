@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
-import { mono, SHIELD_PATHS, tryTheme } from "./tryTheme";
+import Logo from "@/site/Logo";
+import { mono, tryTheme } from "./tryTheme";
 import type { useChatDemo } from "./useChatDemo";
 
 const { t } = tryTheme;
@@ -17,9 +18,7 @@ export default function TryChat({ chat }: { chat: Chat }) {
     <div style={{ maxWidth: 560, margin: "0 auto", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 24, boxShadow: t.cardShadow, overflow: "hidden", display: "flex", flexDirection: "column", height: 640 }}>
       <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "14px 18px", borderBottom: `1px solid ${t.border}` }}>
         <span style={{ width: 38, height: 38, borderRadius: 999, background: t.brandSoft, color: t.brand, display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            {SHIELD_PATHS.map((d) => <path key={d} d={d} />)}
-          </svg>
+          <Logo size={22} />
         </span>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ fontWeight: 600, fontSize: 15 }}>Your insurer · Claims desk</div>

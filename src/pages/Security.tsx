@@ -45,8 +45,8 @@ export default function Security() {
           <div style={{ position: "relative", maxWidth: 1240, margin: "0 auto", padding: "88px 24px 56px", textAlign: "center" }}>
             <div style={{ display: "inline-flex", width: 64, height: 64, borderRadius: 18, background: t.amberSoft, color: t.amber, alignItems: "center", justifyContent: "center" }}>
               <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M12 3l7 3v6c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6l7-3z" />
-                <path d="M8.8 12.2l2.2 2.2 4.2-4.4" />
+                <rect x="5" y="11" width="14" height="10" rx="2" />
+                <path d="M8 11V7a4 4 0 0 1 8 0v4" />
               </svg>
             </div>
             <h1 style={{ margin: "22px auto 0", fontSize: "clamp(40px, 5.4vw, 72px)", lineHeight: 1.03, fontWeight: 600, letterSpacing: "-0.045em", maxWidth: 900 }}>

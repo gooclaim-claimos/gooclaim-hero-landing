@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import Logo from "@/site/Logo";
 import { useAutoplay, useSeen } from "@/site/useAutoplay";
 import { SAMPLE_QUEUE } from "@/data/sampleClaim";
 import { mono, t } from "./theme";
@@ -103,10 +104,7 @@ export default function ClaimCard() {
 
       <div style={{ marginTop: 18, padding: "16px 18px", borderRadius: 16, border: `1px solid ${t.border}`, display: "flex", gap: 14, alignItems: "flex-start" }}>
         <span style={{ flex: "none", width: 34, height: 34, borderRadius: 10, background: t.brandSoft, color: t.brand, display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <path d="M12 3l7 3v6c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6l7-3z" />
-            <path d="M8.8 12.2l2.2 2.2 4.2-4.4" />
-          </svg>
+          <Logo size={20} />
         </span>
         <div key={tab} className="gc-row-in" style={{ minWidth: 0 }}>
           <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>

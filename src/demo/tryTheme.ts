@@ -40,5 +40,4 @@ export function segment(on: boolean) {
   return { background: on ? t.surface : "transparent", color: on ? t.text : t.text2, boxShadow: on ? t.tabShadow : "none" };
 }
 
-export const SHIELD_PATHS = ["M12 3l7 3v6c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6l7-3z", "M8.8 12.2l2.2 2.2 4.2-4.4"];
 export const PHONE_PATH = "M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z";

@@ -2,7 +2,8 @@ import { SAMPLE_CLAIM } from "@/data/sampleClaim";
 import { openWaitlist } from "@/lib/waitlist";
 import { callTheme } from "./callTheme";
 import type { CallLang } from "./speech";
-import { mono, PHONE_PATH, SHIELD_PATHS } from "./tryTheme";
+import Logo from "@/site/Logo";
+import { mono, PHONE_PATH } from "./tryTheme";
 import type { CallPhase, useVoiceAgent } from "./useVoiceAgent";
 
 const { t } = callTheme;
@@ -64,7 +65,7 @@ export default function CallStage({ voice, lang, setLang }: { voice: Voice; lang
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 16, flexWrap: "wrap" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <span style={{ width: 34, height: 34, borderRadius: 10, background: t.glass, border: `1px solid ${t.glassLine}`, display: "flex", alignItems: "center", justifyContent: "center", color: t.text }}>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{SHIELD_PATHS.map((d) => <path key={d} d={d} />)}</svg>
+                <Logo size={20} />
               </span>
               <div style={{ textAlign: "left" }}>
                 <div style={{ fontWeight: 600, fontSize: 14 }}>Claims helpline</div>
@@ -96,7 +97,7 @@ export default function CallStage({ voice, lang, setLang }: { voice: Voice; lang
                     ))}
                   </div>
                 ) : (
-                  <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" style={{ position: "relative" }} aria-hidden="true">{SHIELD_PATHS.map((d) => <path key={d} d={d} />)}</svg>
+                  <span style={{ position: "relative", width: 84, height: 84, borderRadius: 999, background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 6px 20px rgba(15,23,42,.18)" }}><Logo size={52} /></span>
                 )}
               </div>
             </div>
