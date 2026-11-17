@@ -27,7 +27,7 @@ export function SevenLayers() {
   const more = layer.slug === "knowledge-layer" ? SOURCE_CONNECTORS.length - 8 : 0;
 
   return (
-    <section style={{ maxWidth: 1240, margin: "0 auto", padding: "112px 24px 40px" }}>
+    <section style={{ maxWidth: 1240, margin: "0 auto", padding: "clamp(56px, 7.78vw, 112px) 24px 40px" }}>
       <div style={eyebrow}>02 · INSIDE THE OS</div>
       <h2 style={h2Big}>
         Seven layers. <span style={{ color: t.text3 }}>One OS.</span>
@@ -56,7 +56,7 @@ export function SevenLayers() {
                   <button key={l.name} type="button" role="tab" aria-selected={on} onClick={() => tour.pick(i)} style={{ position: "relative", overflow: "hidden", height: PLATE_H, display: "flex", alignItems: "center", gap: 14, padding: "0 18px", borderRadius: 14, border: `1px solid ${on ? t.brandLine : t.border}`, background: t.surface, color: t.text, font: "inherit", textAlign: "left", cursor: "pointer", opacity: on ? 1 : 0.78, transform: on ? "translateX(8px)" : "none", boxShadow: on ? `0 14px 34px -14px ${t.brand}` : `0 3px 0 -1px ${t.border}`, transition: "transform .6s var(--gc-ease), box-shadow .6s var(--gc-ease), border-color .4s, opacity .4s" }}>
                     <span style={{ flex: "none", fontFamily: mono, fontSize: 11, color: on ? t.brand : t.text3 }}>0{i + 1}</span>
                     <span style={{ flex: "none", fontWeight: 600, fontSize: 16, letterSpacing: "-0.01em" }}>{l.name}</span>
-                    <span style={{ flex: 1, minWidth: 0, fontSize: 13, color: t.text3, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", textAlign: "right" }}>{l.tag}</span>
+                    <span className="gc-layer-tag" style={{ flex: 1, minWidth: 0, fontSize: 13, color: t.text3, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", textAlign: "right" }}>{l.tag}</span>
                     {on && tour.playing && <span key={`bar-${i}`} aria-hidden="true" className="gc-bar" style={{ position: "absolute", left: 0, right: 0, bottom: 0, height: 2, background: t.brandGrad, ["--gc-dur" as string]: `${LAYER_MS}ms` }} />}
                   </button>
                 );

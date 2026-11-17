@@ -28,7 +28,7 @@ export function Hero({ eyebrow, title, accent, intro, children, align = "center"
   return (
     <section style={{ position: "relative", overflow: "hidden" }}>
       <div aria-hidden="true" style={{ position: "absolute", width: 700, height: 700, left: "50%", top: -420, marginLeft: -350, borderRadius: 999, background: t.glow, pointerEvents: "none" }} />
-      <div style={{ position: "relative", maxWidth: 1240, margin: "0 auto", padding: "88px 24px 40px", textAlign: center ? "center" : "left" }}>
+      <div style={{ position: "relative", maxWidth: 1240, margin: "0 auto", padding: "clamp(44px, 6.11vw, 88px) 24px 40px", textAlign: center ? "center" : "left" }}>
         <Eyebrow>{eyebrow}</Eyebrow>
         <h1 style={{ margin: center ? "14px auto 0" : "14px 0 0", fontSize: "clamp(40px, 5.4vw, 72px)", lineHeight: 1.03, fontWeight: 600, letterSpacing: "-0.045em", maxWidth: 920 }}>
           {title}
@@ -47,13 +47,13 @@ export function Hero({ eyebrow, title, accent, intro, children, align = "center"
 }
 
 export function GradientText({ children }: { children: ReactNode }) {
-  return <span style={{ background: t.brandGrad, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>{children}</span>;
+  return <span style={{ backgroundImage: t.brandGrad, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>{children}</span>;
 }
 
 /** A page section with an optional eyebrow, a two-tone heading and an intro line. */
 export function Section({ id, eyebrow, title, muted, intro, children, narrow }: { id?: string; eyebrow?: ReactNode; title?: ReactNode; muted?: ReactNode; intro?: ReactNode; children?: ReactNode; narrow?: boolean }) {
   return (
-    <section id={id} style={{ maxWidth: narrow ? 880 : 1240, margin: "0 auto", padding: "64px 24px", scrollMarginTop: 80 }}>
+    <section id={id} style={{ maxWidth: narrow ? 880 : 1240, margin: "0 auto", padding: "clamp(32px, 4.44vw, 64px) 24px", scrollMarginTop: 80 }}>
       {eyebrow ? <Eyebrow style={{ marginBottom: 12 }}>{eyebrow}</Eyebrow> : null}
       {title ? (
         <h2 style={{ margin: 0, fontSize: "clamp(28px, 3.4vw, 42px)", lineHeight: 1.1, fontWeight: 600, letterSpacing: "-0.04em", maxWidth: 900 }}>
@@ -132,7 +132,7 @@ export function Grid({ min, gap = 16, children }: { min: number; gap?: number; c
 /** The closing panel from the canvas (Pricing "Connect with us"). */
 export function ClosingPanel({ title, muted, body, children }: { title: ReactNode; muted?: ReactNode; body: ReactNode; children: ReactNode }) {
   return (
-    <section style={{ maxWidth: 1240, margin: "0 auto", padding: "40px 24px 112px" }}>
+    <section style={{ maxWidth: 1240, margin: "0 auto", padding: "40px 24px clamp(56px, 7.78vw, 112px)" }}>
       <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 32, padding: "clamp(24px, 4vw, 48px)", borderRadius: 28, background: t.panel }}>
         <div style={{ flex: "1 1 380px", minWidth: 0 }}>
           <h2 style={{ margin: 0, fontSize: "clamp(30px, 3.6vw, 46px)", lineHeight: 1.08, fontWeight: 600, letterSpacing: "-0.04em" }}>

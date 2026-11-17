@@ -5,7 +5,7 @@ import { eyebrow, mono, t } from "./theme";
 /** Beside the seven layers: the audit ledger. */
 export function AuditLedger() {
   return (
-    <section style={{ maxWidth: 1240, margin: "0 auto", padding: "96px 24px 40px" }}>
+    <section style={{ maxWidth: 1240, margin: "0 auto", padding: "clamp(48px, 6.67vw, 96px) 24px 40px" }}>
       <div style={{ borderRadius: 28, padding: "clamp(28px, 5vw, 56px)", background: t.panelAmber, display: "flex", flexWrap: "wrap", gap: 40, alignItems: "center" }}>
         <div style={{ flex: "1 1 360px", minWidth: 0 }}>
           <div style={{ fontFamily: mono, fontSize: 12, letterSpacing: ".08em", color: t.amber }}>BESIDE THE 7 LAYERS · AUDIT LEDGER</div>
@@ -44,7 +44,7 @@ export function AuditLedger() {
 /** 03 · Five systems hold a piece of the answer. */
 export function Coverage() {
   return (
-    <section style={{ maxWidth: 1240, margin: "0 auto", padding: "96px 24px 40px" }}>
+    <section style={{ maxWidth: 1240, margin: "0 auto", padding: "clamp(48px, 6.67vw, 96px) 24px 40px" }}>
       <div style={eyebrow}>03 · COVERAGE</div>
       <h2 style={{ margin: "14px 0 0", fontSize: "clamp(30px, 3.8vw, 48px)", lineHeight: 1.08, fontWeight: 600, letterSpacing: "-0.04em", maxWidth: 900 }}>
         Five systems hold a piece of the answer. <span style={{ color: t.text3 }}>None of them holds the answer.</span>

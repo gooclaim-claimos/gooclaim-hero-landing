@@ -9,7 +9,7 @@ export function IndiaHero() {
   return (
     <section style={{ position: "relative", overflow: "hidden" }}>
       <div aria-hidden="true" style={{ position: "absolute", width: 760, height: 760, left: "50%", top: -440, marginLeft: -380, borderRadius: 999, background: t.glow, pointerEvents: "none" }} />
-      <div style={{ position: "relative", maxWidth: 1240, margin: "0 auto", padding: "88px 24px 48px", textAlign: "center" }}>
+      <div style={{ position: "relative", maxWidth: 1240, margin: "0 auto", padding: "clamp(44px, 6.11vw, 88px) 24px 48px", textAlign: "center" }}>
         <Link to="/" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 12px", borderRadius: 999, border: `1px solid ${t.brandLine}`, background: t.brandSoft, color: t.brand, fontFamily: mono, fontSize: 11, letterSpacing: ".08em", textDecoration: "none" }}>
           GOOCLAIM OS · INDIA
         </Link>

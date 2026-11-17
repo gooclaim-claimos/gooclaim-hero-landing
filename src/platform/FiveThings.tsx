@@ -63,7 +63,7 @@ export function FiveThings() {
   const isDone = (i: number) => i < cur || (i === cur && !working);
 
   return (
-    <section style={{ maxWidth: 1240, margin: "0 auto", padding: "112px 24px 40px" }}>
+    <section style={{ maxWidth: 1240, margin: "0 auto", padding: "clamp(56px, 7.78vw, 112px) 24px 40px" }}>
       <div style={eyebrow}>01 · AN OS, NOT A CHATBOT</div>
       <h2 style={{ ...h2Big, maxWidth: 900 }}>
         One message, on a Sunday. <span style={{ color: t.text3 }}>Five things happen before it is answered.</span>

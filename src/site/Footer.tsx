@@ -45,7 +45,7 @@ export default function Footer() {
   return (
     <footer style={{ borderTop: `1px solid ${t.border}`, background: t.bg, color: t.text, fontFamily: "Inter, system-ui, sans-serif" }}>
       <ThemeStyle css={css} />
-      <div style={{ maxWidth: 1240, margin: "0 auto", padding: "64px 24px 32px", display: "flex", flexWrap: "wrap", gap: 40 }}>
+      <div style={{ maxWidth: 1240, margin: "0 auto", padding: "clamp(32px, 4.44vw, 64px) 24px 32px", display: "flex", flexWrap: "wrap", gap: 40 }}>
         <div style={{ flex: "1 1 220px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10, fontWeight: 600, fontSize: 18, letterSpacing: "-0.02em" }}>
             <Logo size={24} />
