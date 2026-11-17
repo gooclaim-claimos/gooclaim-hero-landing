@@ -22,8 +22,9 @@ interface Body {
 }
 
 const LANGUAGES = new Set(["en", "hi"]);
-/** Turnstile tokens are issued for these hostnames only. */
+/** Turnstile tokens are issued for these hostnames only (plus this project's Vercel previews). */
 const HOSTS = new Set(["www.gooclaim.com", "gooclaim.com", "localhost"]);
+const PREVIEW = /^gooclaim-hero-landing-[a-z0-9-]+-gooclaim-s-projects\.vercel\.app$/;
 const TIMEOUT_MS = 10_000;
 
 function send(res: ServerResponse, status: number, body: Record<string, unknown>) {
@@ -70,7 +71,8 @@ async function turnstileOk(secret: string, token: string, ip: string): Promise<b
       signal: AbortSignal.timeout(TIMEOUT_MS),
     });
     const out = (await r.json()) as { success?: boolean; hostname?: string };
-    return out.success === true && HOSTS.has(String(out.hostname || ""));
+    const host = String(out.hostname || "");
+    return out.success === true && (HOSTS.has(host) || PREVIEW.test(host));
   } catch {
     return false;
   }

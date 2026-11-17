@@ -1,7 +1,7 @@
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {
-  /** Cloudflare Turnstile site key for /call (public; set in Vercel). */
+  /** Overrides the /call Turnstile site key (public; the default is in src/demo/turnstile.ts). */
   readonly VITE_TURNSTILE_SITE_KEY?: string;
 }
 

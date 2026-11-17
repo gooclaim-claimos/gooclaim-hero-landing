@@ -6,9 +6,10 @@ import { useEffect, useRef, useState, type RefObject } from "react";
  * is unsure (`interaction-only`). A token is single-use, so it is reset after
  * every attempt.
  *
- * The site key is public (VITE_TURNSTILE_SITE_KEY, set in Vercel). In local
- * development without one, Cloudflare's documented always-pass test key is
- * used so the page can be tried; it never reaches a production build.
+ * The site key is public by design (it ships in every visitor's page): the
+ * "Gooclaim website voice call" widget, hostnames www.gooclaim.com,
+ * gooclaim.com and localhost. VITE_TURNSTILE_SITE_KEY overrides it. The
+ * secret half lives only in Vercel (TURNSTILE_SECRET_KEY).
  */
 interface TurnstileApi {
   render(el: HTMLElement, opts: Record<string, unknown>): string;
@@ -22,8 +23,8 @@ declare global {
 }
 
 const SCRIPT = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
-const DEV_TEST_KEY = "1x00000000000000000000AA";
-export const SITE_KEY: string = import.meta.env.VITE_TURNSTILE_SITE_KEY || (import.meta.env.DEV ? DEV_TEST_KEY : "");
+const WEBSITE_KEY = "0x4AAAAAAGEqIkh9ddXIbkr0";
+export const SITE_KEY: string = import.meta.env.VITE_TURNSTILE_SITE_KEY || WEBSITE_KEY;
 
 let loading: Promise<TurnstileApi> | null = null;
 function load(): Promise<TurnstileApi> {
