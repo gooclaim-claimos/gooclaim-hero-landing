@@ -41,7 +41,7 @@ interface Session {
 /** gooclaim-voice app/time_limit.TIME_UP — the page's own end-of-trial word. */
 const TIME_UP = "[trial time up]";
 /** The page's hard stop, only if the agent's goodbye never comes. */
-const BACKSTOP_S = 15;
+const BACKSTOP_S = 25;
 
 function clock(): string {
   return new Date().toTimeString().slice(0, 8);
