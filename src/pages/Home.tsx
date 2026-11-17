@@ -8,6 +8,7 @@ import { ThemeStyle } from "@/theme/ThemeProvider";
 import Hero from "@/home/Hero";
 import Problem, { TrustStrip } from "@/home/Problem";
 import ThreeJobs from "@/home/ThreeJobs";
+import HowTheAiWorks from "@/home/HowTheAiWorks";
 import { GoingLive, Voice, Walkthrough } from "@/home/VoiceAndLaunch";
 import { homeCss, t } from "@/home/theme";
 
@@ -31,6 +32,7 @@ export default function Home() {
           <TrustStrip />
           <Problem />
           <ThreeJobs />
+          <HowTheAiWorks />
           <Voice />
           <GoingLive />
           <Walkthrough />
