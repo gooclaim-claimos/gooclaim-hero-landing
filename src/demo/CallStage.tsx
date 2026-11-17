@@ -34,6 +34,17 @@ const ASK: Record<CallLang, [string, string][]> = {
   hi: [["STATUS", "Mera claim kahan tak pahuncha?"], ["DOCUMENTS", "कौन से दस्तावेज़ बाकी हैं?"], ["PAYMENT", "Payment hua kya?"], ["WRAP UP", "धन्यवाद, बस इतना ही"]],
 };
 
+/**
+ * How a caller is verified, said plainly. Today the code goes by SMS to the
+ * registered mobile and is read back on the call; the link to enter it is the
+ * next step (not built yet), so it is worded as coming, never as live.
+ */
+const VERIFY: { k: string; d: string }[] = [
+  { k: "In this trial", d: "The agent asks for a code before it shares anything. Read out the test code shown on screen — this call runs on test data, never a real member’s." },
+  { k: "With your members", d: "The agent sends a one-time code to the member’s registered mobile number and checks it before a single claim detail is shared. Today the member reads it back on the call; a secure link to enter it is coming next." },
+  { k: "Once verified", d: "The same agent handles the member’s questions from simple to complex — claim status, pending documents, payments, complaints — and hands over to your team when a person is needed." },
+];
+
 interface Props {
   live: LiveCall;
   lang: CallLang;
@@ -153,6 +164,18 @@ export default function CallStage({ live, lang, setLang, checkBox, ready, onStar
                 <div key={k} style={{ textAlign: "left", padding: "14px 16px", borderRadius: 16, ...glass, color: t.text, fontSize: 14 }}>
                   <span style={{ display: "block", fontFamily: mono, fontSize: 10, letterSpacing: ".06em", color: t.text3 }}>{k}</span>
                   <span lang={/[ऀ-ॿ]/.test(label) ? "hi" : undefined} style={{ display: "block", marginTop: 4 }}>“{label}”</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div style={{ marginTop: 24, padding: "20px 22px", borderRadius: 20, ...glass }}>
+            <div style={{ fontFamily: mono, fontSize: 11, letterSpacing: ".1em", color: t.text3 }}>HOW VERIFICATION WORKS</div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))", gap: 18, marginTop: 14, textAlign: "left" }}>
+              {VERIFY.map((v) => (
+                <div key={v.k}>
+                  <div style={{ fontSize: 14, fontWeight: 600, color: t.text }}>{v.k}</div>
+                  <div style={{ fontSize: 13, color: t.text2, marginTop: 4 }}>{v.d}</div>
                 </div>
               ))}
             </div>
