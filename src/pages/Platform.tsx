@@ -5,7 +5,8 @@ import SiteLayout from "@/site/SiteLayout";
 import { ThemeStyle } from "@/theme/ThemeProvider";
 import CtaBand from "@/platform/CtaBand";
 import { Connectors, PlatformHero } from "@/platform/Hero";
-import { FiveThings, SevenLayers } from "@/platform/Interactive";
+import { FiveThings } from "@/platform/FiveThings";
+import { SevenLayers } from "@/platform/Interactive";
 import { AuditLedger, Coverage } from "@/platform/Record";
 import { css, t } from "@/platform/theme";
 

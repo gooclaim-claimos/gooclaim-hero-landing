@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useAutoplay, useSeen } from "@/site/useAutoplay";
 import { SAMPLE_QUEUE } from "@/data/sampleClaim";
 import { mono, t } from "./theme";
 
@@ -20,31 +21,60 @@ const STAGES: StageDef[] = [
   { who: "Member", status: "Member updated", clock: "CLOSED WITHIN THE CLOCK", left: "Done", leftSub: "on time", deg: 360, channel: "WHATSAPP", action: "Tells the member in their own language — with the source and date — and logs it on the audit ledger." },
 ];
 
-/** The live claim in the hero: click a step, the clock and the action follow. */
+const STAGE_MS = 2800;
+
+/** The ring sweeps to its new angle instead of jumping (conic gradients cannot transition). */
+function useSweep(target: number): number {
+  const [deg, setDeg] = useState(target);
+  const from = useRef(target);
+  useEffect(() => {
+    const start = performance.now();
+    const a = from.current;
+    // Back to the start of the tour: sweep up from empty, not backwards.
+    const b0 = target < a ? 0 : a;
+    let raf = 0;
+    const step = (now: number) => {
+      const k = Math.min(1, (now - start) / 900);
+      const eased = 1 - Math.pow(1 - k, 4);
+      const v = b0 + (target - b0) * eased;
+      from.current = v;
+      setDeg(v);
+      if (k < 1) raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, [target]);
+  return deg;
+}
+
+/** The live claim in the hero: it walks its four steps by itself; click a step to take over. */
 export default function ClaimCard() {
-  const [tab, setTab] = useState(1);
+  const ref = useRef<HTMLDivElement>(null);
+  const tour = useAutoplay({ count: STAGES.length, stepMs: STAGE_MS, start: useSeen(ref), loop: true, initial: 0, rest: 1 });
+  const tab = tour.step;
   const stage = STAGES[tab];
   const ring = tab === 3 ? t.done : t.brand;
+  const deg = useSweep(stage.deg);
 
   return (
-    <div style={{ flex: "0 1 520px", minWidth: 0, background: t.glassStrong, border: `1px solid ${t.glassLine}`, borderRadius: 26, boxShadow: t.cardShadow, padding: 24, textAlign: "left", backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)" }}>
+    <div ref={ref} style={{ flex: "0 1 520px", minWidth: 0, background: t.glassStrong, border: `1px solid ${t.glassLine}`, borderRadius: 26, boxShadow: t.cardShadow, padding: 24, textAlign: "left", backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <span style={{ position: "relative", width: 10, height: 10, borderRadius: 999, background: ring, boxShadow: `0 0 0 4px ${t.brandSoft}` }} />
           <span style={{ fontWeight: 600, fontSize: 15 }}>{SAMPLE_QUEUE[1]}</span>
           <span style={{ fontSize: 13, color: t.text2 }}>Health · Cashless</span>
         </div>
-        <span style={{ fontFamily: mono, fontSize: 11, color: t.text3 }}>SAMPLE · CLICK A STEP</span>
+        <span style={{ fontFamily: mono, fontSize: 11, color: t.text3 }}>{tour.playing ? "SAMPLE · LIVE" : "SAMPLE · CLICK A STEP"}</span>
       </div>
 
       <div style={{ display: "flex", alignItems: "center", gap: 22, marginTop: 22, padding: 18, borderRadius: 18, background: t.surface2 }}>
-        <div style={{ flex: "none", width: 116, height: 116, borderRadius: 999, background: `conic-gradient(${ring} ${stage.deg}deg, ${t.track} 0deg)`, display: "flex", alignItems: "center", justifyContent: "center", transition: "background .4s" }}>
+        <div style={{ flex: "none", width: 116, height: 116, borderRadius: 999, background: `conic-gradient(${ring} ${deg}deg, ${t.track} 0deg)`, display: "flex", alignItems: "center", justifyContent: "center", transition: "background .4s" }}>
           <div style={{ width: 94, height: 94, borderRadius: 999, background: t.surface2, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
-            <span style={{ fontSize: 19, fontWeight: 600, letterSpacing: "-0.02em" }}>{stage.left}</span>
+            <span key={tab} className="gc-pop" style={{ fontSize: 19, fontWeight: 600, letterSpacing: "-0.02em" }}>{stage.left}</span>
             <span style={{ fontSize: 11, color: t.text2 }}>{stage.leftSub}</span>
           </div>
         </div>
-        <div style={{ minWidth: 0 }}>
+        <div key={tab} className="gc-row-in" style={{ minWidth: 0 }}>
           <div style={{ fontFamily: mono, fontSize: 11, letterSpacing: ".06em", color: t.text3 }}>{stage.clock}</div>
           <div style={{ fontSize: 22, fontWeight: 600, letterSpacing: "-0.02em", marginTop: 4 }}>{stage.status}</div>
           <div style={{ fontSize: 13, color: t.text2, marginTop: 2 }}>With: {stage.who}</div>
@@ -60,9 +90,9 @@ export default function ClaimCard() {
             const cur = i === tab && tab !== 3;
             const fill = tab === 3 ? t.done : t.brand;
             return (
-              <button key={s.who} type="button" role="tab" aria-selected={i === tab} onClick={() => setTab(i)} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, background: "none", border: "none", padding: "0 2px 4px", color: i <= tab ? t.text : t.text3 }}>
+              <button key={s.who} type="button" role="tab" aria-selected={i === tab} onClick={() => tour.pick(i)} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, background: "none", border: "none", padding: "0 2px 4px", color: i <= tab ? t.text : t.text3 }}>
                 <span style={{ width: 36, height: 36, borderRadius: 999, background: done ? fill : t.surface, color: done ? t.doneFg : cur ? t.brand : t.text3, border: `2px solid ${done ? fill : cur ? t.brand : t.track}`, boxShadow: cur ? `0 0 0 5px ${t.brandSoft}` : "none", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 600, transition: "all .3s" }}>
-                  {done ? "✓" : String(i + 1)}
+                  {done ? <span key={`d-${tab}`} className="gc-pop">✓</span> : String(i + 1)}
                 </span>
                 <span style={{ fontSize: 13, fontWeight: 500 }}>{s.who}</span>
               </button>
@@ -78,7 +108,7 @@ export default function ClaimCard() {
             <path d="M8.8 12.2l2.2 2.2 4.2-4.4" />
           </svg>
         </span>
-        <div style={{ minWidth: 0 }}>
+        <div key={tab} className="gc-row-in" style={{ minWidth: 0 }}>
           <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
             <b style={{ fontWeight: 600, fontSize: 14 }}>What Gooclaim OS does here</b>
             <span style={{ fontFamily: mono, fontSize: 10, padding: "3px 8px", borderRadius: 999, background: t.brandSoft, color: t.brand }}>{stage.channel}</span>

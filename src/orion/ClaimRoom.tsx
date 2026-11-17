@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
+import { prefersReducedMotion, useSeen } from "@/site/useAutoplay";
 import { ROOM_CLAIM, WORK } from "./data";
 import { mono, t } from "./theme";
 
 type Phase = "idle" | "working" | "card";
 type Decision = "accepted" | "held" | null;
 
-const STEP_MS = 650;
+const STEP_MS = 850;
 
 /** 02 · Orion shows its working, then asks. */
 export default function ClaimRoom() {
@@ -13,6 +14,8 @@ export default function ClaimRoom() {
   const [shown, setShown] = useState(0);
   const [decision, setDecision] = useState<Decision>(null);
   const timers = useRef<number[]>([]);
+  const roomRef = useRef<HTMLDivElement>(null);
+  const seen = useSeen(roomRef);
 
   const clear = () => {
     timers.current.forEach((id) => window.clearTimeout(id));
@@ -28,6 +31,13 @@ export default function ClaimRoom() {
     for (let i = 1; i <= WORK.length; i++) timers.current.push(window.setTimeout(() => setShown(i), i * STEP_MS));
     timers.current.push(window.setTimeout(() => setPhase("card"), (WORK.length + 1) * STEP_MS));
   };
+  // Plays once by itself when the room scrolls into view; the visitor can
+  // run it again. Reduced motion: it waits for the button.
+  useEffect(() => {
+    if (seen && !prefersReducedMotion()) run();
+    // Only on first sight: `run` is recreated each render on purpose.
+  }, [seen]);
+
   const reset = () => {
     clear();
     setPhase("idle");
@@ -50,7 +60,7 @@ export default function ClaimRoom() {
             <span>✓&nbsp; Accepting runs your own hand-over path</span>
           </div>
         </div>
-        <div style={{ flex: "1.2 1 440px", minWidth: 0, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 22, padding: 20, boxShadow: t.cardShadow }}>
+        <div ref={roomRef} style={{ flex: "1.2 1 440px", minWidth: 0, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 22, padding: 20, boxShadow: t.cardShadow }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <b style={{ fontWeight: 600 }}>Orion · Claim room</b>
             <span style={{ fontFamily: mono, fontSize: 11, color: t.text3 }}>SAMPLE DATA</span>
@@ -65,16 +75,27 @@ export default function ClaimRoom() {
             </button>
           )}
           <div aria-live="polite" style={{ display: "flex", flexDirection: "column", gap: 4, marginTop: 12 }}>
-            {WORK.slice(0, shown).map((w) => (
-              <div key={w.k} style={{ display: "flex", gap: 10, alignItems: "flex-start", padding: "7px 0", fontSize: 13 }}>
-                <span style={{ flex: "none", fontFamily: mono, fontSize: 10, padding: "3px 7px", borderRadius: 6, background: t.surface2, color: t.text2 }}>{w.k}</span>
-                <span style={{ color: t.text }}>{w.text}</span>
-              </div>
-            ))}
+            {WORK.slice(0, shown).map((w, i) => {
+              const live = phase === "working" && i === shown - 1;
+              return (
+                <div key={w.k} className="gc-row-in" style={{ display: "flex", gap: 10, alignItems: "center", padding: "7px 0", fontSize: 13 }}>
+                  <span style={{ flex: "none", width: 14, display: "flex", justifyContent: "center", color: live ? t.acc : t.text3 }}>
+                    {live ? <span className="gc-spin" style={{ width: 12, height: 12 }} /> : <span className="gc-pop">✓</span>}
+                  </span>
+                  <span style={{ flex: "none", fontFamily: mono, fontSize: 10, padding: "3px 7px", borderRadius: 6, background: t.surface2, color: t.text2 }}>{w.k}</span>
+                  <span style={{ color: t.text }}>{w.text}</span>
+                </div>
+              );
+            })}
           </div>
-          {phase === "working" && <div style={{ fontSize: 13, color: t.acc, padding: "6px 0" }}>Working…</div>}
+          {phase === "working" && (
+            <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, color: t.acc, padding: "6px 0" }}>
+              <span className="gc-typing"><i /><i /><i /></span>
+              Working
+            </div>
+          )}
           {phase === "card" && (
-            <div style={{ marginTop: 10, padding: 16, borderRadius: 16, border: `1px solid ${t.accLine}`, background: t.accSoft }}>
+            <div className="gc-row-in" style={{ marginTop: 10, padding: 16, borderRadius: 16, border: `1px solid ${t.accLine}`, background: t.accSoft }}>
               <div style={{ fontFamily: mono, fontSize: 11, color: t.acc }}>NEXT SAFE STEP · PREPARED, NOT DONE</div>
               <div style={{ fontSize: 15, fontWeight: 600, marginTop: 6 }}>Hand {ROOM_CLAIM} to Priya (documents desk) and send the claim’s approved day-14 reminder.</div>
               <div style={{ fontSize: 13, color: t.text2, marginTop: 4 }}>Evidence: discharge summary missing since day 6 · reminder 2 sent on day 14 · 15-day clock passed · Priya owns the documents queue.</div>
