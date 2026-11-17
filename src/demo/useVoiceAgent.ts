@@ -54,7 +54,7 @@ export interface VoiceAgentOptions {
   onStart?: () => void;
 }
 
-export const TRIAL_MS = 60000;
+export const TRIAL_MS = 30000;
 
 const INITIAL: VoiceState = {
   call: "idle", vstep: "otp", vlang: "en", lines: [], interim: "", callStart: 0, now: 0,
@@ -64,7 +64,7 @@ const INITIAL: VoiceState = {
 /**
  * One scripted voice call: the agent speaks with the browser's voice, listens
  * with its speech recognition, asks for the one-time code first, follows the
- * caller's language, and closes itself after one minute.
+ * caller's language, and closes itself after 30 seconds.
  */
 export function useVoiceAgent(options: VoiceAgentOptions) {
   const [, rerender] = useReducer((n: number) => n + 1, 0);
@@ -265,7 +265,7 @@ export function useVoiceAgent(options: VoiceAgentOptions) {
     heardRef.current(text);
   }, [stopRec]);
 
-  // The one-minute clock.
+  // The trial clock.
   useEffect(() => {
     const id = window.setInterval(() => {
       const s = st.current;
@@ -295,7 +295,7 @@ export function useVoiceAgent(options: VoiceAgentOptions) {
     state: s,
     inCall,
     /** Seconds left on the trial (fractional). */
-    remaining: inCall ? Math.max(0, (TRIAL_MS - elapsed) / 1000) : s.trialEnded ? 0 : 60,
+    remaining: inCall ? Math.max(0, (TRIAL_MS - elapsed) / 1000) : s.trialEnded ? 0 : TRIAL_MS / 1000,
     /** The agent is audibly talking, or the mic is open. */
     active: s.call === "speaking" || (s.call === "listening" && !s.micBlocked),
     startCall,

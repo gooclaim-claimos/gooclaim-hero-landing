@@ -1,0 +1,181 @@
+import { useCallback, useEffect, useRef, useState } from "react";
+import { hasDevanagari, type CallLang } from "./speech";
+import type { CallLine } from "./useVoiceAgent";
+
+/**
+ * A real call with the Gooclaim voice agent from the /call page — the same
+ * agent the Portal's "Test" tab calls, on the tenant's labelled test member.
+ *
+ *   /api/voice-call (Turnstile-checked) → a one-call token + session id
+ *   @elevenlabs/client over WebRTC, the session id as `test_session` (the
+ *   browser names no caller; the server's session does)
+ *
+ * The call is cut at `limit_s` twice over: the voice service speaks a closing
+ * line and hangs up (and makes no AI call after the limit), and this hook
+ * ends the session a few seconds later if the provider has not.
+ */
+export type LivePhase = "idle" | "connecting" | "live" | "ended";
+export type LiveProblem = "" | "verification" | "daily_limit" | "ip_limit" | "unavailable" | "not_configured" | "microphone" | "dropped";
+
+export interface LiveEvent {
+  ev: string;
+  detail: string;
+  time: string;
+}
+
+interface Opened {
+  session_id: string;
+  conversation_token: string;
+  limit_s: number;
+  test_code: string;
+}
+
+/** Minimal shape of the provider's session we use. */
+interface Session {
+  endSession(): Promise<void>;
+}
+
+const GRACE_S = 4;
+
+function clock(): string {
+  return new Date().toTimeString().slice(0, 8);
+}
+
+export function useLiveCall() {
+  const [phase, setPhase] = useState<LivePhase>("idle");
+  const [speaking, setSpeaking] = useState(false);
+  const [lines, setLines] = useState<CallLine[]>([]);
+  const [events, setEvents] = useState<LiveEvent[]>([]);
+  const [problem, setProblem] = useState<LiveProblem>("");
+  const [limitS, setLimitS] = useState(30);
+  const [code, setCode] = useState("");
+  const [startedAt, setStartedAt] = useState(0);
+  const [now, setNow] = useState(0);
+  // The limit was reached: by the agent closing the call at it, or by our cut.
+  const [cut, setCut] = useState(false);
+  const session = useRef<Session | null>(null);
+  const began = useRef(0);
+  const limit = useRef(30);
+
+  const log = useCallback((ev: string, detail: string) => setEvents((e) => e.concat({ ev, detail, time: clock() })), []);
+
+  const end = useCallback(async () => {
+    const s = session.current;
+    session.current = null;
+    await s?.endSession().catch(() => undefined);
+    setSpeaking(false);
+    setPhase((p) => (p === "idle" ? p : "ended"));
+  }, []);
+
+  const start = useCallback(
+    async (lang: CallLang, turnstileToken: string) => {
+      setProblem("");
+      setLines([]);
+      setEvents([]);
+      setCut(false);
+      setPhase("connecting");
+      let opened: Opened;
+      try {
+        const r = await fetch("/api/voice-call", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ turnstile_token: turnstileToken, language: lang }),
+        });
+        const out = (await r.json().catch(() => ({}))) as Partial<Opened> & { error?: string };
+        if (!r.ok || !out.conversation_token || !out.session_id) {
+          const e = out.error;
+          setProblem(
+            e === "daily_limit" || e === "ip_limit" || e === "not_configured"
+              ? e
+              : e === "verification_failed" || e === "verification_required"
+                ? "verification"
+                : "unavailable",
+          );
+          setPhase("idle");
+          return;
+        }
+        opened = { session_id: out.session_id, conversation_token: out.conversation_token, limit_s: out.limit_s ?? 30, test_code: out.test_code ?? "" };
+      } catch {
+        setProblem("unavailable");
+        setPhase("idle");
+        return;
+      }
+      setLimitS(opened.limit_s);
+      limit.current = opened.limit_s;
+      setCode(opened.test_code);
+      try {
+        // Loaded on first use: the call's audio code is only for people who place a call.
+        const { VoiceConversation } = await import("@elevenlabs/client");
+        session.current = await VoiceConversation.startSession({
+          conversationToken: opened.conversation_token,
+          connectionType: "webrtc",
+          dynamicVariables: { test_session: opened.session_id },
+          overrides: { agent: { language: lang } },
+          onConnect: () => {
+            const t = Date.now();
+            began.current = t;
+            setStartedAt(t);
+            setNow(t);
+            setPhase("live");
+            log("call.started", "Test member · sample data · recorded as a test");
+          },
+          onDisconnect: (d) => {
+            session.current = null;
+            setSpeaking(false);
+            setPhase("ended");
+            if (d.reason === "agent" || (began.current && (Date.now() - began.current) / 1000 >= limit.current - 1)) setCut(true);
+            log("call.ended", d.reason === "agent" ? "The agent closed the call" : d.reason === "user" ? "You ended the call" : "The line dropped");
+            if (d.reason === "error") setProblem("dropped");
+          },
+          onError: () => setProblem("dropped"),
+          onModeChange: ({ mode }) => setSpeaking(mode === "speaking"),
+          onMessage: (m) => {
+            const who: CallLine["who"] = m.source === "ai" ? "agent" : "caller";
+            setLines((l) => l.concat({ who, text: m.message, lang: hasDevanagari(m.message) ? "hi" : "en" }));
+          },
+        });
+      } catch (e) {
+        session.current = null;
+        setProblem(e instanceof DOMException && e.name === "NotAllowedError" ? "microphone" : "unavailable");
+        setPhase("idle");
+      }
+    },
+    [log],
+  );
+
+  // The clock, and our own cut a few seconds after the agent's.
+  useEffect(() => {
+    if (phase !== "live") return;
+    const id = window.setInterval(() => {
+      const t = Date.now();
+      setNow(t);
+      if ((t - startedAt) / 1000 >= limitS + GRACE_S) {
+        setCut(true);
+        void end();
+      }
+    }, 250);
+    return () => window.clearInterval(id);
+  }, [phase, startedAt, limitS, end]);
+
+  // Leaving the page hangs up: a call never runs unseen.
+  useEffect(() => () => void session.current?.endSession().catch(() => undefined), []);
+
+  const elapsed = phase === "live" && startedAt ? Math.max(0, (now - startedAt) / 1000) : 0;
+  return {
+    phase,
+    speaking,
+    lines,
+    events,
+    problem,
+    code,
+    limitS,
+    /** The limit was reached (by the agent or by our cut). */
+    trialEnded: phase === "ended" && cut,
+    remaining: phase === "live" ? Math.max(0, limitS - elapsed) : phase === "ended" ? 0 : limitS,
+    inCall: phase === "connecting" || phase === "live",
+    start,
+    end,
+  };
+}
+
+export type LiveCall = ReturnType<typeof useLiveCall>;

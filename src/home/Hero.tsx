@@ -115,7 +115,7 @@ export default function Hero() {
                 <path d="M7 5v14l12-7z" />
               </svg>
             </span>
-            Try a 1-minute call
+            Try a 30-second call
           </Link>
         </div>
         <Link to="/try" style={{ display: "inline-block", marginTop: 16, fontSize: 14, color: t.text2 }}>or message the claims desk →</Link>

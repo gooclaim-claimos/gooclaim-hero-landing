@@ -8,41 +8,19 @@ import { breadcrumbJsonLd } from "@/lib/structured";
 import { openWaitlist } from "@/lib/waitlist";
 import CallStage from "@/demo/CallStage";
 import { CALL_CSS, callTheme } from "@/demo/callTheme";
-import { callIntent } from "@/demo/intents";
 import type { CallLang } from "@/demo/speech";
+import { useTurnstile } from "@/demo/turnstile";
 import { mono } from "@/demo/tryTheme";
-import { useEventLog } from "@/demo/useEventLog";
-import { useVoiceAgent, type VoiceLogText } from "@/demo/useVoiceAgent";
+import { useLiveCall } from "@/demo/useLiveCall";
 
 const SEO_CALL: PageSEO = {
   title: "Call the voice agent · Gooclaim OS",
   description:
-    "A one-minute trial call with the Gooclaim OS voice agent, in early access: a one-time code before any claim detail, answers read from the claim record, and English, Hindi or Hinglish — switch mid-call and it follows.",
+    "A 30-second trial call with the live Gooclaim OS voice agent, in early access: a one-time code before any claim detail, answers read from the claim record, and English, Hindi or Hinglish — switch mid-call and it follows.",
   keywords: "insurance voice agent, claims helpline AI, Hindi voice agent, voice AI for TPAs",
 };
 
 const { t } = callTheme;
-
-const VOICE_LOG: VoiceLogText = {
-  started: "Recording on · consent notice played",
-  otpSent: "Code sent to registered mobile",
-  verified: "One-time code matched",
-  retry: "Code did not match · nothing shared",
-  toHindi: "Caller moved to Hindi · agent follows",
-  toEnglish: "Caller moved to English",
-  status: "Claim read from record · read-only",
-  docs: "Sent to registered mobile",
-  payment: "Payments · read-only",
-  human: "Sent to claims team with reason",
-  ended: "Recording kept on the claim",
-  trialEnded: "1-minute limit reached",
-};
-
-const MIC_NOTES = {
-  unsupported: "Voice input isn’t available in this browser — tap a line below to say it. The agent still answers out loud.",
-  blocked: "Microphone is blocked here — tap a line below to say it. The agent still answers out loud.",
-  failed: "Microphone could not start — tap a line below to say it.",
-};
 
 const TRAITS = [
   { n: "01", title: "Knows who is calling", desc: "A one-time code to the registered mobile comes before a single claim detail." },
@@ -55,9 +33,16 @@ const LANG_TAG = { hi: " · HI", hing: " · HING", en: " · EN" } as const;
 
 export default function VoiceCall() {
   const [lang, setLang] = useState<CallLang>("en");
-  const { log, add, clear } = useEventLog();
-  const voice = useVoiceAgent({ intent: callIntent, log: add, logText: VOICE_LOG, micNotes: MIC_NOTES, onStart: clear });
-  const lines = voice.state.lines;
+  const live = useLiveCall();
+  const checkBox = useRef<HTMLDivElement>(null);
+  const check = useTurnstile(checkBox);
+  const lines = live.lines;
+  const log = live.events;
+  const startCall = () => {
+    void live.start(lang, check.token);
+    // A token is single-use: the next call needs a fresh one.
+    check.reset();
+  };
   const transcript = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (transcript.current) transcript.current.scrollTop = transcript.current.scrollHeight;
@@ -73,18 +58,18 @@ export default function VoiceCall() {
         <section style={{ maxWidth: 1080, margin: "0 auto", padding: "72px 24px 36px", textAlign: "center" }}>
           <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 999, border: `1px solid ${t.border}`, background: t.surface, fontSize: 13, color: t.text2 }}>
             <span style={{ width: 7, height: 7, borderRadius: 999, background: "#10B981" }} />
-            Voice agent · early access · 1-minute trial
+            Live voice agent · early access · 30-second trial
           </div>
           <h1 style={{ margin: "22px auto 0", fontSize: "clamp(40px, 5.6vw, 76px)", lineHeight: 1.02, fontWeight: 500, letterSpacing: "-0.05em", maxWidth: 920 }}>
             Talk to a claims agent{" "}
             <span style={{ background: t.brandGrad, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>that knows the claim.</span>
           </h1>
           <p style={{ margin: "20px auto 0", fontSize: 19, fontWeight: 400, color: t.text2, maxWidth: 600 }}>
-            Call as a member. Ask where your claim stands, what is pending, or switch to Hindi mid-sentence. You have one minute.
+            Call as a member. Ask where your claim stands, what is pending, or switch to Hindi mid-sentence. You have 30 seconds with the real agent, on test data.
           </p>
         </section>
 
-        <CallStage voice={voice} lang={lang} setLang={setLang} />
+        <CallStage live={live} lang={lang} setLang={setLang} checkBox={checkBox} ready={!!check.token} onStart={startCall} />
 
         <section style={{ maxWidth: 1080, margin: "0 auto", padding: "8px 24px 40px", display: "flex", flexWrap: "wrap", gap: 16 }}>
           <div style={{ ...card, flex: "1.3 1 420px" }}>
@@ -103,11 +88,11 @@ export default function VoiceCall() {
           </div>
           <div style={card}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <span style={{ fontFamily: mono, fontSize: 11, letterSpacing: ".08em", color: t.text3 }}>ON THE RECORD</span>
-              <span style={{ fontSize: 12, color: t.green }}>● Audit ledger</span>
+              <span style={{ fontFamily: mono, fontSize: 11, letterSpacing: ".08em", color: t.text3 }}>THIS CALL</span>
+              <span style={{ fontSize: 12, color: t.green }}>● Recorded as a test</span>
             </div>
             <div style={{ display: "flex", flexDirection: "column", marginTop: 10, maxHeight: 320, overflowY: "auto" }}>
-              {log.length === 0 && <div style={{ fontSize: 14, color: t.text3, padding: "8px 0" }}>Every check the agent makes lands here.</div>}
+              {log.length === 0 && <div style={{ fontSize: 14, color: t.text3, padding: "8px 0" }}>The call’s start and end land here. In Gooclaim OS every check is a row on the claim’s audit ledger.</div>}
               {log
                 .slice()
                 .reverse()

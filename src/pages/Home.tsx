@@ -23,7 +23,7 @@ export default function Home() {
       <div className="gc-home" style={{ minHeight: "100vh", background: t.bg, color: t.text, fontFamily: "Inter, 'Noto Sans Devanagari', system-ui, sans-serif", fontSize: 16, lineHeight: 1.5, transition: "background .3s, color .3s" }}>
         <div style={{ background: t.annBg, color: t.annText, fontSize: 13, padding: "9px 16px", display: "flex", justifyContent: "center", alignItems: "center", gap: 12, flexWrap: "wrap", textAlign: "center" }}>
           <span>Voice calls are now in early access — English, Hindi and Hinglish.</span>
-          <Link to="/call" style={{ background: t.annBtnBg, color: t.annBtnText, padding: "3px 12px", borderRadius: 999, fontWeight: 500 }}>Try a 1-minute call</Link>
+          <Link to="/call" style={{ background: t.annBtnBg, color: t.annBtnText, padding: "3px 12px", borderRadius: 999, fontWeight: 500 }}>Try a 30-second call</Link>
         </div>
         <Nav />
         <main>

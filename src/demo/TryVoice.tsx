@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { openWaitlist } from "@/lib/waitlist";
 import Logo from "@/site/Logo";
 import { mono, PHONE_PATH, tryTheme } from "./tryTheme";
+import { TRIAL_MS } from "./useVoiceAgent";
 import type { UiLang } from "./useChatDemo";
 import type { CallPhase, useVoiceAgent } from "./useVoiceAgent";
 
@@ -13,7 +14,7 @@ const LANGS: [UiLang, string][] = [["en", "English"], ["hi", "हिन्दी
 const BARS = Array.from({ length: 24 }, (_, i) => ({ h: `${14 + ((i * 37) % 30)}px`, d: `${(-(i * 0.09)).toFixed(2)}s` }));
 const LINE_LABEL = { hi: "HINDI", hing: "HINGLISH", en: "ENGLISH" } as const;
 
-/** The 1-minute call tab of the Try it demo. */
+/** The 30-second call tab of the Try it demo (a scripted sample; /call is the live agent). */
 export default function TryVoice({ voice, lang, setLang }: { voice: Voice; lang: UiLang; setLang: (l: UiLang) => void }) {
   const s = voice.state;
   const scroller = useRef<HTMLDivElement>(null);
@@ -25,7 +26,7 @@ export default function TryVoice({ voice, lang, setLang }: { voice: Voice; lang:
   const inCall = voice.inCall;
   const remaining = inCall ? Math.max(0, 60 - Math.floor(60 - voice.remaining)) : 0;
   const callTime = inCall ? `${Math.floor(remaining / 60)}:${String(remaining % 60).padStart(2, "0")} left` : call === "ended" ? (s.trialEnded ? "Trial ended" : "Call ended") : "1:00 trial";
-  const trialPct = inCall ? `${(remaining / 60) * 100}%` : s.trialEnded ? "0%" : "100%";
+  const trialPct = inCall ? `${(remaining / (TRIAL_MS / 1000)) * 100}%` : s.trialEnded ? "0%" : "100%";
   const statusMap: Record<CallPhase, [string, string]> = {
     idle: ["Ready when you are", "#A8A29E"],
     speaking: ["Speaking…", "#93C5FD"],
@@ -46,7 +47,7 @@ export default function TryVoice({ voice, lang, setLang }: { voice: Voice; lang:
   return (
     <div style={{ maxWidth: 560, margin: "0 auto", background: t.callBg, color: "#F5F5F4", borderRadius: 28, boxShadow: t.cardShadow, overflow: "hidden", display: "flex", flexDirection: "column", height: 640 }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 20px", fontSize: 13, color: "#A8A29E" }}>
-        <span>Claims helpline · 1-minute trial</span>
+        <span>Claims helpline · 30-second sample</span>
         <span style={{ fontFamily: mono }}>{callTime}</span>
       </div>
       <div aria-hidden="true" style={{ height: 3, margin: "0 20px", borderRadius: 999, background: "rgba(245,245,244,.1)", overflow: "hidden" }}>
@@ -76,7 +77,7 @@ export default function TryVoice({ voice, lang, setLang }: { voice: Voice; lang:
               ))}
             </div>
             <div style={{ marginTop: 16 }}>
-              Press <b style={{ color: "#F5F5F4" }}>Start 1-minute call</b> and allow your microphone. Speak Hindi, English or a mix — the agent follows you. It will first ask for the 6-digit code shown on the right.
+              Press <b style={{ color: "#F5F5F4" }}>Start 30-second call</b> and allow your microphone. Speak Hindi, English or a mix — the agent follows you. It will first ask for the 6-digit code shown on the right.
             </div>
           </div>
         )}
@@ -94,7 +95,7 @@ export default function TryVoice({ voice, lang, setLang }: { voice: Voice; lang:
         )}
         {s.trialEnded && (
           <div style={{ marginTop: 8, padding: 16, borderRadius: 16, background: "linear-gradient(135deg, rgba(29,78,216,.35), rgba(8,145,178,.25))", border: "1px solid rgba(96,165,250,.35)" }}>
-            <div style={{ fontWeight: 600, fontSize: 15 }}>Your 1-minute trial is over.</div>
+            <div style={{ fontWeight: 600, fontSize: 15 }}>Your 30-second trial is over.</div>
             <div style={{ fontSize: 13, color: "#D6D3D1", marginTop: 4 }}>Hear the agent on your own claims, in your members’ languages.</div>
             <button type="button" onClick={() => openWaitlist("try-voice-trial-ended")} style={{ display: "inline-block", marginTop: 12, padding: "9px 14px", borderRadius: 10, border: "none", background: "#F5F5F4", color: "#0C0A09", font: "inherit", fontSize: 14, fontWeight: 600, cursor: "pointer" }}>
               Book a walkthrough
@@ -118,7 +119,7 @@ export default function TryVoice({ voice, lang, setLang }: { voice: Voice; lang:
         {!inCall && (
           <button type="button" onClick={() => voice.startCall(lang === "hi" ? "hi" : "en")} style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "14px 26px", borderRadius: 999, border: "none", background: "#16A34A", color: "#fff", font: "inherit", fontSize: 15, fontWeight: 600, cursor: "pointer" }}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={PHONE_PATH} /></svg>
-            {call === "ended" ? "Try another 1-minute call" : "Start 1-minute call"}
+            {call === "ended" ? "Try another 30-second call" : "Start 30-second call"}
           </button>
         )}
         {inCall && (

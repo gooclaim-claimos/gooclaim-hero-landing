@@ -28,7 +28,7 @@ export function Voice() {
             <span style={chip} lang="hi">हिन्दी</span>
             <span style={chip}>Hinglish</span>
           </div>
-          <Link to="/call" style={{ display: "inline-flex", alignItems: "center", gap: 8, marginTop: 24, padding: "12px 20px", borderRadius: 999, background: t.btnBg, color: t.btnText, fontSize: 15, fontWeight: 500 }}>Try a 1-minute call</Link>
+          <Link to="/call" style={{ display: "inline-flex", alignItems: "center", gap: 8, marginTop: 24, padding: "12px 20px", borderRadius: 999, background: t.btnBg, color: t.btnText, fontSize: 15, fontWeight: 500 }}>Try a 30-second call</Link>
         </div>
         <div style={{ flex: "1.2 1 420px", minWidth: 0, display: "flex", flexDirection: "column", gap: 10, fontSize: 14 }}>
           <div style={{ ...bubble, maxWidth: "88%" }}>
@@ -90,7 +90,7 @@ export function Walkthrough() {
           <p style={{ margin: "16px auto 0", fontSize: 18, color: "#D6D3D1", maxWidth: 540 }}>20 minutes. Your workflow first, on a sample claims system. No slides.</p>
           <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginTop: 32 }}>
             <button type="button" onClick={() => openWaitlist("home-walkthrough")} style={{ padding: "14px 26px", borderRadius: 999, border: "none", background: "#FAFAF9", color: "#0C0A09", fontWeight: 500 }}>Book a walkthrough</button>
-            <Link to="/call" style={{ padding: "14px 26px", borderRadius: 999, border: "1px solid rgba(250,250,249,.35)", fontWeight: 500 }}>Try a 1-minute call</Link>
+            <Link to="/call" style={{ padding: "14px 26px", borderRadius: 999, border: "1px solid rgba(250,250,249,.35)", fontWeight: 500 }}>Try a 30-second call</Link>
           </div>
         </div>
       </div>

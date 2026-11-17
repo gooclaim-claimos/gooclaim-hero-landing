@@ -17,7 +17,7 @@ import { useVoiceAgent, type VoiceLogText } from "@/demo/useVoiceAgent";
 const SEO_TRY: PageSEO = {
   title: "Try it live · Gooclaim OS",
   description:
-    "Be the member: ask about a sample health claim on a messaging channel or a one-minute voice call, in English, Hindi or Hinglish — consent first, messages checked against the record before they are sent, calls that answer only from the claim, every step on the audit ledger.",
+    "Be the member: ask about a sample health claim on a messaging channel or a 30-second voice call, in English, Hindi or Hinglish — consent first, messages checked against the record before they are sent, calls that answer only from the claim, every step on the audit ledger.",
   keywords: "Gooclaim OS demo, claims chatbot demo, insurance voice agent demo, Hindi claims assistant",
 };
 
@@ -35,7 +35,7 @@ const VOICE_LOG: VoiceLogText = {
   payment: "Voice · payments read-only",
   human: "Voice · sent to claims team",
   ended: "Recording kept on the claim",
-  trialEnded: "1-minute limit reached · call closed",
+  trialEnded: "30-second limit reached · call closed",
 };
 
 const MIC_NOTES = {
@@ -87,7 +87,7 @@ export default function TryIt() {
                     ) : (
                       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={PHONE_PATH} /></svg>
                     )}
-                    {m === "chat" ? "Messaging" : "1-min voice call"}
+                    {m === "chat" ? "Messaging" : "30-sec voice call"}
                   </button>
                 ))}
               </div>
