@@ -5,7 +5,7 @@ import { ThemeStyle } from "@/theme/ThemeProvider";
 import { css, mono, t } from "@/legacy/tokens";
 import { Arrow } from "@/legacy/ui";
 import { Field, Spinner, SuccessPanel, type WaitlistForm } from "@/legacy/waitlistParts";
-import { ShieldMark } from "@/site/Nav";
+import Logo from "@/site/Logo";
 
 type SubmitState =
   | { phase: "idle" }
@@ -241,7 +241,7 @@ export default function WaitlistModal() {
             <aside className="relative hidden overflow-clip p-9 lg:flex lg:flex-col" style={{ background: t.panel, borderRight: `1px solid ${t.border}` }}>
               <div className="relative z-10 flex h-full flex-col">
                 <div style={{ display: "flex", alignItems: "center", gap: 10, fontWeight: 600, fontSize: 17, letterSpacing: "-0.02em" }}>
-                  <ShieldMark size={22} />
+                  <Logo size={22} />
                   <span>
                     Gooclaim<span style={{ color: t.text3, fontWeight: 500 }}> OS</span>
                   </span>

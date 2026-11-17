@@ -9,7 +9,6 @@ export const STATS = [
   { k: "MORE CHANNELS", v: "Early access", d: "Voice calls now · SMS next" },
 ];
 
-export const CONNECTORS = ["WhatsApp", "Slack", "MS Teams", "Gmail", "Outlook", "Intercom", "Zoom", "ServiceNow", "Salesforce", "HubSpot", "Zendesk", "Freshdesk", "Zoho CRM", "Jira", "Linear", "Monday", "Asana", "Calendly", "Stripe", "SharePoint", "Google Drive", "Dropbox", "Box", "OneDrive", "Notion", "Confluence", "Document360", "Google Docs", "Word", "GitHub", "Oracle", "MySQL", "Elastic", "Mailchimp", "Shopify", "Facebook"];
 
 export interface Step {
   title: string;

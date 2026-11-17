@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { makeTheme } from "@/theme/theme";
 import { ThemeStyle } from "@/theme/ThemeProvider";
-import { ShieldMark } from "./Nav";
+import Logo from "./Logo";
 
 const { t, css } = makeTheme("foot", {
   bg: ["#FAFAF9", "#07090F"],
@@ -47,7 +47,7 @@ export default function Footer() {
       <div style={{ maxWidth: 1240, margin: "0 auto", padding: "64px 24px 32px", display: "flex", flexWrap: "wrap", gap: 48 }}>
         <div style={{ flex: "1 1 260px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10, fontWeight: 600, fontSize: 18, letterSpacing: "-0.02em" }}>
-            <ShieldMark size={24} />
+            <Logo size={24} />
             Gooclaim OS
           </div>
           <div style={{ marginTop: 10, fontSize: 14, color: t.text2 }}>The Claim OS for TPAs and insurers.</div>

@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { makeTheme } from "@/theme/theme";
 import { ThemeStyle, useTheme } from "@/theme/ThemeProvider";
 import { openWaitlist } from "@/lib/waitlist";
+import Logo from "./Logo";
 
 const { t, css } = makeTheme("nav", {
   navBg: ["rgba(250,250,249,.85)", "rgba(7,9,15,.8)"],
@@ -26,15 +27,6 @@ const LINKS = [
   { label: "Pricing", to: "/pricing" },
 ];
 
-export function ShieldMark({ size }: { size: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M12 3l7 3v6c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6l7-3z" />
-      <path d="M8.8 12.2l2.2 2.2 4.2-4.4" />
-    </svg>
-  );
-}
-
 export default function Nav() {
   const { pathname } = useLocation();
   const { dark, toggle } = useTheme();
@@ -44,7 +36,7 @@ export default function Nav() {
       <ThemeStyle css={css} />
       <div style={{ maxWidth: 1240, margin: "0 auto", padding: "14px 24px", display: "flex", alignItems: "center", gap: 28, flexWrap: "wrap" }}>
         <Link to="/" style={{ display: "flex", alignItems: "center", gap: 10, fontWeight: 600, fontSize: 18, letterSpacing: "-0.02em", color: t.text, textDecoration: "none" }}>
-          <ShieldMark size={26} />
+          <Logo size={26} />
           <span>
             Gooclaim<span style={{ color: t.text3, fontWeight: 500 }}> OS</span>
           </span>

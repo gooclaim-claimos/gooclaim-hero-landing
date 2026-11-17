@@ -201,6 +201,79 @@
   }
 }
 
+
+/* One-colour connector marks on a tile for the theme they vanish in (src/site/ConnectorIcon.tsx).
+   Outside @layer: the class name is built at runtime, so Tailwind would purge it. */
+:root[data-theme="dark"] .gc-icon-tile-white,
+:root:not([data-theme="dark"]) .gc-icon-tile-dark {
+  border-radius: 4px;
+  padding: 2px 4px;
+  box-sizing: content-box;
+}
+:root[data-theme="dark"] .gc-icon-tile-white {
+  background: #ffffff;
+}
+:root:not([data-theme="dark"]) .gc-icon-tile-dark {
+  background: #0c0a09;
+}
+
+/*
+ * Motion, after elevenlabs.io: one easing (expo-out), short soft moves,
+ * native scroll. Everything below is switched off by the reduced-motion
+ * block at the end of this file.
+ */
+:root {
+  --gc-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+html {
+  scroll-behavior: smooth;
+}
+main {
+  animation: gc-page-in 0.45s var(--gc-ease) both;
+}
+@keyframes gc-page-in {
+  from {
+    opacity: 0;
+  }
+}
+/* Sections fade up as they enter (src/site/useReveal.ts adds the classes). */
+/* Hidden at once (no transition), so a section never visibly fades OUT. */
+.gc-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+}
+.gc-reveal.gc-in {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.9s var(--gc-ease),
+    transform 1s var(--gc-ease);
+}
+.gc-reveal.gc-reveal-now.gc-in {
+  transition-delay: 0.05s;
+}
+/* Buttons and links: colour changes glide, a press gives a little. */
+:where(a, button, input, select, textarea) {
+  transition:
+    background-color 0.25s var(--gc-ease),
+    color 0.25s var(--gc-ease),
+    border-color 0.25s var(--gc-ease),
+    box-shadow 0.35s var(--gc-ease),
+    filter 0.25s var(--gc-ease),
+    opacity 0.25s var(--gc-ease),
+    transform 0.35s var(--gc-ease);
+}
+:where(button):not(:disabled):hover {
+  filter: brightness(1.08);
+}
+:where(button, a[href]):not(:disabled):active {
+  transform: scale(0.98);
+}
+:where(a, button):focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -209,5 +282,12 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+  .gc-reveal {
+    opacity: 1;
+    transform: none;
   }
 }

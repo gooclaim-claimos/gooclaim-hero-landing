@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { openWaitlist } from "@/lib/waitlist";
-import { CONNECTORS, STATS } from "./data";
+import { STATS } from "./data";
+import { ALL_CONNECTORS } from "@/data/connectors";
+import ConnectorIcon from "@/site/ConnectorIcon";
 import { mono, t } from "./theme";
 
 const fade = "radial-gradient(60% 70% at 80% 30%, #000 20%, transparent 75%)";
@@ -51,9 +53,10 @@ export function Connectors() {
           <span style={{ fontFamily: mono, fontSize: 12, color: t.text3 }}>AND MORE VIA CONNECTOR HUB</span>
         </div>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 28 }}>
-          {CONNECTORS.map((c) => (
-            <span key={c} style={{ padding: "8px 14px", borderRadius: 10, border: `1px solid ${t.border}`, background: t.surface, fontSize: 13, fontWeight: 500, color: t.text2 }}>
-              {c}
+          {ALL_CONNECTORS.map((c) => (
+            <span key={c.id} style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "8px 14px", borderRadius: 10, border: `1px solid ${t.border}`, background: t.surface, fontSize: 13, fontWeight: 500, color: t.text2 }}>
+              <ConnectorIcon c={c} size={18} />
+              {c.name}
             </span>
           ))}
         </div>

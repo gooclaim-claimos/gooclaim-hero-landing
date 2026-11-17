@@ -44,7 +44,7 @@ function esc(s: string): string {
 }
 
 const SITE_URL = process.env.SITE_URL || "https://www.gooclaim.com";
-const LOGO_URL = process.env.LOGO_URL || `${SITE_URL}/logo-gooclaim.png`;
+const LOGO_URL = process.env.LOGO_URL || "https://assets.gooclaim.com/gooclaim/brand/logo-v3.png";
 // The founder's Cal.com page for a 20-minute walkthrough; empty = no booking link in the email.
 // Keep in step with BOOKING_URL in src/lib/booking.ts.
 const BOOKING_URL = process.env.BOOKING_URL || "https://cal.com/gooclaimos/walkthrough";

@@ -18,6 +18,7 @@ import Orion from "./pages/Orion";
 import Security from "./pages/Security";
 import WaitlistModal from "./components/WaitlistModal";
 import { ThemeProvider } from "./theme/ThemeProvider";
+import { useReveal } from "./site/useReveal";
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -33,6 +34,8 @@ function ScrollToTop() {
     }
     window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
   }, [pathname, hash]);
+  // After the scroll reset above, so "on screen" is measured at the top.
+  useReveal(pathname);
   return null;
 }
 

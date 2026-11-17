@@ -6,6 +6,14 @@ import { MODULES, type ModuleData } from "@/data/platform";
 import { openWaitlist } from "@/lib/waitlist";
 import { Arrow, Card, Check, Chip, ClosingPanel, Eyebrow, Grid, LegacyPage, Pill, Section } from "@/legacy/ui";
 import { mono, t } from "@/legacy/tokens";
+import { CHANNEL_CONNECTORS, SOURCE_CONNECTORS, type Connector } from "@/data/connectors";
+import ConnectorIcon from "@/site/ConnectorIcon";
+
+/** Modules that work through named connectors show their real marks. */
+const MODULE_CONNECTORS: Record<string, { title: string; list: Connector[] }> = {
+  "knowledge-layer": { title: "Where your knowledge already lives", list: SOURCE_CONNECTORS },
+  "channel-gateway": { title: "Channels live today", list: CHANNEL_CONNECTORS },
+};
 
 export default function Module() {
   const { slug } = useParams<{ slug: string }>();
@@ -73,6 +81,19 @@ function ModuleBody({ data }: { data: ModuleData }) {
           ))}
         </Grid>
       </Section>
+
+      {MODULE_CONNECTORS[data.slug] && (
+        <Section eyebrow={MODULE_CONNECTORS[data.slug].title}>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+            {MODULE_CONNECTORS[data.slug].list.map((c) => (
+              <span key={c.id} style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "8px 14px", borderRadius: 10, border: `1px solid ${t.border}`, background: t.surface, fontSize: 13, fontWeight: 500, color: t.text2 }}>
+                <ConnectorIcon c={c} size={18} />
+                {c.name}
+              </span>
+            ))}
+          </div>
+        </Section>
+      )}
 
       <section style={{ maxWidth: 1240, margin: "0 auto", padding: "32px 24px 40px", display: "flex", flexWrap: "wrap", gap: 40 }}>
         <div style={{ flex: "1 1 340px", minWidth: 0 }}>
