@@ -20,7 +20,7 @@ export function Voice() {
     <section id="voice" style={{ maxWidth: 1240, margin: "0 auto", padding: "clamp(60px, 8.33vw, 120px) 24px 40px" }}>
       <div style={{ borderRadius: 32, padding: "clamp(28px, 5vw, 64px)", background: t.panelVoice, display: "flex", flexWrap: "wrap", gap: 48, alignItems: "center" }}>
         <div style={{ flex: "1 1 340px", minWidth: 0 }}>
-          <div style={{ fontFamily: mono, fontSize: 12, letterSpacing: ".08em", color: t.violet }}>03 · VOICE CALLS · EARLY ACCESS</div>
+          <div style={{ fontFamily: mono, fontSize: 12, letterSpacing: ".08em", color: t.violet }}>04 · VOICE CALLS · EARLY ACCESS</div>
           <h2 style={{ margin: "16px 0 0", fontSize: "clamp(32px, 3.8vw, 48px)", lineHeight: 1.08, fontWeight: 500, letterSpacing: "-0.035em" }}>A voice agent that knows the claim.</h2>
           <p style={{ margin: "16px 0 0", fontSize: 17, color: t.text2 }}>The agent confirms who is calling, reads the claim from your system and answers in the caller's language — even when they switch mid-call.</p>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 22 }}>
@@ -57,7 +57,7 @@ export function Voice() {
 export function GoingLive() {
   return (
     <section style={{ maxWidth: 1240, margin: "0 auto", padding: "clamp(60px, 8.33vw, 120px) 24px 40px" }}>
-      <div style={eyebrow}>04 · GOING LIVE</div>
+      <div style={eyebrow}>05 · GOING LIVE</div>
       <h2 style={{ ...h2, maxWidth: 820 }}>
         From first call to first member reply. <span style={{ color: t.text3 }}>Four steps.</span>
       </h2>
