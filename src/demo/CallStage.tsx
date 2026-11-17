@@ -1,4 +1,5 @@
 import type { RefObject } from "react";
+import { Link } from "react-router-dom";
 import { openWaitlist } from "@/lib/waitlist";
 import Logo from "@/site/Logo";
 import { callTheme } from "./callTheme";
@@ -19,14 +20,19 @@ const CORES: Partial<Record<Look, string>> = {
 const CORE_BASE = "radial-gradient(circle at 30% 25%, #C7D2FE 0%, #2563EB 42%, #0E7490 100%)";
 const glass = { background: t.glass, border: `1px solid ${t.glassLine}`, backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)" } as const;
 
-const PROBLEMS: Record<Exclude<LiveProblem, "">, string> = {
-  verification: "We could not confirm you are a person — reload the page and try again.",
-  daily_limit: "Today’s trial calls are used up. Come back tomorrow — or book a walkthrough.",
-  ip_limit: "You have used your trial calls for today. Come back tomorrow — or book a walkthrough.",
-  unavailable: "The agent could not be reached just now — try again in a minute.",
-  not_configured: "Live calls are not switched on here yet.",
-  microphone: "Allow the microphone for this page to talk to the agent.",
-  dropped: "The call dropped — try again.",
+/**
+ * When a call cannot start, the visitor is never left at a dead end: a short,
+ * friendly line and the two next steps — a walkthrough, or the messaging demo.
+ * Only a microphone or check problem asks them to fix something themselves.
+ */
+const PROBLEMS: Record<Exclude<LiveProblem, "">, { title: string; body: string; offer: boolean }> = {
+  unavailable: { title: "Our agent is busy on another call.", body: "Book a 20-minute walkthrough to hear it on your own claims — or try the messaging demo right now.", offer: true },
+  not_configured: { title: "Our agent is busy on another call.", body: "Book a 20-minute walkthrough to hear it on your own claims — or try the messaging demo right now.", offer: true },
+  daily_limit: { title: "Today’s trial calls are all taken.", body: "It has been a busy day. Book a walkthrough and we will run the agent on your own claims — or try the messaging demo now.", offer: true },
+  ip_limit: { title: "You have had today’s trial calls.", body: "Liked what you heard? Book a 20-minute walkthrough to hear it on your own claims, in your members’ languages.", offer: true },
+  dropped: { title: "The line dropped.", body: "Try the call again — or book a walkthrough and hear the agent on your own claims.", offer: true },
+  verification: { title: "We could not confirm you are a person.", body: "Reload the page and try again.", offer: false },
+  microphone: { title: "The agent needs your microphone.", body: "Allow the microphone for this page, then start the call again.", offer: false },
 };
 
 const ASK: Record<CallLang, [string, string][]> = {
@@ -155,7 +161,22 @@ export default function CallStage({ live, lang, setLang, checkBox, ready, onStar
               </span>
             </div>
           )}
-          {live.problem && <div role="alert" style={{ textAlign: "center", marginTop: 12, fontSize: 14, color: t.warn }}>{PROBLEMS[live.problem]}</div>}
+          {live.problem && (
+            <div role="alert" className="gc-row-in" style={{ maxWidth: 560, margin: "16px auto 0", padding: "18px 20px", borderRadius: 20, ...glass, textAlign: "center" }}>
+              <div style={{ fontSize: 16, fontWeight: 600, color: t.text }}>{PROBLEMS[live.problem].title}</div>
+              <div style={{ fontSize: 14, color: t.text2, marginTop: 6 }}>{PROBLEMS[live.problem].body}</div>
+              {PROBLEMS[live.problem].offer && (
+                <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap", marginTop: 14 }}>
+                  <button type="button" onClick={() => openWaitlist(`call-${live.problem}`)} style={{ padding: "11px 18px", borderRadius: 999, border: "none", background: t.btnBg, color: t.btnText, font: "inherit", fontSize: 14, fontWeight: 600, cursor: "pointer" }}>
+                    Book a walkthrough
+                  </button>
+                  <Link to="/try" style={{ padding: "11px 18px", borderRadius: 999, border: `1px solid ${t.glassLine}`, color: t.text, fontSize: 14, fontWeight: 500 }}>
+                    Try the messaging demo
+                  </Link>
+                </div>
+              )}
+            </div>
+          )}
 
           <div style={{ marginTop: 32, paddingTop: 24, borderTop: `1px solid ${t.glassLine}` }}>
             <div style={{ textAlign: "center", fontFamily: mono, fontSize: 11, letterSpacing: ".1em", color: t.text3 }}>THINGS YOU CAN ASK</div>
