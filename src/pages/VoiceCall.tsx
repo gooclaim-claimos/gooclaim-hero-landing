@@ -126,7 +126,7 @@ export default function VoiceCall() {
 
         <section style={{ maxWidth: 1080, margin: "0 auto", padding: "72px 24px 40px" }}>
           <h2 style={{ margin: 0, textAlign: "center", fontSize: "clamp(30px, 3.6vw, 46px)", fontWeight: 500, letterSpacing: "-0.045em" }}>
-            Same rules as every channel. <span style={{ color: t.text3 }}>Now with a voice.</span>
+            Same claim, same record. <span style={{ color: t.text3 }}>Now with a voice.</span>
           </h2>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 230px), 1fr))", gap: 14, marginTop: 40 }}>
             {TRAITS.map((tr) => (

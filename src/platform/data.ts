@@ -23,7 +23,7 @@ export const STEPS: Step[] = [
   { title: "Any knowledge layer", tech: "Notion · Drive · SharePoint · S3 · policy PDFs", desc: "Finds what the answer has to rest on — the policy wording, the query letter already sent, the way this was handled last time.", bot: "one FAQ database, written once, already behind the policy.", did: "Query letter sent on day 6 · one document still open" },
   { title: "Any workflow", tech: "Declared once · versioned · switched on per tenant", desc: "Runs the workflow your team switched on in the Console — declared once and versioned, not rebuilt for each customer.", bot: "fixed product flows. Anything different is a new build.", did: "Claim status · your switched-on workflow" },
   { title: "Every word checked", tech: "The Policy Gate · on every outbound message", desc: "Every value in the draft is matched back to the record it came from, and the wording is one your team approved. No match, nothing leaves.", bot: "writes a sentence and sends it.", did: "4 of 4 values matched to the record" },
-  { title: "Any channel, any interaction", tech: "Messaging and email today · voice in early access", desc: "Leaves on the channel it arrived on, in the language it arrived in. If the member calls next, it is the same thread.", bot: "WhatsApp only, or voice only. Two bots, two threads.", did: "Sent on WhatsApp · in English" },
+  { title: "Any channel, any interaction", tech: "Messaging and email today · voice in early access", desc: "Leaves on the channel it arrived on, in the language it arrived in — and every channel lands on the same claim record and the same audit ledger.", bot: "one bot per channel, each with its own script and its own log.", did: "Sent on WhatsApp · in English" },
 ];
 
 export interface Layer {

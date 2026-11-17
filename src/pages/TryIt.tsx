@@ -17,7 +17,7 @@ import { useVoiceAgent, type VoiceLogText } from "@/demo/useVoiceAgent";
 const SEO_TRY: PageSEO = {
   title: "Try it live · Gooclaim OS",
   description:
-    "Be the member: ask about a sample health claim on a messaging channel or a one-minute voice call, in English, Hindi or Hinglish — consent first, every reply checked against the record, every step on the audit ledger.",
+    "Be the member: ask about a sample health claim on a messaging channel or a one-minute voice call, in English, Hindi or Hinglish — consent first, messages checked against the record before they are sent, calls that answer only from the claim, every step on the audit ledger.",
   keywords: "Gooclaim OS demo, claims chatbot demo, insurance voice agent demo, Hindi claims assistant",
 };
 
@@ -47,7 +47,7 @@ const MIC_NOTES = {
 const RULES = [
   { k: "CONSENT FIRST", title: "Consent before a word", desc: "No claim detail is shared until the member says yes. On a call, a one-time code comes first." },
   { k: "SOURCE & DATE", title: "Every answer names its record", desc: "Whose record was read, and when it was last updated — on every channel." },
-  { k: "POLICY GATE", title: "Checked before it leaves", desc: "Every value is matched to the record and the wording is pre-approved. No match, nothing is sent." },
+  { k: "POLICY GATE", title: "Checked before it leaves", desc: "Messages: every value matched to the record, wording pre-approved — no match, nothing is sent. Calls: answers only from the caller’s claim." },
   { k: "ON THE RECORD", title: "One ledger, every channel", desc: "Messages, calls, consent and uploads land as rows on the same claim — append-only." },
 ];
 
@@ -73,10 +73,10 @@ export default function TryIt() {
           <div style={{ position: "relative", maxWidth: 1240, margin: "0 auto", padding: "64px 24px 24px", textAlign: "center" }}>
             <div style={{ fontFamily: mono, fontSize: 12, letterSpacing: ".1em", color: t.brand }}>TRY GOOCLAIM OS · SAMPLE CLAIM</div>
             <h1 style={{ margin: "14px auto 0", fontSize: "clamp(36px, 4.8vw, 64px)", lineHeight: 1.04, fontWeight: 600, letterSpacing: "-0.045em", maxWidth: 900 }}>
-              Message it. Call it. <span style={gradText}>Same claim, same rules.</span>
+              Message it. Call it. <span style={gradText}>Same claim, same record.</span>
             </h1>
             <p style={{ margin: "16px auto 0", fontSize: 18, color: t.text2, maxWidth: 640 }}>
-              Be the member. Ask about claim {SAMPLE_CLAIM.number} on a messaging channel or on a voice call — in English, Hindi or Hinglish. Every reply is checked, and every step lands on the record.
+              Be the member. Ask about claim {SAMPLE_CLAIM.number} on a messaging channel or on a voice call — in English, Hindi or Hinglish. Every message is checked before it is sent, every call answers only from the claim, and every step lands on the record.
             </p>
             <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginTop: 30 }}>
               <div role="tablist" aria-label="Channel" style={{ display: "inline-flex", padding: 5, borderRadius: 14, background: t.surface2, border: `1px solid ${t.border}` }}>
