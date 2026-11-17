@@ -6,7 +6,7 @@ export const SITE = {
   defaultTitle: "Gooclaim OS · The Claim OS for TPAs and insurers",
   defaultDescription:
     "Gooclaim OS is a Claim OS for TPAs and insurers. Built for every claim — every channel, every CMS, every workflow — with consent, approved messages and an audit trail on every claim.",
-  defaultOgImage: "/og-default.png",
+  defaultOgImage: "/og-home-v2.png",
 };
 
 export interface PageSEO {
@@ -42,7 +42,7 @@ export const SEO_INDIA: PageSEO = {
     "Gooclaim OS for India: IRDAI's 1-hour, 3-hour and 15-day clocks on every claim, DPDP consent before a word, and members answered on messaging tools and email in English, Hindi and Hinglish.",
   keywords:
     "claims automation India, IRDAI cashless, IRDAI 15 days, DPDP compliance, TPA software India, health insurance claims India",
-  ogImage: "/og-india.png",
+  ogImage: "/og-india-v2.png",
   locale: "en_IN",
 };
 
@@ -108,7 +108,7 @@ export function buildUseCaseSEO(slug: string, label: string): PageSEO {
     title: `${label} · Solutions · Gooclaim OS`,
     description: `Gooclaim OS for ${label}. The agentic claims operating system built for TPAs and insurers to handle ${label.toLowerCase()} workflows end-to-end — multi-channel, audit-grade, compliant by design.`,
     keywords: `Gooclaim OS ${label}, ${label} insurance AI, claims automation ${label}`,
-    ogImage: `/og-default.png`,
+    ogImage: `/og-home-v2.png`,
     ...(slug ? {} : {}),
   };
 }
@@ -118,7 +118,7 @@ export function buildModuleSEO(slug: string, label: string): PageSEO {
     title: `${label} · Platform · Gooclaim OS`,
     description: `${label} — a module of Gooclaim OS. Built in, multi-tenant, audited. Read what ${label} actually does and the outcomes you see when it ships.`,
     keywords: `Gooclaim OS ${label}, ${label} insurance, claims operating system`,
-    ogImage: `/og-default.png`,
+    ogImage: `/og-home-v2.png`,
     ...(slug ? {} : {}),
   };
 }

@@ -99,12 +99,12 @@ src/
 public/
   sitemap.xml          19 URLs (keep in step with the prerender list)
   robots.txt
-  og-default.{svg,png} open-graph image (1200×630)
+  og-*-v2.png          share images (1200×630): home, india, portal, console
   logo-gooclaim.{svg,png}
   connectors/          brand icons used by the connector constellation
 scripts/
   prerender.mjs        renders every route into dist/<route>/index.html
-  svg2png.mjs          regenerates og-default.png from og-default.svg
+  og-images.mjs        draws the share images (HTML → PNG, playwright-core)
 vercel.json            redirects for removed pages
 ```
 
@@ -164,8 +164,8 @@ find dist -name '*.html' -print0 | xargs -0 grep -l -E 'CLM-00[0-9]|\bL[1-7] [A-
 - JSON-LD: Organization, SoftwareApplication, WebSite, BreadcrumbList and FAQPage
   (`src/lib/structured.ts`, `src/sections/Faq.tsx`)
 - All HTML is prerendered, so crawlers never need to run JS
-- OG image: edit `public/og-default.svg`, then
-  `node scripts/svg2png.mjs public/og-default.svg public/og-default.png`
+- Share images: edit `scripts/og-images.mjs`, bump the `-v2` name, then
+  `npx -y -p playwright-core@1.56.1 node scripts/og-images.mjs`
 
 ## Branches and deploy
 
