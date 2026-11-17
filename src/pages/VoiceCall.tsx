@@ -29,6 +29,13 @@ const TRAITS = [
   { n: "04", title: "On the record", desc: "Every call recorded, every check logged. When it needs a person, it says so." },
 ];
 
+/** How a member is verified in production, in one line each (the full note is under the call). */
+const VERIFY_STEPS = [
+  "Code + secure link to the registered mobile",
+  "Member enters the code through the link",
+  "Verified — then simple to complex questions",
+];
+
 const LANG_TAG = { hi: " · HI", hing: " · HING", en: " · EN" } as const;
 
 export default function VoiceCall() {
@@ -67,6 +74,14 @@ export default function VoiceCall() {
           <p style={{ margin: "20px auto 0", fontSize: 19, fontWeight: 400, color: t.text2, maxWidth: 600 }}>
             Call as a member. Ask where your claim stands, what is pending, or switch to Hindi mid-sentence. You have 30 seconds with the real agent, on test data.
           </p>
+          <ol aria-label="How verification works" style={{ listStyle: "none", padding: 0, margin: "28px auto 0", display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 10, maxWidth: 1040 }}>
+            {VERIFY_STEPS.map((v, i) => (
+              <li key={v} style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "8px 14px 8px 8px", borderRadius: 999, border: `1px solid ${t.border}`, background: t.surface, fontSize: 13, color: t.text2, textAlign: "left" }}>
+                <span style={{ flex: "none", width: 22, height: 22, borderRadius: 999, background: t.brandGrad, color: "#fff", fontSize: 11, fontWeight: 600, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>{i + 1}</span>
+                {v}
+              </li>
+            ))}
+          </ol>
         </section>
 
         <CallStage live={live} lang={lang} setLang={setLang} checkBox={checkBox} ready={!!check.token} onStart={startCall} />

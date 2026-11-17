@@ -35,14 +35,14 @@ const ASK: Record<CallLang, [string, string][]> = {
 };
 
 /**
- * How a caller is verified, said plainly. Today the code goes by SMS to the
- * registered mobile and is read back on the call; the link to enter it is the
- * next step (not built yet), so it is worded as coming, never as live.
+ * How a member is verified (founder 2026-11-17): reading the code out is this
+ * demo's shortcut only; in production the member gets the code with a secure
+ * link and enters it there.
  */
 const VERIFY: { k: string; d: string }[] = [
-  { k: "In this trial", d: "The agent asks for a code before it shares anything. Read out the test code shown on screen — this call runs on test data, never a real member’s." },
-  { k: "With your members", d: "The agent sends a one-time code to the member’s registered mobile number and checks it before a single claim detail is shared. Today the member reads it back on the call; a secure link to enter it is coming next." },
-  { k: "Once verified", d: "The same agent handles the member’s questions from simple to complex — claim status, pending documents, payments, complaints — and hands over to your team when a person is needed." },
+  { k: "In this demo", d: "To keep the trial quick, you read the test code shown on screen out to the agent. That is only for this demo — the call runs on test data, never a real member’s." },
+  { k: "In production", d: "The member receives a verification code on their registered mobile number, with a secure link. They enter the code through the link, and the Gooclaim voice agent verifies them before a single claim detail is shared." },
+  { k: "Once verified", d: "The member can ask the agent anything, from simple questions to complex queries — claim status, pending documents, payments, complaints — with a hand-over to your team when a person is needed." },
 ];
 
 interface Props {
