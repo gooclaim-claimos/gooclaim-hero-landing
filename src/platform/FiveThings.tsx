@@ -90,7 +90,6 @@ export function FiveThings() {
                           <span style={{ fontSize: 12, color: t.text3 }}>+ policy PDFs</span>
                         </span>
                       )}
-                      <span style={{ display: "block", fontSize: 13, color: t.red, marginTop: 8 }}>Chatbot: {s.bot}</span>
                     </span>
                   )}
                 </span>
