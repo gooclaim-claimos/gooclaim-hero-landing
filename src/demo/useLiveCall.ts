@@ -10,9 +10,11 @@ import type { CallLine } from "./useVoiceAgent";
  *   @elevenlabs/client over WebRTC, the session id as `test_session` (the
  *   browser names no caller; the server's session does)
  *
- * The call is cut at `limit_s` twice over: the voice service speaks a closing
- * line and hangs up (and makes no AI call after the limit), and this hook
- * ends the session a few seconds later if the provider has not.
+ * The end is graceful, never a cut mid-sentence: when the countdown is done
+ * the page waits for the agent to finish what it is saying, then sends the
+ * voice service's time-up signal; the agent says goodbye in the call's
+ * language and hangs up itself (no AI call after the limit). Only if that
+ * never happens does the page end the session, at limit + BACKSTOP_S.
  */
 export type LivePhase = "idle" | "connecting" | "live" | "ended";
 export type LiveProblem = "" | "verification" | "daily_limit" | "ip_limit" | "unavailable" | "not_configured" | "microphone" | "dropped";
@@ -33,9 +35,13 @@ interface Opened {
 /** Minimal shape of the provider's session we use. */
 interface Session {
   endSession(): Promise<void>;
+  sendUserMessage(text: string): void;
 }
 
-const GRACE_S = 4;
+/** gooclaim-voice app/time_limit.TIME_UP — the page's own end-of-trial word. */
+const TIME_UP = "[trial time up]";
+/** The page's hard stop, only if the agent's goodbye never comes. */
+const BACKSTOP_S = 15;
 
 function clock(): string {
   return new Date().toTimeString().slice(0, 8);
@@ -53,6 +59,9 @@ export function useLiveCall() {
   const [now, setNow] = useState(0);
   // The limit was reached: by the agent closing the call at it, or by our cut.
   const [cut, setCut] = useState(false);
+  // The countdown is done; the agent is finishing and saying goodbye.
+  const [wrapping, setWrapping] = useState(false);
+  const signalled = useRef(false);
   const session = useRef<Session | null>(null);
   const began = useRef(0);
   const limit = useRef(30);
@@ -73,6 +82,8 @@ export function useLiveCall() {
       setLines([]);
       setEvents([]);
       setCut(false);
+      setWrapping(false);
+      signalled.current = false;
       setPhase("connecting");
       let opened: Opened;
       try {
@@ -130,6 +141,7 @@ export function useLiveCall() {
           onError: () => setProblem("dropped"),
           onModeChange: ({ mode }) => setSpeaking(mode === "speaking"),
           onMessage: (m) => {
+            if (m.message.trim() === TIME_UP) return; // our own signal, not the caller
             const who: CallLine["who"] = m.source === "ai" ? "agent" : "caller";
             setLines((l) => l.concat({ who, text: m.message, lang: hasDevanagari(m.message) ? "hi" : "en" }));
           },
@@ -143,19 +155,33 @@ export function useLiveCall() {
     [log],
   );
 
-  // The clock, and our own cut a few seconds after the agent's.
+  // The clock; at the limit, a graceful goodbye; the backstop only if it never comes.
   useEffect(() => {
     if (phase !== "live") return;
     const id = window.setInterval(() => {
       const t = Date.now();
       setNow(t);
-      if ((t - startedAt) / 1000 >= limitS + GRACE_S) {
+      const secs = (t - startedAt) / 1000;
+      if (secs >= limitS) setWrapping(true);
+      if (secs >= limitS + BACKSTOP_S) {
         setCut(true);
         void end();
       }
     }, 250);
     return () => window.clearInterval(id);
   }, [phase, startedAt, limitS, end]);
+
+  // Once the agent is not mid-sentence, ask for the goodbye — once.
+  useEffect(() => {
+    if (!wrapping || speaking || signalled.current || phase !== "live") return;
+    signalled.current = true;
+    setCut(true);
+    try {
+      session.current?.sendUserMessage(TIME_UP);
+    } catch {
+      void end();
+    }
+  }, [wrapping, speaking, phase, end]);
 
   // Leaving the page hangs up: a call never runs unseen.
   useEffect(() => () => void session.current?.endSession().catch(() => undefined), []);
@@ -164,6 +190,7 @@ export function useLiveCall() {
   return {
     phase,
     speaking,
+    wrapping,
     lines,
     events,
     problem,

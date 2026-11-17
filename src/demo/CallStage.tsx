@@ -54,9 +54,9 @@ export default function CallStage({ live, lang, setLang, checkBox, ready, onStar
   const status: Record<Look, [string, string]> = {
     idle: [ready ? "Ready to call" : "Checking you are a person…", t.text2],
     thinking: ["Connecting…", t.warn],
-    speaking: ["Agent speaking", t.brand],
-    listening: ["Listening — speak now", t.green],
-    ended: [live.trialEnded ? "Trial complete · recorded as a test" : "Call ended", t.text2],
+    speaking: [live.wrapping ? "Wrapping up…" : "Agent speaking", t.brand],
+    listening: [live.wrapping ? "Wrapping up…" : "Listening — speak now", t.green],
+    ended: [live.trialEnded ? "Thanks for calling · recorded as a test" : "Call ended", t.text2],
   };
   const [statusText, statusColor] = status[look];
 
@@ -94,7 +94,7 @@ export default function CallStage({ live, lang, setLang, checkBox, ready, onStar
 
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "36px 0 8px" }}>
             <div style={{ position: "relative", width: 280, height: 280, display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <div aria-hidden="true" style={{ position: "absolute", inset: 0, borderRadius: 999, background: `conic-gradient(${rs <= 10 && phase === "live" ? "#EF4444" : t.ringBrand} ${((remaining / limitS) * 360).toFixed(1)}deg, ${t.ringTrack} 0deg)`, transition: "background .5s linear" }} />
+              <div aria-hidden="true" style={{ position: "absolute", inset: 0, borderRadius: 999, background: `conic-gradient(${rs <= 10 && phase === "live" ? "#F59E0B" : t.ringBrand} ${((remaining / limitS) * 360).toFixed(1)}deg, ${t.ringTrack} 0deg)`, transition: "background .5s linear" }} />
               <div aria-hidden="true" style={{ position: "absolute", inset: 5, borderRadius: 999, background: t.ringInner }} />
               {[0, -1.1].map((delay) => (
                 <div key={delay} aria-hidden="true" style={{ position: "absolute", width: 196, height: 196, borderRadius: 999, border: `1.5px solid ${look === "listening" ? "rgba(16,185,129,.6)" : "rgba(37,99,235,.55)"}`, animation: "gcRing 2.2s ease-out infinite", animationDelay: `${delay}s`, animationPlayState: active ? "running" : "paused", opacity: active ? 1 : 0 }} />
@@ -113,7 +113,7 @@ export default function CallStage({ live, lang, setLang, checkBox, ready, onStar
               </div>
             </div>
             <div style={{ marginTop: 18, fontFamily: mono, fontSize: 13, letterSpacing: ".04em", color: t.text2 }}>
-              {phase === "live" ? `0:${String(rs).padStart(2, "0")} remaining` : live.trialEnded ? "0:00 · trial used" : `0:${String(limitS).padStart(2, "0")} free trial`}
+              {phase === "live" ? (live.wrapping ? "Time’s up · saying goodbye" : rs <= 10 ? `${rs} seconds left` : `0:${String(rs).padStart(2, "0")} remaining`) : live.trialEnded ? "0:00 · trial used" : `0:${String(limitS).padStart(2, "0")} free trial`}
             </div>
             <div aria-live="polite" style={{ marginTop: 4, fontSize: 14, fontWeight: 500, color: statusColor }}>{statusText}</div>
           </div>
