@@ -1,56 +1,42 @@
-import { useEffect } from "react";
-import { initLenis } from "@/lib/lenis";
+import { Link } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
-import CountryBanner from "@/components/CountryBanner";
 import { COUNTRY_ALTERNATES, SEO_HOME } from "@/lib/seo";
-import {
-  orgJsonLd,
-  softwareJsonLd,
-  websiteJsonLd,
-} from "@/lib/structured";
-import HeroMeshGrid from "@/sections/HeroMeshGrid";
-import ProblemJourney from "@/sections/ProblemJourney";
-import WhereWeRun from "@/sections/WhereWeRun";
-import ThreeJobs from "@/sections/ThreeJobs";
-import MemberExperience from "@/sections/MemberExperience";
-import VoiceAgent from "@/sections/VoiceAgent";
-import TestedDaily from "@/sections/TestedDaily";
-import HowTheAiWorks from "@/sections/HowTheAiWorks";
-import GoLive from "@/sections/GoLive";
-import Faq from "@/sections/Faq";
-import Footer from "@/sections/Footer";
+import { orgJsonLd, softwareJsonLd, websiteJsonLd } from "@/lib/structured";
+import Nav from "@/site/Nav";
+import Footer from "@/site/Footer";
+import { ThemeStyle } from "@/theme/ThemeProvider";
+import Hero from "@/home/Hero";
+import Problem, { TrustStrip } from "@/home/Problem";
+import ThreeJobs from "@/home/ThreeJobs";
+import { GoingLive, Voice, Walkthrough } from "@/home/VoiceAndLaunch";
+import { homeCss, t } from "@/home/theme";
 
-/** The short story for every country: the hook, the pain, where it runs, the three jobs, what the member
- *  sees, how to start. A country's rules, numbers and the day-by-day claim live on its own page (/in).
- *  Depth lives on /platform, /orion and /security. */
+/**
+ * The homepage. Not wrapped in SiteLayout: the design puts the voice
+ * announcement ABOVE the shared header, so it composes Nav and Footer itself.
+ */
 export default function Home() {
-  useEffect(() => {
-    const teardown = initLenis();
-    return teardown;
-  }, []);
-
   return (
     <>
-      <SEOHead
-        seo={SEO_HOME}
-        path="/"
-        alternates={COUNTRY_ALTERNATES}
-        jsonLd={[orgJsonLd, softwareJsonLd, websiteJsonLd]}
-      />
-      <main className="relative isolate overflow-x-clip bg-ink-950 text-white">
-        <HeroMeshGrid />
-        <ProblemJourney eyebrow="01 · The problem" />
-        <WhereWeRun eyebrow="02 · Where it runs" />
-        <ThreeJobs eyebrow="03 · What it does" />
-        <MemberExperience eyebrow="04 · What your member sees" />
-        <VoiceAgent eyebrow="05 · Voice calls" />
-        <TestedDaily eyebrow="06 · Tested every day" />
-        <HowTheAiWorks eyebrow="07 · How the AI works" />
-        <GoLive eyebrow="08 · Going live" />
-        <Faq eyebrow="Questions" limit={4} moreHref="/platform#faq" />
+      <SEOHead seo={SEO_HOME} path="/" alternates={COUNTRY_ALTERNATES} jsonLd={[orgJsonLd, softwareJsonLd, websiteJsonLd]} />
+      <ThemeStyle css={homeCss} />
+      <div className="gc-home" style={{ minHeight: "100vh", background: t.bg, color: t.text, fontFamily: "Inter, 'Noto Sans Devanagari', system-ui, sans-serif", fontSize: 16, lineHeight: 1.5, transition: "background .3s, color .3s" }}>
+        <div style={{ background: t.annBg, color: t.annText, fontSize: 13, padding: "9px 16px", display: "flex", justifyContent: "center", alignItems: "center", gap: 12, flexWrap: "wrap", textAlign: "center" }}>
+          <span>Voice calls are now in early access — English, Hindi and Hinglish.</span>
+          <Link to="/call" style={{ background: t.annBtnBg, color: t.annBtnText, padding: "3px 12px", borderRadius: 999, fontWeight: 500 }}>Try a 30-second call</Link>
+        </div>
+        <Nav />
+        <main>
+          <Hero />
+          <TrustStrip />
+          <Problem />
+          <ThreeJobs />
+          <Voice />
+          <GoingLive />
+          <Walkthrough />
+        </main>
         <Footer />
-      </main>
-      <CountryBanner />
+      </div>
     </>
   );
 }

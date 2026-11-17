@@ -3,148 +3,342 @@
 @tailwind utilities;
 
 @layer base {
+  /*
+   * The site shell, both themes. Each page adds its own token pairs (see
+   * src/theme/theme.ts); these are the few every page shares.
+   */
   :root {
+    color-scheme: light;
+    --site-bg: #FAFAF9;
+    --site-text: #0C0A09;
+  }
+  :root[data-theme="dark"] {
     color-scheme: dark;
+    --site-bg: #07090F;
+    --site-text: #F5F5F4;
   }
   html,
   body,
   #root {
-    height: 100%;
+    min-height: 100%;
   }
   body {
-    background: #070a12;
-    color: #fff;
-    font-family: "Inter", system-ui, sans-serif;
+    margin: 0;
+    background: var(--site-bg);
+    color: var(--site-text);
+    font-family: Inter, system-ui, sans-serif;
+    line-height: 1.5;
     overflow-x: hidden;
   }
-  /* Lenis hijacks scroll on desktop only — keep native touch scroll on touch-only devices */
-  @media (hover: hover) and (pointer: fine) {
-    html.lenis {
-      height: auto;
-    }
-    html.lenis,
-    html.lenis body {
-      overflow: clip;
-    }
-    html.lenis-smooth [data-lenis-prevent] {
-      overscroll-behavior: contain;
-    }
+  /* The design writes its own box sizes; every page assumes border-box. */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  /* Script for Hindi lines in the demos. */
+  :lang(hi) {
+    font-family: "Noto Sans Devanagari", Inter, system-ui, sans-serif;
   }
   /* iOS Safari momentum scrolling on touch devices */
   body {
     -webkit-overflow-scrolling: touch;
   }
   ::selection {
-    background: rgba(13, 153, 255, 0.4);
-    color: #fff;
+    background: rgba(29, 78, 216, 0.22);
   }
 }
 
 @layer utilities {
+  /* One element per theme, chosen by CSS so the prerender is right in both. */
+  :root:not([data-theme="dark"]) .only-dark,
+  :root[data-theme="dark"] .only-light {
+    display: none !important;
+  }
   .text-balance {
     text-wrap: balance;
-  }
-  .bg-grid {
-    background-image:
-      linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-    background-size: 56px 56px;
-  }
-  .bg-radial-bloom {
-    background: radial-gradient(
-      ellipse 60% 50% at 50% 0%,
-      rgba(13, 153, 255, 0.18) 0%,
-      rgba(124, 58, 237, 0.08) 45%,
-      transparent 75%
-    );
-  }
-  .ring-soft {
-    box-shadow:
-      0 0 0 1px rgba(255, 255, 255, 0.06),
-      0 10px 40px -10px rgba(13, 153, 255, 0.25);
-  }
-  .glass {
-    background: rgba(255, 255, 255, 0.025);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(8px);
-  }
-  .glass-strong {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(14px);
-  }
-  .text-gradient-cyan {
-    background: linear-gradient(135deg, #fff 0%, #7dc4ff 60%, #0d99ff 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-}
-
-@keyframes gc-orbit {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes gc-flow {
-  0% {
-    top: 0;
-    opacity: 0;
-  }
-  8% {
-    opacity: 1;
-  }
-  92% {
-    opacity: 1;
-  }
-  100% {
-    top: 100%;
-    opacity: 0;
   }
 }
 
 @layer components {
+  .prose-legal {
+    color: var(--lg-text2);
+    font-size: 16px;
+    line-height: 1.7;
+  }
   .prose-legal h2 {
-    @apply mt-14 mb-4 font-display text-[22px] font-semibold tracking-tight text-white sm:text-[26px];
+    margin: 56px 0 14px;
+    font-size: clamp(22px, 2.4vw, 28px);
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: var(--lg-text);
   }
   .prose-legal h3 {
-    @apply mt-8 mb-3 font-display text-[17px] font-semibold tracking-tight text-white;
+    margin: 32px 0 10px;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--lg-text);
   }
   .prose-legal p {
-    @apply my-4 text-[15px] leading-relaxed text-white/70 sm:text-[15.5px];
+    margin: 16px 0;
   }
   .prose-legal ul {
-    @apply my-4 space-y-2 pl-1;
+    margin: 16px 0;
+    padding: 0;
+    list-style: none;
   }
   .prose-legal li {
-    @apply relative pl-5 text-[14.5px] leading-relaxed text-white/70 sm:text-[15px];
+    position: relative;
+    margin: 10px 0;
+    padding-left: 22px;
   }
   .prose-legal li::before {
     content: "";
     position: absolute;
-    left: 0;
-    top: 0.6em;
+    left: 2px;
+    top: 0.72em;
     width: 6px;
     height: 6px;
     border-radius: 9999px;
-    background: rgba(125, 196, 255, 0.7);
-    box-shadow: 0 0 8px rgba(125, 196, 255, 0.5);
+    background: var(--lg-brand);
   }
   .prose-legal strong {
-    @apply font-semibold text-white;
+    font-weight: 600;
+    color: var(--lg-text);
   }
   .prose-legal a {
-    @apply text-white/90 underline decoration-white/25 underline-offset-4 transition-colors hover:text-white hover:decoration-white/60;
+    color: var(--lg-brand);
+    text-decoration: underline;
+    text-decoration-color: var(--lg-brandLine);
+    text-underline-offset: 4px;
+  }
+  .prose-legal a:hover {
+    text-decoration-color: var(--lg-brand);
+  }
+  .prose-legal code {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.85em;
+    padding: 2px 6px;
+    border-radius: 6px;
+    background: var(--lg-surface2);
+    color: var(--lg-text);
   }
   .prose-legal .callout {
-    @apply my-7 rounded-xl border border-white/10 bg-white/[0.025] p-5 text-[14px] leading-relaxed text-white/70;
+    margin: 28px 0;
+    padding: 20px 22px;
+    border-radius: 18px;
+    border: 1px solid var(--lg-brandLine);
+    background: var(--lg-brandSoft);
+    font-size: 15px;
+    color: var(--lg-text2);
+  }
+  /* Module headings in src/data/platform.tsx carry the old dark-only muted
+     class; on the canvas palette that half reads as the muted text colour. */
+  .lg-scope .text-white\/55 {
+    color: var(--lg-text3);
   }
   .prose-legal .callout strong {
-    @apply mb-1.5 block text-white;
+    display: block;
+    margin-bottom: 6px;
+    color: var(--lg-text);
+  }
+}
+
+/* The booking modal's fields and choice chips, both themes (--lg-* from src/legacy/tokens.ts). */
+@layer components {
+  .lg-field {
+    height: 46px;
+    width: 100%;
+    padding: 0 14px;
+    border-radius: 12px;
+    border: 1px solid var(--lg-border);
+    background: var(--lg-surface2);
+    color: var(--lg-text);
+    font: inherit;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .lg-field::placeholder {
+    color: var(--lg-text3);
+  }
+  .lg-field:hover {
+    border-color: var(--lg-borderStrong);
+  }
+  .lg-field:focus {
+    border-color: var(--lg-brand);
+    box-shadow: 0 0 0 4px var(--lg-brandSoft);
+  }
+  .lg-field[aria-invalid="true"] {
+    border-color: var(--lg-red);
+  }
+  .lg-chip {
+    display: inline-flex;
+    min-height: 40px;
+    align-items: center;
+    padding: 0 14px;
+    border-radius: 999px;
+    border: 1px solid var(--lg-border);
+    background: var(--lg-surface);
+    color: var(--lg-text2);
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .lg-chip:hover {
+    border-color: var(--lg-borderStrong);
+    color: var(--lg-text);
+  }
+  input:checked + .lg-chip {
+    border-color: var(--lg-brandLine);
+    background: var(--lg-brandSoft);
+    color: var(--lg-brand);
+  }
+  input:focus-visible + .lg-chip {
+    box-shadow: 0 0 0 3px var(--lg-brandSoft);
+  }
+}
+
+
+/* One-colour connector marks on a tile for the theme they vanish in (src/site/ConnectorIcon.tsx).
+   Outside @layer: the class name is built at runtime, so Tailwind would purge it. */
+:root[data-theme="dark"] .gc-icon-tile-white,
+:root:not([data-theme="dark"]) .gc-icon-tile-dark {
+  border-radius: 4px;
+  padding: 2px 4px;
+  box-sizing: content-box;
+}
+:root[data-theme="dark"] .gc-icon-tile-white {
+  background: #ffffff;
+}
+:root:not([data-theme="dark"]) .gc-icon-tile-dark {
+  background: #0c0a09;
+}
+
+/*
+ * Motion, after elevenlabs.io: one easing (expo-out), short soft moves,
+ * native scroll. Everything below is switched off by the reduced-motion
+ * block at the end of this file.
+ */
+:root {
+  --gc-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+html {
+  scroll-behavior: smooth;
+}
+main {
+  animation: gc-page-in 0.45s var(--gc-ease) both;
+}
+@keyframes gc-page-in {
+  from {
+    opacity: 0;
+  }
+}
+/* Sections fade up as they enter (src/site/useReveal.ts adds the classes). */
+/* Hidden at once (no transition), so a section never visibly fades OUT. */
+.gc-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+}
+.gc-reveal.gc-in {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.9s var(--gc-ease),
+    transform 1s var(--gc-ease);
+}
+.gc-reveal.gc-reveal-now.gc-in {
+  transition-delay: 0.05s;
+}
+/* Buttons and links: colour changes glide, a press gives a little. */
+:where(a, button, input, select, textarea) {
+  transition:
+    background-color 0.25s var(--gc-ease),
+    color 0.25s var(--gc-ease),
+    border-color 0.25s var(--gc-ease),
+    box-shadow 0.35s var(--gc-ease),
+    filter 0.25s var(--gc-ease),
+    opacity 0.25s var(--gc-ease),
+    transform 0.35s var(--gc-ease);
+}
+:where(button):not(:disabled):hover {
+  filter: brightness(1.08);
+}
+:where(button, a[href]):not(:disabled):active {
+  transform: scale(0.98);
+}
+:where(a, button):focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+
+/* Live demo cards (src/site/useAutoplay.ts): small pieces they share. */
+.gc-row-in {
+  animation: gc-row-in 0.55s var(--gc-ease) both;
+}
+@keyframes gc-row-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+.gc-pop {
+  animation: gc-pop 0.45s var(--gc-ease) both;
+}
+@keyframes gc-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+}
+.gc-spin {
+  display: inline-block;
+  border-radius: 999px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  animation: gc-spin 0.7s linear infinite;
+}
+@keyframes gc-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+/* A progress bar that fills over --gc-dur; restart it by changing its key. */
+.gc-bar {
+  transform-origin: left center;
+  animation: gc-bar var(--gc-dur, 2s) linear both;
+}
+@keyframes gc-bar {
+  from {
+    transform: scaleX(0);
+  }
+}
+.gc-typing {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+}
+.gc-typing i {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: currentColor;
+  opacity: 0.35;
+  animation: gc-typing 1s ease-in-out infinite;
+}
+.gc-typing i:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.gc-typing i:nth-child(3) {
+  animation-delay: 0.3s;
+}
+@keyframes gc-typing {
+  30% {
+    opacity: 1;
+    transform: translateY(-2px);
   }
 }
 
@@ -156,5 +350,12 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+  .gc-reveal {
+    opacity: 1;
+    transform: none;
   }
 }

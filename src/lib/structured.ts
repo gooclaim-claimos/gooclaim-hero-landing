@@ -6,7 +6,7 @@ export const orgJsonLd = {
   name: SITE.brand,
   legalName: "Gooclaim Technologies Private Limited",
   url: SITE.url,
-  logo: `${SITE.url}/logo-gooclaim.png`,
+  logo: "https://assets.gooclaim.com/gooclaim/brand/logo-v3.png",
   sameAs: ["https://www.linkedin.com/in/kumar-mayank-392381168/"],
   address: {
     "@type": "PostalAddress",

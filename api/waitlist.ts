@@ -44,7 +44,7 @@ function esc(s: string): string {
 }
 
 const SITE_URL = process.env.SITE_URL || "https://www.gooclaim.com";
-const LOGO_URL = process.env.LOGO_URL || `${SITE_URL}/logo-gooclaim.png`;
+const LOGO_URL = process.env.LOGO_URL || "https://assets.gooclaim.com/gooclaim/brand/logo-v3.png";
 // The founder's Cal.com page for a 20-minute walkthrough; empty = no booking link in the email.
 // Keep in step with BOOKING_URL in src/lib/booking.ts.
 const BOOKING_URL = process.env.BOOKING_URL || "https://cal.com/gooclaimos/walkthrough";
@@ -134,7 +134,7 @@ function notifyHtml(p: Required<Payload>): string {
     ["Work email", p.work_email],
     ["Company", p.company],
     ["Role", p.role || "—"],
-    ["Monthly volume", p.monthly_claim_volume || "—"],
+    ["Claim volume", p.monthly_claim_volume || "—"],
     ["Source", p.source],
     ["Submitted", `${submittedAt} IST`],
   ];
@@ -171,7 +171,7 @@ function notifyHtml(p: Required<Payload>): string {
             </table>`;
 
   return shell({
-    preheaderText: `${p.name} from ${p.company} · ${p.work_email}${p.monthly_claim_volume ? ` · ${p.monthly_claim_volume} claims/mo` : ""}`,
+    preheaderText: `${p.name} from ${p.company} · ${p.work_email}${p.monthly_claim_volume ? ` · ${/claim/i.test(p.monthly_claim_volume) ? p.monthly_claim_volume : `${p.monthly_claim_volume} claims/mo`}` : ""}`,
     bodyHtml,
     footerHtml,
   });
@@ -185,7 +185,7 @@ function notifyText(p: Required<Payload>): string {
     `Work email:    ${p.work_email}`,
     `Company:       ${p.company}`,
     `Role:          ${p.role || "—"}`,
-    `Monthly vol:   ${p.monthly_claim_volume || "—"}`,
+    `Claim volume:  ${p.monthly_claim_volume || "—"}`,
     `Source:        ${p.source}`,
     "",
     "Reply to this email to reach them directly.",

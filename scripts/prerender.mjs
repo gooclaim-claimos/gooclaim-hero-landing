@@ -7,6 +7,7 @@ const root = resolve(__dirname, "..");
 const distDir = join(root, "dist");
 const templatePath = join(distDir, "index.html");
 
+const NOT_FOUND = "/__not-found";
 const ROUTES = [
   "/",
   "/in",
@@ -18,16 +19,21 @@ const ROUTES = [
   "/compliance",
   "/privacy",
   "/terms",
-  "/use-cases/tpas",
-  "/use-cases/insurers",
-  "/use-cases/hospitals",
-  "/use-cases/health",
+  "/try",
+  "/call",
+  "/solutions/tpas",
+  "/solutions/insurers",
+  "/solutions/hospitals",
+  "/solutions/health",
   "/platform/channel-gateway",
   "/platform/workflow-engine",
   "/platform/truth-layer",
   "/platform/knowledge-layer",
   "/platform/policy-gate",
   "/platform/audit-ledger",
+  // Any unknown address renders the 404 page; written to dist/404.html, which
+  // Vercel serves (with a 404 status) for every path it has no file for.
+  NOT_FOUND,
 ];
 
 async function main() {
@@ -71,11 +77,11 @@ async function main() {
         );
 
       const outDir =
-        route === "/"
+        route === "/" || route === NOT_FOUND
           ? distDir
           : join(distDir, ...route.split("/").filter(Boolean));
       mkdirSync(outDir, { recursive: true });
-      const outPath = join(outDir, "index.html");
+      const outPath = join(outDir, route === NOT_FOUND ? "404.html" : "index.html");
       writeFileSync(outPath, fullHtml);
       console.log(
         `✓ prerendered ${route.padEnd(36)} → ${outPath.replace(distDir, "dist")}`,
