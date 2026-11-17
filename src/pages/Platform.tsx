@@ -10,6 +10,12 @@ import { SevenLayers } from "@/platform/SevenLayers";
 import { AuditLedger, Coverage } from "@/platform/Record";
 import { css, t } from "@/platform/theme";
 
+/** Phone: layer taglines hide (the detail card says it), the connector wall shows 12 until opened. */
+const PHONE_CSS =
+  "@media (max-width:640px){.gc-layer-tag{display:none!important}" +
+  ".gc-conn-wall:not(.gc-open)>:nth-child(n+13){display:none!important}}" +
+  ".gc-conn-more{display:none}@media (max-width:640px){.gc-conn-more{display:inline-flex}}";
+
 export default function Platform() {
   return (
     <SiteLayout>
@@ -21,7 +27,7 @@ export default function Platform() {
           { name: "Platform", path: "/platform" },
         ])}
       />
-      <ThemeStyle css={css} />
+      <ThemeStyle css={css + PHONE_CSS} />
       <div style={{ background: t.bg, color: t.text }}>
         <PlatformHero />
         <Connectors />

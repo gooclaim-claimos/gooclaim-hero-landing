@@ -32,11 +32,11 @@ function SegmentBody({ seg }: { seg: Segment }) {
 
       <section style={{ position: "relative", overflow: "hidden" }}>
         <div aria-hidden="true" style={{ position: "absolute", width: 680, height: 680, right: -200, top: -200, borderRadius: 999, background: p.glow }} />
-        <div style={{ position: "relative", maxWidth: 1240, margin: "0 auto", padding: "80px 24px 56px", display: "flex", flexWrap: "wrap", gap: 48, alignItems: "center" }}>
+        <div style={{ position: "relative", maxWidth: 1240, margin: "0 auto", padding: "clamp(40px, 5.56vw, 80px) 24px 56px", display: "flex", flexWrap: "wrap", gap: 48, alignItems: "center" }}>
           <div style={{ flex: "1.3 1 520px", minWidth: 0 }}>
             <div style={{ fontFamily: mono, fontSize: 12, letterSpacing: ".1em", color: p.acc }}>{seg.eyebrow}</div>
             <h1 style={{ margin: "14px 0 0", fontSize: "clamp(38px, 5vw, 66px)", lineHeight: 1.04, fontWeight: 600, letterSpacing: "-0.045em" }}>
-              {seg.h1a} <span style={{ background: p.grad, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>{seg.h1b}</span>
+              {seg.h1a} <span style={{ backgroundImage: p.grad, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>{seg.h1b}</span>
             </h1>
             <p style={{ margin: "20px 0 0", fontSize: 18, color: t.text2, maxWidth: 600 }}>{seg.lead}</p>
             <div style={{ display: "flex", gap: 12, marginTop: 28, flexWrap: "wrap" }}>
@@ -64,7 +64,7 @@ function SegmentBody({ seg }: { seg: Segment }) {
         </div>
       </section>
 
-      <section style={{ maxWidth: 1240, margin: "0 auto", padding: "72px 24px 40px" }}>
+      <section style={{ maxWidth: 1240, margin: "0 auto", padding: "clamp(36px, 5.0vw, 72px) 24px 40px" }}>
         <div style={{ fontFamily: mono, fontSize: 12, letterSpacing: ".08em", color: t.text3 }}>{seg.whatK}</div>
         <h2 style={{ margin: "14px 0 0", fontSize: "clamp(30px, 4vw, 50px)", lineHeight: 1.06, fontWeight: 600, letterSpacing: "-0.04em", maxWidth: 880 }}>{seg.whatH}</h2>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))", gap: 14, marginTop: 40 }}>
@@ -78,7 +78,7 @@ function SegmentBody({ seg }: { seg: Segment }) {
         </div>
       </section>
 
-      <section style={{ maxWidth: 1240, margin: "0 auto", padding: "72px 24px 40px" }}>
+      <section style={{ maxWidth: 1240, margin: "0 auto", padding: "clamp(36px, 5.0vw, 72px) 24px 40px" }}>
         <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 24, padding: "28px 32px", borderRadius: 22, border: `1px solid ${t.border}`, background: t.surface }}>
           <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
             <span style={{ flex: "none", width: 48, height: 48, borderRadius: 14, background: p.soft, color: p.acc, display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -95,7 +95,7 @@ function SegmentBody({ seg }: { seg: Segment }) {
         </div>
       </section>
 
-      <section style={{ maxWidth: 1240, margin: "0 auto", padding: "72px 24px 112px" }}>
+      <section style={{ maxWidth: 1240, margin: "0 auto", padding: "clamp(36px, 5.0vw, 72px) 24px clamp(56px, 7.78vw, 112px)" }}>
         <div style={{ borderRadius: 28, padding: "clamp(36px, 6vw, 72px)", background: t.ctaBg, color: "#FAFAF9", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 28, flexWrap: "wrap" }}>
           <div>
             <h2 style={{ margin: 0, fontSize: "clamp(28px, 3.6vw, 44px)", fontWeight: 600, letterSpacing: "-0.04em" }}>See Gooclaim OS on a real claim.</h2>

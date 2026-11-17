@@ -46,7 +46,7 @@ export default function ClaimRoom() {
   };
 
   return (
-    <section id="claim-room" style={{ maxWidth: 1240, margin: "0 auto", padding: "96px 24px 40px" }}>
+    <section id="claim-room" style={{ maxWidth: 1240, margin: "0 auto", padding: "clamp(48px, 6.67vw, 96px) 24px 40px" }}>
       <div style={{ borderRadius: 28, padding: "clamp(20px, 4vw, 48px)", background: t.panel, display: "flex", flexWrap: "wrap", gap: 40, alignItems: "center" }}>
         <div style={{ flex: "1 1 340px", minWidth: 0 }}>
           <div style={{ fontFamily: mono, fontSize: 12, letterSpacing: ".08em", color: t.acc }}>02 · WATCH IT WORK</div>

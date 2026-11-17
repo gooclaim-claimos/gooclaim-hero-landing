@@ -62,7 +62,9 @@ export const homeCss =
   `.gc-home a{color:inherit;text-decoration:none}` +
   `.gc-home a:hover{opacity:.75}` +
   `.gc-home button{font:inherit;cursor:pointer}` +
-  `@media (max-width:860px){.gc-home .gc-hide-sm{display:none}}` +
+  `@media (max-width:860px){.gc-home .gc-hide-sm{display:none!important}}` +
+  // The trust strip is a pill on one line; once it wraps it becomes a rounded card.
+  `@media (max-width:860px){.gc-home .gc-trust{border-radius:24px!important;padding:22px!important;gap:16px!important}.gc-home .gc-trust-items{gap:10px 20px!important;font-size:16px!important}}` +
   `@keyframes gcDrift{0%{transform:translate(0,0)}50%{transform:translate(40px,-24px)}100%{transform:translate(0,0)}}` +
   `@keyframes gcBar{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}` +
   `@keyframes gcFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}`;

@@ -62,14 +62,14 @@ export default function VoiceCall() {
       <SEOHead seo={SEO_CALL} path="/call" jsonLd={breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Try it live", path: "/try" }, { name: "Voice call", path: "/call" }])} />
       <ThemeStyle css={CALL_CSS} />
       <div className="call-page" style={{ background: t.bg, color: t.text, fontFamily: "Inter, 'Noto Sans Devanagari', system-ui, sans-serif", lineHeight: 1.5 }}>
-        <section style={{ maxWidth: 1080, margin: "0 auto", padding: "72px 24px 36px", textAlign: "center" }}>
+        <section style={{ maxWidth: 1080, margin: "0 auto", padding: "clamp(36px, 5.0vw, 72px) 24px 36px", textAlign: "center" }}>
           <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 999, border: `1px solid ${t.border}`, background: t.surface, fontSize: 13, color: t.text2 }}>
             <span style={{ width: 7, height: 7, borderRadius: 999, background: "#10B981" }} />
             Live voice agent · early access · 30-second trial
           </div>
           <h1 style={{ margin: "22px auto 0", fontSize: "clamp(40px, 5.6vw, 76px)", lineHeight: 1.02, fontWeight: 500, letterSpacing: "-0.05em", maxWidth: 920 }}>
             Talk to a claims agent{" "}
-            <span style={{ background: t.brandGrad, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>that knows the claim.</span>
+            <span style={{ backgroundImage: t.brandGrad, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>that knows the claim.</span>
           </h1>
           <p style={{ margin: "20px auto 0", fontSize: 19, fontWeight: 400, color: t.text2, maxWidth: 600 }}>
             Call as a member. Ask where your claim stands, what is pending, or switch to Hindi mid-sentence. You have 30 seconds with the real agent, on test data.
@@ -124,7 +124,7 @@ export default function VoiceCall() {
           </div>
         </section>
 
-        <section style={{ maxWidth: 1080, margin: "0 auto", padding: "72px 24px 40px" }}>
+        <section style={{ maxWidth: 1080, margin: "0 auto", padding: "clamp(36px, 5.0vw, 72px) 24px 40px" }}>
           <h2 style={{ margin: 0, textAlign: "center", fontSize: "clamp(30px, 3.6vw, 46px)", fontWeight: 500, letterSpacing: "-0.045em" }}>
             Same claim, same record. <span style={{ color: t.text3 }}>Now with a voice.</span>
           </h2>
@@ -139,7 +139,7 @@ export default function VoiceCall() {
           </div>
         </section>
 
-        <section style={{ maxWidth: 1080, margin: "0 auto", padding: "72px 24px 112px" }}>
+        <section style={{ maxWidth: 1080, margin: "0 auto", padding: "clamp(36px, 5.0vw, 72px) 24px clamp(56px, 7.78vw, 112px)" }}>
           <div style={{ borderRadius: 32, padding: "clamp(36px, 6vw, 72px)", background: t.ctaBg, color: "#FAFAF9", textAlign: "center" }}>
             <h2 style={{ margin: 0, fontSize: "clamp(28px, 3.6vw, 46px)", fontWeight: 500, letterSpacing: "-0.045em" }}>Put this voice on your helpline.</h2>
             <p style={{ margin: "12px auto 0", color: "#D6D3D1", maxWidth: 520 }}>A 20-minute walkthrough — your workflow first, on a sample claims system. No slides.</p>

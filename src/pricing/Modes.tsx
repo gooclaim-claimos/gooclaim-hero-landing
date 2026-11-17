@@ -60,7 +60,7 @@ export default function Modes() {
   return (
     <>
       <section style={{ maxWidth: 1240, margin: "0 auto", padding: "16px 24px 40px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 230px), 1fr))", gap: 12 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 150px), 1fr))", gap: 12 }}>
           {FACTORS.map((f) => (
             <div key={f.k} style={{ padding: 20, borderRadius: 18, border: `1px solid ${t.border}`, background: t.surface }}>
               <div style={{ fontFamily: mono, fontSize: 11, letterSpacing: ".08em", color: t.text3 }}>{f.k}</div>

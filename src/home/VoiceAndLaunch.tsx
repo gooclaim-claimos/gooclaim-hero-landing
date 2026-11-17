@@ -17,7 +17,7 @@ const who: CSSProperties = { fontFamily: mono, fontSize: 10, color: t.text3, mar
 
 export function Voice() {
   return (
-    <section id="voice" style={{ maxWidth: 1240, margin: "0 auto", padding: "120px 24px 40px" }}>
+    <section id="voice" style={{ maxWidth: 1240, margin: "0 auto", padding: "clamp(60px, 8.33vw, 120px) 24px 40px" }}>
       <div style={{ borderRadius: 32, padding: "clamp(28px, 5vw, 64px)", background: t.panelVoice, display: "flex", flexWrap: "wrap", gap: 48, alignItems: "center" }}>
         <div style={{ flex: "1 1 340px", minWidth: 0 }}>
           <div style={{ fontFamily: mono, fontSize: 12, letterSpacing: ".08em", color: t.violet }}>03 · VOICE CALLS · EARLY ACCESS</div>
@@ -56,7 +56,7 @@ export function Voice() {
 
 export function GoingLive() {
   return (
-    <section style={{ maxWidth: 1240, margin: "0 auto", padding: "120px 24px 40px" }}>
+    <section style={{ maxWidth: 1240, margin: "0 auto", padding: "clamp(60px, 8.33vw, 120px) 24px 40px" }}>
       <div style={eyebrow}>04 · GOING LIVE</div>
       <h2 style={{ ...h2, maxWidth: 820 }}>
         From first call to first member reply. <span style={{ color: t.text3 }}>Four steps.</span>
@@ -80,7 +80,7 @@ export function GoingLive() {
 export function Walkthrough() {
   const glow = (style: CSSProperties): CSSProperties => ({ position: "absolute", borderRadius: 999, ...style });
   return (
-    <section id="walkthrough" style={{ maxWidth: 1240, margin: "0 auto", padding: "120px 24px 120px" }}>
+    <section id="walkthrough" style={{ maxWidth: 1240, margin: "0 auto", padding: "clamp(60px, 8.33vw, 120px) 24px clamp(60px, 8.33vw, 120px)" }}>
       <div style={{ position: "relative", overflow: "hidden", borderRadius: 32, padding: "clamp(40px, 7vw, 96px) clamp(24px, 5vw, 64px)", background: t.ctaBg, color: "#FAFAF9", textAlign: "center" }}>
         <div aria-hidden="true" style={glow({ width: 520, height: 520, left: -160, top: -240, background: "radial-gradient(circle, rgba(59,130,246,.55), rgba(59,130,246,0) 65%)", animation: "gcDrift 16s ease-in-out infinite" })} />
         <div aria-hidden="true" style={glow({ width: 480, height: 480, right: -140, bottom: -260, background: "radial-gradient(circle, rgba(34,211,238,.42), rgba(34,211,238,0) 65%)", animation: "gcDrift 20s ease-in-out infinite reverse" })} />

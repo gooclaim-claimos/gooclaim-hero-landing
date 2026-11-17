@@ -29,7 +29,7 @@ export default function Hero() {
       <div aria-hidden="true" style={blob({ width: 720, height: 720, left: -260, top: -320, background: t.meshA, animation: "gcDrift 16s ease-in-out infinite" })} />
       <div aria-hidden="true" style={blob({ width: 640, height: 640, right: -240, top: -200, background: t.meshC, animation: "gcDrift 20s ease-in-out infinite reverse" })} />
 
-      <div style={{ position: "relative", maxWidth: 1080, margin: "0 auto", padding: "104px 24px 56px", textAlign: "center" }}>
+      <div style={{ position: "relative", maxWidth: 1080, margin: "0 auto", padding: "clamp(52px, 7.22vw, 104px) 24px 56px", textAlign: "center" }}>
         <div style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "6px 6px 6px 14px", border: `1px solid ${t.glassLine}`, borderRadius: 999, background: t.glass, backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", fontSize: 13, color: t.text2 }}>
           <span>The Claim OS for TPAs &amp; insurers</span>
           <Link to="/call" style={{ padding: "3px 10px", borderRadius: 999, background: t.btnBg, color: t.btnText, fontSize: 12, fontWeight: 500 }}>New · Voice agent →</Link>
@@ -37,7 +37,7 @@ export default function Hero() {
         <h1 style={{ margin: "28px auto 0", fontSize: "clamp(46px, 6.8vw, 96px)", lineHeight: 0.98, fontWeight: 500, letterSpacing: "-0.055em" }}>
           Built for every claim.
           <br />
-          <span style={{ background: t.brandGrad, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>Every channel. Every CMS.</span>
+          <span style={{ backgroundImage: t.brandGrad, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>Every channel. Every CMS.</span>
         </h1>
         <p style={{ margin: "26px auto 0", fontSize: 19, color: t.text2, maxWidth: 600 }}>Claims don’t get stuck at the decision. They get stuck between the steps. Gooclaim OS keeps every claim moving — and every clock in sight.</p>
         <div style={{ display: "flex", gap: 12, marginTop: 34, flexWrap: "wrap", justifyContent: "center" }}>
