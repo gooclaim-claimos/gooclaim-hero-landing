@@ -1,10 +1,10 @@
-import LegalShell from "@/components/LegalShell";
+import LegalLayout from "@/legacy/LegalLayout";
 import SEOHead from "@/components/SEOHead";
 import { SEO_COMPLIANCE } from "@/lib/seo";
 
 export default function Compliance() {
   return (
-    <LegalShell
+    <LegalLayout
       eyebrow="Legal · Compliance · India"
       title="Compliance in India"
       updated="30 Oct 2026"
@@ -286,6 +286,6 @@ export default function Compliance() {
           read together.
         </li>
       </ul>
-    </LegalShell>
+    </LegalLayout>
   );
 }

@@ -9,12 +9,15 @@ import Terms from "./pages/Terms";
 import Compliance from "./pages/Compliance";
 import Pricing from "./pages/Pricing";
 import Demo from "./pages/Demo";
-import UseCase from "./pages/UseCase";
+import Solution from "./pages/Solution";
+import TryIt from "./pages/TryIt";
+import VoiceCall from "./pages/VoiceCall";
 import Module from "./pages/Module";
 import Platform from "./pages/Platform";
 import Orion from "./pages/Orion";
 import Security from "./pages/Security";
 import WaitlistModal from "./components/WaitlistModal";
+import { ThemeProvider } from "./theme/ThemeProvider";
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -35,7 +38,7 @@ function ScrollToTop() {
 
 function AppRoutes() {
   return (
-    <>
+    <ThemeProvider>
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -45,7 +48,9 @@ function AppRoutes() {
         <Route path="/compliance" element={<Compliance />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/demo" element={<Demo />} />
-        <Route path="/use-cases/:slug" element={<UseCase />} />
+        <Route path="/solutions/:slug" element={<Solution />} />
+        <Route path="/try" element={<TryIt />} />
+        <Route path="/call" element={<VoiceCall />} />
         <Route path="/platform" element={<Platform />} />
         <Route path="/platform/:slug" element={<Module />} />
         <Route path="/orion" element={<Orion />} />
@@ -54,7 +59,7 @@ function AppRoutes() {
       <WaitlistModal />
       <Analytics />
       <SpeedInsights />
-    </>
+    </ThemeProvider>
   );
 }
 

@@ -3,148 +3,201 @@
 @tailwind utilities;
 
 @layer base {
+  /*
+   * The site shell, both themes. Each page adds its own token pairs (see
+   * src/theme/theme.ts); these are the few every page shares.
+   */
   :root {
+    color-scheme: light;
+    --site-bg: #FAFAF9;
+    --site-text: #0C0A09;
+  }
+  :root[data-theme="dark"] {
     color-scheme: dark;
+    --site-bg: #07090F;
+    --site-text: #F5F5F4;
   }
   html,
   body,
   #root {
-    height: 100%;
+    min-height: 100%;
   }
   body {
-    background: #070a12;
-    color: #fff;
-    font-family: "Inter", system-ui, sans-serif;
+    margin: 0;
+    background: var(--site-bg);
+    color: var(--site-text);
+    font-family: Inter, system-ui, sans-serif;
+    line-height: 1.5;
     overflow-x: hidden;
   }
-  /* Lenis hijacks scroll on desktop only — keep native touch scroll on touch-only devices */
-  @media (hover: hover) and (pointer: fine) {
-    html.lenis {
-      height: auto;
-    }
-    html.lenis,
-    html.lenis body {
-      overflow: clip;
-    }
-    html.lenis-smooth [data-lenis-prevent] {
-      overscroll-behavior: contain;
-    }
+  /* The design writes its own box sizes; every page assumes border-box. */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  /* Script for Hindi lines in the demos. */
+  :lang(hi) {
+    font-family: "Noto Sans Devanagari", Inter, system-ui, sans-serif;
   }
   /* iOS Safari momentum scrolling on touch devices */
   body {
     -webkit-overflow-scrolling: touch;
   }
   ::selection {
-    background: rgba(13, 153, 255, 0.4);
-    color: #fff;
+    background: rgba(29, 78, 216, 0.22);
   }
 }
 
 @layer utilities {
+  /* One element per theme, chosen by CSS so the prerender is right in both. */
+  :root:not([data-theme="dark"]) .only-dark,
+  :root[data-theme="dark"] .only-light {
+    display: none !important;
+  }
   .text-balance {
     text-wrap: balance;
-  }
-  .bg-grid {
-    background-image:
-      linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-    background-size: 56px 56px;
-  }
-  .bg-radial-bloom {
-    background: radial-gradient(
-      ellipse 60% 50% at 50% 0%,
-      rgba(13, 153, 255, 0.18) 0%,
-      rgba(124, 58, 237, 0.08) 45%,
-      transparent 75%
-    );
-  }
-  .ring-soft {
-    box-shadow:
-      0 0 0 1px rgba(255, 255, 255, 0.06),
-      0 10px 40px -10px rgba(13, 153, 255, 0.25);
-  }
-  .glass {
-    background: rgba(255, 255, 255, 0.025);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(8px);
-  }
-  .glass-strong {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(14px);
-  }
-  .text-gradient-cyan {
-    background: linear-gradient(135deg, #fff 0%, #7dc4ff 60%, #0d99ff 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-}
-
-@keyframes gc-orbit {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes gc-flow {
-  0% {
-    top: 0;
-    opacity: 0;
-  }
-  8% {
-    opacity: 1;
-  }
-  92% {
-    opacity: 1;
-  }
-  100% {
-    top: 100%;
-    opacity: 0;
   }
 }
 
 @layer components {
+  .prose-legal {
+    color: var(--lg-text2);
+    font-size: 16px;
+    line-height: 1.7;
+  }
   .prose-legal h2 {
-    @apply mt-14 mb-4 font-display text-[22px] font-semibold tracking-tight text-white sm:text-[26px];
+    margin: 56px 0 14px;
+    font-size: clamp(22px, 2.4vw, 28px);
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: var(--lg-text);
   }
   .prose-legal h3 {
-    @apply mt-8 mb-3 font-display text-[17px] font-semibold tracking-tight text-white;
+    margin: 32px 0 10px;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--lg-text);
   }
   .prose-legal p {
-    @apply my-4 text-[15px] leading-relaxed text-white/70 sm:text-[15.5px];
+    margin: 16px 0;
   }
   .prose-legal ul {
-    @apply my-4 space-y-2 pl-1;
+    margin: 16px 0;
+    padding: 0;
+    list-style: none;
   }
   .prose-legal li {
-    @apply relative pl-5 text-[14.5px] leading-relaxed text-white/70 sm:text-[15px];
+    position: relative;
+    margin: 10px 0;
+    padding-left: 22px;
   }
   .prose-legal li::before {
     content: "";
     position: absolute;
-    left: 0;
-    top: 0.6em;
+    left: 2px;
+    top: 0.72em;
     width: 6px;
     height: 6px;
     border-radius: 9999px;
-    background: rgba(125, 196, 255, 0.7);
-    box-shadow: 0 0 8px rgba(125, 196, 255, 0.5);
+    background: var(--lg-brand);
   }
   .prose-legal strong {
-    @apply font-semibold text-white;
+    font-weight: 600;
+    color: var(--lg-text);
   }
   .prose-legal a {
-    @apply text-white/90 underline decoration-white/25 underline-offset-4 transition-colors hover:text-white hover:decoration-white/60;
+    color: var(--lg-brand);
+    text-decoration: underline;
+    text-decoration-color: var(--lg-brandLine);
+    text-underline-offset: 4px;
+  }
+  .prose-legal a:hover {
+    text-decoration-color: var(--lg-brand);
+  }
+  .prose-legal code {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.85em;
+    padding: 2px 6px;
+    border-radius: 6px;
+    background: var(--lg-surface2);
+    color: var(--lg-text);
   }
   .prose-legal .callout {
-    @apply my-7 rounded-xl border border-white/10 bg-white/[0.025] p-5 text-[14px] leading-relaxed text-white/70;
+    margin: 28px 0;
+    padding: 20px 22px;
+    border-radius: 18px;
+    border: 1px solid var(--lg-brandLine);
+    background: var(--lg-brandSoft);
+    font-size: 15px;
+    color: var(--lg-text2);
+  }
+  /* Module headings in src/data/platform.tsx carry the old dark-only muted
+     class; on the canvas palette that half reads as the muted text colour. */
+  .lg-scope .text-white\/55 {
+    color: var(--lg-text3);
   }
   .prose-legal .callout strong {
-    @apply mb-1.5 block text-white;
+    display: block;
+    margin-bottom: 6px;
+    color: var(--lg-text);
+  }
+}
+
+/* The booking modal's fields and choice chips, both themes (--lg-* from src/legacy/tokens.ts). */
+@layer components {
+  .lg-field {
+    height: 46px;
+    width: 100%;
+    padding: 0 14px;
+    border-radius: 12px;
+    border: 1px solid var(--lg-border);
+    background: var(--lg-surface2);
+    color: var(--lg-text);
+    font: inherit;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .lg-field::placeholder {
+    color: var(--lg-text3);
+  }
+  .lg-field:hover {
+    border-color: var(--lg-borderStrong);
+  }
+  .lg-field:focus {
+    border-color: var(--lg-brand);
+    box-shadow: 0 0 0 4px var(--lg-brandSoft);
+  }
+  .lg-field[aria-invalid="true"] {
+    border-color: var(--lg-red);
+  }
+  .lg-chip {
+    display: inline-flex;
+    min-height: 40px;
+    align-items: center;
+    padding: 0 14px;
+    border-radius: 999px;
+    border: 1px solid var(--lg-border);
+    background: var(--lg-surface);
+    color: var(--lg-text2);
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .lg-chip:hover {
+    border-color: var(--lg-borderStrong);
+    color: var(--lg-text);
+  }
+  input:checked + .lg-chip {
+    border-color: var(--lg-brandLine);
+    background: var(--lg-brandSoft);
+    color: var(--lg-brand);
+  }
+  input:focus-visible + .lg-chip {
+    box-shadow: 0 0 0 3px var(--lg-brandSoft);
   }
 }
 

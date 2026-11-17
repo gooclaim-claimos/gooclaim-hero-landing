@@ -1,10 +1,10 @@
-import LegalShell from "@/components/LegalShell";
+import LegalLayout from "@/legacy/LegalLayout";
 import SEOHead from "@/components/SEOHead";
 import { SEO_TERMS } from "@/lib/seo";
 
 export default function Terms() {
   return (
-    <LegalShell eyebrow="Legal · Terms" title="Terms of Service" updated="13 Oct 2026">
+    <LegalLayout eyebrow="Legal · Terms" title="Terms of Service" updated="13 Oct 2026">
       <SEOHead seo={SEO_TERMS} path="/terms" />
       <p>
         These terms govern access to the marketing website at gooclaim.com and
@@ -188,6 +188,6 @@ export default function Terms() {
         security disclosures, write to{" "}
         <a href="mailto:security@gooclaim.com">security@gooclaim.com</a>.
       </p>
-    </LegalShell>
+    </LegalLayout>
   );
 }

@@ -134,7 +134,7 @@ function notifyHtml(p: Required<Payload>): string {
     ["Work email", p.work_email],
     ["Company", p.company],
     ["Role", p.role || "—"],
-    ["Monthly volume", p.monthly_claim_volume || "—"],
+    ["Claim volume", p.monthly_claim_volume || "—"],
     ["Source", p.source],
     ["Submitted", `${submittedAt} IST`],
   ];
@@ -171,7 +171,7 @@ function notifyHtml(p: Required<Payload>): string {
             </table>`;
 
   return shell({
-    preheaderText: `${p.name} from ${p.company} · ${p.work_email}${p.monthly_claim_volume ? ` · ${p.monthly_claim_volume} claims/mo` : ""}`,
+    preheaderText: `${p.name} from ${p.company} · ${p.work_email}${p.monthly_claim_volume ? ` · ${/claim/i.test(p.monthly_claim_volume) ? p.monthly_claim_volume : `${p.monthly_claim_volume} claims/mo`}` : ""}`,
     bodyHtml,
     footerHtml,
   });
@@ -185,7 +185,7 @@ function notifyText(p: Required<Payload>): string {
     `Work email:    ${p.work_email}`,
     `Company:       ${p.company}`,
     `Role:          ${p.role || "—"}`,
-    `Monthly vol:   ${p.monthly_claim_volume || "—"}`,
+    `Claim volume:  ${p.monthly_claim_volume || "—"}`,
     `Source:        ${p.source}`,
     "",
     "Reply to this email to reach them directly.",

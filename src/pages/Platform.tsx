@@ -1,49 +1,35 @@
-import PageShell from "@/components/PageShell";
-import PageHero from "@/components/PageHero";
-import CtaBand from "@/components/CtaBand";
 import SEOHead from "@/components/SEOHead";
 import { SEO_PLATFORM } from "@/lib/seo";
 import { breadcrumbJsonLd } from "@/lib/structured";
-import OneCoreIntegrations from "@/sections/OneCoreIntegrations";
-import SolutionBento from "@/sections/SolutionBento";
-import ModulesSplit from "@/sections/ModulesSplit";
-import CoverageBloom from "@/sections/CoverageBloom";
-import LinesOfBusiness from "@/sections/LinesOfBusiness";
-import Faq, { faqJsonLd } from "@/sections/Faq";
+import SiteLayout from "@/site/SiteLayout";
+import { ThemeStyle } from "@/theme/ThemeProvider";
+import CtaBand from "@/platform/CtaBand";
+import { Connectors, PlatformHero } from "@/platform/Hero";
+import { FiveThings, SevenLayers } from "@/platform/Interactive";
+import { AuditLedger, Coverage } from "@/platform/Record";
+import { css, t } from "@/platform/theme";
 
 export default function Platform() {
   return (
-    <PageShell>
+    <SiteLayout>
       <SEOHead
         seo={SEO_PLATFORM}
         path="/platform"
-        jsonLd={[
-          breadcrumbJsonLd([
-            { name: "Home", path: "/" },
-            { name: "Platform", path: "/platform" },
-          ]),
-          faqJsonLd,
-        ]}
+        jsonLd={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Platform", path: "/platform" },
+        ])}
       />
-      <PageHero
-        eyebrow="The platform"
-        title={
-          <>
-            One agentic core.{" "}
-            <span className="text-gradient-cyan">Every channel. Every CMS.</span>
-          </>
-        }
-        intro="Gooclaim OS is a Claim OS — a multi-agent system that reads any claims system, answers on any channel, and checks every word against your record before it leaves. Everything it does is on the record."
-        source="platform-hero"
-        secondary={{ label: "Meet Orion", to: "/orion" }}
-      />
-      <OneCoreIntegrations eyebrow="01 · One core" />
-      <SolutionBento eyebrow="02 · An OS, not a chatbot" />
-      <ModulesSplit eyebrow="03 · Inside the OS" />
-      <CoverageBloom eyebrow="04 · Coverage" />
-      <LinesOfBusiness eyebrow="05 · Every line of business" />
-      <Faq eyebrow="Questions" />
-      <CtaBand source="platform-close" next={{ label: "Security & compliance", to: "/security" }} />
-    </PageShell>
+      <ThemeStyle css={css} />
+      <div style={{ background: t.bg, color: t.text }}>
+        <PlatformHero />
+        <Connectors />
+        <FiveThings />
+        <SevenLayers />
+        <AuditLedger />
+        <Coverage />
+        <CtaBand bg={t.ctaBg} title="See Gooclaim OS on a real claim." sub="A 20-minute walkthrough — your workflow first, on a sample claims system. No slides." source="platform-close" secondary={{ label: "Try it live", to: "/try" }} />
+      </div>
+    </SiteLayout>
   );
 }
