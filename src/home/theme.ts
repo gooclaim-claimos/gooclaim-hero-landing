@@ -24,6 +24,8 @@ const theme = makeTheme("home", {
   green: ["#047857", "#6EE7B7"],
   greenSoft: ["#ECFDF5", "rgba(16,185,129,.14)"],
   amber: ["#B45309", "#FCD34D"],
+  amberSoft: ["#FFFBEB", "rgba(245,158,11,.14)"],
+  violetSoft: ["#F5F3FF", "rgba(139,92,246,.16)"],
   violet: ["#6D28D9", "#C4B5FD"],
   red: ["#B91C1C", "#FCA5A5"],
   brand: ["#1D4ED8", "#60A5FA"],
