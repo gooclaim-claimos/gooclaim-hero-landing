@@ -69,7 +69,7 @@ export default function VoiceCall() {
           </div>
           <h1 style={{ margin: "22px auto 0", fontSize: "clamp(40px, 5.6vw, 76px)", lineHeight: 1.02, fontWeight: 500, letterSpacing: "-0.05em", maxWidth: 920 }}>
             Talk to a claims agent{" "}
-            <span style={{ background: t.brandGrad, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>that knows the claim.</span>
+            <span style={{ backgroundImage: t.brandGrad, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>that knows the claim.</span>
           </h1>
           <p style={{ margin: "20px auto 0", fontSize: 19, fontWeight: 400, color: t.text2, maxWidth: 600 }}>
             Call as a member. Ask where your claim stands, what is pending, or switch to Hindi mid-sentence. You have 30 seconds with the real agent, on test data.

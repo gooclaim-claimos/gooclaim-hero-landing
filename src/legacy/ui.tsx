@@ -47,7 +47,7 @@ export function Hero({ eyebrow, title, accent, intro, children, align = "center"
 }
 
 export function GradientText({ children }: { children: ReactNode }) {
-  return <span style={{ background: t.brandGrad, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>{children}</span>;
+  return <span style={{ backgroundImage: t.brandGrad, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>{children}</span>;
 }
 
 /** A page section with an optional eyebrow, a two-tone heading and an intro line. */

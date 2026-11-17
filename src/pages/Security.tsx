@@ -51,7 +51,7 @@ export default function Security() {
             </div>
             <h1 style={{ margin: "22px auto 0", fontSize: "clamp(40px, 5.4vw, 72px)", lineHeight: 1.03, fontWeight: 600, letterSpacing: "-0.045em", maxWidth: 900 }}>
               Claims data is health data.{" "}
-              <span style={{ background: t.secGrad, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>We built for that.</span>
+              <span style={{ backgroundImage: t.secGrad, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>We built for that.</span>
             </h1>
             <p style={{ margin: "20px auto 0", fontSize: 18, color: t.text2, maxWidth: 680 }}>
               Consent, verification, encryption, masking and an audit trail on every claim — designed around what insurance regulators and data-protection law expect, not bolted on after.

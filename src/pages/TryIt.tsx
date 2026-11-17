@@ -53,7 +53,7 @@ const RULES = [
 
 const LANGS: [UiLang, string][] = [["en", "English"], ["hi", "हिन्दी · Hinglish"]];
 
-const gradText = { background: t.brandGrad, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" } as const;
+const gradText = { backgroundImage: t.brandGrad, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" } as const;
 
 export default function TryIt() {
   const [mode, setMode] = useState<"chat" | "voice">("chat");

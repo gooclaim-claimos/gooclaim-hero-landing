@@ -61,7 +61,7 @@ export default function Pricing() {
           <div style={{ position: "relative", maxWidth: 1240, margin: "0 auto", padding: "clamp(44px, 6.11vw, 88px) 24px 40px", textAlign: "center" }}>
             <div style={{ fontFamily: mono, fontSize: 12, letterSpacing: ".1em", color: t.brand }}>PRICING</div>
             <h1 style={{ margin: "14px auto 0", fontSize: "clamp(40px, 5.4vw, 72px)", lineHeight: 1.03, fontWeight: 600, letterSpacing: "-0.045em", maxWidth: 880 }}>
-              A partnership, <span style={{ background: t.brandGrad, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>not a SKU.</span>
+              A partnership, <span style={{ backgroundImage: t.brandGrad, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>not a SKU.</span>
             </h1>
             <p style={{ margin: "18px auto 0", fontSize: 18, color: t.text2, maxWidth: 620 }}>
               Pricing follows the shape of your operation. Three engagement modes — we’ll co-design the right one with you in a 20-minute call.

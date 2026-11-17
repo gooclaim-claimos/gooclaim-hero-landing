@@ -37,7 +37,7 @@ export default function Hero() {
         <h1 style={{ margin: "28px auto 0", fontSize: "clamp(46px, 6.8vw, 96px)", lineHeight: 0.98, fontWeight: 500, letterSpacing: "-0.055em" }}>
           Built for every claim.
           <br />
-          <span style={{ background: t.brandGrad, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>Every channel. Every CMS.</span>
+          <span style={{ backgroundImage: t.brandGrad, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>Every channel. Every CMS.</span>
         </h1>
         <p style={{ margin: "26px auto 0", fontSize: 19, color: t.text2, maxWidth: 600 }}>Claims don’t get stuck at the decision. They get stuck between the steps. Gooclaim OS keeps every claim moving — and every clock in sight.</p>
         <div style={{ display: "flex", gap: 12, marginTop: 34, flexWrap: "wrap", justifyContent: "center" }}>

@@ -34,7 +34,7 @@ export default function NotFound() {
       <section style={{ maxWidth: 760, margin: "0 auto", padding: "clamp(60px, 8.33vw, 120px) 24px clamp(70px, 9.72vw, 140px)", textAlign: "center", color: t.text }}>
         <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, letterSpacing: ".1em", color: t.text3 }}>404 · PAGE NOT FOUND</div>
         <h1 style={{ margin: "16px 0 0", fontSize: "clamp(36px, 5vw, 60px)", lineHeight: 1.05, fontWeight: 600, letterSpacing: "-0.045em" }}>
-          This page has moved on. <span style={{ background: t.brandGrad, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>Your claims don’t have to.</span>
+          This page has moved on. <span style={{ backgroundImage: t.brandGrad, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>Your claims don’t have to.</span>
         </h1>
         <p style={{ margin: "18px auto 0", fontSize: 17, color: t.text2, maxWidth: 520 }}>The address may be old or mistyped. Here is where most people head next.</p>
         <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap", marginTop: 30 }}>

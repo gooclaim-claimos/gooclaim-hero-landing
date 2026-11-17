@@ -16,7 +16,7 @@ export function PlatformHero() {
         <div style={{ fontFamily: mono, fontSize: 12, letterSpacing: ".1em", color: t.brand }}>THE PLATFORM</div>
         <h1 style={{ margin: "14px 0 0", fontSize: "clamp(40px, 5.4vw, 72px)", lineHeight: 1.03, fontWeight: 600, letterSpacing: "-0.045em", maxWidth: 960 }}>
           One agentic core.{" "}
-          <span style={{ background: t.brandGrad, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>Every channel. Every CMS.</span>
+          <span style={{ backgroundImage: t.brandGrad, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>Every channel. Every CMS.</span>
         </h1>
         <p style={{ margin: "20px 0 0", fontSize: 18, color: t.text2, maxWidth: 640 }}>
           Gooclaim OS is a Claim OS — a multi-agent system that reads any claims system, answers on any channel, and checks every word against your record before it leaves.

@@ -36,7 +36,7 @@ function SegmentBody({ seg }: { seg: Segment }) {
           <div style={{ flex: "1.3 1 520px", minWidth: 0 }}>
             <div style={{ fontFamily: mono, fontSize: 12, letterSpacing: ".1em", color: p.acc }}>{seg.eyebrow}</div>
             <h1 style={{ margin: "14px 0 0", fontSize: "clamp(38px, 5vw, 66px)", lineHeight: 1.04, fontWeight: 600, letterSpacing: "-0.045em" }}>
-              {seg.h1a} <span style={{ background: p.grad, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>{seg.h1b}</span>
+              {seg.h1a} <span style={{ backgroundImage: p.grad, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>{seg.h1b}</span>
             </h1>
             <p style={{ margin: "20px 0 0", fontSize: 18, color: t.text2, maxWidth: 600 }}>{seg.lead}</p>
             <div style={{ display: "flex", gap: 12, marginTop: 28, flexWrap: "wrap" }}>

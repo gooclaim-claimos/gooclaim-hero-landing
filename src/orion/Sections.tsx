@@ -18,7 +18,7 @@ export function OrionHero() {
           <h1 style={{ margin: "20px 0 0", fontSize: "clamp(42px, 5.6vw, 76px)", lineHeight: 1.02, fontWeight: 600, letterSpacing: "-0.045em" }}>
             Less chasing.
             <br />
-            <span style={{ background: t.accGrad, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>More deciding.</span>
+            <span style={{ backgroundImage: t.accGrad, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>More deciding.</span>
           </h1>
           <p style={{ margin: "20px 0 0", fontSize: 18, color: t.text2, maxWidth: 540 }}>
             Orion works beside your claims staff. It reads every claim, shows what needs a person and why, and prepares the next safe step with its evidence. Your team decides — Orion never does.
