@@ -60,10 +60,12 @@ interface Props {
   /** A person has been confirmed: the call may start. */
   ready: boolean;
   onStart: () => void;
+  /** Already on /try: switch to its messaging tab instead of linking to the same page. */
+  onMessaging?: () => void;
 }
 
 /** The call itself: countdown ring, breathing core, captions, controls and lines to try. */
-export default function CallStage({ live, lang, setLang, checkBox, ready, onStart }: Props) {
+export default function CallStage({ live, lang, setLang, checkBox, ready, onStart, onMessaging }: Props) {
   const { phase, inCall, remaining, limitS } = live;
   const look: Look = phase === "connecting" ? "thinking" : phase === "live" ? (live.speaking ? "speaking" : "listening") : phase;
   const active = look === "speaking" || look === "listening";
@@ -165,14 +167,21 @@ export default function CallStage({ live, lang, setLang, checkBox, ready, onStar
             <div role="alert" className="gc-row-in" style={{ maxWidth: 560, margin: "16px auto 0", padding: "18px 20px", borderRadius: 20, ...glass, textAlign: "center" }}>
               <div style={{ fontSize: 16, fontWeight: 600, color: t.text }}>{PROBLEMS[live.problem].title}</div>
               <div style={{ fontSize: 14, color: t.text2, marginTop: 6 }}>{PROBLEMS[live.problem].body}</div>
+              {live.problemRef && <div style={{ fontFamily: mono, fontSize: 11, color: t.text3, marginTop: 8 }}>Ref: {live.problemRef}</div>}
               {PROBLEMS[live.problem].offer && (
                 <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap", marginTop: 14 }}>
                   <button type="button" onClick={() => openWaitlist(`call-${live.problem}`)} style={{ padding: "11px 18px", borderRadius: 999, border: "none", background: t.btnBg, color: t.btnText, font: "inherit", fontSize: 14, fontWeight: 600, cursor: "pointer" }}>
                     Book a walkthrough
                   </button>
-                  <Link to="/try" style={{ padding: "11px 18px", borderRadius: 999, border: `1px solid ${t.glassLine}`, color: t.text, fontSize: 14, fontWeight: 500 }}>
-                    Try the messaging demo
-                  </Link>
+                  {onMessaging ? (
+                    <button type="button" onClick={onMessaging} style={{ padding: "11px 18px", borderRadius: 999, border: `1px solid ${t.glassLine}`, color: t.text, fontSize: 14, fontWeight: 500 , background: "transparent", cursor: "pointer" }}>
+                      Try the messaging demo
+                    </button>
+                  ) : (
+                    <Link to="/try" style={{ padding: "11px 18px", borderRadius: 999, border: `1px solid ${t.glassLine}`, color: t.text, fontSize: 14, fontWeight: 500 }}>
+                      Try the messaging demo
+                    </Link>
+                  )}
                 </div>
               )}
             </div>

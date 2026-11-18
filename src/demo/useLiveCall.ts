@@ -58,6 +58,8 @@ export function useLiveCall() {
   const [lines, setLines] = useState<CallLine[]>([]);
   const [events, setEvents] = useState<LiveEvent[]>([]);
   const [problem, setProblem] = useState<LiveProblem>("");
+  // Which step failed, shown small under the message so a report can name it.
+  const [problemRef, setProblemRef] = useState("");
   const [limitS, setLimitS] = useState(30);
   const [code, setCode] = useState("");
   const [startedAt, setStartedAt] = useState(0);
@@ -84,6 +86,7 @@ export function useLiveCall() {
   const start = useCallback(
     async (lang: CallLang, turnstileToken: string) => {
       setProblem("");
+      setProblemRef("");
       setLines([]);
       setEvents([]);
       setCut(false);
@@ -100,6 +103,7 @@ export function useLiveCall() {
         const out = (await r.json().catch(() => ({}))) as Partial<Opened> & { error?: string };
         if (!r.ok || !out.conversation_token || !out.session_id) {
           const e = out.error;
+          setProblemRef(`${r.status} ${e ?? "no_detail"}`);
           setProblem(
             e === "daily_limit" || e === "ip_limit" || e === "not_configured"
               ? e
@@ -112,6 +116,7 @@ export function useLiveCall() {
         }
         opened = { session_id: out.session_id, conversation_token: out.conversation_token, limit_s: out.limit_s ?? 30, test_code: out.test_code ?? "" };
       } catch {
+        setProblemRef("network");
         setProblem("unavailable");
         setPhase("idle");
         return;
@@ -143,7 +148,7 @@ export function useLiveCall() {
             log("call.ended", d.reason === "agent" ? "The agent closed the call" : d.reason === "user" ? "You ended the call" : "The line dropped");
             if (d.reason === "error") setProblem("dropped");
           },
-          onError: () => setProblem("dropped"),
+          onError: () => { setProblemRef("call error"); setProblem("dropped"); },
           onModeChange: ({ mode }) => setSpeaking(mode === "speaking"),
           onMessage: (m) => {
             if (m.message.trim() === TIME_UP) return; // our own signal, not the caller
@@ -153,6 +158,7 @@ export function useLiveCall() {
         });
       } catch (e) {
         session.current = null;
+        setProblemRef(`start ${e instanceof Error ? e.name : "error"}`);
         setProblem(e instanceof DOMException && e.name === "NotAllowedError" ? "microphone" : "unavailable");
         setPhase("idle");
       }
@@ -199,6 +205,7 @@ export function useLiveCall() {
     lines,
     events,
     problem,
+    problemRef,
     code,
     limitS,
     /** The limit was reached (by the agent or by our cut). */

@@ -15,7 +15,15 @@ const LANG_TAG = { hi: " · HI", hing: " · HING", en: " · EN" } as const;
  * call log. /call and the voice tab of /try both show this, so a visitor never
  * meets two different "voice agents". The page adds CALL_CSS.
  */
-export default function LiveVoice({ lang, setLang }: { lang: CallLang; setLang: (l: CallLang) => void }) {
+export default function LiveVoice({
+  lang,
+  setLang,
+  onMessaging,
+}: {
+  lang: CallLang;
+  setLang: (l: CallLang) => void;
+  onMessaging?: () => void;
+}) {
   const live = useLiveCall();
   const checkBox = useRef<HTMLDivElement>(null);
   const check = useTurnstile(checkBox);
@@ -35,7 +43,7 @@ export default function LiveVoice({ lang, setLang }: { lang: CallLang; setLang: 
 
   return (
     <>
-      <CallStage live={live} lang={lang} setLang={setLang} checkBox={checkBox} ready={!!check.token} onStart={startCall} />
+      <CallStage live={live} lang={lang} setLang={setLang} checkBox={checkBox} ready={!!check.token} onStart={startCall} onMessaging={onMessaging} />
 
         <section style={{ maxWidth: 1080, margin: "0 auto", padding: "8px 24px 40px", display: "flex", flexWrap: "wrap", gap: 16 }}>
           <div style={{ ...card, flex: "1.3 1 420px" }}>
