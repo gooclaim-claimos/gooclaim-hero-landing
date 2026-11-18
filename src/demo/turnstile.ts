@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type RefObject } from "react";
 
 /**
- * Cloudflare Turnstile for the /call page: proves a person is asking before
+ * Cloudflare Turnstile for the voice call (/call, and the voice tab of /try): proves a person is asking before
  * /api/voice-call opens a real call. Only shows a challenge when Cloudflare
  * is unsure (`interaction-only`). A token is single-use, so it is reset after
  * every attempt.
