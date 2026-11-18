@@ -17,7 +17,6 @@ export const tryTheme = makeTheme("try", {
   green: ["#047857", "#34D399"],
   dot: ["rgba(12,10,9,.13)", "rgba(255,255,255,.10)"],
   chatBg: ["#F7F6F4", "#0B0F17"],
-  callBg: ["#0C0F16", "#0B0F17"],
   cardShadow: ["0 24px 64px rgba(30,58,138,.14)", "0 30px 80px rgba(0,0,0,.55)"],
   meBg: ["#0C0A09", "#F5F5F4"],
   meText: ["#FAFAF9", "#0C0A09"],
@@ -28,9 +27,7 @@ export const tryTheme = makeTheme("try", {
   ],
 });
 
-export const TRY_CSS = `${tryTheme.css}
-@keyframes gcwave{0%,100%{transform:scaleY(.22)}50%{transform:scaleY(1)}}
-@keyframes gcpulse{0%{box-shadow:0 0 0 0 rgba(37,99,235,.35)}100%{box-shadow:0 0 0 22px rgba(37,99,235,0)}}`;
+export const TRY_CSS = tryTheme.css;
 
 export const mono = "'JetBrains Mono', monospace";
 

@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { hasDevanagari, type CallLang } from "./speech";
-import type { CallLine } from "./useVoiceAgent";
 
 /**
- * A real call with the Gooclaim voice agent from the /call page — the same
+ * A real call with the Gooclaim voice agent from the website — the same
  * agent the Portal's "Test" tab calls, on the tenant's labelled test member.
  *
  *   /api/voice-call (Turnstile-checked) → a one-call token + session id
@@ -16,6 +15,12 @@ import type { CallLine } from "./useVoiceAgent";
  * language and hangs up itself (no AI call after the limit). Only if that
  * never happens does the page end the session, at limit + BACKSTOP_S.
  */
+export interface CallLine {
+  who: "agent" | "caller";
+  text: string;
+  lang: "en" | "hi" | "hing";
+}
+
 export type LivePhase = "idle" | "connecting" | "live" | "ended";
 export type LiveProblem = "" | "verification" | "daily_limit" | "ip_limit" | "unavailable" | "not_configured" | "microphone" | "dropped";
 

@@ -1,7 +1,6 @@
 import { SAMPLE_CLAIM } from "@/data/sampleClaim";
 import { mono, tryTheme } from "./tryTheme";
 import type { LogRow } from "./useEventLog";
-import { SAMPLE_OTP } from "./voiceScript";
 
 const { t } = tryTheme;
 
@@ -25,10 +24,6 @@ export default function TrySide({ uploaded, log }: { uploaded: boolean; log: Log
           <Row k="Claim type" v={SAMPLE_CLAIM.type} />
           <Row k="Registered mobile" v="•••• 4821" />
           <Row k="Status in record" v={uploaded ? "Under review" : "Documents pending"} />
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, padding: "12px 14px", borderRadius: 12, background: t.brandSoft }}>
-            <span style={{ color: t.brand }}>One-time code (voice)</span>
-            <b style={{ fontFamily: mono, fontSize: 17, letterSpacing: ".12em", color: t.brand }}>{SAMPLE_OTP}</b>
-          </div>
         </div>
       </div>
       <div style={{ flex: 1, padding: 22, borderRadius: 22, border: `1px solid ${t.border}`, background: t.surface, display: "flex", flexDirection: "column", minHeight: 320 }}>
@@ -41,7 +36,7 @@ export default function TrySide({ uploaded, log }: { uploaded: boolean; log: Log
         </div>
         <div style={{ display: "flex", flexDirection: "column", marginTop: 10, overflowY: "auto", maxHeight: 470 }}>
           {log.length === 0 && (
-            <div style={{ padding: "24px 0", fontSize: 14, color: t.text3 }}>Send a message or start a call. Each check appears here as a ledger row.</div>
+            <div style={{ padding: "24px 0", fontSize: 14, color: t.text3 }}>Send a message. Each check appears here as a ledger row.</div>
           )}
           {log
             .slice()

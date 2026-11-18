@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import SiteLayout from "@/site/SiteLayout";
 import SEOHead from "@/components/SEOHead";
@@ -6,12 +6,10 @@ import { ThemeStyle } from "@/theme/ThemeProvider";
 import type { PageSEO } from "@/lib/seo";
 import { breadcrumbJsonLd } from "@/lib/structured";
 import { openWaitlist } from "@/lib/waitlist";
-import CallStage from "@/demo/CallStage";
 import { CALL_CSS, callTheme } from "@/demo/callTheme";
+import LiveVoice from "@/demo/LiveVoice";
 import type { CallLang } from "@/demo/speech";
-import { useTurnstile } from "@/demo/turnstile";
 import { mono } from "@/demo/tryTheme";
-import { useLiveCall } from "@/demo/useLiveCall";
 
 const SEO_CALL: PageSEO = {
   title: "Call the voice agent · Gooclaim OS",
@@ -36,27 +34,8 @@ const VERIFY_STEPS = [
   "Verified — then simple to complex questions",
 ];
 
-const LANG_TAG = { hi: " · HI", hing: " · HING", en: " · EN" } as const;
-
 export default function VoiceCall() {
   const [lang, setLang] = useState<CallLang>("en");
-  const live = useLiveCall();
-  const checkBox = useRef<HTMLDivElement>(null);
-  const check = useTurnstile(checkBox);
-  const lines = live.lines;
-  const log = live.events;
-  const startCall = () => {
-    void live.start(lang, check.token);
-    // A token is single-use: the next call needs a fresh one.
-    check.reset();
-  };
-  const transcript = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (transcript.current) transcript.current.scrollTop = transcript.current.scrollHeight;
-  }, [lines]);
-
-  const card = { flex: "1 1 300px", minWidth: 0, padding: 24, borderRadius: 24, border: `1px solid ${t.border}`, background: t.surface } as const;
-
   return (
     <SiteLayout>
       <SEOHead seo={SEO_CALL} path="/call" jsonLd={breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Try it live", path: "/try" }, { name: "Voice call", path: "/call" }])} />
@@ -84,45 +63,7 @@ export default function VoiceCall() {
           </ol>
         </section>
 
-        <CallStage live={live} lang={lang} setLang={setLang} checkBox={checkBox} ready={!!check.token} onStart={startCall} />
-
-        <section style={{ maxWidth: 1080, margin: "0 auto", padding: "8px 24px 40px", display: "flex", flexWrap: "wrap", gap: 16 }}>
-          <div style={{ ...card, flex: "1.3 1 420px" }}>
-            <div style={{ fontFamily: mono, fontSize: 11, letterSpacing: ".08em", color: t.text3 }}>TRANSCRIPT</div>
-            <div ref={transcript} style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: 14, maxHeight: 320, overflowY: "auto" }}>
-              {lines.length === 0 && <div style={{ fontSize: 14, color: t.text3 }}>The conversation appears here as you talk.</div>}
-              {lines.map((ln, i) => (
-                <div key={i} style={{ display: "flex", gap: 14 }}>
-                  <span style={{ flex: "none", width: 72, fontFamily: mono, fontSize: 10, letterSpacing: ".05em", paddingTop: 4, color: ln.who === "agent" ? t.brand : t.text3 }}>
-                    {(ln.who === "agent" ? "AGENT" : "YOU") + LANG_TAG[ln.lang]}
-                  </span>
-                  <span lang={ln.lang === "hi" ? "hi" : undefined} style={{ fontSize: 15, color: t.text }}>{ln.text}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div style={card}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <span style={{ fontFamily: mono, fontSize: 11, letterSpacing: ".08em", color: t.text3 }}>THIS CALL</span>
-              <span style={{ fontSize: 12, color: t.green }}>● Recorded as a test</span>
-            </div>
-            <div style={{ display: "flex", flexDirection: "column", marginTop: 10, maxHeight: 320, overflowY: "auto" }}>
-              {log.length === 0 && <div style={{ fontSize: 14, color: t.text3, padding: "8px 0" }}>The call’s start and end land here. In Gooclaim OS every check is a row on the claim’s audit ledger.</div>}
-              {log
-                .slice()
-                .reverse()
-                .map((lg, i) => (
-                  <div key={log.length - i} style={{ padding: "10px 0", borderBottom: `1px solid ${t.border}` }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", gap: 8 }}>
-                      <span style={{ fontFamily: mono, fontSize: 12 }}>{lg.ev}</span>
-                      <span style={{ fontFamily: mono, fontSize: 11, color: t.text3 }}>{lg.time}</span>
-                    </div>
-                    <div style={{ fontSize: 13, color: t.text2 }}>{lg.detail}</div>
-                  </div>
-                ))}
-            </div>
-          </div>
-        </section>
+        <LiveVoice lang={lang} setLang={setLang} />
 
         <section style={{ maxWidth: 1080, margin: "0 auto", padding: "clamp(36px, 5.0vw, 72px) 24px 40px" }}>
           <h2 style={{ margin: 0, textAlign: "center", fontSize: "clamp(30px, 3.6vw, 46px)", fontWeight: 500, letterSpacing: "-0.045em" }}>
