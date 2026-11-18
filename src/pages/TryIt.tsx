@@ -92,7 +92,14 @@ export default function TryIt() {
           </section>
         ) : (
           <div style={{ paddingTop: 16 }}>
-            <LiveVoice lang={lang} setLang={setLang} />
+            <LiveVoice
+              lang={lang}
+              setLang={setLang}
+              onMessaging={() => {
+                setMode("chat");
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+            />
           </div>
         )}
 
