@@ -37,7 +37,7 @@ export const softwareJsonLd = {
   applicationSubCategory: "Insurance · Claims · Operating System",
   operatingSystem: "Cloud",
   description:
-    "A Claim OS for TPAs and insurers — built for every claim, every channel, every CMS, every workflow.",
+    "A Claim OS for TPAs, insurers and hospitals — built for every claim, every channel, every CMS.",
   url: SITE.url,
   brand: { "@type": "Brand", name: SITE.brand },
   offers: {
