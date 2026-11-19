@@ -3,10 +3,10 @@ export const SITE = {
   name: "Gooclaim OS",
   brand: "Gooclaim",
   twitter: "@gooclaim",
-  defaultTitle: "Gooclaim OS · The Claim OS for TPAs and insurers",
+  defaultTitle: "Gooclaim OS · The Claim OS for TPAs, insurers and hospitals",
   defaultDescription:
-    "Gooclaim OS is a Claim OS for TPAs and insurers. Built for every claim — every channel, every CMS, every workflow — with consent, approved messages and an audit trail on every claim.",
-  defaultOgImage: "/og-home-v2.png",
+    "Gooclaim OS is a Claim OS for TPAs, insurers and hospitals: email, WhatsApp and voice calls answered from your claim system, with every step on record.",
+  defaultOgImage: "/og-home-v3.png",
 };
 
 export interface PageSEO {
@@ -29,11 +29,11 @@ export const COUNTRY_ALTERNATES = [
 ];
 
 export const SEO_HOME: PageSEO = {
-  title: "Gooclaim OS · One Claims OS. Fully agentic.",
+  title: "Gooclaim OS · The Claim OS for TPAs, insurers and hospitals",
   description:
-    "Gooclaim OS is a Claim OS for TPAs and insurers: one agentic core that answers members, works beside your team and keeps every claim on the record — on the claims system you already run.",
+    "Gooclaim OS is a Claim OS for TPAs, insurers and hospitals: email, WhatsApp and voice calls answered from your claim system, with every step on record.",
   keywords:
-    "claims OS, insurance AI, TPA software, claims automation, multi-agent insurance, WhatsApp claims, email claims",
+    "claim OS, claims operating system, TPA software, insurance claims automation, hospital claims, WhatsApp claims, email claims, claims voice agent",
 };
 
 export const SEO_INDIA: PageSEO = {
@@ -108,7 +108,7 @@ export function buildUseCaseSEO(slug: string, label: string): PageSEO {
     title: `${label} · Solutions · Gooclaim OS`,
     description: `Gooclaim OS for ${label}. The agentic claims operating system built for TPAs and insurers to handle ${label.toLowerCase()} workflows end-to-end — multi-channel, audit-grade, compliant by design.`,
     keywords: `Gooclaim OS ${label}, ${label} insurance AI, claims automation ${label}`,
-    ogImage: `/og-home-v2.png`,
+    ogImage: `/og-home-v3.png`,
     ...(slug ? {} : {}),
   };
 }
@@ -118,7 +118,7 @@ export function buildModuleSEO(slug: string, label: string): PageSEO {
     title: `${label} · Platform · Gooclaim OS`,
     description: `${label} — a module of Gooclaim OS. Built in, multi-tenant, audited. Read what ${label} actually does and the outcomes you see when it ships.`,
     keywords: `Gooclaim OS ${label}, ${label} insurance, claims operating system`,
-    ogImage: `/og-home-v2.png`,
+    ogImage: `/og-home-v3.png`,
     ...(slug ? {} : {}),
   };
 }

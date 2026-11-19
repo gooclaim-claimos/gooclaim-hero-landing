@@ -6,14 +6,14 @@
  *   npx -y -p playwright-core@1.56.1 node scripts/og-images.mjs
  *   (set CHROMIUM=/path/to/chromium if Playwright has no browser installed)
  *
- * Writes public/og-{home,india,portal,console}-v2.png. A changed image gets a
+ * Writes public/og-home-v3.png and og-{india,portal,console}-v2.png. A changed image gets a
  * NEW name (-v3 …): LinkedIn and WhatsApp cache a preview by its URL.
  * Portal and Console link to the portal/console images on www.gooclaim.com.
  */
 import { chromium } from 'playwright-core';
 const LOGO = 'https://assets.gooclaim.com/gooclaim/brand/logo-v3.png';
 const cards = {
-  home: { tag: null, eyebrow: 'GOOCLAIM OS IS A CLAIM OS · FOR TPAS AND INSURERS', h1: 'Built for every claim.', h2: 'Every channel. Every CMS.', grad: 'linear-gradient(90deg,#1D4ED8 0%,#0891B2 100%)', ey: '#1D4ED8', chips: [['#1D4ED8','Regulator clocks'],['#047857','Consent before a word'],['#B45309','Immutable audit ledger']], foot: 'gooclaim.com' },
+  home: { tag: null, file: 'og-home-v3', eyebrow: 'GOOCLAIM OS IS A CLAIM OS · FOR TPAS, INSURERS & HOSPITALS', h1: 'Built for every claim.', h2: 'Every channel. Every CMS.', grad: 'linear-gradient(90deg,#1D4ED8 0%,#0891B2 100%)', ey: '#1D4ED8', chips: [['#1D4ED8','Regulator clocks'],['#047857','Consent before a word'],['#B45309','Immutable audit ledger']], foot: 'gooclaim.com' },
   india: { tag: null, eyebrow: 'GOOCLAIM OS IN INDIA · FOR INDIA’S TPAS AND INSURERS', h1: 'Built for every claim.', h2: 'Every channel. Every CMS.', grad: 'linear-gradient(90deg,#1D4ED8 0%,#0891B2 100%)', ey: '#1D4ED8', chips: [['#1D4ED8','IRDAI clocks · 1 h · 3 h · 15 days'],['#047857','DPDP consent gate'],['#B45309','Immutable audit ledger']], foot: 'gooclaim.com/in' },
   portal: { tag: ['PORTAL','#4338CA','#EEF2FF'], eyebrow: 'GOOCLAIM PORTAL · FOR YOUR CLAIMS TEAM', h1: 'Your knowledge, data & team,', h2: 'in one place.', grad: 'linear-gradient(90deg,#4338CA 0%,#0891B2 100%)', ey: '#4338CA', chips: [['#4338CA','Knowledge base'],['#1D4ED8','Data & connectors'],['#B45309','Team & access']], foot: 'gooclaim.com' },
   console: { tag: ['CONSOLE','#1D4ED8','#EEF3FF'], eyebrow: 'GOOCLAIM CONSOLE · PLATFORM OPERATIONS', h1: 'Run the platform,', h2: 'with full visibility.', grad: 'linear-gradient(90deg,#1D4ED8 0%,#0891B2 100%)', ey: '#1D4ED8', chips: [['#047857','Live platform health'],['#1D4ED8','Audit ledger'],['#B45309','Operational mode']], foot: 'gooclaim.com' },
@@ -48,7 +48,7 @@ const p = await (await b.newContext({ viewport: { width: 1200, height: 630 }, de
 for (const [k, c] of Object.entries(cards)) {
   await p.setContent(html(c), { waitUntil: 'networkidle' });
   await p.evaluate(() => document.fonts.ready);
-  await p.screenshot({ path: `public/og-${k}-v2.png` });
+  await p.screenshot({ path: `public/${c.file ?? `og-${k}-v2`}.png` });
   console.log(k);
 }
 await b.close();
